@@ -1,4 +1,7 @@
 OnlinedDetailController = RouteController.extend({
+
+//	layoutTemplate: 'NoBreadcrumbs',
+
   waitOn: function () {
   	var id = this.params._id;
   	Meteor.subscribe("onlined_detail", id);
@@ -11,6 +14,7 @@ OnlinedDetailController = RouteController.extend({
   },
 
   action: function () {
+  	this.layout('NoBreadcrumbs');
     this.render();
   }
 });
