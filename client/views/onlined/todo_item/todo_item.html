@@ -6,4 +6,10 @@
 	<div class="subject">
 		{{subject}}
 	</div>
+
+	<div class="action">
+		<!-- <a href="/onlined/{{:_id}}"></a> -->
+		<!-- this = this todo document -->
+		<a href="{{pathFor 'onlined.detail' params=this}}">Details</a>
+	</div>
 </template>

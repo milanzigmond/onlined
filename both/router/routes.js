@@ -10,9 +10,6 @@ Router.configure({
 });
 
 Router.map(function () {
-  /*
-    Example:
-      this.route('home', {path: '/'});
-  */
   this.route('onlined.index', {path: '/'});
+  this.route('onlined.detail', {path: '/onlined/:_id'});
 });

@@ -3,7 +3,24 @@
   	<div class="login">
   		{{> loginButtons}}
   	</div>
-  		
-  	{{> yield}}
+  	
+
+
+  	<div class="row">
+  		<ol class="breadcrumb">
+		  <li>
+		  	<a href="{{pathFor 'onlined.index'}}">Home</a><span class="divider">/</span>
+		  </li>
+		  
+		  {{> yield region="breadcrumbs"}}
+		</ol>	
+  	</div>	
+  
+
+
+  	<div class="row">
+  		{{> yield}}
+  	</div>
+  	
   </div>
 </template>
