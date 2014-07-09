@@ -4,7 +4,8 @@ OnlinedDetailController = RouteController.extend({
 
   waitOn: function () {
   	var id = this.params._id;
-  	Meteor.subscribe("onlined_detail", id);
+  	return Meteor.subscribe("onlined_detail", id);
+    // return adds it to the wait list
   },
 
   data: function () {
@@ -14,7 +15,14 @@ OnlinedDetailController = RouteController.extend({
   },
 
   action: function () {
-  	this.layout('NoBreadcrumbs');
-    this.render();
+  	// this.layout('NoBreadcrumbs');
+    // this.render('Loading', {to: 'breadcrumbs'});
+    if (this.ready()) {
+      this.render();
+      console.log('ready');
+    } else {
+      this.render('Loading');
+      console.log('loading');
+    }
   }
 });
