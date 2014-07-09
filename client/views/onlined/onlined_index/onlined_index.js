@@ -53,7 +53,7 @@ GoogleMaps.init(
 
   var input = document.getElementById('pac-input');
 
-  var types = ['establisment'];
+  var types = [];
   // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
   // map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
