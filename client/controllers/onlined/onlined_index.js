@@ -1,6 +1,6 @@
 OnlinedIndexController = RouteController.extend({
   waitOn: function () {
-  	Meteor.subscribe('onlined_index');
+  	Meteor.subscribe('website_index');
   },
 
   data: function () {

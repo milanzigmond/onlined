@@ -11,6 +11,29 @@ Template.OnlinedIndex.events({
  });
 
 Template.OnlinedIndex.helpers({
+
+  companyName : function () {return Website.findOne().companyName;},
+  slogan : function () {return Website.findOne().slogan;},
+  email : function () {return Website.findOne().email;},
+  phoneNumber : function () {return Website.findOne().phoneNumber;},
+  aboutUsTitle : function () {return Website.findOne().aboutUsTitle;},
+  aboutUsText : function () {return Website.findOne().aboutUsText;},
+  address : function () {return Website.findOne().address;},
+  openingHours : function () {return Website.findOne().openingHours;},
+  testimonialText : function () {return Website.findOne().testimonialText;},
+  testimonialSignature : function () {return Website.findOne().testimonialSignature;},
+  product1Title : function () {return Website.findOne().product1Title;},
+  product1Description : function () {return Website.findOne().product1Description;},
+  product2Title : function () {return Website.findOne().product2Title;},
+  product2Description : function () {return Website.findOne().product2Description;},
+  teamMember1Name : function () {return Website.findOne().teamMember1Name;},
+  teamMember1Position : function () {return Website.findOne().teamMember1Position;},
+  teamMember2Name : function () {return Website.findOne().teamMember2Name;},
+  teamMember2Position : function () {return Website.findOne().teamMember2Position;},
+  teamMember3Name : function () {return Website.findOne().teamMember3Name;},
+  teamMember3Position : function () {return Website.findOne().teamMember3position;},
+ 
+
   items : function () {
     return Onlined.find({}, {
       sort: {
@@ -104,7 +127,7 @@ GoogleMaps.init(
       ].join(' ');
     }
 
-    console.log("place.address_components: "+place.address_components);
+    console.log("place.address_components: "+JSON.stringify(place.address_components));
 
     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address + '</div>');
     infowindow.open(map, marker);
