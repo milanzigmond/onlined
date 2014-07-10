@@ -27,7 +27,8 @@ h1 {
   letter-spacing: 0px;
 }
 h1:hover {
-  border: 4px dashed #66de04;
+  /*border: 4px dashed #66de04;*/
+  background-color: #66de04;
 }
 h1:active {
   font-family:'Droid Sans', sans-serif;
