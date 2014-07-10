@@ -9,7 +9,8 @@ body {
   font-size: 14px;
   line-height: 20px;
 }
-h1 {
+
+.companyName {
   display: block;
   height: 100px;
   margin: 0px auto;
@@ -26,15 +27,36 @@ h1 {
   text-align: center;
   letter-spacing: 0px;
 }
+
+.companyNameInput input {
+  display: block;
+  height: 100px;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: 2px solid #016e71;
+  opacity: 1;
+  font-family: Oswald, sans-serif;
+  color: #016e71;
+  font-size: 72px;
+  line-height: 44px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0px;
+  background: none;
+}
+
+
 h1:hover {
   /*border: 4px dashed #66de04;*/
   background-color: #66de04;
 }
 h1:active {
-  font-family:'Droid Sans', sans-serif;
-  color: rgba(133, 133, 133, 0.81);
+  /*font-family:'Droid Sans', sans-serif;
+  color: rgba(133, 133, 133, 0.81);*/
 }
 h1:focus {
+  background-color: #ffffff;
 }
 h2 {
   margin-top: 20px;

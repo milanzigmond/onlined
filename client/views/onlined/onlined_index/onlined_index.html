@@ -11,6 +11,10 @@
 
 
 <template name="OnlinedIndex">
+	{{> EditWebsite}}
+	
+
+
 	<!-- <div class="todos-panel">
 		{{> CreateTodoItem}}
 		<ul class="todos-list">
@@ -36,7 +40,12 @@
 		<div class="w-container containerheader">
 			<div>
 				<div class="w-clearfix header-block">
-					<h1>{{companyName}}</h1>
+					{{#if editing}}
+						<div style="display:none" class="companyNameInput"><input class="cni" type="text" focused value="{{companyName}}" /></div>
+						<div class="companyName">{{companyName}}</div>
+					{{else}}
+						<div class="companyName">{{companyName}}</div>
+					{{/if}}
 					<div class="tagline">{{slogan}}</div>
 						<img class="sipkydolu" src="sipkydolu.png" alt="53ba8503bfa4ff431ec735f1_sipkydolu.png">
 					</div>
@@ -160,7 +169,7 @@
 								</div>
 							</div>
 						</div>
-
-
-
+						
 					</template>
+
+

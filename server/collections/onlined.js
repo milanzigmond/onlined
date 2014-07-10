@@ -6,21 +6,24 @@
  */
 
 
-Onlined.allow({
+
+
+
+Website.allow({
   insert: function (userId, doc) {
-    return userId;
+    return true;
   },
 
   update: function (userId, doc, fieldNames, modifier) {
-    return doc.user_id === userId;
+    return true;
   },
 
   remove: function (userId, doc) {
-    return doc.user_id === userId;
+    return true;
   }
 });
 
-Onlined.deny({
+Website.deny({
   insert: function (userId, doc) {
     return false;
   },

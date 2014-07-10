@@ -1,37 +1,62 @@
 /*****************************************************************************/
 /* OnlinedIndex: Event Handlers and Helpers */
 /*****************************************************************************/
+
+Session.set("editing", false);
+Session.set('companyNameClicked', false);
+
+
 Template.OnlinedIndex.events({
-  /*
-   * Example: 
-   *  'click .selector': function (e, tmpl) {
-   *
-   *  }
-   */
- });
+  'keypress .cni' : function (e,t) {
+    if(e.keyCode === 13){
+
+        var input = t.find(".cni");
+        var newCompanyName = t.find(".cni").value;
+        var id = Website.findOne()._id;
+        
+        Website.update({_id:id}, {$set: {companyName: newCompanyName}});
+        input.blur();
+      }
+    },
+
+    'click .companyName' : function (e,t) {
+      if(Session.get('editing')){
+        var input = $(".companyNameInput");
+        console.log("offsetWidth:"+$(".cni").offsetWidth);
+
+        $(".companyNameInput").width($(".companyNameInput").width()); 
+        $(".companyName").hide();
+        $(".companyNameInput").show(); 
+        $(".cni").focus().select();
+      }
+    }
+  });
 
 Template.OnlinedIndex.helpers({
 
-  companyName : function () {return Website.findOne().companyName;},
-  slogan : function () {return Website.findOne().slogan;},
-  email : function () {return Website.findOne().email;},
-  phoneNumber : function () {return Website.findOne().phoneNumber;},
-  aboutUsTitle : function () {return Website.findOne().aboutUsTitle;},
-  aboutUsText : function () {return Website.findOne().aboutUsText;},
-  address : function () {return Website.findOne().address;},
-  openingHours : function () {return Website.findOne().openingHours;},
-  testimonialText : function () {return Website.findOne().testimonialText;},
-  testimonialSignature : function () {return Website.findOne().testimonialSignature;},
-  product1Title : function () {return Website.findOne().product1Title;},
-  product1Description : function () {return Website.findOne().product1Description;},
-  product2Title : function () {return Website.findOne().product2Title;},
-  product2Description : function () {return Website.findOne().product2Description;},
-  teamMember1Name : function () {return Website.findOne().teamMember1Name;},
-  teamMember1Position : function () {return Website.findOne().teamMember1Position;},
-  teamMember2Name : function () {return Website.findOne().teamMember2Name;},
-  teamMember2Position : function () {return Website.findOne().teamMember2Position;},
-  teamMember3Name : function () {return Website.findOne().teamMember3Name;},
-  teamMember3Position : function () {return Website.findOne().teamMember3position;},
+  editing : function () {return Session.get('editing');},
+  companyNameClicked : function () {return Session.get('companyNameClicked');},
+
+  companyName : function () {return (Website.findOne()) ? Website.findOne().companyName : '';},
+  slogan : function () {return (Website.findOne()) ? Website.findOne().slogan : '';},
+  email : function () {return (Website.findOne()) ? Website.findOne().email : '';},
+  phoneNumber : function () {return (Website.findOne()) ? Website.findOne().phoneNumber : '';},
+  aboutUsTitle : function () {return (Website.findOne()) ? Website.findOne().aboutUsTitle : '';},
+  aboutUsText : function () {return (Website.findOne()) ? Website.findOne().aboutUsText : '';},
+  address : function () {return (Website.findOne()) ? Website.findOne().address : '';},
+  openingHours : function () {return (Website.findOne()) ? Website.findOne().openingHours : '';},
+  testimonialText : function () {return (Website.findOne()) ? Website.findOne().testimonialText : '';},
+  testimonialSignature : function () {return (Website.findOne()) ? Website.findOne().testimonialSignature : '';},
+  product1Title : function () {return (Website.findOne()) ? Website.findOne().product1Title : '';},
+  product1Description : function () {return (Website.findOne()) ? Website.findOne().product1Description : '';},
+  product2Title : function () {return (Website.findOne()) ? Website.findOne().product2Title : '';},
+  product2Description : function () {return (Website.findOne()) ? Website.findOne().product2Description : '';},
+  teamMember1Name : function () {return (Website.findOne()) ? Website.findOne().teamMember1Name : '';},
+  teamMember1Position : function () {return (Website.findOne()) ? Website.findOne().teamMember1Position : '';},
+  teamMember2Name : function () {return (Website.findOne()) ? Website.findOne().teamMember2Name : '';},
+  teamMember2Position : function () {return (Website.findOne()) ? Website.findOne().teamMember2Position : '';},
+  teamMember3Name : function () {return (Website.findOne()) ? Website.findOne().teamMember3Name : '';},
+  teamMember3Position : function () {return (Website.findOne()) ? Website.findOne().teamMember3Position : '';},
  
 
   items : function () {
