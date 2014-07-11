@@ -7,6 +7,6 @@ standard-app-packages
 iron-router
 accounts-password
 accounts-ui
-bootstrap
 jquery
 googlemaps
+bootstrap-3

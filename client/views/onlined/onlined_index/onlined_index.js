@@ -2,8 +2,7 @@
 /* OnlinedIndex: Event Handlers and Helpers */
 /*****************************************************************************/
 
-Session.set("editing", false);
-Session.set('companyNameClicked', false);
+Session.set("editing", true);
 
 
 Template.OnlinedIndex.events({
@@ -11,31 +10,68 @@ Template.OnlinedIndex.events({
     if(e.keyCode === 13){
 
         var input = t.find(".cni");
+
         var newCompanyName = t.find(".cni").value;
         var id = Website.findOne()._id;
         
         Website.update({_id:id}, {$set: {companyName: newCompanyName}});
         input.blur();
+        $(".companyNameInput").hide(); 
+        $(".companyName").show();
       }
+    },
+
+    'blur .cni' : function (e,t) {
+        $(".companyNameInput").hide(); 
+        $(".companyName").show();
     },
 
     'click .companyName' : function (e,t) {
       if(Session.get('editing')){
+        e.preventDefault();
         var input = $(".companyNameInput");
-        console.log("offsetWidth:"+$(".cni").offsetWidth);
 
         $(".companyNameInput").width($(".companyNameInput").width()); 
         $(".companyName").hide();
         $(".companyNameInput").show(); 
         $(".cni").focus().select();
       }
+    },
+
+    'click .tagline' : function (e,t) {
+      if(Session.get('editing')){
+        e.preventDefault();
+        var input = $(".taglineInputDiv");
+
+        $(".taglineInputDiv").width($(".taglineInputDiv").width()); 
+        $(".tagline").hide();
+        $(".taglineInputDiv").show(); 
+        $(".taglineInput").focus().select();
+      }},
+
+      'keypress .taglineInput' : function (e,t) {
+    if(e.keyCode === 13){
+
+        var input = t.find(".taglineInput");
+        var newTagline = t.find(".taglineInput").value;
+        var id = Website.findOne()._id;
+        
+        Website.update({_id:id}, {$set: {slogan: newTagline}});
+        input.blur();
+        $(".taglineInputDiv").hide(); 
+        $(".tagline").show();
+      }
+    },
+
+    'blur .taglineInput' : function (e,t) {
+        $(".taglineInputDiv").hide(); 
+        $(".tagline").show();
     }
   });
 
 Template.OnlinedIndex.helpers({
 
   editing : function () {return Session.get('editing');},
-  companyNameClicked : function () {return Session.get('companyNameClicked');},
 
   companyName : function () {return (Website.findOne()) ? Website.findOne().companyName : '';},
   slogan : function () {return (Website.findOne()) ? Website.findOne().slogan : '';},
@@ -158,9 +194,6 @@ GoogleMaps.init(
     infowindow.open(map, marker);
   });
 });
-
-
-
 
 
 

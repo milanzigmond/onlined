@@ -1,6 +1,13 @@
 /*****************************************************************************/
 /* OnlinedIndex: Style */
 /*****************************************************************************/
+
+/*.input-border-focus {
+  outline: none;
+  border: none;
+}*/
+
+
 body {
   margin-bottom: 0px;
   padding: 0px;
@@ -11,53 +18,67 @@ body {
 }
 
 .companyName {
+  outline:none;
   display: block;
   height: 100px;
   margin: 0px auto;
   padding-top: 25px;
   padding-right: 25px;
   padding-left: 25px;
-  border: 2px solid #016e71;
+  /*border: 2px solid #016e71;*/
   opacity: 1;
   font-family: Oswald, sans-serif;
   color: #016e71;
   font-size: 72px;
-  line-height: 44px;
+  line-height: 40px;
   font-weight: 400;
   text-align: center;
   letter-spacing: 0px;
+}
+
+.companyNameHover:hover {
+  outline:none;
+  border:none;
+  background: rgba(211, 130, 175, .3);
+  border-radius: 50px;
+}
+
+.cni:focus {
+  outline:none;
+}
+
+.cni {
+  outline:none;
+  border:none;
+  background: rgba(211, 130, 175, .3);
 }
 
 .companyNameInput input {
+  border-radius: 50px;
   display: block;
   height: 100px;
   width: 100%;
-  margin: 0px;
+  margin: 0px auto;
   padding: 0px;
-  border: 2px solid #016e71;
   opacity: 1;
   font-family: Oswald, sans-serif;
   color: #016e71;
   font-size: 72px;
-  line-height: 44px;
+  line-height: 40px;
   font-weight: 400;
   text-align: center;
   letter-spacing: 0px;
-  background: none;
 }
 
 
-h1:hover {
-  /*border: 4px dashed #66de04;*/
-  background-color: #66de04;
+.companyName:hover {
 }
-h1:active {
-  /*font-family:'Droid Sans', sans-serif;
-  color: rgba(133, 133, 133, 0.81);*/
+.companyName:active {
 }
-h1:focus {
-  background-color: #ffffff;
+.companyName:focus {
+  background-color: #76e443;
 }
+
 h2 {
   margin-top: 20px;
   margin-bottom: 10px;
