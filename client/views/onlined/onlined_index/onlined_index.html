@@ -12,6 +12,8 @@
 
 <template name="OnlinedIndex">
 	{{> EditWebsite}}
+
+
 	
 
 
@@ -113,11 +115,19 @@
 						<div class="row-fluid imagesScaling">
 							<div class="span12">
 								<div class="row-fluid">
-									<div class="span4">
-										<img class="galleryimg" src="Business-Image-Clearfield-Utah.jpg" height="350" alt="">
+									<div class="span6">
+										<div class="drop">
+											<input class="upload" type=file />
+											<img class="image1" src="{{image1}}">
+										</div>
+										<!-- <img class="galleryimg" src="Business-Image-Clearfield-Utah.jpg" height="350" alt=""> -->
 									</div>
-									<div class="span4">
-										<img class="galleryimg" src="Comfortable-Office-Room-Open-Space.jpg" height="350" alt="">
+									<div class="span6">
+										<div class="drop">
+											<input class="upload" type=file />
+											<img class="image2" src="{{image2}}">
+										</div>
+										<!-- <img class="galleryimg" src="Comfortable-Office-Room-Open-Space.jpg" height="350" alt=""> -->
 									</div>
 									<div class="span4"></div>
 								</div>

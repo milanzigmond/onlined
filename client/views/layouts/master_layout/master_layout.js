@@ -26,6 +26,8 @@ Template.MasterLayout.created = function () {
 };
 
 Template.MasterLayout.rendered = function () {
+    var key = "AS4aG9PkoQiSsE0HpA9nIz";
+    loadPicker(key);
 };
 
 Template.MasterLayout.destroyed = function () {

@@ -4,6 +4,20 @@
 
 Session.set("editing", true);
 
+function safeFileToMongo (file) 
+  { 
+    console.log("saving file: " + EJSON.stringify(file));
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      var item = Website.findOne();
+      Website.update({_id:item._id}, { $set: { image1: e.target.result }});  
+      console.log("file updated to: "+e.target.result);
+    }
+
+    reader.readAsDataURL(file);
+  }
+
 
 Template.OnlinedIndex.events({
   'keypress .cni' : function (e,t) {
@@ -72,7 +86,28 @@ Template.OnlinedIndex.events({
         $(".taglineInput").value = '';
         $(".taglineInputDiv").hide(); 
         $(".tagline").show();
-    }
+    },
+
+    'dragover .drop' : function (e,t) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log("dragged");
+      $(".drop").css('border', '2px dotted #00ff00');
+    },
+
+    'drop .drop' : function (e,t) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      var file = e.originalEvent.dataTransfer.files[0];
+      safeFileToMongo(file);
+    },
+
+    'change .upload': function(e, t) {
+      e.preventDefault();
+      var file = t.find(".upload").files[0];
+      safeFileToMongo(file);
+      }
   });
 
 Template.OnlinedIndex.helpers({
@@ -99,7 +134,7 @@ Template.OnlinedIndex.helpers({
   teamMember2Position : function () {return (Website.findOne()) ? Website.findOne().teamMember2Position : '';},
   teamMember3Name : function () {return (Website.findOne()) ? Website.findOne().teamMember3Name : '';},
   teamMember3Position : function () {return (Website.findOne()) ? Website.findOne().teamMember3Position : '';},
- 
+  
 
   items : function () {
     return Onlined.find({}, {
@@ -121,10 +156,26 @@ Template.OnlinedIndex.created = function () {
 };
 
 Template.OnlinedIndex.rendered = function () {
+
+  var element = document.getElementById('uploadWidget')
+  element.type="filepicker-dragdrop";
+  filepicker.constructWidget(element);
 };
 
 Template.OnlinedIndex.destroyed = function () {
 };
+
+Template.OnlinedIndex.image1 = function () {
+    var item = Website.findOne();
+    if(!item) return "default.png";
+    return item.image1;
+  }
+
+Template.OnlinedIndex.image2 = function () {
+    var item = Website.findOne();
+    if(!item) return "default.png";
+    return item.image2;
+  }
 
 
 GoogleMaps.init(

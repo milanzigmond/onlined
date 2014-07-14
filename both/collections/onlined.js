@@ -24,5 +24,7 @@ Website = new Meteor.Collection('website');
 //   teamMember2Name: 'Tom',
 //   teamMember2Position: 'programmer',
 //   teamMember3Name: 'Kate',
-//   teamMember3Position: 'designer'
+//   teamMember3Position: 'designer',
+//   image1: "default.png",
+//   image2: "default.png"
 // });

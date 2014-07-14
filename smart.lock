@@ -4,7 +4,9 @@
     "basePackages": {
       "iron-router": {},
       "googlemaps": {},
-      "bootstrap-3": {}
+      "bootstrap-3": {},
+      "loadpicker": {},
+      "filepicker-plus": {}
     },
     "packages": {
       "iron-router": {
@@ -21,6 +23,16 @@
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
         "tag": "v3.2.0-1",
         "commit": "17a63902fc6cf1096c5289d963c66cf28b474727"
+      },
+      "loadpicker": {
+        "git": "https://github.com/guido4000/loadpicker.git",
+        "tag": "v1.0.0",
+        "commit": "9f8aa83427b21e2d6279db3f018900bf09560352"
+      },
+      "filepicker-plus": {
+        "git": "https://github.com/nate-strauser/meteor-filepicker-plus.git",
+        "tag": "v1.2.1",
+        "commit": "80b31d01c959b0687d6ff14ece275cfb9f2f63d2"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
