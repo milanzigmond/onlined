@@ -19,6 +19,7 @@ Template.OnlinedIndex.events({
         $(".companyNameInput").hide(); 
         $(".companyName").show();
       }
+        // add resing as you type
     },
 
     'blur .cni' : function (e,t) {
@@ -31,7 +32,7 @@ Template.OnlinedIndex.events({
         e.preventDefault();
         var input = $(".companyNameInput");
 
-        $(".companyNameInput").width($(".companyNameInput").width()); 
+        $(".companyNameInput").width($(".companyName").width()); 
         $(".companyName").hide();
         $(".companyNameInput").show(); 
         $(".cni").focus().select();
@@ -42,21 +43,25 @@ Template.OnlinedIndex.events({
       if(Session.get('editing')){
         e.preventDefault();
         var input = $(".taglineInputDiv");
+        var taglineValue = $(".taglineInputDiv").value;
+        console.log("tagline: "+taglineValue);
+        input.value = taglineValue;
 
-        $(".taglineInputDiv").width($(".taglineInputDiv").width()); 
+        $(".taglineInputDiv").width($(".tagline").width()); 
         $(".tagline").hide();
         $(".taglineInputDiv").show(); 
         $(".taglineInput").focus().select();
       }},
 
       'keypress .taglineInput' : function (e,t) {
-    if(e.keyCode === 13){
+      if(e.keyCode === 13){
 
         var input = t.find(".taglineInput");
         var newTagline = t.find(".taglineInput").value;
         var id = Website.findOne()._id;
         
         Website.update({_id:id}, {$set: {slogan: newTagline}});
+        input.value = '';
         input.blur();
         $(".taglineInputDiv").hide(); 
         $(".tagline").show();
@@ -64,6 +69,7 @@ Template.OnlinedIndex.events({
     },
 
     'blur .taglineInput' : function (e,t) {
+        $(".taglineInput").value = '';
         $(".taglineInputDiv").hide(); 
         $(".tagline").show();
     }

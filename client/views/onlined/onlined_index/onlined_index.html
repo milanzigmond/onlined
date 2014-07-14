@@ -41,14 +41,19 @@
 			<div>
 				<div class="w-clearfix header-block">
 					{{#if editing}}
-						<div style="display:none" class="companyNameInput"><input class="cni" type="text" focused value="{{companyName}}" /></div>
+						
+						<div class="tooltipNew">
+							<div class="tooltip-text">fill in the name of your company</div>
+						</div>
+						
+						<div style="display:none" class="companyNameInput"><input class="cni highlight" type="text" focused value="{{companyName}}" /></div>
 						<div class="companyName companyNameHover">{{companyName}}</div>
 					{{else}}
 						<div class="companyName">{{companyName}}</div>
 					{{/if}}
 
 					{{#if editing}}
-						<div style="display:none" class="taglineInputWrapper"><input class="taglineInput" type="text" focused value="{{companyName}}" /></div>
+						<div style="display:none" class="taglineInputDiv"><input class="taglineInput highlight" type="text" focused value="{{slogan}}" /></div>
 						<div class="tagline taglineHover">{{slogan}}</div>
 					{{else}}
 						<div class="tagline">{{slogan}}</div>
