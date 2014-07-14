@@ -7,13 +7,22 @@
   border: none;
 }*/
 
+#map-location {
+  width: 100%;
+}
+
+.image {
+  width:100%;
+}
+
+.upload {
+  margin-top: -30px;
+}
+
 .drop {
-  border: 2px dashed #ff0000;
-  width: 600px;
-  height: 400px;
-  color: #cccccc;
-  margin: 20px;
-  padding: 20px;
+  width:100%;
+  height:100%;
+  border: 4px dotted #76e443;
 }
 
 body {
@@ -25,6 +34,29 @@ body {
   line-height: 20px;
 }
 
+.hoverToEdit:hover {
+   border-radius: 8px;
+  background-color: transparent;
+  box-shadow: rgba(0, 0, 0, 0.34) 0px 0px 8px 1px inset, black 0px 0px 1px 0px, #73e535 0px 0px 2px 2px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.highlight {
+  padding: 10px;
+  border-radius: 8px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  background-color: transparent;
+  box-shadow: rgba(0, 0, 0, 0.34) 0px 0px 8px 1px inset, black 0px 0px 1px 0px, #73e535 0px 0px 2px 2px;
+}
+
+.companyNameInput:focus .taglineInput:focus .aboutUsTitleInput:focus .aboutUsTextInput:focus {
+  outline:none;
+}
+
+/*companyName*/
+
 .companyName {
   outline:none;
   display: block;
@@ -33,7 +65,6 @@ body {
   padding-top: 25px;
   padding-right: 25px;
   padding-left: 25px;
-  /*border: 2px solid #016e71;*/
   opacity: 1;
   font-family: Oswald, sans-serif;
   color: #016e71;
@@ -44,28 +75,8 @@ body {
   letter-spacing: 0px;
 }
 
-.companyNameHover:hover {
-  /*outline:none;
-  border:none;
-  background: rgba(211, 130, 175, .3);
-  border-radius: 50px;*/
-  border-radius: 8px;
-  background-color: transparent;
-  box-shadow: rgba(0, 0, 0, 0.34) 0px 0px 8px 1px inset, black 0px 0px 1px 0px, #73e535 0px 0px 2px 2px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-
-}
-
-.cni:focus {
-  outline:none;
-}
-
-.cni {
-  /*outline:none;
-  border:none;
-  background: rgba(211, 130, 175, .3);*/
-   display: block;
+.companyNameInput {
+  display: block;
   height: 100px;
   width: 100%;
   margin: 0px auto;
@@ -83,15 +94,6 @@ body {
 
 }
 
-.highlight {
-  padding: 10px;
-  border-radius: 8px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  background-color: transparent;
-  box-shadow: rgba(0, 0, 0, 0.34) 0px 0px 8px 1px inset, black 0px 0px 1px 0px, #73e535 0px 0px 2px 2px;
-}
-
 /*tagline*/
 .tagline {
   margin: 15px 0px 0px 30px;
@@ -103,21 +105,6 @@ body {
   font-style: normal;
   text-align: left;
   display:block;
-}
-
-.taglineHover:hover {
-  outline:none;
-  border:none;
-  padding: 10px;
-  /*background: rgba(211, 130, 175, .3);
-  border-radius: 50px;*/
-  border-radius: 8px;
-  background-color: transparent;
-  box-shadow: rgba(0, 0, 0, 0.34) 0px 0px 8px 1px inset, black 0px 0px 1px 0px, #73e535 0px 0px 2px 2px;
-}
-
-.taglineInput:focus {
-  outline:none;
 }
 
 .taglineInput {
@@ -133,62 +120,24 @@ body {
   text-align: left;
 }
 
-/*tooltip*/
-.tooltipNew {
-  width:450px;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 0px;
-  border-radius: 5px 5px 0px 0px;
-  background-color: #73e535;
-  /*background-image: url('tuzkaicon_white_lezici.png');*/
-  background-position: 16px 50%;
-  background-size: 45px;
-  background-repeat: no-repeat;
-  box-shadow: #c3f5a9 -1px -6px 6px -3px, rgba(0, 0, 0, 0.09) 0px 5px 11px 0px inset, #73e535 0px 0px 6px 0px;
-  text-align: left;
-/*  -webkit-transition: all .5s ease-in-out;
-  -ms-transition: all .5s ease-in-out;
-  -o-transition: all .5s ease-in-out;*/
-/*  position: relative;
-  transition-property: background-color, color;
-  transition-duration: 1s;
-  transition-timing-function: ease-out;*/
-}
-
-.tooltipNew:hover {
-  opacity: 0.5;
-}
-
-.tooltip-text {
+/*phoneNumber*/
+.phoneNumber {
   padding-top: 0px;
   padding-bottom: 0px;
-  border-radius: 6px;
-  font-family:'Droid Sans', sans-serif;
-  color: gray;
-  font-size: 14px;
-  text-align: center;
+  font-family: Oswald, sans-serif;
+  color: #01a2a6;
+  font-size: 28px;
 }
 
-html.w-mod-js.w-mod-no-ios *[data-ix="come-from-left"] {
-  opacity: 0;
-  -webkit-transform: translate(0px, 41px);
-  -ms-transform: translate(0px, 41px);
-  -o-transform: translate(0px, 41px);
-  transform: translate(0px, 41px);
+/*phoneNumber*/
+.email {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-family: Oswald, sans-serif;
+  color: #01a2a6;
+  font-size: 28px;
 }
 
-
-.companyName:hover {
-}
-.companyName:active {
-}
-.companyName:focus {
-  background-color: #76e443;
-}
 
 h2 {
   margin-top: 20px;
@@ -244,6 +193,45 @@ p {
   color: #fe524c;
   text-align: center;
   text-decoration: none;
+}
+.button.our-button {
+  width: 245px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border-style: none;
+  border-radius: 16px;
+  background-color: #c45894;
+  -webkit-transition: background-color 500ms ease;
+  -o-transition: background-color 500ms ease;
+  transition: background-color 500ms ease;
+  font-family:'Droid Sans', sans-serif;
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.button.our-button:hover {
+  background-color: #72e634;
+}
+.alignleft {
+  text-align: right;
+}
+.row {
+  text-align: center;
+}
+.lower-bar {
+  padding-top: 200px;
+  padding-bottom: 120px;
+  background-color: #696055;
+}
+.text-in-lower-bar {
+  margin-bottom: 18px;
+  font-family:'Droid Sans', sans-serif;
+  color: #f2e4b6;
+  font-size: 14px;
 }
 .about-section {
   padding-top: 0px;
@@ -309,7 +297,6 @@ p {
   padding-top: 60px;
   padding-bottom: 60px;
   background-color: transparent;
-  text-align: center;
 }
 .testamonial-div {
   display: block;
@@ -471,13 +458,7 @@ p {
   padding-bottom: 180px;
   background-color: transparent;
 }
-.telnumber {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  font-family: Oswald, sans-serif;
-  color: #01a2a6;
-  font-size: 28px;
-}
+
 .sipky_sede {
   margin-bottom: 53px;
 }
@@ -531,7 +512,7 @@ p {
 
 /*map*/
 #map-location {
-  height: 400px;
+  height: 300px;
 }
 
 .controls {

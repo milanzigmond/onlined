@@ -7,7 +7,6 @@ OnlinedIndexController = RouteController.extend({
   },
 
   onBeforeAction : function () {
-  	loadFilePicker('AcPFM4UwSo2NxaxEcHChQz');
   },
 
   action: function () {

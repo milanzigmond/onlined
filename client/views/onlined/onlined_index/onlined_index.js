@@ -20,72 +20,182 @@ function safeFileToMongo (file)
 
 
 Template.OnlinedIndex.events({
-  'keypress .cni' : function (e,t) {
+  
+  // company name
+
+  'keypress .companyNameInput' : function (e,t) {
     if(e.keyCode === 13){
-
-        var input = t.find(".cni");
-
-        var newCompanyName = t.find(".cni").value;
-        var id = Website.findOne()._id;
-        
+        var newCompanyName = t.find(".companyNameInput").value;
+        var id = Website.findOne()._id;        
         Website.update({_id:id}, {$set: {companyName: newCompanyName}});
-        input.blur();
+        $(".companyNameInput").value = '';
+        $(".companyNameInput").blur();
         $(".companyNameInput").hide(); 
         $(".companyName").show();
       }
-        // add resing as you type
-    },
-
-    'blur .cni' : function (e,t) {
-        $(".companyNameInput").hide(); 
-        $(".companyName").show();
     },
 
     'click .companyName' : function (e,t) {
       if(Session.get('editing')){
         e.preventDefault();
-        var input = $(".companyNameInput");
-
         $(".companyNameInput").width($(".companyName").width()); 
         $(".companyName").hide();
         $(".companyNameInput").show(); 
-        $(".cni").focus().select();
+        $(".companyNameInput").focus().select();
+      }
+    },
+
+    'blur .companyNameInput' : function (e,t) {
+        $(".companyNameInput").hide().value = ''; 
+        $(".companyName").show();
+    },
+
+    // tagline
+
+    'keypress .taglineInput' : function (e,t) {
+      if(e.keyCode === 13){
+        var input = t.find(".taglineInput");
+        var newTagline = input.value;
+        var id = Website.findOne()._id;
+        Website.update({_id:id}, {$set: {slogan: newTagline}});
+        input.value = '';
+        input.blur();
+        $(".taglineInput").hide(); 
+        $(".tagline").show();
       }
     },
 
     'click .tagline' : function (e,t) {
       if(Session.get('editing')){
         e.preventDefault();
-        var input = $(".taglineInputDiv");
-        var taglineValue = $(".taglineInputDiv").value;
-        console.log("tagline: "+taglineValue);
-        input.value = taglineValue;
-
-        $(".taglineInputDiv").width($(".tagline").width()); 
+        $(".taglineInput").width($(".tagline").width()); 
         $(".tagline").hide();
-        $(".taglineInputDiv").show(); 
+        $(".taglineInput").show(); 
         $(".taglineInput").focus().select();
-      }},
-
-      'keypress .taglineInput' : function (e,t) {
-      if(e.keyCode === 13){
-
-        var input = t.find(".taglineInput");
-        var newTagline = t.find(".taglineInput").value;
-        var id = Website.findOne()._id;
-        
-        Website.update({_id:id}, {$set: {slogan: newTagline}});
-        input.value = '';
-        input.blur();
-        $(".taglineInputDiv").hide(); 
-        $(".tagline").show();
       }
     },
 
     'blur .taglineInput' : function (e,t) {
         $(".taglineInput").value = '';
-        $(".taglineInputDiv").hide(); 
+        $(".taglineInput").hide(); 
         $(".tagline").show();
+    },
+
+    // about us title
+
+    'keypress .aboutUsTitleInput' : function (e,t) {
+    if(e.keyCode === 13){
+        var newAboutUsTitle = t.find(".aboutUsTitleInput").value;
+        console.log('aboutUsTitle: '+ newAboutUsTitle);
+        var id = Website.findOne()._id;        
+        Website.update({_id:id}, {$set: {aboutUsTitle: newAboutUsTitle}});
+        $(".aboutUsTitleInput").value = '';
+        $(".aboutUsTitleInput").blur();
+        $(".aboutUsTitleInput").hide(); 
+        $(".aboutUsTitle").show();
+      }
+    },
+
+    'click .aboutUsTitle' : function (e,t) {
+      if(Session.get('editing')){
+        e.preventDefault();
+        $(".aboutUsTitleInput").width($(".aboutUsTitle").width()); 
+        $(".aboutUsTitle").hide();
+        $(".aboutUsTitleInput").show(); 
+        $(".aboutUsTitleInput").focus().select();
+      }
+    },
+
+    'blur .aboutUsTitleInput' : function (e,t) {
+        $(".aboutUsTitleInput").hide().value = ''; 
+        $(".aboutUsTitle").show();
+    },
+
+    // about us text
+
+    'keypress .aboutUsTextInput' : function (e,t) {
+    if(e.keyCode === 13){
+        var newAboutUsText = t.find(".aboutUsTextInput").value;
+        var id = Website.findOne()._id;        
+        Website.update({_id:id}, {$set: {aboutUsText: newAboutUsText}});
+        $(".aboutUsTextInput").value = '';
+        $(".aboutUsTextInput").blur();
+        $(".aboutUsTextInput").hide(); 
+        $(".aboutUsText").show();
+      }
+    },
+
+    'click .aboutUsText' : function (e,t) {
+      if(Session.get('editing')){
+        e.preventDefault();
+        $(".aboutUsTextInput").width($(".aboutUsText").width()); 
+        $(".aboutUsText").hide();
+        $(".aboutUsTextInput").show(); 
+        $(".aboutUsTextInput").focus().select();
+      }
+    },
+
+    'blur .aboutUsTextInput' : function (e,t) {
+        $(".aboutUsTextInput").hide().value = ''; 
+        $(".aboutUsText").show();
+    },
+
+     // phoneNumber
+
+    'keypress .phoneNumberInput' : function (e,t) {
+    if(e.keyCode === 13){
+        var newPhoneNumber = t.find(".phoneNumberInput").value;
+        var id = Website.findOne()._id;        
+        Website.update({_id:id}, {$set: {phoneNumber: newPhoneNumber}});
+        $(".phoneNumberInput").value = '';
+        $(".phoneNumberInput").blur();
+        $(".phoneNumberInput").hide(); 
+        $(".phoneNumber").show();
+      }
+    },
+
+    'click .phoneNumber' : function (e,t) {
+      if(Session.get('editing')){
+        e.preventDefault();
+        $(".phoneNumberInput").width($(".phoneNumber").width()); 
+        $(".phoneNumber").hide();
+        $(".phoneNumberInput").show(); 
+        $(".phoneNumberInput").focus().select();
+      }
+    },
+
+    'blur .phoneNumberInput' : function (e,t) {
+        $(".phoneNumberInput").hide().value = ''; 
+        $(".phoneNumber").show();
+    },
+
+    // email
+
+    'keypress .emailInput' : function (e,t) {
+    if(e.keyCode === 13){
+        var newEmail = t.find(".emailInput").value;
+        var id = Website.findOne()._id;        
+        Website.update({_id:id}, {$set: {email: newEmail}});
+        $(".emailInput").value = '';
+        $(".emailInput").blur();
+        $(".emailInput").hide(); 
+        $(".email").show();
+      }
+    },
+
+    'click .email' : function (e,t) {
+      if(Session.get('editing')){
+        e.preventDefault();
+        $(".emailInput").width($(".email").width()); 
+        $(".email").hide();
+        $(".emailInput").show(); 
+        $(".emailInput").focus().select();
+      }
+    },
+
+    'blur .newEmailInput' : function (e,t) {
+        $(".emailInput").hide().value = ''; 
+        $(".email").show();
     },
 
     'dragover .drop' : function (e,t) {
@@ -98,6 +208,7 @@ Template.OnlinedIndex.events({
     'drop .drop' : function (e,t) {
       e.stopPropagation();
       e.preventDefault();
+      console.log("")
 
       var file = e.originalEvent.dataTransfer.files[0];
       safeFileToMongo(file);
@@ -156,10 +267,6 @@ Template.OnlinedIndex.created = function () {
 };
 
 Template.OnlinedIndex.rendered = function () {
-
-  var element = document.getElementById('uploadWidget')
-  element.type="filepicker-dragdrop";
-  filepicker.constructWidget(element);
 };
 
 Template.OnlinedIndex.destroyed = function () {
@@ -169,14 +276,7 @@ Template.OnlinedIndex.image1 = function () {
     var item = Website.findOne();
     if(!item) return "default.png";
     return item.image1;
-  }
-
-Template.OnlinedIndex.image2 = function () {
-    var item = Website.findOne();
-    if(!item) return "default.png";
-    return item.image2;
-  }
-
+}
 
 GoogleMaps.init(
 {
