@@ -1,6 +1,17 @@
 /*****************************************************************************/
 /* Client and Server Routes */
 /*****************************************************************************/
+
+
+// Meteor.absoluteUrl("/", {
+// 	secure: true, 
+// 	replaceLocalhost: true, 
+// 	rootUrl: "http://foo.example.com"
+// });
+
+Meteor.absoluteUrl.defaultOptions.rootUrl = "http://mydomain.com";
+
+
 Router.configure({
   layoutTemplate: 'MasterLayout',
   loadingTemplate: 'Loading',

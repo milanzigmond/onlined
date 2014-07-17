@@ -10,6 +10,7 @@ OnlinedIndexController = RouteController.extend({
   },
 
   action: function () {
+    console.log('IronLocation.origin: '+IronLocation.origin());
     this.render();
   }
 });

@@ -193,7 +193,7 @@ Template.OnlinedIndex.events({
       }
     },
 
-    'blur .newEmailInput' : function (e,t) {
+    'blur .emailInput' : function (e,t) {
         $(".emailInput").hide().value = ''; 
         $(".email").show();
     },
