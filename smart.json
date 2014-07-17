@@ -3,6 +3,7 @@
     "iron-router": {},
     "googlemaps": {},
     "bootstrap-3": {},
-    "loadpicker": {}
+    "loadpicker": {},
+    "accounts-entry": {}
   }
 }
