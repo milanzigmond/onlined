@@ -9,15 +9,12 @@
 // 	rootUrl: "http://foo.example.com"
 // });
 
-Meteor.absoluteUrl.defaultOptions.rootUrl = "http://mydomain.com";
-
-
 Router.configure({
   layoutTemplate: 'MasterLayout',
   loadingTemplate: 'Loading',
-  notFoundTemplate: 'NotFound',
-  templateNameConverter: 'upperCamelCase',
-  routeControllerNameConverter: 'upperCamelCase'
+  notFoundTemplate: 'NotFound'
+  // templateNameConverter: 'upperCamelCase',
+  // routeControllerNameConverter: 'upperCamelCase'
 });
 
 // router hooks for whole app
@@ -29,7 +26,7 @@ Router.configure({
 // Router.onStop 
 
 Router.map(function () {
-  this.route('onlined.index', {path: '/'});
-  this.route('onlined.detail', {path: '/onlined/:_id'});
+  this.route('OnlinedIndex', {path: '/'});
+  this.route('OnlinedDetail', {path: '/onlined/:_id'});
   //this.route('onlined.detail', {path: '/onlined/:_id', layoutTemplate: 'NoBreadcrumbs'}); to change the template on router
 });
