@@ -12,3 +12,7 @@ bootstrap-3
 accounts-entry
 coffeescript
 accounts-base
+minimongoid
+simple-form
+autopublish
+insecure

@@ -1,5 +1,5 @@
 /*****************************************************************************/
-/* OnlinedIndex: Event Handlers and Helpers */
+/* onlinedIndex: Event Handlers and Helpers */
 /*****************************************************************************/
 
 Session.set("editing", true);
@@ -19,7 +19,7 @@ function safeFileToMongo (file)
   }
 
 
-Template.OnlinedIndex.events({
+Template.onlinedIndex.events({
   
   // company name
 
@@ -221,7 +221,7 @@ Template.OnlinedIndex.events({
       }
   });
 
-Template.OnlinedIndex.helpers({
+Template.onlinedIndex.helpers({
 
   editing : function () {return Session.get('editing');},
 
@@ -261,18 +261,18 @@ Template.OnlinedIndex.helpers({
 });
 
 /*****************************************************************************/
-/* OnlinedIndex: Lifecycle Hooks */
+/* onlinedIndex: Lifecycle Hooks */
 /*****************************************************************************/
-Template.OnlinedIndex.created = function () {
+Template.onlinedIndex.created = function () {
 };
 
-Template.OnlinedIndex.rendered = function () {
+Template.onlinedIndex.rendered = function () {
 };
 
-Template.OnlinedIndex.destroyed = function () {
+Template.onlinedIndex.destroyed = function () {
 };
 
-Template.OnlinedIndex.image1 = function () {
+Template.onlinedIndex.image1 = function () {
     var item = Website.findOne();
     if(!item) return "default.png";
     return item.image1;

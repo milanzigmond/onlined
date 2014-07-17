@@ -2,6 +2,8 @@ Onlined = new Meteor.Collection('onlined');
 Website = new Meteor.Collection('website');
 
 
+
+
 // temporary default data
 
 // Website.insert({

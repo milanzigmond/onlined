@@ -4,6 +4,8 @@
     "googlemaps": {},
     "bootstrap-3": {},
     "loadpicker": {},
-    "accounts-entry": {}
+    "accounts-entry": {},
+    "minimongoid": {},
+    "simple-form": {}
   }
 }
