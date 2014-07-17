@@ -11,6 +11,13 @@ Router.map ->
     waitOn: ->
     data: ->
 
+  @route 'dashboard',
+    path: '/admin/dashboard'
+    controller: 'AdminController'
+    waitOn: ->
+    data: ->
+      templates: Templates.all()
+
   @route 'newTemplate',
     path: '/admin/templates/new'
     data: -> 

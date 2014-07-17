@@ -1,0 +1,10 @@
+<template name="dashboard">
+	<div class="container">
+		<h2>Templates</h2>
+		<ul class="list-group">
+			{{#each templates}}
+			<li class="list-group-item">{{> websiteTemplate}}</li>
+			{{/each}}
+		</ul>
+	</div>
+</template>
