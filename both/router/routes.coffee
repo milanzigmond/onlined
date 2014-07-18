@@ -31,7 +31,7 @@ Router.map ->
 
   @route 'template',
     path: '/template/:slug'
-    data: -> 
+    data: ->
       Templates.first({slug: @params.slug})
     controller: 'AdminController'
 

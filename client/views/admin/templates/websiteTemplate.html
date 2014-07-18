@@ -1,7 +1,15 @@
 <template name="websiteTemplate">
-	<article>
-    <h3><a href="{{pathFor 'template'}}">{{title}}</a></h3>
-    <p class="date">{{timeago createdAt}}</p>
-    {{description}}
-  </article>
+	<div class="row">
+		<div class="col-lg-6">
+			<h3><a href="{{pathFor 'template'}}">{{title}}</a></h3>
+			<div class="date">{{timeago createdAt}}</div>
+			{{description}}
+
+		</div>
+		<div class="col-lg-6">
+			<a class="btn btn-success" role="button" href="{{pathFor 'template'}}">View</a>
+			<a class="btn btn-primary" role="button" href="">Edit</a>
+			<a class="btn btn-danger" role="button" href="">Publish</a>
+		</div>
+	</div>	
 </template>
