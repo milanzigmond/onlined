@@ -9,7 +9,8 @@
       "minimongoid": {},
       "simple-form": {},
       "timeago": {},
-      "bootstrap-3": {}
+      "bootstrap-3": {},
+      "reactive-table": {}
     },
     "packages": {
       "iron-router": {
@@ -52,6 +53,11 @@
         "tag": "v3.2.0-1",
         "commit": "17a63902fc6cf1096c5289d963c66cf28b474727"
       },
+      "reactive-table": {
+        "git": "https://github.com/ecohealthalliance/reactive-table.git",
+        "tag": "v0.3.15",
+        "commit": "be996c811ef4232818bc51439f7cfc8deac9e012"
+      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.2.4",
@@ -66,6 +72,11 @@
         "git": "https://github.com/TimHeckel/meteor-underscore-string.git",
         "tag": "v2.3.3",
         "commit": "4a5d70eee48fbd90a6e6fc78747250d704a0b3bb"
+      },
+      "just-i18n": {
+        "git": "https://github.com/subhog/meteor-just-i18n.git",
+        "tag": "v0.3.0",
+        "commit": "a60e7f4350fb9648d6f6b4a01acbbc114c4f4343"
       }
     }
   }

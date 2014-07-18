@@ -20,6 +20,7 @@ Router.map ->
     path: '/admin'
     controller: 'AdminController'
     waitOn: ->
+       Meteor.subscribe 'publishedTemplates'
     data: ->
       templates: Templates.all()
 
@@ -31,6 +32,8 @@ Router.map ->
 
   @route 'template',
     path: '/template/:slug'
+    waitOn: ->
+      Meteor.subscribe 'template', @params.slug
     data: ->
       Templates.first({slug: @params.slug})
     controller: 'AdminController'

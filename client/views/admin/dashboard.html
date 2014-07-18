@@ -1,13 +1,39 @@
 <template name="dashboard">
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <img src="onlinedLogoOnWhite.png" style="height:25px;" alt="onlined">
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+ 			{{> accountButtons}}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+	
 	<div class="container">
 		<div class="page-header">
-		  <h1>Templates <small>Create, edit, publish templates here.</small></h1>
+		  <h1>
+		  	Templates 
+		  	<small>Create, edit, publish templates here.</small>
+		  	<a class="btn btn-primary btn-lg" role="button" href="{{pathFor 'newTemplate'}}">Create new template</a>
+		  </h1>
 		</div>
 		<ul class="list-group">
 			{{#each templates}}
 			<li class="list-group-item">{{> websiteTemplate}}</li>
 			{{/each}}
 		</ul>
-		<a class="btn btn-primary btn-lg" role="button" href="{{pathFor 'newTemplate'}}">Create new template</a>
+
+		<div>
+		      {{> reactiveTable collection=templates settings=settings}}
+		 </div>
+
+		
 	</div>
 </template>

@@ -13,7 +13,6 @@ coffeescript
 accounts-base
 minimongoid
 simple-form
-autopublish
-insecure
 timeago
 bootstrap-3
+reactive-table
