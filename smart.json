@@ -2,10 +2,11 @@
   "packages": {
     "iron-router": {},
     "googlemaps": {},
-    "bootstrap-3": {},
     "loadpicker": {},
     "accounts-entry": {},
     "minimongoid": {},
-    "simple-form": {}
+    "simple-form": {},
+    "timeago": {},
+    "bootstrap-3": {}
   }
 }

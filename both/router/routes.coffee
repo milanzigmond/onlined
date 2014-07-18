@@ -6,13 +6,18 @@
     AccountsEntry.signInRequired(@, @pause)
 
 Router.map ->
-  @route 'onlinedIndex',
+  @route 'home',
     path: '/'
     waitOn: ->
     data: ->
 
+  @route 'onlinedIndex',
+    path: '/smallcompany'
+    waitOn: ->
+    data: ->
+
   @route 'dashboard',
-    path: '/admin/dashboard'
+    path: '/admin'
     controller: 'AdminController'
     waitOn: ->
     data: ->
@@ -24,9 +29,16 @@ Router.map ->
     	new Templates
     controller: 'AdminController'
 
+  @route 'template',
+    path: '/template/:slug'
+    data: -> 
+      Templates.first({slug: @params.slug})
+    controller: 'AdminController'
+
   @route 'notFound',
     path: '*'
     where: 'server'
     action: ->
       @response.statusCode = 404
       @response.end Handlebars.templates['404']()
+

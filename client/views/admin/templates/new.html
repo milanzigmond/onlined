@@ -1,7 +1,16 @@
 <template name="newTemplate">
-	<form>
-		{{ text_field 'title' }}
-		{{ text_area 'description' }}
-		{{ submit_button 'Add template' }}
-	</form>
+	<div class="container">
+		<form role="form">
+			<div class="form-group">
+				{{ text_field 'title' }}
+			</div>
+			<div class="form-group">
+				{{ text_area 'description' }}
+			</div>
+			<div class="form-group">
+				{{ submit_button 'Add template'}}
+			</div>
+		</form>
+	</div>
 </template>
+

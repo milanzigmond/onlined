@@ -1,10 +1,11 @@
 <template name="dashboard">
 	<div class="container">
-		<h2>Templates</h2>
+		<h1>Templates</h1>
 		<ul class="list-group">
 			{{#each templates}}
 			<li class="list-group-item">{{> websiteTemplate}}</li>
 			{{/each}}
 		</ul>
+		<p><a class="btn btn-primary btn-lg" role="button" href="{{pathFor 'newTemplate'}}">Create new template</a></p>
 	</div>
 </template>

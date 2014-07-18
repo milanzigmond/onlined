@@ -5,4 +5,4 @@
  		event.preventDefault()
  		formData = SimpleForm.processForm(event.target)
  		Templates.create(formData)
- 		Router.go('/admin/dashboard')
+ 		Router.go('/admin')
