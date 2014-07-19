@@ -6,13 +6,13 @@
     AccountsEntry.signInRequired(@, @pause)
 
 Router.map ->
-  @route 'home',
-    path: '/'
+  @route 'onlined',
+    path: '/onlined'
     waitOn: ->
     data: ->
 
-  @route 'onlinedIndex',
-    path: '/smallcompany'
+  @route 'home',
+    path: '/'
     waitOn: ->
     data: ->
 
@@ -28,6 +28,16 @@ Router.map ->
     path: '/admin/templates/new'
     data: -> 
     	new Templates
+    controller: 'AdminController'
+
+  @route 'newTemplate',
+    path: '/admin/templates/:slug'
+    waitOn: ->
+      Meteor.subscribe 'template', @params.slug
+    onBeforeAction: ->
+      Sessions.set('templateSlug', @params.slug)
+    data: -> 
+      Templates.first({slug: @params.slug})
     controller: 'AdminController'
 
   @route 'template',

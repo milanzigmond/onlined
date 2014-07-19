@@ -1,1 +1,1 @@
-websiteTemplate.coffee
+Template.websiteTemplate.helpers

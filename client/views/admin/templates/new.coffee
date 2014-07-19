@@ -4,5 +4,10 @@
  	'submit form': (event) -> 
  		event.preventDefault()
  		formData = SimpleForm.processForm(event.target)
- 		Templates.create(formData)
+ 		if Session.get('templateId')
+ 			template = Template.first({slug:Session.get('templateSlug')})
+ 			template.update(formData)
+ 			Session.set 'templateSlug', null
+ 		else
+ 			Templates.create(formData)
  		Router.go('/admin')
