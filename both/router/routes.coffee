@@ -9,7 +9,9 @@ Router.map ->
   @route 'onlined',
     path: '/onlined'
     waitOn: ->
+      Meteor.subscribe 'website'
     data: ->
+      Website.first()
 
   @route 'home',
     path: '/'

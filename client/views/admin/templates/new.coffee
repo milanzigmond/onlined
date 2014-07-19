@@ -4,7 +4,7 @@
  	'submit form': (event) -> 
  		event.preventDefault()
  		formData = SimpleForm.processForm(event.target)
- 		if Session.get('templateId')
+ 		if Session.get('templateSlug')
  			template = Template.first({slug:Session.get('templateSlug')})
  			template.update(formData)
  			Session.set 'templateSlug', null

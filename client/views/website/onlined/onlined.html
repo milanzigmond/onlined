@@ -1,158 +1,137 @@
-<template name="onlined">
-	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
-		<script>
-		WebFont.load({
-			google: {
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+	<script>
+	WebFont.load({
+		google: {
 			families: ["Oswald:300,400,700","Droid Sans:400,700"]
 		}
-		</script>
 	</head>
 
-	<!-- <div class="todos-panel">
-		{{> CreateTodoItem}}
-		<ul class="todos-list">
-			{{#each items}}
-				<li class="todo-item {{isDoneClass}}">
-					{{> TodoItem}}
-				</li>
-			{{else}}
-				<li class="todo-item empty">
-					No todos yet.
-				</li>
-			{{/each}}
-		</ul>
-
-		{{>TodosCount}}
-	</div> -->
-
-	<div class="header-section">
-		<div class="w-container containerheader">
-			<div>
-				<div class="w-clearfix header-block">
-					{{#if editing}}
-					<input class="companyNameInput highlight" type="text" style="display:none" focused value="{{companyName}}" />
-					<div class="companyName hoverToEdit">{{companyName}}</div>
-					{{else}}
-					<div class="companyName">{{companyName}}</div>
-					{{/if}}
-
-					{{#if editing}}
-					<input class="taglineInput highlight" style="display:none" type="text" focused value="{{slogan}}" />
-					<div class="tagline hoverToEdit">{{slogan}}</div>
-					{{else}}
-					<div class="tagline">{{slogan}}</div>
-					{{/if}}
-					<img class="sipkydolu" src="sipkydolu.png" alt="53ba8503bfa4ff431ec735f1_sipkydolu.png">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div>
-		<div class="divider bezpasku"></div>
-		<div class="divider"></div>
-	</div>
-	<div class="whitesection">
-		<div class="w-container">
-			<div class="w-row">
-				<div class="w-col w-col-6">
-					<div class="div-for-about">
-						<img class="sipky_sede" src="sipkygray.png" alt="53ba86b9738574441e05476a_sipkygray.png">
+	<template name="onlined">
+		<div class="header-section">
+			<div class="w-container containerheader">
+				<div>
+					<div class="w-clearfix header-block">
 						{{#if editing}}
-							<h3><input class="phoneNumberInput highlight" style="display:none" type="text" focused value="{{phoneNumber}}" /></h3>
-							<span class="phoneNumber hoverToEdit">{{phoneNumber}}</span>
+						<input class="companyNameInput highlight" type="text" style="display:none" focused value="{{companyName}}" />
+						<div class="companyName hoverToEdit">{{companyName}}</div>
 						{{else}}
-							<span class="phoneNumber">{{phoneNumber}}</span>
+						<div class="companyName">{{companyName}}</div>
 						{{/if}}
 
 						{{#if editing}}
-							<h3><input class="emailInput highlight" style="display:none" type="text" focused value="{{email}}" /></h3>
-							<span class="email hoverToEdit">{{email}}</span>
-						{{else}}	
-							<span class="email">{{email}}</span>
-						{{/if}}
-					</div>
-				</div>
-				<div class="w-col w-col-6">
-					<div class="div-for-about">
-						<img src="sipkybarev_blue.png" alt="53ba9425bfa4ff431ec736ec_sipkybarev_blue.png">
-						
-						{{#if editing}}
-							<h3><input class="aboutUsTitleInput highlight" style="display:none" type="text" focused value="{{aboutUsTitle}}" /></h3>
-							<div class="aboutUsTitle hoverToEdit"><h3>{{aboutUsTitle}}</h3></div>
+						<input class="taglineInput highlight" style="display:none" type="text" focused value="{{slogan}}" />
+						<div class="tagline hoverToEdit">{{slogan}}</div>
 						{{else}}
-							<div class="aboutUsTitle"><h3>{{aboutUsTitle}}</h3></div>
+						<div class="tagline">{{slogan}}</div>
 						{{/if}}
-
-						{{#if editing}}
-							<input class="aboutUsTextInput highlight" style="display:none" type="text" focused value="{{aboutUsText}}" />
-							<div class="aboutUsText hoverToEdit"><p>{{aboutUsText}}</p></div>
-						{{else}}
-							<div class="aboutUsText">{{aboutUsText}}</div>
-						{{/if}}
-
+						<img class="sipkydolu" src="sipkydolu.png" alt="53ba8503bfa4ff431ec735f1_sipkydolu.png">
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="tomatosection">
-		<div class="w-container">
-			<div class="w-row">
-				<div class="w-col w-col-6">
-					<div class="div-for-about">
-						<img src="iclocation_white.png" alt="53ba890cbfa4ff431ec7362c_iclocation_white.png">
-						<h3 class="whiteheadings">Location</h3>
-						<p class="whiteparagraph">{{address}}</p>
-					</div>
-					<input id="pac-input" class="controls" type="text" placeholder="Enter a location">
-					<div id="map-location"></div>
-				</div>
-				<div class="w-col w-col-6">
-					<div class="div-for-about">
-						<img src="ichours_white.png" alt="53ba897a9c164a780238285a_ichours_white.png">
-						<h3 class="whiteheadings">Opening hours</h3>
-						<p class="whiteparagraph">{{openingHours}}</p>
-					</div>
-				</div>
-			</div>
+		<div>
+			<div class="divider bezpasku"></div>
+			<div class="divider"></div>
 		</div>
-
-	</div>
-	<div class="gallery-testa-section">
-		<div class="row-fluid">
+		<div class="whitesection">
 			<div class="w-container">
 				<div class="w-row">
 					<div class="w-col w-col-6">
-						<div class="drop">
-							<img class="image" src="{{image1}}">
+						<div class="div-for-about">
+							<img class="sipky_sede" src="sipkygray.png" alt="53ba86b9738574441e05476a_sipkygray.png">
+							{{#if editing}}
+							<h3><input class="phoneNumberInput highlight" style="display:none" type="text" focused value="{{phoneNumber}}" /></h3>
+							<span class="phoneNumber hoverToEdit">{{phoneNumber}}</span>
+							{{else}}
+							<span class="phoneNumber">{{phoneNumber}}</span>
+							{{/if}}
+
+							{{#if editing}}
+							<h3><input class="emailInput highlight" style="display:none" type="text" focused value="{{email}}" /></h3>
+							<span class="email hoverToEdit">{{email}}</span>
+							{{else}}	
+							<span class="email">{{email}}</span>
+							{{/if}}
 						</div>
-						<input class="upload" type=file />
+					</div>
+					<div class="w-col w-col-6">
+						<div class="div-for-about">
+							<img src="sipkybarev_blue.png" alt="53ba9425bfa4ff431ec736ec_sipkybarev_blue.png">
+
+							{{#if editing}}
+							<h3><input class="aboutUsTitleInput highlight" style="display:none" type="text" focused value="{{aboutUsTitle}}" /></h3>
+							<div class="aboutUsTitle hoverToEdit"><h3>{{aboutUsTitle}}</h3></div>
+							{{else}}
+							<div class="aboutUsTitle"><h3>{{aboutUsTitle}}</h3></div>
+							{{/if}}
+
+							{{#if editing}}
+							<input class="aboutUsTextInput highlight" style="display:none" type="text" focused value="{{aboutUsText}}" />
+							<div class="aboutUsText hoverToEdit"><p>{{aboutUsText}}</p></div>
+							{{else}}
+							<div class="aboutUsText">{{aboutUsText}}</div>
+							{{/if}}
+
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+		<div class="tomatosection">
+			<div class="w-container">
+				<div class="w-row">
+					<div class="w-col w-col-6">
+						<div class="div-for-about">
+							<img src="iclocation_white.png" alt="53ba890cbfa4ff431ec7362c_iclocation_white.png">
+							<h3 class="whiteheadings">Location</h3>
+							<p class="whiteparagraph">{{address}}</p>
+						</div>
+						<input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+						<div id="map-location"></div>
+					</div>
+					<div class="w-col w-col-6">
+						<div class="div-for-about">
+							<img src="ichours_white.png" alt="53ba897a9c164a780238285a_ichours_white.png">
+							<h3 class="whiteheadings">Opening hours</h3>
+							<p class="whiteparagraph">{{openingHours}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
 
-	<div class="lower-bar">
-		<div class="w-container">
-			<div class="w-row row">
-				<div class="w-col w-col-4">
-					<div class="text-in-lower-bar">is this your site?&nbsp;go ahead and</div><a class="button our-button" href="#" data-ix="hop">edit this page</a>
-				</div>
-				<div class="w-col w-col-4">
-					<div class="text-in-lower-bar">like this site?&nbsp;have some fun and</div><a class="button our-button" href="#" data-ix="hop">create a site like this</a>
-				</div>
-				<div class="w-col w-col-4 alignleft">
-					<div class="text-in-lower-bar">this site is powered by</div>
-					<img class="logo" src="logo_ondark.png" width="180" alt="logo_ondark.png" data-ix="logo-interaction">
+		</div>
+		<div class="gallery-testa-section">
+			<div class="row-fluid">
+				<div class="w-container">
+					<div class="w-row">
+						<div class="w-col w-col-6">
+							<div class="drop">
+								<img class="image" src="{{image1}}">
+							</div>
+							<input class="upload" type=file />
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	{{> EditWebsite}}
-
-</template>
+		<div class="lower-bar">
+			<div class="w-container">
+				<div class="w-row row">
+					<div class="w-col w-col-4">
+						<div class="text-in-lower-bar">is this your site?&nbsp;go ahead and</div><a class="button our-button" href="#" data-ix="hop">edit this page</a>
+					</div>
+					<div class="w-col w-col-4">
+						<div class="text-in-lower-bar">like this site?&nbsp;have some fun and</div><a class="button our-button" href="#" data-ix="hop">create a site like this</a>
+					</div>
+					<div class="w-col w-col-4 alignleft">
+						<div class="text-in-lower-bar">this site is powered by</div>
+						<img class="logo" src="logo_ondark.png" width="180" alt="logo_ondark.png" data-ix="logo-interaction">
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
 
 
