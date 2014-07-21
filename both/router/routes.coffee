@@ -32,12 +32,10 @@ Router.map ->
     	new Templates
     controller: 'AdminController'
 
-  @route 'newTemplate',
+  @route 'editTemplate',
     path: '/admin/templates/:slug'
     waitOn: ->
       Meteor.subscribe 'template', @params.slug
-    onBeforeAction: ->
-      Sessions.set('templateSlug', @params.slug)
     data: -> 
       Templates.first({slug: @params.slug})
     controller: 'AdminController'
@@ -50,10 +48,10 @@ Router.map ->
       Templates.first({slug: @params.slug})
     controller: 'AdminController'
 
-  @route 'notFound',
-    path: '*'
-    where: 'server'
-    action: ->
-      @response.statusCode = 404
-      @response.end Handlebars.templates['404']()
+  # @route 'notFound',
+  #   path: '*'
+  #   where: 'server'
+  #   action: ->
+  #     @response.statusCode = 404
+  #     @response.end Handlebars.templates['404']()
 

@@ -20,6 +20,6 @@ Template.dashboard.helpers
         key: 'id'
         label: 'Edit'
         fn: (value, obj) ->
-          new Spacebars.SafeString "<a href=\"" + Router.path('template', { slug: obj.slug }) + "\"><i class=\"fa fa-pencil\"></i></a>"
+          new Spacebars.SafeString "<a href=\"" + Router.path('newTemplate', { slug: obj.slug }) + "\"><i class=\"fa fa-pencil\"></i></a>"
       },
     ]

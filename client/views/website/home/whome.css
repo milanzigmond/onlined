@@ -109,7 +109,7 @@ p {
 }
 .tab-with-icon.w--current {
   background-color: transparent;
-  background-image: url('../images/tecka.png');
+  background-image: url('tecka.png');
   background-position: 50% 100%;
   background-repeat: no-repeat;
 }

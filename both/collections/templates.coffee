@@ -3,7 +3,6 @@ class @Templates extends Minimongoid
 
 	@before_create: (template) ->
 		template.slug = @slugify(template.title)
-		debugger
 		template
 
 	@slugify: (str) ->
@@ -14,7 +13,7 @@ class @Templates extends Minimongoid
 		userId
 
 	update: (userId, doc, fields) ->
-		doc.userId is userId
+		userId
 
 	remove: (userId, doc) ->
-		doc.userId is userId
+		userId

@@ -8,7 +8,7 @@ Meteor.startup ->
     # dashboardRoute: '/admin'
     # language: 'en'
  
- Accounts.onCreateUser (options, user) ->
- 	if Meteor.users.find().count() is 0
- 		user.admin = true
- 	user
+  # Accounts.onCreateUser (options, user) ->	
+ 	# if Meteor.users.find().count() is 0
+ 	# 	user.admin = true
+ 	# user
