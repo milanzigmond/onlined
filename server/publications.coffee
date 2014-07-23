@@ -3,6 +3,3 @@ Meteor.publish 'publishedTemplates', ->
 
 Meteor.publish 'template', (slug) ->
 	Templates.find({slug: slug}) 
-
-Meteor.publish 'website', ->
-	Website.find()

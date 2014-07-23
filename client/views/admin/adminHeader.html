@@ -1,16 +1,16 @@
 <template name="adminHeader">
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<div class="logo-wrapper">
-					<img src="whiteLogo.png" style="height:34px;padding-top:16px;" alt="onlined">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<div class="logo-wrapper">
+						<a href="{{pathFor 'dashboard'}}"><img src="whiteLogo.png" style="height:34px;padding-top:16px;" alt="onlined"></a>
+					</div>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						{{> accountButtons}}
+					</ul>
 				</div>
 			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					{{> accountButtons}}
-				</ul>
-			</div>
-		</div>
-	</nav>
+		</nav>
 </template>

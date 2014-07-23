@@ -1,5 +1,5 @@
 Onlined = new Meteor.Collection('onlined');
-Website = new Meteor.Collection('website');
+// Website = new Meteor.Collection('website');
 
 
 

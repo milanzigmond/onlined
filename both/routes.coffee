@@ -13,6 +13,11 @@ Router.map ->
     data: ->
       Website.first()
 
+  @route 'dogLover',
+    path: '/dogLover'
+    waitOn: ->
+    data: ->
+
   @route 'home',
     path: '/'
     waitOn: ->
