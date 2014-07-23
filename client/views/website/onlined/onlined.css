@@ -130,11 +130,11 @@ body {
 
 
 h2 {
-  margin-top: 20px;
+/*  margin-top: 20px;
   margin-bottom: 10px;
   font-size: 32px;
   line-height: 36px;
-  font-weight: 700;
+  font-weight: 700;*/
 }
 h3 {
   margin-top: 15px;
@@ -209,9 +209,7 @@ p {
 .alignleft {
   text-align: right;
 }
-.row {
-  text-align: center;
-}
+
 .lower-bar {
   padding-top: 200px;
   padding-bottom: 120px;

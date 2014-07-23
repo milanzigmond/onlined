@@ -14,13 +14,7 @@ h1 {
   font-weight: 400;
 }
 h2 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-family:'Droid Sans', sans-serif;
-  color: white;
-  font-size: 34px;
-  line-height: 36px;
-  font-weight: 400;
+  color: #695f56;
 }
 h3 {
   margin-top: 20px;
@@ -86,11 +80,10 @@ p {
   float: right;
 }
 .navbar {
-  padding-top: 14px;
-  padding-right: 70px;
-  padding-bottom: 6px;
-  border-bottom: 1px none #71e635;
-  background-color: transparent;
+  margin-top: 20px;
+}
+.logo-wrapper {
+  height:50px;
 }
 .content-wrapper-centered {
   text-align: center;

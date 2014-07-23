@@ -8,6 +8,7 @@
     "simple-form": {},
     "timeago": {},
     "bootstrap-3": {},
-    "reactive-table": {}
+    "reactive-table": {},
+    "reactive-ace": {}
   }
 }

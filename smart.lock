@@ -10,7 +10,8 @@
       "simple-form": {},
       "timeago": {},
       "bootstrap-3": {},
-      "reactive-table": {}
+      "reactive-table": {},
+      "reactive-ace": {}
     },
     "packages": {
       "iron-router": {
@@ -57,6 +58,11 @@
         "git": "https://github.com/ecohealthalliance/reactive-table.git",
         "tag": "v0.3.15",
         "commit": "be996c811ef4232818bc51439f7cfc8deac9e012"
+      },
+      "reactive-ace": {
+        "git": "https://github.com/mad-eye/meteor-reactive-ace.git",
+        "tag": "v0.1.2",
+        "commit": "6116d1984d816dc2efbfe9650c467d1a04b95445"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
