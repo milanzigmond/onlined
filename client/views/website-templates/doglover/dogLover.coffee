@@ -7,20 +7,15 @@ safeFile = (file) ->
 
   reader.readAsDataURL file
 
-Template.dogLover.created = ->
-  Session.set 'title', 'Our dog Bob'
-  Session.set 'tagline', 'He is the best!'
-  Session.set 'image', 'dog.png'
-
 Template.dogLover.helpers
   title: ->
-    Session.get('title')
+    Session.get('textValue')
 
   tagline: ->
     Session.get('tagline')
 
   image: ->
-    Session.get('image')
+    Session.get('imageToUpload')
 
 
 Template.dogLover.events
