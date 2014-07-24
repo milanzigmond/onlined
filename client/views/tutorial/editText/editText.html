@@ -1,0 +1,16 @@
+<template name="editText">
+	<div class="jumbotron">
+			<h1 class="textInput" style="display:none">
+				<input type="text"  focused placeholder="enter something smart" value="Click on me to edit me" />
+			</h1>
+			<div class="companyName hoverToEdit">{{textValue}}</div>
+			<h1 class="editableTextField">
+				{{#if textValue}}
+					{textValue}}
+				{{else}}
+					Click on me to edit me
+			{{/if}}
+		</h1>
+	</div>
+	<div class="pull-right"><a href="{{pathFor 'editImage'}}" class="btn btn-primary btn-lg" role="button">Continue</a></div>
+</template>

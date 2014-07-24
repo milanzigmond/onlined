@@ -23,6 +23,17 @@ Router.map ->
     waitOn: ->
     data: ->
 
+  @route 'editText',
+    path: '/editText'
+    waitOn: ->
+    data: ->
+
+
+  @route 'editImage',
+    path: '/editImage'
+    waitOn: ->
+    data: ->
+
   @route 'dashboard',
     path: '/admin'
     controller: 'AdminController'
