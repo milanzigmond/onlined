@@ -1,12 +1,5 @@
 <template name="editImage">
-	<div class="jumbotron">
-		<p><h2>Drag & drop image over this one to change it</h2></p>
-		<div class="drop">
-			<img src="{{imageToUpload}}" />
-		</div>
+	<div class="drop">
+		<img src="{{imageToUpload}}" class="img-polaroid" />
 	</div>
-	{{#if alert}}
-		<div class="alert alert-warning" role="alert">{{alert}}</div>
-	{{/if}}
-	<div class="pull-right"><a class="btn btn-{{status}} btn-lg continue" role="button">Continue</a></div>
 </template>

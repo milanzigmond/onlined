@@ -1,0 +1,42 @@
+.firstsection {
+	background-color: #fff;
+	height:200px;
+}
+
+
+.secondsection {
+	background-color: #fff;
+}
+
+.firstTextField {
+	margin-top: 80px;
+	font-size: 72px;
+}
+
+.editpanel {
+	list-style-type: none;
+	font-family: "Calibri", Helvetica, san-serif;
+	font-size: 16px;
+	vertical-align: center;
+	color:#fff;
+}
+
+.glyphicon {
+	padding: 10px;
+}
+
+.panelItemLabel {
+	font-size: 26px;
+}
+
+.edit {
+	background-color: #FF8448;
+	height:40px;
+	border-bottom: 1px solid #eee;
+}
+
+.ok {
+	background-color: #71E635;
+	height:40px;
+	border-bottom: 1px solid #eee;
+}

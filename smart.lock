@@ -11,7 +11,7 @@
       "timeago": {},
       "bootstrap-3": {},
       "reactive-table": {},
-      "reactive-ace": {}
+      "gsap": {}
     },
     "packages": {
       "iron-router": {
@@ -31,8 +31,8 @@
       },
       "accounts-entry": {
         "git": "https://github.com/Differential/accounts-entry.git",
-        "tag": "v0.7.3",
-        "commit": "7facaa045d3720eeeba3420c28e48d5709188fe3"
+        "tag": "v0.8.0",
+        "commit": "cf7f7d0ecc285824bc2748e305f5d693df99b4ae"
       },
       "minimongoid": {
         "git": "https://github.com/Exygy/minimongoid.git",
@@ -59,10 +59,10 @@
         "tag": "v0.3.15",
         "commit": "be996c811ef4232818bc51439f7cfc8deac9e012"
       },
-      "reactive-ace": {
-        "git": "https://github.com/mad-eye/meteor-reactive-ace.git",
-        "tag": "v0.1.2",
-        "commit": "6116d1984d816dc2efbfe9650c467d1a04b95445"
+      "gsap": {
+        "git": "https://github.com/RoyalMist/meteor-gsap.git",
+        "tag": "v1.11.8",
+        "commit": "f814bbb33fb870a3136fc3a5352d6cd881d0266f"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

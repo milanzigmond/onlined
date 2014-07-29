@@ -11,19 +11,21 @@ safeFile = (file) ->
 
   reader.readAsDataURL file
 
-
-Template.editImage.alert = ->
-    return Session.get 'alert'
-
-Template.editImage.status = ->
+Template.editImage.helpers
+  status : ->
     if Session.get 'canContinue'
        'success'
     else
        'danger'
 
-Template.editImage.helpers
-  imageToUpload: ->
-    if Session.get("imageToUpload") then Session.get("imageToUpload") else "dog.png"
+  canContinue : ->
+    return Session.get 'canContinue'
+
+  alert : ->
+    return Session.get 'alert'
+
+  imageToUpload : ->
+    if Session.get("imageToUpload") then Session.get("imageToUpload") else "tea.jpg"
 
 Template.editImage.events
   'click .continue' : (e,t) ->
@@ -40,6 +42,9 @@ Template.editImage.events
     console.log 'dropped'
     file = e.originalEvent.dataTransfer.files[0]
     safeFile(file)
+    sectionOk("secondsection");
+    debugger
+    # showNextSection("thirdsection");
 
   'change #upload' : (e, t) ->
     e.stopPropagation()

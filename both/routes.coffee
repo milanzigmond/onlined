@@ -23,6 +23,11 @@ Router.map ->
     waitOn: ->
     data: ->
 
+  @route 'create',
+    path: '/create'
+    waitOn: ->
+    data: ->
+
   @route 'editText',
     path: '/editText'
     waitOn: ->
