@@ -2,43 +2,6 @@ Session.set('canContinue', false);
 
 var defaultTitle = "Click on me to edit me";
 
-
-function safeFile (file) {
-	console.log("saving file: " + file.name);
-	reader = new FileReader();
-	reader.onload = function (e) {
-	    console.log("file updated to: " + e.target.result);
-	    Session.set('imageToUpload', e.target.result);
-	}
-	reader.readAsDataURL(file);
-}
-  
-
-function animateIn(what) {
-	TweenLite.fromTo(what, 2, {autoAlpha: 0, rotationX:-90, transformOrigin:"50% 0%", ease:Elastic.easeOut},
-		{autoAlpha:1, rotationX: 0, transformOrigin:"50% 0%", ease:Elastic.easeOut}, 0.1, 0);
-}
-
-function showNextSection(section) {
-	var s = "."+section;
-	var sEdit = s+"Edit";
-	$(s).removeClass("hidden");
-	$(sEdit).removeClass("hidden");
-	animateIn(s);
-	animateIn(sEdit);
-}
-
-function sectionOk(section) {
-	var s = "."+section;
-	var sEdit = s+"Edit";
-	$(sEdit).removeClass("edit");
-	$(sEdit).addClass("ok");
-	$(sEdit+" .icon").removeClass("glyphicon-edit");
-	$(sEdit+" .icon").addClass("glyphicon-ok");
-}
-
-
-
 Template.create.rendered = function () {
 
 	animateIn(".firstsection");
@@ -113,13 +76,24 @@ Template.create.events({
 	    file = e.originalEvent.dataTransfer.files[0];
 	    safeFile(file);
 	    sectionOk("secondsection"); 		
-	    showNextSection("thirdsection");
+	    showDisabledSection("thirdsection");
     },
 
 	'dragover .drop' : function (e,t) {
-	  	e.stopPropagation()
-	    e.preventDefault()	
-	} 
+	  	e.stopPropagation();
+	    e.preventDefault();
+	}, 
+
+    'click .showicon' : function (e,t) {
+        e.stopPropagation();
+        e.preventDefault();
+        var i = $('.showicon');
+        if(i.hasClass("glyphicon-eye-open")) {
+            enableSection("thirdsection");
+        } else if (i.hasClass("glyphicon-eye-close")) {
+            disableSection("thirdsection");
+        };   
+    }
 });
 
 Template.create.helpers({
@@ -140,5 +114,86 @@ Template.create.helpers({
 	        return Session.get("textValue");
 	    else    
 	        return defaultTitle;
-	}
+	},
+    safeFile : function (file) {
+        console.log("saving file: " + file.name);
+        reader = new FileReader();
+        reader.onload = function (e) {
+            console.log("file updated to: " + e.target.result);
+            Session.set('imageToUpload', e.target.result);
+        }
+        reader.readAsDataURL(file);
+    }
 });
+
+
+
+
+
+function safeFile (file) {
+    console.log("saving file: " + file.name);
+    reader = new FileReader();
+    reader.onload = function (e) {
+        console.log("file updated to: " + e.target.result);
+        Session.set('imageToUpload', e.target.result);
+    }
+    reader.readAsDataURL(file);
+}
+
+function animateIn(what) {
+    TweenLite.fromTo(what, 2, {autoAlpha: 0, rotationX:-90, transformOrigin:"50% 0%", ease:Elastic.easeOut},
+        {autoAlpha:1, rotationX: 0, transformOrigin:"50% 0%", ease:Elastic.easeOut}, 0.1, 0);
+}
+
+function animateOut(what) {
+    TweenLite.fromTo(what, 1, {autoAlpha:1, rotationX: 0, transformOrigin:"50% 0%", ease:Elastic.easeOut},
+        {autoAlpha: 0, rotationX:-90, transformOrigin:"50% 0%", ease:Elastic.easeOut}, 0.1, 0);
+}
+
+function showNextSection(section) {
+    var s = "."+section;
+    var sEdit = s+"Edit";
+    $(s).removeClass("hidden");
+    $(sEdit).removeClass("hidden");
+    animateIn(s);
+    animateIn(sEdit);
+}
+
+function showDisabledSection(section) {
+    var s = "."+section;
+    var sEdit = s+"Edit";
+    $(sEdit).removeClass("hidden");
+    animateIn(sEdit);
+}
+
+function sectionOk(section) {
+    var s = "."+section;
+    var sEdit = s+"Edit";
+    $(sEdit).removeClass("edit");
+    $(sEdit).addClass("ok");
+    $(sEdit+" .icon").removeClass("glyphicon-edit");
+    $(sEdit+" .icon").addClass("glyphicon-ok");
+}
+
+function enableSection(section) {
+    var s = "."+section;
+    var sEdit = s+"Edit";
+    $(sEdit).removeClass("done");
+    $(sEdit).addClass("edit");
+    $(s).removeClass("hidden");
+    $(sEdit+" .icon").removeClass("hidden");
+    $(sEdit+' .showicon').removeClass("glyphicon-eye-open");
+    $(sEdit+' .showicon').addClass("glyphicon-eye-close");
+    animateIn(s);
+}
+
+function disableSection(section) {
+    var s = "."+section;
+    var sEdit = s+"Edit";
+    $(sEdit).removeClass("edit");
+    $(sEdit).addClass("done");
+    $(sEdit+" .icon").addClass("hidden");
+    $(sEdit+' .showicon').removeClass("glyphicon-eye-close");
+    $(sEdit+' .showicon').addClass("glyphicon-eye-open");
+    animateOut(s);
+}

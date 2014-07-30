@@ -8,6 +8,11 @@
 	background-color: #fff;
 }
 
+.thirdsection {
+	background-color: #fff;
+	height:130px;
+}
+
 .firstTextField {
 	margin-top: 80px;
 	font-size: 72px;
@@ -16,7 +21,7 @@
 .editpanel {
 	list-style-type: none;
 	font-family: "Calibri", Helvetica, san-serif;
-	font-size: 16px;
+	font-size: 18px;
 	vertical-align: center;
 	color:#fff;
 }
@@ -25,18 +30,43 @@
 	padding: 10px;
 }
 
+.showicon {
+	opacity: 0.50;
+	color: #000;
+}
+
+.showicon:hover {
+	opacity: 1;
+	color: #666;
+}
+
 .panelItemLabel {
 	font-size: 26px;
+}
+
+.sectionoff {
+	background-color: #cccccc;
+	color: #999999;
 }
 
 .edit {
 	background-color: #FF8448;
 	height:40px;
-	border-bottom: 1px solid #eee;
+}
+
+.row-fluid {
+	border-bottom: 1px solid #666;
 }
 
 .ok {
 	background-color: #71E635;
 	height:40px;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid #666;
+}
+
+.done {
+	background-color: #cccccc;
+	height:40px;
+	color:#999999;
+	border-bottom: 1px solid #666;
 }
