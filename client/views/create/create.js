@@ -1,5 +1,6 @@
 Session.set('canContinue', false);
 
+
 var defaultTitle = "Click on me to edit me";
 
 Template.create.rendered = function () {
