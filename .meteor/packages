@@ -4,15 +4,5 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-iron-router
-accounts-password
-jquery
-googlemaps
-accounts-entry
-coffeescript
-accounts-base
-minimongoid
-simple-form
-timeago
-bootstrap-3
-gsap
+autopublish
+insecure
