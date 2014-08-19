@@ -47,7 +47,8 @@ if (Meteor.isClient) {
         title: "Onlined",
         tagline: "Create your website in minutes",
         heading: "What is it that makes onlined special?",
-        paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it."
+        paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
+        logo: "sideface.gif"
       }
     });
     Session.set('editing_website', website_id);
@@ -56,9 +57,10 @@ if (Meteor.isClient) {
   function safeFile (file) { 
       var reader = new FileReader();
       
-      reader.onload = function(e) {
-        var item = Website.findOne();
-        Website.update({_id:item._id}, { $set: { src: e.target.result }});  
+      reader.onload = function(event) {
+        console.log(event.target.result);
+        // var item = Website.findOne();
+        // Website.update({_id:item._id}, { $set: { src: e.target.result }});  
       }
 
       reader.readAsDataURL(file);
@@ -98,27 +100,8 @@ if (Meteor.isClient) {
       if(Session.get('editing_field')) return;
       Session.set('editing_field', event.target.id);
       Deps.flush();
-      activateInput(template.find('input'));
-    },
-
-    'drop .drop' : function (e,t) {
-      e.stopPropagation();
-      e.preventDefault();
-
-      var file = e.originalEvent.dataTransfer.files[0];
-      safeFile(file);
-      console.log("dropped file: " + EJSON.stringify(file));
-
-      $(this).css('border', '2px dotted #00ff00');
-    },
-
-
-    'change .upload': function(e, t) {
-      e.preventDefault();
-      var file = t.find(".upload").files[0];
-      saveFile(file);
-      }
-
+      activateInput(template.find('#input'));
+    }
    });
 
   Template.create.helpers({
@@ -204,6 +187,25 @@ if (Meteor.isClient) {
       Session.set('editing_field', null);
     }
   }));
+
+  Template.logo.events({
+    'drop .drop' : function (event,template) {
+      event.stopPropagation();
+      event.preventDefault();
+
+      var file = event.originalEvent.dataTransfer.files[0];
+      safeFile(file);
+      console.log("dropped file: " + EJSON.stringify(file));
+    },
+
+    'change .upload': function(event, template) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      var file = t.find(".upload").files[0];
+      saveFile(file);
+    }
+  });
 }
 
 if (Meteor.isServer) {
