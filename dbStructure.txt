@@ -1,0 +1,19 @@
+websites {
+	_id: ObjectId(...),
+	creator: userId,
+	content: {
+		title: "Onlined",
+		tagline: "We create websites",
+		logo: imgId,
+		gallery: [imgId, imgId, imgId],
+		
+		
+	}
+}
+
+users {
+	_id: ObjectId(...),
+	username: String unique,
+	password: hash,
+	...
+}

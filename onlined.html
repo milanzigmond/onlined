@@ -1,13 +1,115 @@
 <head>
-  <title>onlined</title>
+	<title>onlined</title>
 </head>
 
 <body>
-  {{> hello}}
 </body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+<template name="home">
+	<div class="container">
+		<div class="row">
+	          <div class="col-lg-12">
+	            <div class="page-header">
+					<button type="button" class="btn btn-default btn-lg createWebsiteButton">
+						<span class="glyphicon glyphicon-pencil"></span> Create Website
+					</button>
+	            </div>
+	          </div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<table class="table table-striped table-hover ">
+		            <tbody>
+		            	{{#each websites}}
+		            		<tr>
+							{{>websiteListItem}}
+							</tr>
+						{{/each}}
+		            </tbody>
+		        </table>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="websiteListItem">
+	<td class="title">
+		{{content.title}}
+	</td>
+	<td>
+		<button type="button" class="close">×</button>
+	</td>
+	
+</template>
+
+<template name="title">
+	{{#if editing}}
+		<h1><input class="textInput" type="text" placeholder="{{content.title}}" value="{{content.title}}" /></h1>
+	{{else}}
+		<h1 id="title">{{content.title}}</h1>
+	{{/if}}
+</template>
+
+<template name="tagline">
+	{{#if editing}}
+		<p><input class="textInput" type="text" placeholder="Enter tagline" value="{{content.tagline}}" /></p>
+	{{else}}
+		<p id="tagline">{{content.tagline}}</p>
+	{{/if}}
+</template>
+
+<template name="heading">
+	{{#if editing}}
+		<h3 class="featurette-heading"><input class="textInput" type="text" placeholder="Enter heading" value="{{content.heading}}" /></h3>
+	{{else}}
+		<h3 id="heading" class="featurette-heading">{{content.heading}}</h3>
+	{{/if}}
+</template>
+
+<template name="paragraph">
+	{{#if editing}}
+		<p><textarea rows="4" cols="50">{{content.paragraph}}
+	</textarea></p>
+	{{else}}
+		<p id="paragraph" class="lead">{{content.paragraph}}</p>
+	{{/if}}
+</template>
+
+<template name="logo">
+	{{#if editing}}
+		
+	{{else}}
+		<p id="paragraph" class="lead">{{content.logo}}</p>
+
+		<input class="upload" type=file />
+		<div class="drop">drop image here</div>
+		<img class="image" src="{{image}}">
+
+		<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjI1MCIgeT0iMjUwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjMxcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NTAweDUwMDwvdGV4dD48L3N2Zz4=">
+	{{/if}}
+</template>
+
+
+
+<template name="create">
+	{{#if editing_website}}
+		{{#with editing_website}}
+		<div class="container">
+			<div class="jumbotron">
+				{{>title}}
+				{{>tagline}}
+			</div>
+			<div class="row">
+				<div class="col-md-7">
+					{{>heading}}
+					{{>paragraph}}
+				</div>
+				<div class="col-md-5">
+					{{>logo}}
+				</div>
+			</div>
+		</div>
+		{{/with}}
+	{{/if}}
 </template>
