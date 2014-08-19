@@ -54,14 +54,14 @@ if (Meteor.isClient) {
     Session.set('editing_website', website_id);
   };
 
-  function safeFile (file) { 
+  var saveFile = function (file) { 
       var reader = new FileReader();
       
       reader.onload = function(event) {
         console.log(event.target.result);
-        // var item = Website.findOne();
-        // Website.update({_id:item._id}, { $set: { src: e.target.result }});  
-      }
+        var websiteId = Session.get('editing_website');
+        Websites.update({_id:websiteId}, {$set: {'content.logo': event.target.result}});
+      };
 
       reader.readAsDataURL(file);
     };
@@ -189,20 +189,27 @@ if (Meteor.isClient) {
   }));
 
   Template.logo.events({
-    'drop .drop' : function (event,template) {
-      event.stopPropagation();
+    'dragover' : function (event,template) {
       event.preventDefault();
+      event.stopPropagation();
+    },
+
+    'drop' : function (event,template) {
+      event.preventDefault();
+      event.stopPropagation();
 
       var file = event.originalEvent.dataTransfer.files[0];
-      safeFile(file);
+      // var file = template.find(".upload").files[0];
+      // safeFile(file);
       console.log("dropped file: " + EJSON.stringify(file));
+      saveFile(file);
     },
 
     'change .upload': function(event, template) {
       event.preventDefault();
       event.stopPropagation();
 
-      var file = t.find(".upload").files[0];
+      var file = template.find(".upload").files[0];
       saveFile(file);
     }
   });
