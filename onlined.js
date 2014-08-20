@@ -4,7 +4,6 @@ if (Meteor.isClient) {
 
   Session.setDefault('editing_field', null);
   Session.setDefault('editing_website', null);
-  Session.setDefault('live_website', null);
 
   ////////// Helpers for in-place editing //////////
 
@@ -117,13 +116,6 @@ if (Meteor.isClient) {
       return Websites.findOne(Session.get('editing_website'));
     }
   });
-
-  Template.website.helpers({
-    live_website: function () {
-      return Websites.findOne(Session.get('live_website'));
-    }
-  });
-
 
   Template.home.helpers({
     websites: function () {
@@ -259,8 +251,7 @@ if (Meteor.isClient) {
               // has logged in successfully. 
               var websiteId = Session.get('editing_website');
               Websites.update({_id:websiteId},{ $set: { 'username': username}});
-              Session.set('live_website',Session.get('editing_website'));
-              Session.set('editing_website', null);
+              Session.set('editing_website', null);w
               Router.go('/'+username);
             }
           });

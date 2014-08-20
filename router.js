@@ -3,6 +3,9 @@ Router.map(function() {
   this.route('create', {path: '/create'});
   this.route('website', { 
 	  path: '/:username',
-	  data: function() { return Websites.findOne(this.params.username); }
+	  data: function() { 
+	  	console.log('from data');
+	  	return Websites.findOne({username:this.params.username})
+	  }
 	});
 });

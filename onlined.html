@@ -68,8 +68,6 @@
 </template>
 
 <template name="website">
-	{{#if live_website}}
-		{{#with live_website}}
 			<div class="container">
 				<div class="jumbotron">
 					{{>title}}
@@ -84,10 +82,8 @@
 						{{>logo}}
 					</div>
 				</div>
-				{{>form}}
+				{{>footer}}
 			</div>
-		{{/with}}
-	{{/if}}
 </template>
 
 <template name="create">
@@ -150,7 +146,6 @@
 	<input class="upload" type=file />
 	<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="{{content.logo}}">
 </template>
-		<!-- src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjI1MCIgeT0iMjUwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjMxcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NTAweDUwMDwvdGV4dD48L3N2Zz4=" -->
 
 <template name="form">
 	<form class="form-horizontal">
@@ -188,6 +183,15 @@
       </div>
     </fieldset>
   </form>
+</template>
+
+<template name="footer">
+	<div class="row footer">
+		<div class="col-lg-6"><a href="#" class="btn btn-default btn-md">Edit</a></div>
+		<div class="col-lg-6">
+			<img src="onlinedLogo.png" width="100px" height="auto" class="pull-right">
+		</div>
+	</div>
 </template>
 
 
