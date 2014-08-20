@@ -251,12 +251,19 @@ if (Meteor.isClient) {
               // has logged in successfully. 
               var websiteId = Session.get('editing_website');
               Websites.update({_id:websiteId},{ $set: { 'username': username}});
-              Session.set('editing_website', null);w
               Router.go('/'+username);
             }
           });
       }
     });
+
+  Template.website.rendered = function () {
+    if (Meteor.user() && Session.get('editing_website')) {
+      Session.set('editing_website', null);
+      $(".modal").modal('show');
+    };
+      
+  };
 }
 
 if (Meteor.isServer) {

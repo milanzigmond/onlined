@@ -68,22 +68,40 @@
 </template>
 
 <template name="website">
-			<div class="container">
-				<div class="jumbotron">
-					{{>title}}
-					{{>tagline}}
+	<div class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Your website is LIVE!</h4>
 				</div>
-				<div class="row">
-					<div class="col-md-7">
-						{{>heading}}
-						{{>paragraph}}
-					</div>
-					<div class="col-md-5">
-						{{>logo}}
-					</div>
+				<div class="modal-body">
+					<p>Share your website with friends. Your url is:</p>
+					<p>...</p>
 				</div>
-				{{>footer}}
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Continue editing</button>
+					<button type="button" class="btn btn-primary">Share with friends</button>
+				</div>
 			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="jumbotron">
+			{{>title}}
+			{{>tagline}}
+		</div>
+		<div class="row">
+			<div class="col-md-7">
+				{{>heading}}
+				{{>paragraph}}
+			</div>
+			<div class="col-md-5">
+				{{>logo}}
+			</div>
+		</div>
+		{{>footer}}
+	</div>
 </template>
 
 <template name="create">
@@ -149,40 +167,40 @@
 
 <template name="form">
 	<form class="form-horizontal">
-    <fieldset>
-      <legend>Last things ...</legend>
-      <div class="form-group">
-        <label for="inputEmail" class="col-lg-4 control-label">Whehe to send messages to?</label>
-        <div class="col-lg-6">
-          <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox"> I want to receive Onlined newsletter
-            </label>
-          </div>
-        </div>
-      </div>
+		<fieldset>
+			<legend>Last things ...</legend>
+			<div class="form-group">
+				<label for="inputEmail" class="col-lg-4 control-label">Whehe to send messages to?</label>
+				<div class="col-lg-6">
+					<input type="text" class="form-control" id="inputEmail" placeholder="Email">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox"> I want to receive Onlined newsletter
+						</label>
+					</div>
+				</div>
+			</div>
 
-	<div class="form-group">
-        <label for="inputUsername" class="col-lg-4 control-label">Your website URL will be? ... www.onlined.at/</label>
-        <div class="col-lg-6">
-          <input type="text" class="form-control" id="inputUsername" placeholder="YourWebsiteName">
-        </div>
-      </div>
+			<div class="form-group">
+				<label for="inputUsername" class="col-lg-4 control-label">Your website URL will be? ... www.onlined.at/</label>
+				<div class="col-lg-6">
+					<input type="text" class="form-control" id="inputUsername" placeholder="YourWebsiteName">
+				</div>
+			</div>
 
-      <div class="form-group">
-        <label for="inputPassword" class="col-lg-4 control-label">Password to edit your website is?</label>
-        <div class="col-lg-6">
-          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-lg-10 col-lg-offset-4">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </div>
-    </fieldset>
-  </form>
+			<div class="form-group">
+				<label for="inputPassword" class="col-lg-4 control-label">Password to edit your website is?</label>
+				<div class="col-lg-6">
+					<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-4">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
 </template>
 
 <template name="footer">
