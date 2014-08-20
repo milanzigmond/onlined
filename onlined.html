@@ -19,11 +19,27 @@
 
 		<div class="row">
 			<div class="col-lg-12">
+				<h1>Websites</h1>
 				<table class="table table-striped table-hover ">
 		            <tbody>
 		            	{{#each websites}}
 		            		<tr>
 							{{>websiteListItem}}
+							</tr>
+						{{/each}}
+		            </tbody>
+		        </table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1>Users</h1>
+				<table class="table table-striped table-hover ">
+		            <tbody>
+		            	{{#each users}}
+		            		<tr>
+							{{>userItem}}
 							</tr>
 						{{/each}}
 		            </tbody>
@@ -40,6 +56,38 @@
 	<td>
 		<button type="button" class="close">×</button>
 	</td>
+</template>
+
+<template name="userItem">
+	<td class="title">
+		{{username}}
+	</td>
+	<td>
+		<button type="button" class="close">×</button>
+	</td>
+</template>
+
+<template name="website">
+	{{#if live_website}}
+		{{#with live_website}}
+			<div class="container">
+				<div class="jumbotron">
+					{{>title}}
+					{{>tagline}}
+				</div>
+				<div class="row">
+					<div class="col-md-7">
+						{{>heading}}
+						{{>paragraph}}
+					</div>
+					<div class="col-md-5">
+						{{>logo}}
+					</div>
+				</div>
+				{{>form}}
+			</div>
+		{{/with}}
+	{{/if}}
 </template>
 
 <template name="create">
@@ -110,7 +158,7 @@
       <legend>Last things ...</legend>
       <div class="form-group">
         <label for="inputEmail" class="col-lg-4 control-label">Whehe to send messages to?</label>
-        <div class="col-lg-7">
+        <div class="col-lg-6">
           <input type="text" class="form-control" id="inputEmail" placeholder="Email">
           <div class="checkbox">
             <label>
@@ -119,9 +167,17 @@
           </div>
         </div>
       </div>
+
+	<div class="form-group">
+        <label for="inputUsername" class="col-lg-4 control-label">Your website URL will be? ... www.onlined.at/</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" id="inputUsername" placeholder="YourWebsiteName">
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="inputPassword" class="col-lg-4 control-label">Password to edit your website is?</label>
-        <div class="col-lg-7">
+        <div class="col-lg-6">
           <input type="password" class="form-control" id="inputPassword" placeholder="Password">
         </div>
       </div>

@@ -4,6 +4,7 @@ if (Meteor.isClient) {
 
   Session.setDefault('editing_field', null);
   Session.setDefault('editing_website', null);
+  Session.setDefault('live_website', null);
 
   ////////// Helpers for in-place editing //////////
 
@@ -68,6 +69,7 @@ if (Meteor.isClient) {
 
   Template.home.events({
     'click .createWebsiteButton': function (event, template) {
+      if(Meteor.userId()) Meteor.logout();
       createDefaultWebsite();
       Router.go('create');
     }
@@ -83,6 +85,12 @@ if (Meteor.isClient) {
     'click .close' : function () {
       Session.set('editing_website', null);
       Websites.remove({_id:this._id});
+    }
+  });
+
+  Template.userItem.events({
+    'click .close' : function () {
+      Meteor.users.remove({_id:this._id});
     }
   });
 
@@ -110,9 +118,20 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.website.helpers({
+    live_website: function () {
+      return Websites.findOne(Session.get('live_website'));
+    }
+  });
+
+
   Template.home.helpers({
     websites: function () {
       return Websites.find({},{sort: {craetedAt: -1}});
+    },
+
+    users: function () {
+      return Meteor.users.find({});
     }
   });
 
@@ -215,15 +234,39 @@ if (Meteor.isClient) {
   });
 
   Template.form.events({
-      'submit form': function( event ){
-        console.log( 'Submitting form!' );
+      'submit form': function( event, template ){
         event.preventDefault();
         event.stopPropagation();
-        return false; 
+
+        var email = template.find('#inputEmail').value;
+        var username = template.find('#inputUsername').value;
+        var password = template.find('#inputPassword').value;
+
+        console.log( 'Submitting form with:' + email + ", password: "+ password + ", username/domain: " + username);
+
+        // Trim and validate the input
+
+        Accounts.createUser({
+          email: email, 
+          password : password, 
+          username: username},
+          function(err){
+            if (err) {
+              // Inform the user that account creation failed
+              console.log('user creation failed');
+            } else {
+              // Success. Account has been created and the user
+              // has logged in successfully. 
+              var websiteId = Session.get('editing_website');
+              Websites.update({_id:websiteId},{ $set: { 'username': username}});
+              Session.set('live_website',Session.get('editing_website'));
+              Session.set('editing_website', null);
+              Router.go('/'+username);
+            }
+          });
       }
     });
 }
 
 if (Meteor.isServer) {
-
 }
