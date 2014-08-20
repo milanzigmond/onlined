@@ -213,6 +213,15 @@ if (Meteor.isClient) {
       saveFile(file);
     }
   });
+
+  Template.form.events({
+      'submit form': function( event ){
+        console.log( 'Submitting form!' );
+        event.preventDefault();
+        event.stopPropagation();
+        return false; 
+      }
+    });
 }
 
 if (Meteor.isServer) {

@@ -40,7 +40,29 @@
 	<td>
 		<button type="button" class="close">×</button>
 	</td>
-	
+</template>
+
+<template name="create">
+	{{#if editing_website}}
+		{{#with editing_website}}
+		<div class="container">
+			<div class="jumbotron">
+				{{>title}}
+				{{>tagline}}
+			</div>
+			<div class="row">
+				<div class="col-md-7">
+					{{>heading}}
+					{{>paragraph}}
+				</div>
+				<div class="col-md-5">
+					{{>logo}}
+				</div>
+			</div>
+			{{>form}}
+		</div>
+		{{/with}}
+	{{/if}}
 </template>
 
 <template name="title">
@@ -82,26 +104,34 @@
 </template>
 		<!-- src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjI1MCIgeT0iMjUwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjMxcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NTAweDUwMDwvdGV4dD48L3N2Zz4=" -->
 
-
-
-<template name="create">
-	{{#if editing_website}}
-		{{#with editing_website}}
-		<div class="container">
-			<div class="jumbotron">
-				{{>title}}
-				{{>tagline}}
-			</div>
-			<div class="row">
-				<div class="col-md-7">
-					{{>heading}}
-					{{>paragraph}}
-				</div>
-				<div class="col-md-5">
-					{{>logo}}
-				</div>
-			</div>
-		</div>
-		{{/with}}
-	{{/if}}
+<template name="form">
+	<form class="form-horizontal">
+    <fieldset>
+      <legend>Last things ...</legend>
+      <div class="form-group">
+        <label for="inputEmail" class="col-lg-4 control-label">Whehe to send messages to?</label>
+        <div class="col-lg-7">
+          <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> I want to receive Onlined newsletter
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-4 control-label">Password to edit your website is?</label>
+        <div class="col-lg-7">
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-4">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
 </template>
+
+
