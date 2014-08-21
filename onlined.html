@@ -13,6 +13,7 @@
 					<button type="button" class="btn btn-default btn-lg createWebsiteButton">
 						<span class="glyphicon glyphicon-pencil"></span> Create Website
 					</button>
+					{{>selectStyle}}
 	            </div>
 	          </div>
 		</div>
@@ -49,9 +50,23 @@
 	</div>
 </template>
 
+<template name="selectStyle">
+	<div class="btn-group pull-right">
+		<a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			Change Visual Style
+			<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			{{#each styleOptions}}
+			<li><a href="#" data-styleid="{{value}}">{{name}}</a></li>
+			{{/each}}
+		</ul>
+	</div>
+</template>
+
 <template name="websiteListItem">
 	<td class="title">
-		<span class="info">onlined.at</span>/{{username}}
+		www.onlined.at/{{username}}
 	</td>
 	<td>
 		<button type="button" class="close">×</button>
@@ -86,6 +101,7 @@
 			</div>
 		</div>
 	</div>
+	{{>topImage}}
 	<div class="container">
 		<div class="jumbotron">
 			{{>title}}

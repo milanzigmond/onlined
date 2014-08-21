@@ -4,6 +4,7 @@ if (Meteor.isClient) {
 
   Session.setDefault('editing_field', null);
   Session.setDefault('editing_website', null);
+  Session.setDefault('styleOptions', []);
 
   ////////// Helpers for in-place editing //////////
 
@@ -137,6 +138,39 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.selectStyle.helpers({
+    styleOptions: function () {
+      return Session.get('styleOptions');
+    }
+  });
+
+  Template.selectStyle.events({
+    'click li': function (e,t) {
+      var styleId = $(e.target).data('styleid');
+      var styleCss = Session.get('styleOptions')[styleId].css;
+      $("link").attr("href", styleCss);
+    }
+  });
+
+  Template.selectStyle.rendered = function () {
+
+    $.get("http://api.bootswatch.com/3/", function (data) {
+      var themes = data.themes;
+      var select = $("select");
+      select.show();
+
+      var styleOptions = [];
+
+      themes.forEach(function(value, index){
+        styleOptions.push({name:value.name, value:index, css:value.css});  
+      });
+
+      Session.set('styleOptions', styleOptions);
+    }, "json").fail(function(){
+      console.log('bottswatch failed to load');
+    });
+  };
+
   Template.title.helpers({
     editing: function () {
       return Session.equals('editing_field', 'title');;
@@ -210,16 +244,11 @@ if (Meteor.isClient) {
   }));
 
   Template.logo.events({
-    'dragover' : function (event,template) {
-      event.preventDefault();
-      event.stopPropagation();
-    },
+    'dragover' : function (e) { preventActionsForEvent(e); },
 
-    'drop' : function (event,template) {
-      event.preventDefault();
-      event.stopPropagation();
-      var file = event.originalEvent.dataTransfer.files[0];
-      // console.log("dropped file: " + EJSON.stringify(file));
+    'drop' : function (e) {
+      preventActionsForEvent(e);
+      var file = e.originalEvent.dataTransfer.files[0];
       saveFile(file, 'logo');
     }
 
@@ -238,7 +267,6 @@ if (Meteor.isClient) {
     'drop' : function (e) {
       preventActionsForEvent(e);
       var file = e.originalEvent.dataTransfer.files[0];
-      console.log('e.target.id: '+e.target.id);
       saveFile(file, 'topImage');
     }
   });
