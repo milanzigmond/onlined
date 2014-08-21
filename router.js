@@ -4,7 +4,6 @@ Router.map(function() {
   this.route('website', { 
 	  path: '/:username',
 	  data: function() { 
-	  	console.log('from data');
 	  	return Websites.findOne({username:this.params.username})
 	  }
 	});

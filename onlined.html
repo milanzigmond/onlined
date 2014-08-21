@@ -51,7 +51,7 @@
 
 <template name="websiteListItem">
 	<td class="title">
-		{{content.title}}
+		<span class="info">onlined.at</span>/{{username}}
 	</td>
 	<td>
 		<button type="button" class="close">×</button>
@@ -97,7 +97,7 @@
 				{{>paragraph}}
 			</div>
 			<div class="col-md-5">
-				{{>logo}}
+				<img class="featurette-image img-responsive" src="{{content.logo}}">
 			</div>
 		</div>
 		{{>footer}}
@@ -107,7 +107,8 @@
 <template name="create">
 	{{#if editing_website}}
 		{{#with editing_website}}
-		<div class="container">
+		{{>topImage}}
+		<div class="container">	
 			<div class="jumbotron">
 				{{>title}}
 				{{>tagline}}
@@ -124,7 +125,19 @@
 			{{>form}}
 		</div>
 		{{/with}}
+	{{else}}
+		{{goHome}}
 	{{/if}}
+</template>
+
+<template name="logo">
+	<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="{{content.logo}}">
+</template>
+
+<template name="topImage">
+	<div class="topImage">
+		<img class="img img-responsive" src="{{content.topImage}}">
+	</div>
 </template>
 
 <template name="title">
@@ -160,11 +173,6 @@
 	{{/if}}
 </template>
 
-<template name="logo">
-	<input class="upload" type=file />
-	<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="{{content.logo}}">
-</template>
-
 <template name="form">
 	<form class="form-horizontal">
 		<fieldset>
@@ -173,11 +181,6 @@
 				<label for="inputEmail" class="col-lg-4 control-label">Whehe to send messages to?</label>
 				<div class="col-lg-6">
 					<input type="text" class="form-control" id="inputEmail" placeholder="Email">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox"> I want to receive Onlined newsletter
-						</label>
-					</div>
 				</div>
 			</div>
 
@@ -196,7 +199,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-4">
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary">Create</button>
 				</div>
 			</div>
 		</fieldset>

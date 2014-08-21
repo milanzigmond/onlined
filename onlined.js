@@ -35,6 +35,11 @@ if (Meteor.isClient) {
     return events;
   };
 
+  var preventActionsForEvent = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   var activateInput = function (input) {
     input.focus();
     input.select();
@@ -48,19 +53,21 @@ if (Meteor.isClient) {
         tagline: "Create your website in minutes",
         heading: "What is it that makes onlined special?",
         paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
-        logo: "sideface.gif"
+        logo: "sideface.gif",
+        topImage: "topImage.jpg"
       }
     });
     Session.set('editing_website', website_id);
   };
 
-  var saveFile = function (file) { 
+  var saveFile = function (file, to) { 
       var reader = new FileReader();
-      
+      reader.to = to;
       reader.onload = function(event) {
-        console.log(event.target.result);
         var websiteId = Session.get('editing_website');
-        Websites.update({_id:websiteId}, {$set: {'content.logo': event.target.result}});
+        var setModifier = { $set: {} };
+        setModifier.$set['content.' + this.to] = event.target.result;
+        Websites.update({_id:websiteId}, setModifier);
       };
 
       reader.readAsDataURL(file);
@@ -114,6 +121,9 @@ if (Meteor.isClient) {
   Template.create.helpers({
     editing_website: function () {
       return Websites.findOne(Session.get('editing_website'));
+    },
+    goHome: function () {
+      Router.go('home');
     }
   });
 
@@ -208,20 +218,28 @@ if (Meteor.isClient) {
     'drop' : function (event,template) {
       event.preventDefault();
       event.stopPropagation();
-
       var file = event.originalEvent.dataTransfer.files[0];
-      // var file = template.find(".upload").files[0];
-      // safeFile(file);
-      console.log("dropped file: " + EJSON.stringify(file));
-      saveFile(file);
-    },
+      // console.log("dropped file: " + EJSON.stringify(file));
+      saveFile(file, 'logo');
+    }
 
-    'change .upload': function(event, template) {
-      event.preventDefault();
-      event.stopPropagation();
+    // 'change .upload': function(event, template) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
 
-      var file = template.find(".upload").files[0];
-      saveFile(file);
+    //   var file = template.find(".upload").files[0];
+    //   saveFile(file);
+    // }
+  });
+
+  Template.topImage.events({
+    'dragover' : function (e) { preventActionsForEvent(e); },
+
+    'drop' : function (e) {
+      preventActionsForEvent(e);
+      var file = e.originalEvent.dataTransfer.files[0];
+      console.log('e.target.id: '+e.target.id);
+      saveFile(file, 'topImage');
     }
   });
 
