@@ -5,6 +5,7 @@ if (Meteor.isClient) {
   Session.setDefault('editing_field', null);
   Session.setDefault('editing_website', null);
   Session.setDefault('styleOptions', []);
+  Session.setDefault('currentStyle', null);
 
   ////////// Helpers for in-place editing //////////
 
@@ -148,7 +149,7 @@ if (Meteor.isClient) {
     'click li': function (e,t) {
       var styleId = $(e.target).data('styleid');
       var styleCss = Session.get('styleOptions')[styleId].css;
-      $("link").attr("href", styleCss);
+      Session.set('currentStyle', styleCss);
     }
   });
 

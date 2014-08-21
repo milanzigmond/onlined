@@ -8,3 +8,12 @@ Router.map(function() {
 	  }
 	});
 });
+
+var loadCSS = function() {
+	var currentStyle = Session.get("currentStyle");
+	if (currentStyle) {
+		$("link").attr("href", currentStyle);
+	};
+}
+
+Router.waitOn(loadCSS);
