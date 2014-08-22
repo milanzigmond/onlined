@@ -50,6 +50,7 @@ if (Meteor.isClient) {
   var createDefaultWebsite = function () {
     var website_id = Websites.insert({
       craetedAt: new Date(),
+      css: Session.get('currentStyle'),
       content: {
         title: "Onlined",
         tagline: "Create your website in minutes",
