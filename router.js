@@ -27,10 +27,10 @@ Router.map(function() {
 	this.route('login', {path: '/login'});
 	this.route('register', {path: '/register'});
 	this.route('website', { 
-		path: '/:username',
+		path: '/:sitename',
 		waitOn: function () {
 			if(Websites.find().count() !== 0){
-				var style = Websites.findOne({username:this.params.username},{css:1, _id:0}).css;
+				var style = Websites.findOne({sitename:this.params.sitename},{css:1, _id:0}).css;
 				if (style) {
 					console.log('style:'+style);
 					$("link").attr("href", style);
@@ -39,7 +39,7 @@ Router.map(function() {
 			}
 		},
 		data: function() { 
-			return Websites.findOne({username:this.params.username})
+			return Websites.findOne({sitename:this.params.sitename})
 		}
 	});
 });

@@ -92,7 +92,7 @@
 
 <template name="websiteListItem">
 	<td class="title">
-		www.onlined.at/{{username}}
+		www.onlined.at/<strong>{{username}}</strong>
 	</td>
 	<td>
 		<button type="button" class="close">×</button>
@@ -218,30 +218,18 @@
 <template name="form">
 	<form class="form-horizontal">
 		<fieldset>
-			<legend>Last things ...</legend>
-			<div class="form-group">
-				<label for="inputEmail" class="col-lg-4 control-label">Whehe to send messages to?</label>
-				<div class="col-lg-6">
-					<input type="text" class="form-control" id="inputEmail" placeholder="Email">
+			<legend>...</legend>
+			
+			<div class="form-group form-group-lg">
+				<div class="col-lg-2">
+					<label for="input-sitename" class="col-sm-2 control-label">www.onlined.at/</label>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="inputUsername" class="col-lg-4 control-label">Your website URL will be? ... www.onlined.at/</label>
-				<div class="col-lg-6">
-					<input type="text" class="form-control" id="inputUsername" placeholder="YourWebsiteName">
+				
+				<div class="col-lg-8">
+					<input type="text" class="form-control input-lg" id="input-sitename" placeholder="yourwebsitename">
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="inputPassword" class="col-lg-4 control-label">Password to edit your website is?</label>
-				<div class="col-lg-6">
-					<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-lg-10 col-lg-offset-4">
-					<button type="submit" class="btn btn-primary">Create</button>
+				<div class="col-lg-2">
+					<button type="submit" class="btn btn-success btn-lg">Create Web</button>
 				</div>
 			</div>
 		</fieldset>

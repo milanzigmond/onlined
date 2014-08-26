@@ -316,30 +316,13 @@ if (Meteor.isClient) {
         event.preventDefault();
         event.stopPropagation();
 
-        var email = template.find('#inputEmail').value;
-        var username = template.find('#inputUsername').value;
-        var password = template.find('#inputPassword').value;
+        var sitename = template.find('#input-sitename').value;
 
-        console.log( 'Submitting form with:' + email + ", password: "+ password + ", username/domain: " + username);
+        console.log("sitename: " + sitename);
 
-        // Trim and validate the input
-
-        Accounts.createUser({
-          email: email, 
-          password : password, 
-          username: username},
-          function(err){
-            if (err) {
-              // Inform the user that account creation failed
-              console.log('user creation failed');
-            } else {
-              // Success. Account has been created and the user
-              // has logged in successfully. 
-              var websiteId = Session.get('editing_website');
-              Websites.update({_id:websiteId},{ $set: { 'username': username}});
-              Router.go('/'+username);
-            }
-          });
+        var websiteId = Session.get('editing_website');
+        Websites.update({_id:websiteId},{ $set: { 'sitename': sitename}});
+        Router.go('/'+sitename);
       }
     });
 
