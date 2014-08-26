@@ -12,13 +12,13 @@
 			<a class="navbar-brand" href="{{pathFor 'home'}}">Onlined</a>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				{{#if currentUser}}
-					<button type="button" class="btn btn-success navbar-btn createWebsiteButton">Create Website</button>
+					<button type="button" class="btn btn-primary navbar-btn createWebsiteButton">Create Website</button>
 					{{>selectStyle}}
-					<button type="submit" class="btn btn-warning navbar-btn logout">Logout</button>
+					<button type="submit" class="btn btn-default navbar-btn logout">Logout</button>
 					<span class="username">{{email}}</span>
 				{{else}}
-					<a href="{{pathFor 'login'}}">
-						<button type="submit" class="btn btn-success navbar-btn">Start Here</button>
+					<a href="{{pathFor 'register'}}">
+						<button type="submit" class="btn btn-primary navbar-btn">Start Here</button>
 					</a>
 				{{/if}}
 			</div>
@@ -116,7 +116,7 @@
 
 <template name="selectStyle">
 	<div class="btn-group">
-		<a href="#" class="btn btn-success navbar-btn dropdown-toggle" data-toggle="dropdown">
+		<a href="#" class="btn btn-primary navbar-btn dropdown-toggle" data-toggle="dropdown">
 			Change Visual Style
 			<span class="caret"></span>
 		</a>
