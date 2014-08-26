@@ -25,6 +25,7 @@ if (Meteor.isClient) {
     {name:'United', css: 'united.css'},
     {name:'Yeti', css: 'yeti.css'},
   ]);
+  Session.setDefault('alert', null);
 
   if (Accounts._resetPasswordToken) {
     Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -59,6 +60,10 @@ if (Meteor.isClient) {
 
       return events;
     };
+
+    var showAlert = function (alert) {
+      $('div.alert').text(alert).slideDown(300).delay(2000).slideUp(300);
+    }
 
     var preventActionsForEvent = function (event) {
       event.preventDefault();
@@ -99,14 +104,6 @@ if (Meteor.isClient) {
       reader.readAsDataURL(file);
     };
 
-    Template.home.events({
-      'click .createWebsiteButton': function (event, template) {
-        if(Meteor.userId()) Meteor.logout();
-        createDefaultWebsite();
-        Router.go('create');
-      }
-    });
-
     Template.websiteListItem.events({
 
       'click .title' : function () {
@@ -123,6 +120,12 @@ if (Meteor.isClient) {
     Template.userItem.events({
       'click .close' : function () {
         Meteor.users.remove({_id:this._id});
+      }
+    });
+
+    Template.userItem.helpers({
+      email: function () {
+        return this.emails[0].address;
       }
     });
 
@@ -357,32 +360,48 @@ Template.website.rendered = function () {
     if (val.length >= 6) {
       return true;
     } else {
-      Session.set('displayMessage', 'Error &amp; Too short.')
+      showAlert('Password must be min 6 chars');
       return false; 
     }
   };
 
-  Template.login.events({
+  Template.layout.helpers({
+    alert: function () {
+        console.log('logging from helpers alertMessage: '+ Session.get('alertMessage'));
+      return Session.get("alertMessage");
+    },
+    email: function () {
+      return Meteor.user().emails[0].address;
+    }
+  });
 
-    'submit #login-form' : function(e, t){
+  Template.layout.events({
+    'click .logout': function (event, Template) {
+      Meteor.logout();
+      Router.go('home');
+    },
+    'click .createWebsiteButton': function (event, template) {
+      createDefaultWebsite();
+      Router.go('create');
+    }
+  });
+
+  Template.login.events({
+    'submit .login-form' : function(e, t){
       e.preventDefault();
-      // retrieve the input field values
+
       var email = trimInput(t.find('#login-email').value)
       , password = t.find('#login-password').value;
 
-        // Trim and validate your fields here.... 
-
-        // If validation passes, supply the appropriate fields to the
-        // Meteor.loginWithPassword() function.
         Meteor.loginWithPassword(email, password, function(err){
-          if (err)
+          if (err) {
+            showAlert(err.reason);
             console.log(err);
-          // The user might not have been found, or their passwword
-          // could be incorrect. Inform the user that their
-          // login attempt has failed. 
-          else
-          // The user has been logged in.
-        console.log('logged in');
+          }
+          else {
+            console.log('logged in');
+            Router.go('home');
+          }
       });
         return false; 
       }
@@ -391,18 +410,21 @@ Template.website.rendered = function () {
   Template.register.events({
     'submit #register-form' : function(e, t) {
       e.preventDefault();
-      var email = trimInput(t.find('#account-email').value)
-      , password = t.find('#account-password').value;
+
+      var email = trimInput(t.find('#register-email').value)
+      , password = t.find('#register-password').value;
 
         // Trim and validate the input
-        if (isValidPassword(userPassword)) {
+        if (isValidPassword(password)) {
           Accounts.createUser({email: email, password : password}, function(err){
             if (err) {
                 console.log(err);
+                showAlert(err.reason);
               // Inform the user that account creation failed
 
             } else {
               console.log('registered and logged in');
+              Router.go('home');
               // Success. Account has been created and the user
               // has logged in successfully. 
             }

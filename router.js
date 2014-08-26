@@ -25,6 +25,7 @@ Router.map(function() {
 	this.route('home', {path: '/'});
 	this.route('create', {path: '/create'});
 	this.route('login', {path: '/login'});
+	this.route('register', {path: '/register'});
 	this.route('website', { 
 		path: '/:username',
 		waitOn: function () {
