@@ -3,10 +3,10 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 standard-app-packages
-autopublish
 insecure
 less
 iron-router
 bootstrap-3
 accounts-base
 accounts-password
+moment

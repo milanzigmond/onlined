@@ -14,6 +14,15 @@ function loadjscssfile(filename, filetype){
  	document.getElementsByTagName("head")[0].appendChild(fileref)
 }
 
+var clearUnfinishedWebsite = function () {
+	var editing_website = Session.get("editing_website");
+	if (editing_website) {
+		if (!Websites.findOne(editing_website).sitename) {
+			Websites.remove(editing_website);
+			Session.set('editing_website',null);
+		}
+	};
+}
 
 Router.configure({
   layoutTemplate: 'layout',
@@ -22,8 +31,13 @@ Router.configure({
 });
 
 Router.map(function() {
-	this.route('home', {path: '/'});
-	this.route('create', {path: '/create'});
+	this.route('home', {
+		path: '/',
+		onBeforeAction: clearUnfinishedWebsite
+	});
+	this.route('create', {
+		path: '/create'
+	});
 	this.route('login', {path: '/login'});
 	this.route('register', {path: '/register'});
 	this.route('website', { 

@@ -2,6 +2,9 @@ Websites = new Meteor.Collection("websites");
 
 if (Meteor.isClient) {
 
+  Meteor.subscribe('allUsers');
+  Meteor.subscribe('allWebsites');
+
   Session.setDefault('editing_field', null);
   Session.setDefault('editing_website', null);
   Session.setDefault('styleOptions', []);
@@ -30,6 +33,22 @@ if (Meteor.isClient) {
   if (Accounts._resetPasswordToken) {
     Session.set('resetPassword', Accounts._resetPasswordToken);
   } 
+
+  var DateFormats = {
+   since: "YYYY MMMM DD",
+   short: "DD MMMM YYYY",
+   long: "DD MMMM YYYY HH:mm (dddd)"
+  };
+
+  UI.registerHelper("formatDate", function(datetime, format) {
+    if (moment) {
+      f = DateFormats[format];
+      return moment(datetime).format(f);
+    }
+    else {
+      return datetime;
+    }
+  });
 
   ////////// Helpers for in-place editing //////////
 
@@ -77,7 +96,7 @@ if (Meteor.isClient) {
 
     var createDefaultWebsite = function () {
       var website_id = Websites.insert({
-        craetedAt: new Date(),
+        createdAt: new Date(),
         css: Session.get('currentStyle'),
         content: {
           title: "Onlined",
@@ -104,6 +123,18 @@ if (Meteor.isClient) {
       reader.readAsDataURL(file);
     };
 
+    Template.websiteListItem.helpers({
+      email: function () {
+        if(this.userId){
+          return Meteor.users.findOne(this.userId).emails[0].address;  
+        }
+        else {
+          return "loading";
+        }
+        
+      }
+    });
+
     Template.websiteListItem.events({
 
       'click .title' : function () {
@@ -126,6 +157,9 @@ if (Meteor.isClient) {
     Template.userItem.helpers({
       email: function () {
         return this.emails[0].address;
+      },
+      numberOfWebsites: function () {
+        return Websites.find({userId:this._id}).count();
       }
     });
 
@@ -158,11 +192,11 @@ if (Meteor.isClient) {
 
     Template.home.helpers({
       websites: function () {
-        return Websites.find({},{sort: {craetedAt: -1}});
+        return Websites.find({},{sort: {createdAt: -1}});
       },
 
       users: function () {
-        return Meteor.users.find({});
+        return Meteor.users.find();
       }
     });
 
@@ -321,7 +355,10 @@ if (Meteor.isClient) {
         console.log("sitename: " + sitename);
 
         var websiteId = Session.get('editing_website');
-        Websites.update({_id:websiteId},{ $set: { 'sitename': sitename}});
+        Websites.update({_id:websiteId},{ $set: { 
+          'sitename': sitename,
+          'userId': Meteor.userId()
+        }});
         Router.go('/'+sitename);
       }
     });
@@ -370,8 +407,9 @@ Template.website.rendered = function () {
   });
 
   Template.login.events({
-    'submit .login-form' : function(e, t){
+    'submit #login-form' : function(e, t){
       e.preventDefault();
+      e.stopPropagation();
 
       var email = trimInput(t.find('#login-email').value)
       , password = t.find('#login-password').value;
@@ -475,4 +513,11 @@ Template.website.rendered = function () {
 }
 
 if (Meteor.isServer) {
+  Meteor.publish('allUsers', function () {
+    return Meteor.users.find();
+  });
+
+  Meteor.publish('allWebsites', function () {
+    return Websites.find();
+  });
 }
