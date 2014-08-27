@@ -24,9 +24,9 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container-fluid">
+	
 			{{> yield}}
-		</div>
+		
 </template>
 
 <template name="notFound">
@@ -171,27 +171,20 @@
 		{{#with editing_website}}
 		{{>topImage}}
 		<div class="container">	
-			<div class="jumbotron">
 				{{>title}}
 				{{>tagline}}
-			</div>
-			{{>sectionTeam}}
-			<h1>Next section</h1>
+			
 			<div class="row">
+				<div class="col-md-5">
+					{{>logo}}
+				</div>
+
 				<div class="col-md-7">
 					{{>heading}}
 					{{>paragraph}}
 				</div>
-				<div class="col-md-5">
-					{{>logo}}
-				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					{{>heading2}}
-					{{>paragraph2}}
-				</div>
-			</div>
+		
 
 			{{>form}}
 		</div>
@@ -201,16 +194,6 @@
 	{{/if}}
 </template>
 
-<template name="sectionTeam">
-	<div class="row">
-		<div class="col-md-2"><img src="team1.png" width="100px" height="100px" alt=""></div>
-		<div class="col-md-2"><img src="team2.png" width="100px" height="100px" alt=""></div>
-		<div class="col-md-2"><img src="team3.png" width="100px" height="100px" alt=""></div>
-		<div class="col-md-2"><img src="team1.png" width="100px" height="100px" alt=""></div>
-		<div class="col-md-2"><img src="team2.png" width="100px" height="100px" alt=""></div>
-		<div class="col-md-2"><img src="team3.png" width="100px" height="100px" alt=""></div>
-	</div>
-</template>
 
 <template name="logo">
 	<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="{{content.logo}}">
@@ -224,17 +207,17 @@
 
 <template name="title">
 	{{#if editing}}
-		<h1><input id="input" class="textInput" type="text" placeholder="{{content.title}}" value="{{content.title}}" /></h1>
+		<h1 class="text-center"><input id="input" class="textInput" type="text" placeholder="{{content.title}}" value="{{content.title}}" /></h1>
 	{{else}}
-		<h1 id="title">{{content.title}}</h1>
+		<h1 class="text-center" id="title">{{content.title}}</h1>
 	{{/if}}
 </template>
 
 <template name="tagline">
 	{{#if editing}}
-		<p><input id="input" class="textInput" type="text" placeholder="Enter tagline" value="{{content.tagline}}" /></p>
+		<p class="text-center"><input id="input" class="textInput" type="text" placeholder="Enter tagline" value="{{content.tagline}}" /></p>
 	{{else}}
-		<p id="tagline">{{content.tagline}}</p>
+		<p class="text-center" id="tagline">{{content.tagline}}</p>
 	{{/if}}
 </template>
 
@@ -256,22 +239,7 @@
 </template>
 
 
-<template name="heading2">
-	{{#if editing}}
-		<h3 class="featurette-heading"><input id="input" class="textInput" type="text" placeholder="Enter heading" value="About product" /></h3>
-	{{else}}
-		<h3 id="heading" class="featurette-heading">About product</h3>
-	{{/if}}
-</template>
 
-<template name="paragraph2">
-	{{#if editing}}
-		<p><textarea id="input" rows="4" cols="50">paragraph text
-	</textarea></p>
-	{{else}}
-		<p id="paragraph" class="lead">paragraph text</p>
-	{{/if}}
-</template>
 
 
 

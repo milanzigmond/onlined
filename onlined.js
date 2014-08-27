@@ -103,7 +103,7 @@ if (Meteor.isClient) {
           tagline: "Create your website in minutes",
           heading: "What is it that makes onlined special?",
           paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
-          logo: "sideface.gif",
+          logo: "draglogo.jpg",
           topImage: "topImage.jpg"
         }
       });
