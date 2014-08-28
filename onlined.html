@@ -303,8 +303,6 @@
 
 <div class="section-links text-center">	
 		<div class="container">
-		<span class="glyphicon glyphicon-link white"></span>
-
 		<div class="row links">
  		 <div class="col-xs-6 col-md-3">
      		 <a href="#"><img class="link" src="ic_twitterW.png" alt=""></a>
@@ -423,7 +421,7 @@
 
 
 <template name="logo">
-	<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="{{content.logo}}">
+	<img class="featurette-image img-responsive logo" data-src="holder.js/500x500/auto" alt="500x500" src="{{content.logo}}">
 </template>
 
 <template name="topImage">
@@ -572,8 +570,8 @@
 	</div>
 
 	<div id="sliderGalleryNav">
-		<button class="btn btn-md" data-dir="prev">Previous</button>
-		<button class="btn btn-md" data-dir="next">Next</button>
+		<button type="button" class="btn btn-link" data-dir="prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
+		<button type="button" class="btn btn-link" data-dir="next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 	</div>
 </template>
 
