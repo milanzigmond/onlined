@@ -12,21 +12,21 @@
 			<a class="navbar-brand" href="{{pathFor 'home'}}">Onlined</a>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				{{#if currentUser}}
-					<button type="button" class="btn btn-primary navbar-btn createWebsiteButton">Create Website</button>
-					{{>selectStyle}}
-					<button type="submit" class="btn btn-default navbar-btn logout">Logout</button>
-					<span class="username">{{email}}</span>
+				<button type="button" class="btn btn-primary navbar-btn createWebsiteButton">Create Website</button>
+				{{>selectStyle}}
+				<button type="submit" class="btn btn-default navbar-btn logout">Logout</button>
+				<span class="username">{{email}}</span>
 				{{else}}
-					<a href="{{pathFor 'register'}}">
-						<button type="submit" class="btn btn-primary navbar-btn">Start Here</button>
-					</a>
+				<a href="{{pathFor 'register'}}">
+					<button type="submit" class="btn btn-primary navbar-btn">Start Here</button>
+				</a>
 				{{/if}}
 			</div>
 		</div>
 	</nav>
 	
-			{{> yield}}
-		
+	{{> yield}}
+
 </template>
 
 <template name="notFound">
@@ -45,7 +45,7 @@
 	<div class="container-fluid">
 
 		<div class="row">
-    		<div class="col-lg-12">
+			<div class="col-lg-12">
 				<h1>Websites</h1>
 				<table class="table table-striped table-hover ">
 					<thead>
@@ -57,13 +57,13 @@
 						</tr>
 					</thead>
 					<tbody>
-		            	{{#each websites}}
-		            		<tr>
+						{{#each websites}}
+						<tr>
 							{{>websiteListItem}}
-							</tr>
+						</tr>
 						{{/each}}
-		            </tbody>
-		        </table>
+					</tbody>
+				</table>
 			</div>
 		</div>
 
@@ -71,7 +71,7 @@
 			<div class="col-lg-12">
 				<h1>Users</h1>
 				<table class="table table-striped table-hover ">
-		            <thead>
+					<thead>
 						<tr>
 							<th>User</th>
 							<th>Since</th>
@@ -79,14 +79,14 @@
 							<th></th>
 						</tr>
 					</thead>
-		            <tbody>
-		            	{{#each users}}
-		            		<tr>
+					<tbody>
+						{{#each users}}
+						<tr>
 							{{>userItem}}
-							</tr>
+						</tr>
 						{{/each}}
-		            </tbody>
-		        </table>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -167,16 +167,16 @@
 
 <template name="create">
 	{{#if editing_website}}
-		{{#with editing_website}}
-		{{>topImage}}
-		<div class="container">	
-			<div class="section-heading">
-				{{>title}}
-				{{>tagline}}
-				{{>slider}}
-			</div>
+	{{#with editing_website}}
+	{{>topImage}}
+	<div class="container">	
+		<div class="section-heading">
+			{{>title}}
+			{{>tagline}}
+			{{>slider}}
+		</div>
 		
-			<div class="section-intro">
+		<div class="section-intro">
 			<div class="row">
 				<div class="col-md-5">
 					{{>logo}}
@@ -187,35 +187,19 @@
 					{{>paragraph}}
 				</div>
 			</div>
-			</div>
-		</div>	
-		
-		<div class="section-gallery">
-		<div class="row">
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img1.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img2.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img3.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img4.jpg" alt=""></div>
 		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img5.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img6.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img7.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img8.jpg" alt=""></div>
-		</div>
-		</div>
-		
+	</div>	
 
-		<div class="section-email text-center">
-			<span class="glyphicon glyphicon-envelope white"></span>
-			<h4 class="white">herecomesyour@email.com</h4>
-		</div>
+	{{> gallery}}
+
+	<div class="section-email text-center">
+		<span class="glyphicon glyphicon-envelope white"></span>
+		<h4 class="white">herecomesyour@email.com</h4>
+	</div>
 
 
 	<div class="container">	
-
-
-	<div class="section-text">
+		<div class="section-text">
 			<div class="row text-center">
 				<div class="col-md-4">
 					<h3>optional heading</h3>
@@ -236,123 +220,122 @@
 
 
 		<div class="section-location text-center">
-		<div class="row">
+			<div class="row">
 				<div class="col-lg-12">
 					<span class="glyphicon glyphicon-map-marker"></span>
 				</div>
-		</div>	
-		<div class="row">
+			</div>	
+			<div class="row">
 				<div class="col-lg-12">
 					<h4>address line 11, prague 8, czech republic</h4>
 				</div>
-		</div>		
-		<div class="row">
+			</div>		
+			<div class="row">
 				<div class="col-lg-12">
 					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.960735410441!2d14.42070699999999!3d50.08702199999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94e939c02f49%3A0xf17b44b25aa20696!2sPrague+Astronomical+Clock!5e0!3m2!1sen!2scz!4v1409217218519" width="100%" height="200" frameborder="0" style="border:0"></iframe>
 				</div>
-		</div>
-		</div>
-	</div>
-
-		<div class="section-telnumber text-center">
-			<span class="glyphicon glyphicon-phone-alt white"></span>
-			<h4 class="white">00420 602 259 394</h4>
-		</div>
-
-<div class="section-openinghours text-center">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<span class="glyphicon glyphicon-time"></span>
-				<h3>opening hours</h3>
-		
-
-<table class="verticaltable">
-  <tr>
-    <th>Mon</th>
-    <th>Tue</th>
-    <th>Wed</th>
-    <th>Thu</th>
-    <th>Fri</th>
-    <th>Sat</th>
-    <th>Sun</th>
-  </tr>
-  <tr>
-    <td colspan="7">
-    	<div class="line"></div>
-    </td>
-  </tr>
-  <tr>
-    <td>8-18</td>
-    <td>8-18</td>
-    <td>8-18</td>
-    <td>8-18</td>
-    <td>8-18</td>
-    <td>closed</td>
-    <td>closed</td>
-  </tr>
-</table>
-
-
-
 			</div>
 		</div>
 	</div>
-</div>
 
+	<div class="section-telnumber text-center">
+		<span class="glyphicon glyphicon-phone-alt white"></span>
+		<h4 class="white">00420 602 259 394</h4>
+	</div>
 
-<div class="section-links text-center">	
+	<div class="section-openinghours text-center">
 		<div class="container">
-		<span class="glyphicon glyphicon-link white"></span>
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="glyphicon glyphicon-time"></span>
+					<h3>opening hours</h3>
 
-		<div class="row links">
- 		 <div class="col-xs-6 col-md-3">
-     		 <a href="#"><img class="link" src="ic_twitterW.png" alt=""></a>
- 		 </div>
- 		 <div class="col-xs-6 col-md-3">
-     		  <a href="#"><img class="link" src="ic_youtubeW.png" alt=""></a>
- 		 </div>
- 		 <div class="col-xs-6 col-md-3">
-     		  <a href="#"><img class="link" src="ic_linkedW.png" alt=""></a>
- 		 </div>
- 		 <div class="col-xs-6 col-md-3">
-     		 <a href="#"><img class="link" src="ic_instagramW.png" alt=""></a>
-		</div>
+
+					<table class="verticaltable">
+						<tr>
+							<th>Mon</th>
+							<th>Tue</th>
+							<th>Wed</th>
+							<th>Thu</th>
+							<th>Fri</th>
+							<th>Sat</th>
+							<th>Sun</th>
+						</tr>
+						<tr>
+							<td colspan="7">
+								<div class="line"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>8-18</td>
+							<td>8-18</td>
+							<td>8-18</td>
+							<td>8-18</td>
+							<td>8-18</td>
+							<td>closed</td>
+							<td>closed</td>
+						</tr>
+					</table>
+
+
+
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
 
 
-<div class="section-eventcalender text-center">
+	<div class="section-links text-center">	
+		<div class="container">
+			<span class="glyphicon glyphicon-link white"></span>
+
+			<div class="row links">
+				<div class="col-xs-6 col-md-3">
+					<a href="#"><img class="link" src="ic_twitterW.png" alt=""></a>
+				</div>
+				<div class="col-xs-6 col-md-3">
+					<a href="#"><img class="link" src="ic_youtubeW.png" alt=""></a>
+				</div>
+				<div class="col-xs-6 col-md-3">
+					<a href="#"><img class="link" src="ic_linkedW.png" alt=""></a>
+				</div>
+				<div class="col-xs-6 col-md-3">
+					<a href="#"><img class="link" src="ic_instagramW.png" alt=""></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="section-eventcalender text-center">
 		<div class="row">
 			<div class="col-lg-12">
 				<span class="glyphicon glyphicon-calendar"></span>
 				<h3>event calender</h3>
 				<table class="eventtable">
 					<tr>
-  					 <td>02-04-14</td>
-   					 <td>event in prague</td>
+						<td>02-04-14</td>
+						<td>event in prague</td>
 					</tr>
 					<tr>
-  					 <td>18-06-14</td>
-   					 <td>event in budapest</td>
+						<td>18-06-14</td>
+						<td>event in budapest</td>
 					</tr>
 					<tr>
-  					 <td>23-12-14</td>
-   					 <td>event in paris</td>
+						<td>23-12-14</td>
+						<td>event in paris</td>
 					</tr>
 				</table>	
 			</div>
 		</div>
-</div>
+	</div>
 
-<div class="container">	
+	<div class="container">	
 
 
 		<div class="section-text">
 			<div class="row text-center">
-				<div class="col-md-2"></div>
-				<div class="col-md-4">
+				<div class="col-md-4 col-md-offset-2">
 					<img width="50%" src="draglogo.jpg" alt="">
 					<h3>product one</h3>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus eos magnam voluptas quidem dolores dolorem consectetur officia tenetur, et, quaerat porro alias asperiores sint!</p>
@@ -362,63 +345,62 @@
 					<h3>product two</h3>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus eos magnam voluptas quidem dolores dolorem consectetur officia tenetur, et, quaerat porro alias asperiores sint!</p>
 				</div>
-				<div class="col-md-2"></div>
 			</div>
 		</div>
 	</div>		
 
-<div class="section-video">
-	<video width="100%" height="500" controls autoplay>
- 	 <source src="movie.ogg" type="video/ogg">
- 	 <source src="movie.mp4" type="video/mp4">
- 	 <object data="movie.mp4" width="100%" height="500">
-  	 <embed width="100%" height="500" src="movie.swf">
- 	 </object>
-	</video>
-</div>
+	<div class="section-video">
+		<video width="100%" height="500" controls autoplay>
+			<source src="movie.ogg" type="video/ogg">
+				<source src="movie.mp4" type="video/mp4">
+					<object data="movie.mp4" width="100%" height="500">
+						<embed width="100%" height="500" src="movie.swf">
+						</object>
+					</video>
+				</div>
 
 
 
-<div class="container">	
+				<div class="container">	
 
-	<div class="section-team text-center">
-		<div class="row">
-			<div class="col-lg-12">
-				<span class="glyphicon glyphicon-user"></span>
-				<h3>team members</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-3">
-				<img class="member" width="50%" src="draglogo.jpg" alt="">
-				<h4>John Doe</h4>
-				<p>tagline of this team member</p>
-			</div>
-			<div class="col-lg-3">
-				<img class="member" width="50%" src="draglogo.jpg" alt="">
-				<h4>Jane Doe</h4>
-				<p>tagline of this team member</p>
-			</div>
-			<div class="col-lg-3">
-				<img class="member" width="50%" src="draglogo.jpg" alt="">
-				<h4>John Doe</h4>
-				<p>tagline of this team member</p>
-			</div>
-			<div class="col-lg-3">
-				<img class="member" width="50%" src="draglogo.jpg" alt="">
-				<h4>Jane Doe</h4>
-				<p>tagline of this team member</p>
-			</div>
-		</div>
-	</div>
+					<div class="section-team text-center">
+						<div class="row">
+							<div class="col-lg-12">
+								<span class="glyphicon glyphicon-user"></span>
+								<h3>team members</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-3">
+								<img class="member" width="50%" src="draglogo.jpg" alt="">
+								<h4>John Doe</h4>
+								<p>tagline of this team member</p>
+							</div>
+							<div class="col-lg-3">
+								<img class="member" width="50%" src="draglogo.jpg" alt="">
+								<h4>Jane Doe</h4>
+								<p>tagline of this team member</p>
+							</div>
+							<div class="col-lg-3">
+								<img class="member" width="50%" src="draglogo.jpg" alt="">
+								<h4>John Doe</h4>
+								<p>tagline of this team member</p>
+							</div>
+							<div class="col-lg-3">
+								<img class="member" width="50%" src="draglogo.jpg" alt="">
+								<h4>Jane Doe</h4>
+								<p>tagline of this team member</p>
+							</div>
+						</div>
+					</div>
 
 
-			{{>form}}
-		</div>
-		{{/with}}
-	{{else}}
-		{{goHome}}
-	{{/if}}
+					{{>form}}
+				</div>
+				{{/with}}
+				{{else}}
+				{{goHome}}
+				{{/if}}
 </template>
 
 
@@ -434,34 +416,34 @@
 
 <template name="title">
 	{{#if editing}}
-		<h1 class="text-center"><input id="input" class="textInput" type="text" placeholder="{{content.title}}" value="{{content.title}}" /></h1>
+	<h1 class="text-center"><input id="input" class="textInput" type="text" placeholder="{{content.title}}" value="{{content.title}}" /></h1>
 	{{else}}
-		<h1 class="text-center" id="title">{{content.title}}</h1>
+	<h1 class="text-center" id="title">{{content.title}}</h1>
 	{{/if}}
 </template>
 
 <template name="tagline">
 	{{#if editing}}
-		<p class="text-center"><input id="input" class="textInput" type="text" placeholder="Enter tagline" value="{{content.tagline}}" /></p>
+	<p class="text-center"><input id="input" class="textInput" type="text" placeholder="Enter tagline" value="{{content.tagline}}" /></p>
 	{{else}}
-		<p class="text-center" id="tagline">{{content.tagline}}</p>
+	<p class="text-center" id="tagline">{{content.tagline}}</p>
 	{{/if}}
 </template>
 
 <template name="heading">
 	{{#if editing}}
-		<h3 class="featurette-heading"><input id="input" class="textInput" type="text" placeholder="Enter heading" value="{{content.heading}}" /></h3>
+	<h3 class="featurette-heading"><input id="input" class="textInput" type="text" placeholder="Enter heading" value="{{content.heading}}" /></h3>
 	{{else}}
-		<h3 id="heading" class="featurette-heading">{{content.heading}}</h3>
+	<h3 id="heading" class="featurette-heading">{{content.heading}}</h3>
 	{{/if}}
 </template>
 
 <template name="paragraph">
 	{{#if editing}}
-		<p><textarea id="input" rows="4" cols="50">{{content.paragraph}}
+	<p><textarea id="input" rows="4" cols="50">{{content.paragraph}}
 	</textarea></p>
 	{{else}}
-		<p id="paragraph" class="lead">{{content.paragraph}}</p>
+	<p id="paragraph" class="lead">{{content.paragraph}}</p>
 	{{/if}}
 </template>
 
@@ -474,12 +456,12 @@
 	<form class="form-horizontal">
 		<fieldset>
 			<legend>...</legend>
-			
+
 			<div class="form-group form-group-lg">
 				<div class="col-lg-2">
 					<label for="input-sitename" class="col-sm-2 control-label">www.onlined.at/</label>
 				</div>
-				
+
 				<div class="col-lg-8">
 					<input type="text" class="form-control input-lg" id="input-sitename" placeholder="yourwebsitename">
 				</div>
@@ -544,21 +526,21 @@
 
 <template name="passwordRecovery">
 	{{#if resetPassword}}
-		<form id="new-password" role="form">
-			<div class="form-group">
-				<label for="new-password-password">New password</label>
-				<input id="new-password-password" type="text" class="form-control" placeholder="Enter email">
-			</div>
-			<button id="create-account" type="submit" class="btn btn-default">Change Password</button>
-		</form>
+	<form id="new-password" role="form">
+		<div class="form-group">
+			<label for="new-password-password">New password</label>
+			<input id="new-password-password" type="text" class="form-control" placeholder="Enter email">
+		</div>
+		<button id="create-account" type="submit" class="btn btn-default">Change Password</button>
+	</form>
 	{{else}}
-		<form id="recovery-form" role="form">
-			<div class="form-group">
-				<label for="recovery-email">New password</label>
-				<input id="recovery-email" type="text" class="form-control" placeholder="Enter email">
-			</div>
-			<button id="create-account" type="submit" class="btn btn-default">Send Reset Instructions</button>
-		</form>
+	<form id="recovery-form" role="form">
+		<div class="form-group">
+			<label for="recovery-email">New password</label>
+			<input id="recovery-email" type="text" class="form-control" placeholder="Enter email">
+		</div>
+		<button id="create-account" type="submit" class="btn btn-default">Send Reset Instructions</button>
+	</form>
 	{{/if}}
 </template>
 
@@ -566,7 +548,7 @@
 	<div class="sliderGallery">
 		<ul>
 			{{#each sliderImages}}
-				<li><img id="{{position}}" class="img img-responsive" src="{{src}}" alt=""></li>
+			<li><img id="{{position}}" class="img img-responsive" src="{{src}}" alt=""></li>
 			{{/each}}
 		</ul>
 	</div>
@@ -574,6 +556,31 @@
 	<div id="sliderGalleryNav">
 		<button class="btn btn-md" data-dir="prev">Previous</button>
 		<button class="btn btn-md" data-dir="next">Next</button>
+	</div>
+</template>
+
+<template name="gallery">
+	<div class="section-gallery">
+		<!-- <div class="row">
+			<div class="col-lg-3 col-md-6"><img width="100%" src="img1.jpg" alt=""></div>
+			<div class="col-lg-3 col-md-6"><img width="100%" src="img2.jpg" alt=""></div>
+			<div class="col-lg-3 col-md-6"><img width="100%" src="img3.jpg" alt=""></div>
+			<div class="col-lg-3 col-md-6"><img width="100%" src="img4.jpg" alt=""></div>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 col-md-6"><img width="100%" src="img5.jpg" alt=""></div>
+			<div class="col-lg-3 col-md-6"><img width="100%" src="img6.jpg" alt=""></div>
+			<div class="col-lg-3 col-md-6"><img width="100%" src="img7.jpg" alt=""></div>
+			<div class="col-lg-3 col-md-6"><img width="100%" src="img8.jpg" alt=""></div>
+		</div> -->
+		
+		<div class="row">
+			<ul class="imageGallery">
+				{{#each galleryImages}}	
+					<li><img id="{{position}}" class="img img-responsive" src="{{src}}" alt=""></li>
+				{{/each}}
+			</ul>
+		</div>
 	</div>
 </template>
 

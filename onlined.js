@@ -141,7 +141,17 @@ if (Meteor.isClient) {
             {position: 1, src:"sliderImage02.jpg"},
             {position: 2, src:"sliderImage03.jpg"},
             {position: 3, src:"sliderImage04.jpg"}
-            ]
+            ], 
+          galleryImages: [
+            {position: 0, src:"img1.jpg"},
+            {position: 1, src:"img2.jpg"},
+            {position: 2, src:"img3.jpg"},
+            {position: 3, src:"img4.jpg"},
+            {position: 4, src:"img5.jpg"},
+            {position: 5, src:"img6.jpg"},
+            {position: 6, src:"img7.jpg"},
+            {position: 7, src:"img8.jpg"}
+          ]
         }
       });
       Session.set('editing_website', website_id);
@@ -160,15 +170,16 @@ if (Meteor.isClient) {
       reader.readAsDataURL(file);
     };
 
-    var saveSliderImage = function (file, position) {
+    var saveGalleryImage = function (gallery, file, position) {
       var reader = new FileReader();
+      reader.gallery = gallery;
       reader.position = position;
+
       reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
-        setModifier.$set['content.sliderImages.'+this.position+'.src' ] = event.target.result;
+        setModifier.$set['content.'+this.gallery+'.'+this.position+'.src' ] = event.target.result;
         Websites.update({_id:websiteId}, setModifier);
-        debugger  
       };
 
       reader.readAsDataURL(file);
@@ -574,7 +585,24 @@ Template.website.rendered = function () {
       'drop div.sliderGallery img' : function (e) {
         preventActionsForEvent(e);
         var file = e.originalEvent.dataTransfer.files[0];
-        saveSliderImage(file, this.position);
+        saveGalleryImage('sliderImages', file, this.position);
+      }
+    });
+
+  Template.gallery.helpers({
+    galleryImages: function () {
+      console.log(this.content.galleryImages);
+      return this.content.galleryImages;
+    }
+  });
+
+  Template.gallery.events({
+      'dragover ul.imageGallery img' : function (e) { preventActionsForEvent(e); },
+
+      'drop ul.imageGallery img' : function (e) {
+        preventActionsForEvent(e);
+        var file = e.originalEvent.dataTransfer.files[0];
+        saveGalleryImage('galleryImages', file, this.position);
       }
     });
 
