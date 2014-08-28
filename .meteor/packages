@@ -4,11 +4,11 @@
 # but you can also edit it by hand.
 standard-app-packages
 insecure
-less
-cmather:iron-router@0.8.2
 accounts-base
 accounts-password
 mrt:moment
-mrt:bootstrap-3
 mrt:fancybox
+less
+mrt:bootstrap-3
+iron:router
 

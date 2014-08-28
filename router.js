@@ -33,8 +33,8 @@ Router.configure({
 
 Router.map(function() {
 	this.route('home', {
-		path: '/',
-		onBeforeAction: clearUnfinishedWebsite
+		path: '/'
+		// onBeforeAction: clearUnfinishedWebsite
 	});
 	this.route('create', {
 		path: '/create'

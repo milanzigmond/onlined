@@ -577,9 +577,9 @@
 		<div class="row">
 			<ul class="imageGallery">
 				{{#each galleryImages}}	
-					<li>
-						<a href="{{src}}" class="fancybox" rel="gallery" title="Sample title">
-							<img id="{{position}}" class="img img-responsive" src="{{src}}" alt="This is alt">
+					<li id="{{position}}">
+						<a href="{{src}}" class="fancybox" rel="gallery">
+							<img src="{{small}}" alt="This is alt">
 						</a>
 					</li>
 				{{/each}}

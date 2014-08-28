@@ -143,14 +143,13 @@ if (Meteor.isClient) {
             {position: 3, src:"sliderImage04.jpg"}
             ], 
           galleryImages: [
-            {position: 0, src:"img1.jpg"},
-            {position: 1, src:"img2.jpg"},
-            {position: 2, src:"img3.jpg"},
-            {position: 3, src:"img4.jpg"},
-            {position: 4, src:"img5.jpg"},
-            {position: 5, src:"img6.jpg"},
-            {position: 6, src:"img7.jpg"},
-            {position: 7, src:"img8.jpg"}
+            {position: 0, src:"family01.jpg", small:"family01small.jpg"},
+            {position: 1, src:"family02.jpg", small:"family02small.jpg"},
+            {position: 2, src:"family03.jpg", small:"family03small.jpg"},
+            {position: 3, src:"family04.jpg", small:"family04small.jpg"},
+            {position: 4, src:"family05.jpg", small:"family05small.jpg"},
+            {position: 5, src:"family06.jpg", small:"family06small.jpg"},
+            {position: 6, src:"family07.jpg", small:"family07small.jpg"}
           ]
         }
       });
@@ -456,6 +455,10 @@ Template.website.rendered = function () {
     }
   };
 
+  Template.layout.rendered = function () {
+    console.log('template layout rendered');
+  };
+
   Template.layout.helpers({
     alert: function () {
         console.log('logging from helpers alertMessage: '+ Session.get('alertMessage'));
@@ -467,6 +470,12 @@ Template.website.rendered = function () {
   });
 
   Template.layout.events({
+    'click .fancybox': function (e,t) {
+      $('.fancybox').fancybox();
+      // preventActionsForEvent(e);
+      
+      console.log('fancybox clicked from tempalte events');
+    },
     'click .logout': function (event, Template) {
       Meteor.logout();
       Router.go('home');
@@ -597,16 +606,28 @@ Template.website.rendered = function () {
   });
 
   Template.gallery.events({
-      'dragover ul.imageGallery img' : function (e) { preventActionsForEvent(e); },
+      'dragover ul.imageGallery li' : function (e) { preventActionsForEvent(e); },
 
-      'drop ul.imageGallery img' : function (e) {
+      'drop ul.imageGallery li' : function (e) {
         preventActionsForEvent(e);
         var file = e.originalEvent.dataTransfer.files[0];
         saveGalleryImage('galleryImages', file, this.position);
       }
+
+      // 'click a.fancybox' : function (e) {
+      //   console.log('li clicked:'+ e.target);
+      //   preventActionsForEvent(e);
+      //   // debugger
+      //   $(e.target).fancybox({
+      //      afterClose: function(){
+      //        $($("[style$='display: none;']")).css("display","");
+      //       }
+      //   }).click();
+      // }
     });
 
-  Template.gallery.rendered = function () {
+  Template.hello.rendered = function () {
+    
     $('.fancybox').fancybox();
     // $('.fancybox').fancybox({
     //         padding : 0,
