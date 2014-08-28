@@ -3,7 +3,7 @@
 </head>
 
 <body>
-	{{> layout}}    
+	{{> layout}}
 </body>
 
 <template name="layout">
@@ -172,6 +172,7 @@
 		<div class="container">	
 				{{>title}}
 				{{>tagline}}
+				{{>slider}}
 			
 			<div class="row">
 				<div class="col-md-5">
@@ -333,3 +334,34 @@
 		</form>
 	{{/if}}
 </template>
+
+<template name="slider">
+	<div class="sliderGallery">
+		<ul>
+			{{#each sliderImages}}
+				<li><img id="{{position}}" class="img img-responsive" src="{{src}}" alt=""></li>
+			{{/each}}
+		</ul>
+	</div>
+
+	<div id="sliderGalleryNav">
+		<button class="btn btn-md" data-dir="prev">Previous</button>
+		<button class="btn btn-md" data-dir="next">Next</button>
+	</div>
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

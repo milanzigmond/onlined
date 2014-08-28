@@ -15,13 +15,14 @@ function loadjscssfile(filename, filetype){
 }
 
 var clearUnfinishedWebsite = function () {
-	var editing_website = Session.get("editing_website");
-	if (editing_website) {
-		if (!Websites.findOne(editing_website).sitename) {
-			Websites.remove(editing_website);
-			Session.set('editing_website',null);
-		}
-	};
+	console.log("clearUnfinishedWebsite");
+	// var editing_website = Session.get("editing_website");
+	// if (editing_website) {
+	// 	if (!Websites.findOne(editing_website).sitename) {
+	// 		Websites.remove(editing_website);
+	// 		Session.set('editing_website',null);
+	// 	}
+	// };
 }
 
 Router.configure({

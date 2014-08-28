@@ -50,6 +50,37 @@ if (Meteor.isClient) {
     }
   });
 
+  // SLIDER START
+
+  function Slider ( container, nav ) {
+    this.container = container;
+    this.nav = nav;
+    this.imgs = this.container.find('img');
+    this.imgWidth = this.imgs[0].width;
+    this.imgsLen = this.imgs.length;
+
+    this.current = 0;
+  }
+
+  Slider.prototype.transition = function(coords) {
+    this.container.animate({
+      'margin-left': coords || -(this.current * this.imgWidth)
+    });
+  };
+
+  Slider.prototype.setCurrent = function(dir) {
+    var pos = this.current;
+    
+    pos += ( ~~( dir == 'next') || -1); // add or subtract 1
+    this.current = (pos < 0) ? this.imgsLen - 1 : pos % this.imgsLen;
+    
+    return pos;
+  };
+
+
+  // SLIDER END
+
+
   ////////// Helpers for in-place editing //////////
 
   // Returns an event map that handles the "escape" and "return" keys and
@@ -104,7 +135,13 @@ if (Meteor.isClient) {
           heading: "What is it that makes onlined special?",
           paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
           logo: "draglogo.jpg",
-          topImage: "topImage.jpg"
+          topImage: "topImage.jpg",
+          sliderImages: [ 
+            {position: 0, src:"sliderImage01.jpg"}, 
+            {position: 1, src:"sliderImage02.jpg"},
+            {position: 2, src:"sliderImage03.jpg"},
+            {position: 3, src:"sliderImage04.jpg"}
+            ]
         }
       });
       Session.set('editing_website', website_id);
@@ -122,6 +159,20 @@ if (Meteor.isClient) {
 
       reader.readAsDataURL(file);
     };
+
+    var saveSliderImage = function (file, position) {
+      var reader = new FileReader();
+      reader.position = position;
+      reader.onload = function(event) {
+        var websiteId = Session.get('editing_website');
+        var setModifier = { $set: {} };
+        setModifier.$set['content.sliderImages.'+this.position+'.src' ] = event.target.result;
+        Websites.update({_id:websiteId}, setModifier);
+        debugger  
+      };
+
+      reader.readAsDataURL(file);
+    }
 
     Template.websiteListItem.helpers({
       email: function () {
@@ -162,6 +213,15 @@ if (Meteor.isClient) {
         return Websites.find({userId:this._id}).count();
       }
     });
+
+    Template.create.rendered = function () {
+      var slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
+      slider.nav.find('button').on('click', function() {
+        console.log('clicked'+$(this).data('dir'));
+        slider.setCurrent( $(this).data('dir') );
+        slider.transition();
+      });
+    };
 
     Template.create.events({
 
@@ -500,6 +560,23 @@ Template.website.rendered = function () {
       return false; 
     }
   });
+
+  Template.slider.helpers({
+    sliderImages: function () {
+      console.log(this.content.sliderImages);
+      return this.content.sliderImages;
+    }
+  });
+
+  Template.slider.events({
+      'dragover div.sliderGallery img' : function (e) { preventActionsForEvent(e); },
+
+      'drop div.sliderGallery img' : function (e) {
+        preventActionsForEvent(e);
+        var file = e.originalEvent.dataTransfer.files[0];
+        saveSliderImage(file, this.position);
+      }
+    });
 
   // Meteor.autorun(function() {
   //   // Whenever this session variable changes, run this function.
