@@ -10,4 +10,5 @@ accounts-base
 accounts-password
 mrt:moment
 mrt:bootstrap-3
+mrt:fancybox
 

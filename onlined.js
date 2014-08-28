@@ -606,6 +606,15 @@ Template.website.rendered = function () {
       }
     });
 
+  Template.gallery.rendered = function () {
+    $('.fancybox').fancybox();
+    // $('.fancybox').fancybox({
+    //         padding : 0,
+    //         openEffect  : 'elastic'
+    //     });
+    // });
+  };
+
   // Meteor.autorun(function() {
   //   // Whenever this session variable changes, run this function.
   //   var message = Session.get('displayMessage');
