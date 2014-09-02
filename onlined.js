@@ -10,6 +10,7 @@ if (Meteor.isClient) {
   Session.setDefault('styleOptions', []);
   Session.setDefault('currentStyle', null);
   Session.setDefault('themes', [
+    {name:'Dark', css: 'dark.css'},
     {name:'Amelia', css: 'amelia.css'},
     {name:'Cerulean', css: 'cerulean.css'},
     {name:'Cosmo', css: 'cosmo.css'},
@@ -77,6 +78,7 @@ if (Meteor.isClient) {
     return pos;
   };
 
+    console.log('what');
 
   // SLIDER END
 

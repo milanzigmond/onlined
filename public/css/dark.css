@@ -1,0 +1,218 @@
+@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans+SC);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700italic);
+span.username {
+  padding-left: 10px;
+}
+div.center {
+  width: 300px;
+  margin: auto;
+}
+.navbar {
+  border-radius: 0px;
+  border: none;
+  margin-bottom: 0px;
+}
+.drop {
+  border: 2px dashed #ff0000;
+  width: 400px;
+  height: 200px;
+  color: #cccccc;
+  margin: 20px;
+  padding: 20px;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  padding-top: 70px;
+  font-size: 16px;
+  line-height: 1.5;
+  background-image: url(dark_matter.png);
+  color: #D1E5E1;
+  font-family: 'Merriweather', serif;
+}
+.jumbotron {
+  margin-top: 60px;
+}
+.row.withpadding {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+#sliderGalleryNav {
+  margin-top: 1em;
+  text-align: center;
+}
+#sliderGalleryNav button {
+  padding: 1em;
+  margin-right: 1em;
+  border-right: 10px;
+  cursor: pointer;
+}
+.sliderGallery {
+  width: inherit;
+  height: 500px;
+  overflow: hidden;
+}
+.sliderGallery ul {
+  width: 10000px;
+  list-style-type: none;
+}
+.sliderGallery li {
+  float: left;
+}
+.btn {
+  color: #fff;
+}
+.btn:focus {
+  outline: none;
+}
+.col-lg-3 {
+  padding: 0px;
+}
+p {
+  font-size: 1.1em;
+}
+h1 {
+  font-size: 2.8em;
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-style: italic;
+  color: #7FFFC9;
+}
+h3 {
+  margin-top: 10px;
+  color: #7FFFC9;
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 1.8em;
+}
+h4 {
+  color: #CC528D;
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 1.4em;
+}
+.section-heading {
+  margin-top: 20px;
+}
+.section-intro {
+  margin-top: 200px;
+}
+.section-gallery {
+  margin-top: 200px;
+}
+.section-email {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin-top: 150px;
+  background-color: #60BF97;
+}
+.section-text {
+  margin-top: 150px;
+}
+.section-location {
+  margin-top: 150px;
+}
+.section-telnumber {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin-top: 150px;
+  background-color: #60BF97;
+}
+.section-openinghours {
+  margin-top: 150px;
+}
+.section-links {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin-top: 150px;
+  background-color: #60BF97;
+}
+.section-eventcalender {
+  margin-top: 150px;
+}
+.section-video {
+  margin-top: 150px;
+}
+.section-team {
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+.white {
+  color: #fff;
+}
+img:hover {
+  -webkit-filter: brightness(130%);
+  filter: brightness(130%);
+  -webkit-transition: all 300ms ease;
+}
+.logo {
+  border-radius: 300px;
+  width: 350px;
+  height: 350px;
+  display: none;
+}
+.rounded {
+  border-radius: 300px;
+  width: 300px;
+  height: 300px;
+  background-image: url(draglogo.jpg);
+  background-position: 50% 50%;
+}
+.verticaltable {
+  width: 700px;
+  text-align: center;
+  margin: auto;
+  margin-top: 30px;
+  color: #fff;
+  font-weight: 200;
+}
+.verticaltable th {
+  text-align: center;
+  font-size: 1.2em;
+  color: #CC528D;
+  text-transform: uppercase;
+}
+.line {
+  height: 1px;
+  background-color: #ccc;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.link {
+  margin-top: 20px;
+  height: 30px;
+}
+.eventtable {
+  width: 300px;
+  text-align: center;
+  margin: auto;
+  margin-top: 20px;
+  font-size: 1em;
+}
+.eventtable tr {
+  height: 40px;
+}
+.eventtable td:nth-child(1) {
+  color: #CC528D;
+  font-size: 1.3em;
+  font-weight: 200;
+}
+.member {
+  border-radius: 100px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+ul.imageGallery {
+  list-style: none;
+}
+ul.imageGallery li {
+  float: left;
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
