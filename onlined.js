@@ -162,7 +162,6 @@ if (Meteor.isClient) {
       reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
-        setModifier.$set['content.' + this.to] = event.target.result;
         Websites.update({_id:websiteId}, setModifier);
       };
 
@@ -177,6 +176,7 @@ if (Meteor.isClient) {
       reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
+        setModifier.$set['content.'+this.gallery+'.'+this.position+'.small' ] = event.target.result;
         setModifier.$set['content.'+this.gallery+'.'+this.position+'.src' ] = event.target.result;
         Websites.update({_id:websiteId}, setModifier);
       };
@@ -227,7 +227,7 @@ if (Meteor.isClient) {
     Template.create.rendered = function () {
       var slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
       slider.nav.find('button').on('click', function() {
-        console.log('clicked'+$(this).data('dir'));
+        // console.log('clicked'+$(this).data('dir'));
         slider.setCurrent( $(this).data('dir') );
         slider.transition();
       });
@@ -579,7 +579,7 @@ Template.website.rendered = function () {
 
   Template.slider.helpers({
     sliderImages: function () {
-      console.log(this.content.sliderImages);
+      // console.log(this.content.sliderImages);
       return this.content.sliderImages;
     }
   });
@@ -596,7 +596,7 @@ Template.website.rendered = function () {
 
   Template.gallery.helpers({
     galleryImages: function () {
-      console.log(this.content.galleryImages);
+      // console.log(this.content.galleryImages);
       return this.content.galleryImages;
     }
   });
@@ -605,8 +605,8 @@ Template.website.rendered = function () {
       'dragover ul.imageGallery li' : function (e) { preventActionsForEvent(e); },
 
       'drop ul.imageGallery li' : function (e) {
-        preventActionsForEvent(e);
-        var file = e.originalEvent.dataTransfer.files[0];Ω
+        preventActionsForEvent(e);  
+        var file = e.originalEvent.dataTransfer.files[0];
         saveGalleryImage('galleryImages', file, this.position);
       }
 
