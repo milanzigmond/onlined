@@ -10,7 +10,11 @@ if (Meteor.isClient) {
   Session.setDefault('styleOptions', []);
   Session.setDefault('currentStyle', null);
   Session.setDefault('themes', [
-    {name:'Dark', css: 'dark.css'},
+    {name:'styl1', css: 'dark.css'},
+    {name:'styl2', css: 'styl2.css'},
+    {name:'styl3', css: 'styl3.css'},
+    {name:'styl4', css: 'styl4.css'},
+    {name:'styl5', css: 'styl5.css'},
     {name:'Amelia', css: 'amelia.css'},
     {name:'Cerulean', css: 'cerulean.css'},
     {name:'Cosmo', css: 'cosmo.css'},
@@ -150,7 +154,13 @@ if (Meteor.isClient) {
             {position: 4, src:"family05.jpg", small:"family05small.jpg"},
             {position: 5, src:"family06.jpg", small:"family06small.jpg"},
             {position: 6, src:"family07.jpg", small:"family07small.jpg"}
-          ]
+          ],
+          textColumns1Heading: "You will love this!",
+          textColumns2Heading: "Unbelievable",
+          textColumns3Heading: "FAST",
+          textColumns1Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur sit in atque quasi repellendus rem reprehenderit veritatis, ratione similique deleniti, porro itaque error repudiandae ad saepe fugiat quas! Tenetur ea eius assumenda quaerat nam facilis. Pariatur fugit obcaecati quibusdam dolor hic, mollitia soluta magni, amet vitae sit officiis maiores sed!",
+          textColumns2Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae vitae voluptatibus, voluptas corporis ipsum, ipsa eos officiis, recusandae incidunt veritatis ipsam cum cupiditate natus in est unde repudiandae eligendi at voluptatum sit mollitia non, possimus tenetur iure voluptate. Sapiente quia consequatur perferendis laboriosam ea rerum, ab molestias possimus temporibus dolores!",
+          textColumns3Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem maxime adipisci at nemo cupiditate omnis qui, incidunt, aliquam officia molestiae temporibus ut fuga quas accusamus maiores quod nesciunt dignissimos laudantium ullam nam quo, repudiandae nisi! Qui fugiat unde exercitationem voluptatum earum, rerum nesciunt molestiae, incidunt labore est praesentium ut excepturi."
         }
       });
       Session.set('editing_website', website_id);
