@@ -176,6 +176,9 @@ if (Meteor.isClient) {
       reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
+
+        // BUG: This is saving small image also for Slider gallery!!!
+
         setModifier.$set['content.'+this.gallery+'.'+this.position+'.small' ] = event.target.result;
         setModifier.$set['content.'+this.gallery+'.'+this.position+'.src' ] = event.target.result;
         Websites.update({_id:websiteId}, setModifier);
@@ -257,6 +260,9 @@ if (Meteor.isClient) {
       },
       goHome: function () {
         Router.go('home');
+      },
+      email: function () {
+        return Meteor.user().emails[0].address;
       }
     });
 
