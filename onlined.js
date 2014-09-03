@@ -78,8 +78,6 @@ if (Meteor.isClient) {
     return pos;
   };
 
-    console.log('what');
-
   // SLIDER END
 
 
@@ -457,10 +455,6 @@ Template.website.rendered = function () {
     }
   };
 
-  Template.layout.rendered = function () {
-    console.log('template layout rendered');
-  };
-
   Template.layout.helpers({
     alert: function () {
         console.log('logging from helpers alertMessage: '+ Session.get('alertMessage'));
@@ -612,7 +606,7 @@ Template.website.rendered = function () {
 
       'drop ul.imageGallery li' : function (e) {
         preventActionsForEvent(e);
-        var file = e.originalEvent.dataTransfer.files[0];
+        var file = e.originalEvent.dataTransfer.files[0];Ω
         saveGalleryImage('galleryImages', file, this.position);
       }
 
@@ -627,16 +621,6 @@ Template.website.rendered = function () {
       //   }).click();
       // }
     });
-
-  Template.hello.rendered = function () {
-    
-    $('.fancybox').fancybox();
-    // $('.fancybox').fancybox({
-    //         padding : 0,
-    //         openEffect  : 'elastic'
-    //     });
-    // });
-  };
 
   // Meteor.autorun(function() {
   //   // Whenever this session variable changes, run this function.

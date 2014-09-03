@@ -26,9 +26,9 @@ var clearUnfinishedWebsite = function () {
 }
 
 Router.configure({
-  layoutTemplate: 'layout',
-  notFoundTemplate: 'notFound',
-  loadingTemplate: 'loading'
+	layoutTemplate: 'layout',
+	notFoundTemplate: 'notFound',
+	loadingTemplate: 'loading'
 });
 
 Router.map(function() {
@@ -62,7 +62,26 @@ Router.map(function() {
 var loadCSS = function() {
 	var currentStyle = Session.get("currentStyle");
 	if (currentStyle) {
-		$("link").attr("href", currentStyle);
+		// $("link").attr("href", currentStyle);
+		$.get(currentStyle, function (data) {
+			var customStyleLink;
+
+			$( "link" ).each(function() {
+				if($(this).data('custom-style')){
+					customStyleLink = this;
+				}
+			});
+
+			if(customStyleLink) {
+				$(customStyleLink).attr("href", currentStyle);
+			} else {
+				$('head').append('<link rel="stylesheet" data-custom-style="'+currentStyle+'" href="'+currentStyle+'" type="text/css" />');
+			}
+
+
+			console.log('css style loaded:'+currentStyle);
+            // Stuff that must happen after CSS injection here
+        });
 	};
 }
 
