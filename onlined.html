@@ -158,7 +158,7 @@
 				{{>paragraph}}
 			</div>
 			<div class="col-md-5">
-				<img class="featurette-image img-responsive" src="{{content.logo}}">
+				<img class="img-responsive" src="{{content.logo}}">
 			</div>
 		</div>
 		{{>footer}}
@@ -289,7 +289,7 @@
 	</div>
 
 
-	<div class="section-eventcalender text-center">
+	<!-- <div class="section-eventcalender text-center">
 		<div class="row">
 			<div class="col-lg-12">
 				<span class="glyphicon glyphicon-calendar"></span>
@@ -310,7 +310,7 @@
 				</table>	
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="container">	
 
@@ -415,9 +415,9 @@
 
 <template name="heading">
 	{{#if editing}}
-	<h3 class="featurette-heading"><input id="input" class="textInput" type="text" placeholder="Enter heading" value="{{content.heading}}" /></h3>
+	<h3><input id="input" class="textInput" type="text" placeholder="Enter heading" value="{{content.heading}}" /></h3>
 	{{else}}
-	<h3 id="heading" class="featurette-heading">{{content.heading}}</h3>
+	<h3 id="heading">{{content.heading}}</h3>
 	{{/if}}
 </template>
 
