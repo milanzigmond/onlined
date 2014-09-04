@@ -126,25 +126,34 @@ if (Meteor.isClient) {
           textContent = event.target.textContent,
           $eventTarget = $(event.target),
           tagName = $eventTarget.get(0).tagName;
-          // $eventTarget.is("h3")
+          
+       // $eventTarget.is("h3")
       if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
-          // it's a text field
-          console.log('it is a one line text field');
+      // it's a text field
+        
+        if (contentId === "address") {
+          // var input = '<input id="pac-input" class="controls" type="text" placeholder="Enter a location">';
+          $(event.target.nextElementSibling).toggle();
           debugger
+        } else {
           var input = '<input id="input" class="textInput" type="text" placeholder="" value="'+textContent+'"/>';
           $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
-          $( event.target ).hide();
         }
-        else if (tagName === "P") {
-          // it's a text area
-          console.log('it is a text area');
-          var input = '<textarea id="input" rows="6" cols="50">'+textContent+'</textarea>';
+        $( event.target ).hide();
+        console.log('it is a one line text field');
+      }
+      else if (tagName === "P") {
+        // it's a text area
+        console.log('it is a text area');
+        var input = '<textarea id="input" rows="6" cols="50">'+textContent+'</textarea>';
 
-          $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
-          $( event.target ).hide();
-        }
-        Deps.flush();
-        activateInput(template.find('#input'));
+        $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
+        $( event.target ).hide();
+      }
+
+      debugger
+      Deps.flush();
+      activateInput(template.find('#input'));
     }
 
     var makeStatic = function (event, template) {
@@ -232,7 +241,9 @@ if (Meteor.isClient) {
           firstTeamMember: "Jano Mrazik", firstTeamMemberTagline: "stale sa flaka",
           secondTeamMember: "Jano Mrazik 2", secondTeamMemberTagline: "stale sa flaka 2",
           thirdTeamMember: "Jano Mrazik 3", thirdTeamMemberTagline: "stale sa flaka 3",
-          fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4"
+          fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4",
+          address: "Krizikvova 52, Praha 8, Czech Republic",
+          latLng: {lat:50.092547, lng:14.45133999999996}
         }
       });
       Session.set('editing_website', website_id);
@@ -312,41 +323,60 @@ if (Meteor.isClient) {
     });
 
     var setupMap = function () {
-      var mapOptions = {
-        center: new google.maps.LatLng(-33.8688, 151.2195),
-        zoom: 13
-      };
-      var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-
-      var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-
-      // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-      var autocomplete = new google.maps.places.Autocomplete(input);
+      var editingWebsite = Websites.findOne(Session.get('editing_website')),
+          address = editingWebsite.content.address,
+          latLng = editingWebsite.content.latLng,
+          mapOptions = {
+            center: new google.maps.LatLng(latLng.lat, latLng.lng),
+            zoom: 13
+          },
+          map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions),
+          input = (document.getElementById('pac-input')),
+          autocomplete = new google.maps.places.Autocomplete(input),
+          infowindow = new google.maps.InfoWindow(),
+          marker = new google.maps.Marker({
+            map: map,
+            anchorPoint: new google.maps.Point(0, -29)
+          });
+      
       autocomplete.bindTo('bounds', map);
 
-      var infowindow = new google.maps.InfoWindow();
-      var marker = new google.maps.Marker({
-        map: map,
-        anchorPoint: new google.maps.Point(0, -29)
-      });
-
       google.maps.event.addListener(autocomplete, 'place_changed', function() {
-          infowindow.close();
-          marker.setVisible(false);
-          var place = autocomplete.getPlace();
-          if (!place.geometry) {
-            return;
-          }
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+          return;
+        }
+
+        //place.geometry.location.k
+        //place.geometry.location.B
+        //place.formatted_address
 
         // If the place has a geometry, then present it on a map.
         if (place.geometry.viewport) {
+          console.log('showing viewport');
           map.fitBounds(place.geometry.viewport);
         } else {
+          console.log('showing location');
           map.setCenter(place.geometry.location);
           console.log('place.geometry.location:'+place.geometry.location);
           map.setZoom(17);  // Why 17? Because it looks good.
         }
+
+        var editingWebsite = Session.get('editing_website');
+        // debugger
+
+        // var setModifier = { $set: {} };
+        // setModifier.$set['content.'+this.to ] = event.target.result;
+        // Websites.update({_id:websiteId}, setModifier);
+
+
+        Websites.update({_id:editingWebsite},{ $set: { 
+          'content.address': place.formatted_address,
+          'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}
+        }});
+        
         marker.setIcon(/** @type {google.maps.Icon} */({
           url: place.icon,
           size: new google.maps.Size(71, 71),
@@ -359,10 +389,12 @@ if (Meteor.isClient) {
 
         infowindow.setContent('<div><strong>' + place.name + '</strong>');
         infowindow.open(map, marker);
-      });
-    };
 
-    Template.create.rendered = function () {
+
+      });
+};
+
+Template.create.rendered = function () {
 
       setupMap();
 
