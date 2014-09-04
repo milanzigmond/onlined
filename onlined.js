@@ -115,6 +115,63 @@ if (Meteor.isClient) {
       return events;
     };
 
+    var makeEditable = function (event, template) {
+      preventActionsForEvent(event);
+
+      if(Session.get('editing_field')) return;
+      Session.set('editing_field', event.target.id);
+
+      var contentId = event.target.id,
+          textContent = event.target.textContent,
+          $eventTarget = $(event.target),
+          tagName = $eventTarget.get(0).tagName;
+          // $eventTarget.is("h3")
+      if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
+          // it's a text field
+          console.log('it is a one line text field');
+          debugger
+          var input = '<input id="input" class="textInput" type="text" placeholder="" value="'+textContent+'"/>';
+          $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
+          $( event.target ).hide();
+        }
+        else if (tagName === "P") {
+          // it's a text area
+          console.log('it is a text area');
+          var input = '<textarea id="input" rows="6" cols="50">'+textContent+'</textarea>';
+
+          $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
+          $( event.target ).hide();
+        }
+        Deps.flush();
+        activateInput(template.find('#input'));
+    }
+
+    var makeStatic = function (event, template) {
+      preventActionsForEvent(event);
+
+      var value = event.target.value,
+          textContent = event.target.textContent,
+          $eventTarget = $(event.target),
+          parent = event.target.parentElement,
+          contentId = parent.id,
+          sibling = parent.nextSibling,
+          websiteId = Session.get('editing_website'),
+          setModifier = { $set: {} };
+
+      if ( event.which === 13 ){
+        // enter pressed
+        setModifier.$set['content.'+ contentId ] = value;
+        Websites.update({_id:websiteId}, setModifier);
+      }
+      
+      console.log('id: '+contentId);
+      
+      $(sibling).show();
+      $(parent).remove();
+      // Deps.flush();
+      Session.set('editing_field', null);
+    }
+
     var showAlert = function (alert) {
       $('div.alert').text(alert).slideDown(300).delay(2000).slideUp(300);
     }
@@ -160,7 +217,12 @@ if (Meteor.isClient) {
           textColumns3Heading: "FAST",
           textColumns1Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur sit in atque quasi repellendus rem reprehenderit veritatis, ratione similique deleniti, porro itaque error repudiandae ad saepe fugiat quas! Tenetur ea eius assumenda quaerat nam facilis. Pariatur fugit obcaecati quibusdam dolor hic, mollitia soluta magni, amet vitae sit officiis maiores sed!",
           textColumns2Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae vitae voluptatibus, voluptas corporis ipsum, ipsa eos officiis, recusandae incidunt veritatis ipsam cum cupiditate natus in est unde repudiandae eligendi at voluptatum sit mollitia non, possimus tenetur iure voluptate. Sapiente quia consequatur perferendis laboriosam ea rerum, ab molestias possimus temporibus dolores!",
-          textColumns3Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem maxime adipisci at nemo cupiditate omnis qui, incidunt, aliquam officia molestiae temporibus ut fuga quas accusamus maiores quod nesciunt dignissimos laudantium ullam nam quo, repudiandae nisi! Qui fugiat unde exercitationem voluptatum earum, rerum nesciunt molestiae, incidunt labore est praesentium ut excepturi."
+          textColumns3Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem maxime adipisci at nemo cupiditate omnis qui, incidunt, aliquam officia molestiae temporibus ut fuga quas accusamus maiores quod nesciunt dignissimos laudantium ullam nam quo, repudiandae nisi! Qui fugiat unde exercitationem voluptatum earum, rerum nesciunt molestiae, incidunt labore est praesentium ut excepturi.",
+          phoneNumber: "00420 602 259 666", 
+          openingHoursTitle: "opening hours",
+          monday: "MON", tuesday: "TUE", wednesday: "WED", thursday: "THU", friday: "FRI", saturday: "SAT", sunday: "SUN",
+          mondayHours: "8-18", tuesdayHours: "8-18", wednesdayHours: "8-18", thursdayHours: "8-18", fridayHours: "8-18",
+          saturdayHours: "closed", sundayHours: "closed"
         }
       });
       Session.set('editing_website', website_id);
@@ -248,21 +310,29 @@ if (Meteor.isClient) {
       });
     };
 
-    Template.create.events({
 
-      'mouseenter p,h1,h2,h4,h5,h6': function (event,template) {
+    Template.create.events({
+      'click p,h1,h2,h3,h4,h5,h6': function( event, template ){
+        console.log('clicked: '+ event.target);
+        makeEditable( event, template );
+      }, 
+      'mouseenter p,h1,h2,h3,h4,h5,h6': function (event) {
         $(event.currentTarget).addClass("text-info");
       },
-
-      'mouseleave p,h1,h2,h4,h5,h6': function (event,template) {
+      'mouseleave p,h1,h2,h3,h4,h5,h6': function (event) {
         $(event.currentTarget).removeClass("text-info");
       },
-
-      'click h1,h2,h4,h5,h6': function (event,template) {
-        if(Session.get('editing_field')) return;
-        Session.set('editing_field', event.target.id);
-        // Deps.flush();
-        // activateInput(template.find('#input'));
+      'keydown #input' : function( event, template ){
+        if (event.which === 27) {
+          // escape pressed
+          console.log('escape pressed');
+          makeStatic(event, template);
+        }
+        if (event.which === 13) {
+          // enter pressed
+          console.log('enter pressed');
+          makeStatic(event, template);
+        }
       }
     });
 
@@ -333,96 +403,7 @@ if (Meteor.isClient) {
       // });
     };
 
-    Template.title.helpers({
-      editing: function () {
-        return Session.equals('editing_field', 'title');;
-      }
-    });
-
-    Template.title.events(okCancelEvents(
-      'input',
-      {
-        ok: function (value) {
-          Websites.update({_id:this._id}, {$set: {'content.title': value}});
-          Session.set('editing_field', null);
-        },
-        cancel: function () {
-          Session.set('editing_field', null);
-        }
-      }));
-
-    var makeEditable = function (event, template) {
-      preventActionsForEvent(event);
-
-      if(Session.get('editing_field')) return;
-      Session.set('editing_field', event.target.id);
-
-      var contentId = event.target.id;
-      var textContent = event.target.textContent;
-      var $eventTarget = $(event.target);
-
-      if ($eventTarget.is("h3")) {
-          // it's a text field
-          console.log('it is a one line text field');
-          var input = '<input id="input" class="textInput" type="text" placeholder="" value="'+textContent+'"/>';
-          $( event.target ).before( '<h3 id="'+contentId+'">'+ input + '</h3>');
-          $( event.target ).hide();
-        }
-        else if ($eventTarget.is("p")) {
-          // it's a text area
-          console.log('it is a text area');
-          var input = '<textarea id="input" rows="6" cols="50">'+textContent+'</textarea>';
-
-          $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
-          $( event.target ).hide();
-        }
-        Deps.flush();
-        activateInput(template.find('#input'));
-    }
-
-    var makeStatic = function (event, template) {
-      preventActionsForEvent(event);
-
-      var value = event.target.value,
-          textContent = event.target.textContent,
-          $eventTarget = $(event.target),
-          parent = event.target.parentElement,
-          contentId = parent.id,
-          sibling = parent.nextSibling,
-          websiteId = Session.get('editing_website'),
-          setModifier = { $set: {} };
-
-      if ( event.which === 13 ){
-        // enter pressed
-        setModifier.$set['content.'+ contentId ] = value;
-        Websites.update({_id:websiteId}, setModifier);
-      }
-      
-      console.log('id: '+contentId);
-      
-      $(sibling).show();
-      $(parent).remove();
-      // Deps.flush();
-      Session.set('editing_field', null);
-    }
-
-    Template.threeTextColumns.events({
-      'click h3,p': function( event, template ){
-        makeEditable( event, template );
-      }, 
-      'keydown #input' : function( event, template ){
-        if (event.which === 27) {
-          // escape pressed
-          console.log('escape pressed');
-          makeStatic(event, template);
-        }
-        if (event.which === 13) {
-          // enter pressed
-          console.log('enter pressed');
-          makeStatic(event, template);
-        }
-      }
-    });
+    
 
     /*
 var okCancelEvents = function (selector, callbacks) {
@@ -450,61 +431,6 @@ var okCancelEvents = function (selector, callbacks) {
       return events;
     };
     */
-
-
-    Template.tagline.helpers({
-      editing: function () {
-        return Session.equals('editing_field', 'tagline');;
-      }
-    });
-
-    Template.tagline.events(okCancelEvents(
-      'input',
-      {
-        ok: function (value) {
-          Websites.update({_id:this._id}, {$set: {'content.tagline': value}});
-          Session.set('editing_field', null);
-        },
-        cancel: function () {
-          Session.set('editing_field', null);
-        }
-      }));
-
-    Template.heading.helpers({
-      editing: function () {
-        return Session.equals('editing_field', 'heading');;
-      }
-    });
-
-    Template.heading.events(okCancelEvents(
-      'input',
-      {
-        ok: function (value) {
-          Websites.update({_id:this._id}, {$set: {'content.heading': value}});
-          Session.set('editing_field', null);
-        },
-        cancel: function () {
-          Session.set('editing_field', null);
-        }
-      }));
-
-    Template.paragraph.helpers({
-      editing: function () {
-        return Session.equals('editing_field', 'paragraph');;
-      }
-    });
-
-    Template.paragraph.events(okCancelEvents(
-      'textArea',
-      {
-        ok: function (value) {
-          Websites.update({_id:this._id}, {$set: {'content.paragraph': value}});
-          Session.set('editing_field', null);
-        },
-        cancel: function () {
-          Session.set('editing_field', null);
-        }
-      }));
 
     Template.logo.events({
       'dragover' : function (e) { preventActionsForEvent(e); },

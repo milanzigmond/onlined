@@ -149,13 +149,13 @@
 	{{>topImage}}
 	<div class="container">
 		<div class="jumbotron">
-			{{>title}}
-			{{>tagline}}
+			<h1 id="title" class="text-center">{{content.title}}</h1>
+			<p id="tagline" class="text-center" >{{content.tagline}}</p>
 		</div>
 		<div class="row">
 			<div class="col-md-7">
-				{{>heading}}
-				{{>paragraph}}
+				<h3 id="heading">{{content.heading}}</h3>
+				<p id="paragraph" class="lead">{{content.paragraph}}</p>
 			</div>
 			<div class="col-md-5">
 				<img class="img-responsive" src="{{content.logo}}">
@@ -171,8 +171,8 @@
 	{{>topImage}}
 	<div class="container">	
 		<div class="section-heading">
-			{{>title}}
-			{{>tagline}}
+			<h1 id="title" class="text-center">{{content.title}}</h1>
+			<h4 id="tagline" class="text-center">{{content.tagline}}</h4>
 		</div>
 		
 		<div class="section-intro">
@@ -182,8 +182,8 @@
 				</div>
 
 				<div class="col-md-7">
-					{{>heading}}
-					{{>paragraph}}
+					<h3 id="heading">{{content.heading}}</h3>
+					<p id="paragraph" class="lead">{{content.paragraph}}</p>
 				</div>
 			</div>
 		</div>
@@ -196,9 +196,25 @@
 		<h4 class="white">{{email}}</h4>
 	</div>
 
-
 	<div class="container">	
-		{{> threeTextColumns}}
+		<div class="section-text">
+			<div class="row text-center">
+				<div class="col-md-4">
+					<h3 id="textColumns1Heading">{{content.textColumns1Heading}}</h3>
+					<p id="textColumns1Text">{{content.textColumns1Text}}</p>
+				</div>
+
+				<div class="col-md-4">
+					<h3 id="textColumns2Heading">{{content.textColumns2Heading}}</h3>
+					<p id="textColumns2Text">{{content.textColumns2Text}}</p>
+				</div>
+
+				<div class="col-md-4">
+					<h3 id="textColumns3Heading">{{content.textColumns3Heading}}</h3>
+					<p id="textColumns3Text">{{content.textColumns3Text}}</p>
+				</div>
+			</div>
+		</div>
 
 
 		<div class="section-location text-center">
@@ -222,7 +238,7 @@
 
 	<div class="section-telnumber text-center">
 		<span class="glyphicon glyphicon-phone-alt white"></span>
-		<h4 class="white">00420 602 259 394</h4>
+		<h4 id="phoneNumber" class="white">{{content.phoneNumber}}</h4>
 	</div>
 
 	<div class="section-openinghours text-center">
@@ -230,18 +246,16 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<span class="glyphicon glyphicon-time"></span>
-					<h3>opening hours</h3>
-
-
+					<h3 id="openingHoursTitle">{{content.openingHoursTitle}}</h3>
 					<table class="verticaltable">
 						<tr>
-							<th>Mon</th>
-							<th>Tue</th>
-							<th>Wed</th>
-							<th>Thu</th>
-							<th>Fri</th>
-							<th>Sat</th>
-							<th>Sun</th>
+							<th><h5 id="monday">{{content.monday}}</h5></th>
+							<th><h5 id="tuesday">{{content.tuesday}}</h5></th>
+							<th><h5 id="wednesday">{{content.wednesday}}</h5></th>
+							<th><h5 id="thursday">{{content.thursday}}</h5></th>
+							<th><h5 id="friday">{{content.friday}}</h5></th>
+							<th><h5 id="saturday">{{content.saturday}}</h5></th>
+							<th><h5 id="sunday">{{content.sunday}}</h5></th>
 						</tr>
 						<tr>
 							<td colspan="7">
@@ -249,18 +263,15 @@
 							</td>
 						</tr>
 						<tr>
-							<td>8-18</td>
-							<td>8-18</td>
-							<td>8-18</td>
-							<td>8-18</td>
-							<td>8-18</td>
-							<td>closed</td>
-							<td>closed</td>
+							<td><h6 id="mondayHours">{{content.mondayHours}}</h6></td>
+							<td><h6 id="tuesdayHours">{{content.tuesdayHours}}</h6></td>
+							<td><h6 id="wednesdayHours">{{content.wednesdayHours}}</h6></td>
+							<td><h6 id="thursdayHours">{{content.thursdayHours}}</h6></td>
+							<td><h6 id="fridayHours">{{content.fridayHours}}</h6></td>
+							<td><h6 id="saturdayHours">{{content.saturdayHours}}</h6></td>
+							<td><h6 id="sundayHours">{{content.sundayHours}}</h6></td>
 						</tr>
 					</table>
-
-
-
 				</div>
 			</div>
 		</div>
@@ -396,62 +407,6 @@
 		<img class="img img-responsive" src="{{content.topImage}}">
 	</div>
 </template>
-
-<template name="title">
-	{{#if editing}}
-	<h1 class="text-center"><input id="input" class="textInput" type="text" placeholder="{{content.title}}" value="{{content.title}}" /></h1>
-	{{else}}
-	<h1 class="text-center" id="title">{{content.title}}</h1>
-	{{/if}}
-</template>
-
-<template name="tagline">
-	{{#if editing}}
-	<p class="text-center"><input id="input" class="textInput" type="text" placeholder="Enter tagline" value="{{content.tagline}}" /></p>
-	{{else}}
-	<p class="text-center" id="tagline">{{content.tagline}}</p>
-	{{/if}}
-</template>
-
-<template name="heading">
-	{{#if editing}}
-	<h3><input id="input" class="textInput" type="text" placeholder="Enter heading" value="{{content.heading}}" /></h3>
-	{{else}}
-	<h3 id="heading">{{content.heading}}</h3>
-	{{/if}}
-</template>
-
-<template name="paragraph">
-	{{#if editing}}
-	<p><textarea id="input" rows="4" cols="50">{{content.paragraph}}</textarea></p>
-	{{else}}
-	<p id="paragraph" class="lead">{{content.paragraph}}</p>
-	{{/if}}
-</template>
-
-
-<template name="threeTextColumns">
-	<div class="section-text">
-		<div class="row text-center">
-			<div class="col-md-4">
-				<h3 id="textColumns1Heading">{{content.textColumns1Heading}}</h3>
-				<p id="textColumns1Text">{{content.textColumns1Text}}</p>
-			</div>
-
-			<div class="col-md-4">
-				<h3 id="textColumns2Heading">{{content.textColumns2Heading}}</h3>
-				<p id="textColumns2Text">{{content.textColumns2Text}}</p>
-			</div>
-
-			<div class="col-md-4">
-				<h3 id="textColumns3Heading">{{content.textColumns3Heading}}</h3>
-				<p id="textColumns3Text">{{content.textColumns3Text}}</p>
-			</div>
-		</div>
-	</div>
-</template>
-
-
 
 <template name="form">
 	<form class="form-horizontal">
