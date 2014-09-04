@@ -181,7 +181,7 @@
 					{{>logo}}
 				</div>
 
-				<div class="col-md-7">
+				<div class="col-md-7 introtext">
 					{{>heading}}
 					{{>paragraph}}
 				</div>
@@ -355,23 +355,31 @@
 						<div class="row">
 							<div class="col-lg-3">
 								<img class="member" width="50%" src="draglogo.jpg" alt="">
-								<h4>John Doe</h4>
-								<p>tagline of this team member</p>
+								<div class="membercaption">
+									<h4>John Doe</h4>
+									<p>tagline of this team member</p>
+								</div>
 							</div>
 							<div class="col-lg-3">
 								<img class="member" width="50%" src="draglogo.jpg" alt="">
-								<h4>Jane Doe</h4>
-								<p>tagline of this team member</p>
+								<div class="membercaption">
+									<h4>Jane Doe</h4>
+									<p>tagline of this team member</p>
+								</div>
 							</div>
 							<div class="col-lg-3">
 								<img class="member" width="50%" src="draglogo.jpg" alt="">
-								<h4>John Doe</h4>
-								<p>tagline of this team member</p>
+								<div class="membercaption">
+									<h4>John Doe</h4>
+									<p>tagline of this team member</p>
+								</div>
 							</div>
 							<div class="col-lg-3">
 								<img class="member" width="50%" src="draglogo.jpg" alt="">
-								<h4>Jane Doe</h4>
-								<p>tagline of this team member</p>
+								<div class="membercaption">
+									<h4>Jane Doe</h4>
+									<p>tagline of this team member</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -433,17 +441,17 @@
 <template name="threeTextColumns">
 	<div class="section-text">
 		<div class="row text-center">
-			<div class="col-md-4">
+			<div class="col-md-4 textp">
 				<h3 id="textColumns1Heading">{{content.textColumns1Heading}}</h3>
 				<p id="textColumns1Text">{{content.textColumns1Text}}</p>
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-4 textp">
 				<h3 id="textColumns2Heading">{{content.textColumns2Heading}}</h3>
 				<p id="textColumns2Text">{{content.textColumns2Text}}</p>
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-4 textp">
 				<h3 id="textColumns3Heading">{{content.textColumns3Heading}}</h3>
 				<p id="textColumns3Text">{{content.textColumns3Text}}</p>
 			</div>
