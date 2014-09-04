@@ -258,7 +258,7 @@ if (Meteor.isClient) {
         $(event.currentTarget).removeClass("text-info");
       },
 
-      'click p,h1,h2,h4,h5,h6': function (event,template) {
+      'click h1,h2,h4,h5,h6': function (event,template) {
         if(Session.get('editing_field')) return;
         Session.set('editing_field', event.target.id);
         // Deps.flush();
@@ -351,43 +351,76 @@ if (Meteor.isClient) {
         }
       }));
 
-    Template.threeTextColumns.events({
-      'click h3': function( event, template ){
-        preventActionsForEvent(event);
+    var makeEditable = function (event, template) {
+      preventActionsForEvent(event);
 
-        var contentId = event.target.id;
-        var textContent = event.target.textContent;
-        if (textContent !== "") {
+      if(Session.get('editing_field')) return;
+      Session.set('editing_field', event.target.id);
+
+      var contentId = event.target.id;
+      var textContent = event.target.textContent;
+      var $eventTarget = $(event.target);
+
+      if ($eventTarget.is("h3")) {
           // it's a text field
+          console.log('it is a one line text field');
           var input = '<input id="input" class="textInput" type="text" placeholder="" value="'+textContent+'"/>';
-          $( event.target ).replaceWith( '<h3 id="'+contentId+'">'+ input + '</h3>');
-          Deps.flush();
-          activateInput(template.find('#input'));
-        } else {
-          // it's a text area
+          $( event.target ).before( '<h3 id="'+contentId+'">'+ input + '</h3>');
+          $( event.target ).hide();
         }
-        console.log('textContent:'+event.target.textContent);
-      }, 
+        else if ($eventTarget.is("p")) {
+          // it's a text area
+          console.log('it is a text area');
+          var input = '<textarea id="input" rows="6" cols="50">'+textContent+'</textarea>';
+          $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
+          $( event.target ).hide();
+        }
+        Deps.flush();
+        activateInput(template.find('#input'));
+    }
 
-      'keyup input' : function( event, template ){
-        preventActionsForEvent(event);
+    var makeStatic = function (event, template) {
+      preventActionsForEvent(event);
 
-        console.log('keyup:'+event.which);
-      },
+      var value = event.target.value,
+          textContent = event.target.textContent,
+          $eventTarget = $(event.target),
+          parent = event.target.parentElement,
+          contentId = parent.id,
+          sibling = parent.nextSibling,
+          websiteId = Session.get('editing_website'),
+          setModifier = { $set: {} };
 
-      'keydown input' : function( event, template ){
-        preventActionsForEvent(event);
-
-        console.log('keydown:'+event.which);
-      },
-
-      'focusout input' : function( event, template ){
-        preventActionsForEvent(event);
-
-        console.log('keyup:'+event.which);
+      if ( event.which === 13 ){
+        // enter pressed
+        setModifier.$set['content.'+ contentId ] = value;
+        Websites.update({_id:websiteId}, setModifier);
       }
+      
+      console.log('id: '+contentId);
+      
+      $(sibling).show();
+      $(parent).remove();
+      // Deps.flush();
+      Session.set('editing_field', null);
+    }
 
-
+    Template.threeTextColumns.events({
+      'click h3,p': function( event, template ){
+        makeEditable( event, template );
+      }, 
+      'keydown #input' : function( event, template ){
+        if (event.which === 27) {
+          // escape pressed
+          console.log('escape pressed');
+          makeStatic(event, template);
+        }
+        if (event.which === 13) {
+          // enter pressed
+          console.log('enter pressed');
+          makeStatic(event, template);
+        }
+      }
     });
 
     /*
