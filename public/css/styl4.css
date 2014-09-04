@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Allura);
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700italic);
+@import url(http://fonts.googleapis.com/css?family=Amatic+SC);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
 @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic);
 span.username {
   padding-left: 10px;
@@ -29,10 +29,16 @@ body {
   padding-top: 70px;
   font-size: 16px;
   line-height: 1.5;
-  font-family: 'Merriweather', serif;
+  font-family: 'PT Sans', sans-serif;
   font-weight: 300;
-  color: #82735E;
+  color: #fff;
+  background: url(/stardust.png);
 }
+
+.container {
+  
+}
+
 .jumbotron {
   margin-top: 60px;
 }
@@ -61,45 +67,97 @@ body {
 .sliderGallery li {
   float: left;
 }
+
+//sectiongallery
+
+ul.imageGallery {
+  list-style: none;
+}
+ul.imageGallery li {
+  float: left;
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
+
+
 .col-lg-3 {
   padding: 0px;
 }
 h1 {
-  font-family: 'Allura', cursive;
-  margin-top: 60px;
-  font-size: 5em;
-  color: #CCBD9B;
+  font-family: 'Amatic SC', cursive;
+  margin-top: 20px;
+  font-size: 4.5em;
+  letter-spacing: -2px;
+  color: #ff6445;
 }
 h3 {
-  font-family: 'Droid Serif', serif;
-  font-style: italic;
+  font-family: 'Amatic SC', cursive;
   margin-top: 10px;
-  color: #CCBD9B;
-  font-size: 1.8em;
+  color: #ff6445;
+  font-size: 2.6em;
 }
+
 h4 {
-  color: #CCBD9B;
-  font-family: 'Droid Serif', serif;
-  font-style: italic;
-  font-size: 1.3em;
+  color: #fff;
+  font-family: 'Amatic SC', cursive;
+  font-weight: 400;
+  font-size: 2.2em;
+  letter-spacing: 2px;
 }
+
+h5 {
+  font-size: 1.5em;
+  color: #ff6445;
+  font-family: 'Amatic SC', cursive;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+.logo {
+  border-radius: 300px;
+  width: 350px;
+  height: 350px;
+  display: none;
+}
+.rounded {
+  border-radius: 300px;
+  width: 300px;
+  height: 300px;
+  background-position: 50% 50%;
+  -webkit-filter: brightness(1) contrast(1.2) grayscale(0.3);
+  }
+
 .section-heading {
-  margin-top: 20px;
+  margin-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 .section-intro {
-  margin-top: 200px;
+  margin-top: 120px;
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
+
+.introtext {
+  background-color:rgba(0,0,0,0.4);
+  padding: 40px;
+}
+
 .section-gallery {
-  margin-top: 200px;
+  margin-top: 140px;
 }
 .section-email {
   padding-top: 160px;
   padding-bottom: 160px;
   margin-top: 150px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
-  outline-offset: 6px;
+  background-color:rgba(0,0,0,0.4);
+  background-image: url(/stars.png);
+  background-repeat: no-repeat;
 }
+
 .section-text {
   margin-top: 150px;
 }
@@ -110,9 +168,9 @@ h4 {
   padding-top: 180px;
   padding-bottom: 180px;
   margin-top: 150px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
-  outline-offset: 6px;
+  background-color:rgba(0,0,0,0.4);
+  background-image: url(/stars.png);
+  background-repeat: no-repeat;
 }
 .section-openinghours {
   margin-top: 150px;
@@ -121,9 +179,9 @@ h4 {
   padding-top: 180px;
   padding-bottom: 180px;
   margin-top: 150px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
-  outline-offset: 6px;
+  background-color:rgba(0,0,0,0.4);
+  background-image: url(/stars.png);
+  background-repeat: no-repeat;
 }
 .section-eventcalender {
   margin-top: 150px;
@@ -134,38 +192,59 @@ h4 {
 .section-team {
   margin-top: 150px;
   margin-bottom: 150px;
+  background-color:rgba(0,0,0,0.4);
+  padding: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 .white {
   color: #fff;
 }
+
+img {
+  -webkit-filter: brightness(1) contrast(1.2) grayscale(0.3);
+}
+
 img:hover {
-  -webkit-filter: brightness(130%);
-  filter: brightness(130%);
+  -webkit-filter: brightness(120%);
+  filter: brightness(120%);
   -webkit-transition: all 300ms ease;
 }
+
+.textp {
+  background-color:rgba(0,0,0,0.4);
+  padding: 15px;
+  margin-right: 10px;
+  max-width: 32%;
+  min-height: 300px;
+}
+
+.textp:last-child {
+  background-color:rgba(0,0,0,0.4);
+  padding: 10px;
+  margin-right: 0px;
+}
+
 .verticaltable {
   width: 700px;
   text-align: center;
   margin: auto;
   margin-top: 30px;
-  color: #000;
-  font-weight: 200;
+  color: #fff;
+  font-weight: 300;
 }
 .verticaltable th {
   text-align: center;
-  font-size: 1.2em;
-  color: #cf615c;
-  text-transform: uppercase;
-}
+ }
 .line {
   height: 1px;
-  background-color: #ccc;
+  background-color: #fff;
   margin-bottom: 10px;
   margin-top: 10px;
 }
 .link {
   margin-top: 20px;
-  height: 30px;
+  height: 40px;
 }
 .eventtable {
   width: 300px;
@@ -178,7 +257,7 @@ img:hover {
   height: 40px;
 }
 .eventtable td:nth-child(1) {
-  color: #cf615c;
+  color: #fff;
   font-size: 1.3em;
   font-weight: 200;
 }
@@ -187,3 +266,6 @@ img:hover {
   margin-top: 30px;
   margin-bottom: 20px;
 }
+
+.membercaption {
+ }

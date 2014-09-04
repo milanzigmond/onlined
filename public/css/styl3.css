@@ -32,8 +32,7 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: #fff;
-  background-color: #f08d62;
-  background: url(/fullbg.jpg) 100% 100% no-repeat;
+  background: url(/fullbg2.jpg) 100% 100% no-repeat;
   background-size: cover;
 }
 
@@ -102,12 +101,21 @@ h3 {
   color: #fff;
   font-size: 2.2em;
 }
+
 h4 {
   color: #fff;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-style: italic;
   font-size: 1.6em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 1em;
 }
 
 .logo {
@@ -149,6 +157,8 @@ h4 {
   padding-bottom: 160px;
   margin-top: 150px;
   background-color:rgba(0,0,0,0.2);
+  background-image: url(/lines.png);
+  background-repeat: no-repeat;
 }
 
 .section-text {
@@ -162,6 +172,8 @@ h4 {
   padding-bottom: 180px;
   margin-top: 150px;
   background-color:rgba(0,0,0,0.2);
+  background-image: url(/lines.png);
+  background-repeat: no-repeat;
 }
 .section-openinghours {
   margin-top: 150px;
@@ -171,6 +183,8 @@ h4 {
   padding-bottom: 180px;
   margin-top: 150px;
   background-color:rgba(0,0,0,0.2);
+  background-image: url(/lines.png);
+  background-repeat: no-repeat;
 }
 .section-eventcalender {
   margin-top: 150px;
@@ -183,6 +197,8 @@ h4 {
   margin-bottom: 150px;
   background-color:rgba(0,0,0,0.2);
   padding: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 .white {
   color: #fff;

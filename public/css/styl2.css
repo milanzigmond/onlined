@@ -108,6 +108,14 @@ h4 {
   font-size: 1.3em;
 }
 
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 1em;
+}
+
 .logo {
   border-radius: 300px;
   width: 350px;
@@ -134,8 +142,8 @@ h4 {
   padding-top: 160px;
   padding-bottom: 160px;
   margin-top: 150px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
+  background-color: #f7e6d7;
+  outline: 3px solid #f7e6d7;
   outline-offset: 6px;
  }
 .section-text {
@@ -148,8 +156,8 @@ h4 {
   padding-top: 180px;
   padding-bottom: 180px;
   margin-top: 190px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
+  background-color: #f7e6d7;
+  outline: 3px solid #f7e6d7;
   outline-offset: 6px;
 }
 .section-openinghours {
@@ -159,8 +167,8 @@ h4 {
   padding-top: 180px;
   padding-bottom: 180px;
   margin-top: 150px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
+  background-color: #f7e6d7;
+  outline: 3px solid #f7e6d7;
   outline-offset: 6px;
 }
 .section-eventcalender {
@@ -174,7 +182,7 @@ h4 {
   margin-bottom: 150px;
 }
 .white {
-  color: #fff;
+  color: #CCBD9B;
 }
 img:hover {
   -webkit-filter: brightness(130%);
