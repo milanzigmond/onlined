@@ -132,9 +132,7 @@ if (Meteor.isClient) {
       // it's a text field
         
         if (contentId === "address") {
-          // var input = '<input id="pac-input" class="controls" type="text" placeholder="Enter a location">';
           $(event.target.nextElementSibling).toggle();
-          debugger
         } else {
           var input = '<input id="input" class="textInput" type="text" placeholder="" value="'+textContent+'"/>';
           $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
@@ -150,8 +148,6 @@ if (Meteor.isClient) {
         $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
         $( event.target ).hide();
       }
-
-      debugger
       Deps.flush();
       activateInput(template.find('#input'));
     }
@@ -174,12 +170,14 @@ if (Meteor.isClient) {
         Websites.update({_id:websiteId}, setModifier);
       }
       
-      console.log('id: '+contentId);
-      
-      $(sibling).show();
-      $(parent).remove();
-      // Deps.flush();
+      if(contentId === "address") {
+        sibling = parent.previousElementSibling;
+        $(parent).toggle();
+      } else {
+        $(parent).remove();  
+      }
       Session.set('editing_field', null);
+      $(sibling).show();
     }
 
     var showAlert = function (alert) {
@@ -331,7 +329,7 @@ if (Meteor.isClient) {
             zoom: 13
           },
           map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions),
-          input = (document.getElementById('pac-input')),
+          input = (document.getElementById('input')),
           autocomplete = new google.maps.places.Autocomplete(input),
           infowindow = new google.maps.InfoWindow(),
           marker = new google.maps.Marker({
