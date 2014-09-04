@@ -222,7 +222,16 @@ if (Meteor.isClient) {
           openingHoursTitle: "opening hours",
           monday: "MON", tuesday: "TUE", wednesday: "WED", thursday: "THU", friday: "FRI", saturday: "SAT", sunday: "SUN",
           mondayHours: "8-18", tuesdayHours: "8-18", wednesdayHours: "8-18", thursdayHours: "8-18", fridayHours: "8-18",
-          saturdayHours: "closed", sundayHours: "closed"
+          saturdayHours: "closed", sundayHours: "closed",
+          firstProduct: "Product ONE",
+          firstProductDescription: "Toto je one brutalny produkt no nekup to. Toto je brutalny produkt no nekup to.",
+          secondProduct: "Product TWO",
+          secondProductDescription: "Toto je two brutalny produkt no nekup to. Toto je brutalny produkt no nekup to.",
+          teamTitle: "team members", 
+          firstTeamMember: "Jano Mrazik", firstTeamMemberTagline: "stale sa flaka",
+          secondTeamMember: "Jano Mrazik 2", secondTeamMemberTagline: "stale sa flaka 2",
+          thirdTeamMember: "Jano Mrazik 3", thirdTeamMemberTagline: "stale sa flaka 3",
+          fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4"
         }
       });
       Session.set('editing_website', website_id);
