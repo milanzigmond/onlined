@@ -1,5 +1,6 @@
 <head>
 	<title>onlined</title>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 </head>
 
 <body>
@@ -215,7 +216,6 @@
 			</div>
 		</div>
 
-
 		<div class="section-location text-center">
 			<div class="row">
 				<div class="col-lg-12">
@@ -224,12 +224,17 @@
 			</div>	
 			<div class="row">
 				<div class="col-lg-12">
-					<h4>address line 11, prague 8, czech republic</h4>
+					<!-- <h4>address line 11, prague 8, czech republic</h4> -->
+					<!-- <div id="locationField">
+						<input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text">
+					</div> -->
+					<input id="pac-input" class="controls" type="text" placeholder="Enter a location">
 				</div>
 			</div>		
 			<div class="row">
 				<div class="col-lg-12">
-					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.960735410441!2d14.42070699999999!3d50.08702199999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94e939c02f49%3A0xf17b44b25aa20696!2sPrague+Astronomical+Clock!5e0!3m2!1sen!2scz!4v1409217218519" width="100%" height="200" frameborder="0" style="border:0"></iframe>
+					<div id="map-canvas" style="width:100%;height:200px;"></div>
+					<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.960735410441!2d14.42070699999999!3d50.08702199999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94e939c02f49%3A0xf17b44b25aa20696!2sPrague+Astronomical+Clock!5e0!3m2!1sen!2scz!4v1409217218519" width="100%" height="200" frameborder="0" style="border:0"></iframe> -->
 				</div>
 			</div>
 		</div>
@@ -400,7 +405,6 @@
 				{{goHome}}
 				{{/if}}
 </template>
-
 
 <template name="logo">
 	<div class="rounded" style="background-image: url({{content.logo}})"></div> 
