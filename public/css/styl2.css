@@ -33,6 +33,7 @@ body {
   font-weight: 300;
   color: #82735E;
 }
+
 .jumbotron {
   margin-top: 60px;
 }
@@ -99,23 +100,23 @@ h4 {
   background-color: #FFE5E0;
   outline: 3px solid #FFE5E0;
   outline-offset: 6px;
-}
+ }
 .section-text {
-  margin-top: 150px;
+  margin-top: 190px;
 }
 .section-location {
-  margin-top: 150px;
+  margin-top: 190px;
 }
 .section-telnumber {
   padding-top: 180px;
   padding-bottom: 180px;
-  margin-top: 150px;
+  margin-top: 190px;
   background-color: #FFE5E0;
   outline: 3px solid #FFE5E0;
   outline-offset: 6px;
 }
 .section-openinghours {
-  margin-top: 150px;
+  margin-top: 190px;
 }
 .section-links {
   padding-top: 180px;
@@ -126,7 +127,7 @@ h4 {
   outline-offset: 6px;
 }
 .section-eventcalender {
-  margin-top: 150px;
+  margin-top: 190px;
 }
 .section-video {
   margin-top: 150px;
@@ -144,18 +145,19 @@ img:hover {
   -webkit-transition: all 300ms ease;
 }
 .verticaltable {
-  width: 700px;
+  width: 800px;
   text-align: center;
   margin: auto;
   margin-top: 30px;
-  color: #000;
+  color: #82735E;
   font-weight: 200;
 }
 .verticaltable th {
   text-align: center;
   font-size: 1.2em;
-  color: #cf615c;
+  color: #CCBD9B;
   text-transform: uppercase;
+  font-style: italic;
 }
 .line {
   height: 1px;
@@ -178,9 +180,10 @@ img:hover {
   height: 40px;
 }
 .eventtable td:nth-child(1) {
-  color: #cf615c;
+  color: #CCBD9B;
   font-size: 1.3em;
-  font-weight: 200;
+  font-weight: 400;
+  font-style: italic;
 }
 .member {
   border-radius: 100px;
