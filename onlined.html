@@ -423,8 +423,7 @@
 
 <template name="paragraph">
 	{{#if editing}}
-	<p><textarea id="input" rows="4" cols="50">{{content.paragraph}}
-	</textarea></p>
+	<p><textarea id="input" rows="4" cols="50">{{content.paragraph}}</textarea></p>
 	{{else}}
 	<p id="paragraph" class="lead">{{content.paragraph}}</p>
 	{{/if}}
@@ -440,14 +439,13 @@
 			</div>
 
 			<div class="col-md-4">
-				<h3><input id="input" class="textInput" type="text" placeholder="{{content.textColumns2Heading}}" value="{{content.textColumns2Heading}}" /></h3>
-				<!-- <h3>{{content.textColumns2Heading}}</h3> -->
-				<p>{{content.textColumns2Text}}</p>
+				<h3 id="textColumns2Heading">{{content.textColumns2Heading}}</h3>
+				<p id="textColumns2Text">{{content.textColumns2Text}}</p>
 			</div>
 
 			<div class="col-md-4">
-				<h3>{{content.textColumns3Heading}}</h3>
-				<p>{{content.textColumns3Text}}</p>
+				<h3 id="textColumns3Heading">{{content.textColumns3Heading}}</h3>
+				<p id="textColumns3Text">{{content.textColumns3Text}}</p>
 			</div>
 		</div>
 	</div>
