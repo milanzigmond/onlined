@@ -62,6 +62,19 @@ body {
 .sliderGallery li {
   float: left;
 }
+
+//sectiongallery
+
+ul.imageGallery {
+  list-style: none;
+}
+ul.imageGallery li {
+  float: left;
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
+
 .btn {
   color: #fff;
 }
@@ -206,12 +219,4 @@ img:hover {
   margin-top: 30px;
   margin-bottom: 20px;
 }
-ul.imageGallery {
-  list-style: none;
-}
-ul.imageGallery li {
-  float: left;
-  display: inline-block;
-  padding: 0px;
-  margin: 0px;
-}
+
