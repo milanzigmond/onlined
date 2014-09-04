@@ -169,9 +169,11 @@ if (Meteor.isClient) {
     var saveFile = function (file, to) { 
       var reader = new FileReader();
       reader.to = to;
+      console.log('saving file: '+file+" to: "+to);
       reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
+        setModifier.$set['content.'+this.to ] = event.target.result;
         Websites.update({_id:websiteId}, setModifier);
       };
 
@@ -248,19 +250,19 @@ if (Meteor.isClient) {
 
     Template.create.events({
 
-      'mouseenter p,h1,h2,h3,h4,h5,h6': function (event,template) {
+      'mouseenter p,h1,h2,h4,h5,h6': function (event,template) {
         $(event.currentTarget).addClass("text-info");
       },
 
-      'mouseleave p,h1,h2,h3,h4,h5,h6': function (event,template) {
+      'mouseleave p,h1,h2,h4,h5,h6': function (event,template) {
         $(event.currentTarget).removeClass("text-info");
       },
 
-      'click p,h1,h2,h3,h4,h5,h6': function (event,template) {
+      'click p,h1,h2,h4,h5,h6': function (event,template) {
         if(Session.get('editing_field')) return;
         Session.set('editing_field', event.target.id);
-        Deps.flush();
-        activateInput(template.find('#input'));
+        // Deps.flush();
+        // activateInput(template.find('#input'));
       }
     });
 
@@ -348,6 +350,73 @@ if (Meteor.isClient) {
           Session.set('editing_field', null);
         }
       }));
+
+    Template.threeTextColumns.events({
+      'click h3': function( event, template ){
+        preventActionsForEvent(event);
+
+        var contentId = event.target.id;
+        var textContent = event.target.textContent;
+        if (textContent !== "") {
+          // it's a text field
+          var input = '<input id="input" class="textInput" type="text" placeholder="" value="'+textContent+'"/>';
+          $( event.target ).replaceWith( '<h3 id="'+contentId+'">'+ input + '</h3>');
+          Deps.flush();
+          activateInput(template.find('#input'));
+        } else {
+          // it's a text area
+        }
+        console.log('textContent:'+event.target.textContent);
+      }, 
+
+      'keyup input' : function( event, template ){
+        preventActionsForEvent(event);
+
+        console.log('keyup:'+event.which);
+      },
+
+      'keydown input' : function( event, template ){
+        preventActionsForEvent(event);
+
+        console.log('keydown:'+event.which);
+      },
+
+      'focusout input' : function( event, template ){
+        preventActionsForEvent(event);
+
+        console.log('keyup:'+event.which);
+      }
+
+
+    });
+
+    /*
+var okCancelEvents = function (selector, callbacks) {
+    var ok = callbacks.ok || function () {};
+    var cancel = callbacks.cancel || function () {};
+
+    var events = {};
+    events['keyup '+selector+', keydown '+selector+', focusout '+selector] =
+    function (evt) {
+      if (evt.type === "keydown" && evt.which === 27) {
+          // escape = cancel
+          cancel.call(this, evt);
+
+        } else if (evt.type === "keyup" && evt.which === 13 ||
+         evt.type === "focusout") {
+          // blur/return/enter = ok/submit if non-empty
+          var value = String(evt.target.value || "");
+          if (value)
+            ok.call(this, value, evt);
+          else
+            cancel.call(this, evt);
+        }
+      };
+
+      return events;
+    };
+    */
+
 
     Template.tagline.helpers({
       editing: function () {

@@ -198,24 +198,7 @@
 
 
 	<div class="container">	
-		<div class="section-text">
-			<div class="row text-center">
-				<div class="col-md-4">
-					<h3>{{content.textColumns1Heading}}</h3>
-					<p>{{content.textColumns1Text}}</p>
-				</div>
-
-				<div class="col-md-4">
-					<h3>{{content.textColumns2Heading}}</h3>
-					<p>{{content.textColumns2Text}}</p>
-				</div>
-
-				<div class="col-md-4">
-					<h3>{{content.textColumns3Heading}}</h3>
-					<p>{{content.textColumns3Text}}</p>
-				</div>
-			</div>
-		</div>
+		{{> threeTextColumns}}
 
 
 		<div class="section-location text-center">
@@ -405,9 +388,7 @@
 
 
 <template name="logo">
-	
-	<div class="rounded"></div>
-	<img class="featurette-image img-responsive logo" data-src="holder.js/500x500/auto" alt="500x500" src="{{content.logo}}">
+	<div class="rounded" style="background-image: url({{content.logo}})"></div> 
 </template>
 
 <template name="topImage">
@@ -450,7 +431,27 @@
 </template>
 
 
+<template name="threeTextColumns">
+	<div class="section-text">
+		<div class="row text-center">
+			<div class="col-md-4">
+				<h3 id="textColumns1Heading">{{content.textColumns1Heading}}</h3>
+				<p id="textColumns1Text">{{content.textColumns1Text}}</p>
+			</div>
 
+			<div class="col-md-4">
+				<h3><input id="input" class="textInput" type="text" placeholder="{{content.textColumns2Heading}}" value="{{content.textColumns2Heading}}" /></h3>
+				<!-- <h3>{{content.textColumns2Heading}}</h3> -->
+				<p>{{content.textColumns2Text}}</p>
+			</div>
+
+			<div class="col-md-4">
+				<h3>{{content.textColumns3Heading}}</h3>
+				<p>{{content.textColumns3Text}}</p>
+			</div>
+		</div>
+	</div>
+</template>
 
 
 
