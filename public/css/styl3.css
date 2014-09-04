@@ -31,8 +31,14 @@ body {
   line-height: 1.5;
   font-family: 'Merriweather', serif;
   font-weight: 300;
-  color: #82735E;
+  color: #000;
+  background-image: url("/yellow.png");
 }
+
+.container {
+  background-color: #fff;
+}
+
 .jumbotron {
   margin-top: 60px;
 }
@@ -110,7 +116,6 @@ h4 {
   padding-top: 180px;
   padding-bottom: 180px;
   margin-top: 150px;
-  background-color: #FFE5E0;
   outline: 3px solid #FFE5E0;
   outline-offset: 6px;
 }
