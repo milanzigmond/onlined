@@ -372,6 +372,7 @@ if (Meteor.isClient) {
           // it's a text area
           console.log('it is a text area');
           var input = '<textarea id="input" rows="6" cols="50">'+textContent+'</textarea>';
+
           $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
           $( event.target ).hide();
         }
