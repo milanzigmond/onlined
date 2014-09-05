@@ -80,21 +80,30 @@ ul.imageGallery li {
 }
 
 
-input {
--webkit-box-shadow:inset 0 0 1px 1px rgba(0,0,0,0.2);
-box-shadow:inset 0 0 1px 1px rgba(0,0,0,0.2);
--webkit-border-radius: 3px; 
--moz-border-radius: 3px; 
-border-radius: 3px;
-text-align: inherit;
-background-color: rgba(0, 0, 0, 0.1);
-font-family: inherit;
-width: inherit;
+#input {
+transition: all 0.3s ease-in-out;
+-webkit-box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);
+box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);
+background: #89b504;
+color: #fff;
+padding-top: 10px;
+padding-bottom: 10px;
+outline:none;
+border:0;
 }
+
+.text-info {
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #89b504;
+  }
 
 .col-lg-3 {
   padding: 0px;
 }
+
 h1 {
   font-size: 2.8em;
 }
@@ -185,6 +194,7 @@ h6 {
       -ms-transition: all 0.5s ease;
           transition: all 0.5s ease;
           background-image: url("/stars.png");
+          clip-path: polygon(0px 208px, 146.5px 207px, 147px 141.2px);
 }
 
 .reimg:hover {
