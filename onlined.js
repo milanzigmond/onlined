@@ -325,6 +325,7 @@ if (Meteor.isClient) {
           address = editingWebsite.content.address,
           latLng = editingWebsite.content.latLng,
           mapOptions = {
+            scrollwheel: false,
             center: new google.maps.LatLng(latLng.lat, latLng.lng),
             zoom: 13
           },
