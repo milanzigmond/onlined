@@ -15,23 +15,11 @@ if (Meteor.isClient) {
     {name:'styl3', css: 'styl3.css'},
     {name:'styl4', css: 'styl4.css'},
     {name:'styl5', css: 'styl5.css'},
-    {name:'Amelia', css: 'amelia.css'},
-    {name:'Cerulean', css: 'cerulean.css'},
-    {name:'Cosmo', css: 'cosmo.css'},
-    {name:'Cyborg', css: 'cyborg.css'},
     {name:'Darkly', css: 'darkly.css'},
     {name:'Flatly', css: 'flatly.css'},
-    {name:'Journal', css: 'journal.css'},
-    {name:'Lumen', css: 'lumen.css'},
     {name:'Paper', css: 'paper.css'},
     {name:'Readable', css: 'readable.css'},
-    {name:'Sandstone', css: 'sandstone.css'},
-    {name:'Simplex', css: 'simplex.css'},
-    {name:'Slate', css: 'slate.css'},
-    {name:'Spacelab', css: 'spacelab.css'},
-    {name:'Superhero', css: 'superhero.css'},
-    {name:'United', css: 'united.css'},
-    {name:'Yeti', css: 'yeti.css'},
+    {name:'Slate', css: 'slate.css'}
   ]);
   Session.setDefault('alert', null);
   Session.setDefault('autocomplete', null);
@@ -87,35 +75,6 @@ if (Meteor.isClient) {
 
 
   ////////// Helpers for in-place editing //////////
-
-  // Returns an event map that handles the "escape" and "return" keys and
-  // "blur" events on a text input (given by selector) and interprets them
-  // as "ok" or "cancel".
-  var okCancelEvents = function (selector, callbacks) {
-    var ok = callbacks.ok || function () {};
-    var cancel = callbacks.cancel || function () {};
-
-    var events = {};
-    events['keyup '+selector+', keydown '+selector+', focusout '+selector] =
-    function (evt) {
-      if (evt.type === "keydown" && evt.which === 27) {
-          // escape = cancel
-          cancel.call(this, evt);
-
-        } else if (evt.type === "keyup" && evt.which === 13 ||
-         evt.type === "focusout") {
-          // blur/return/enter = ok/submit if non-empty
-          var value = String(evt.target.value || "");
-          if (value)
-            ok.call(this, value, evt);
-          else
-            cancel.call(this, evt);
-        }
-      };
-
-      return events;
-    };
-
     var makeEditable = function (event, template) {
       preventActionsForEvent(event);
 
@@ -138,11 +97,9 @@ if (Meteor.isClient) {
           $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
         }
         $( event.target ).hide();
-        console.log('it is a one line text field');
       }
       else if (tagName === "P") {
         // it's a text area
-        console.log('it is a text area');
         var input = '<textarea id="input" rows="6" cols="50">'+textContent+'</textarea>';
 
         $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
@@ -152,33 +109,7 @@ if (Meteor.isClient) {
       activateInput(template.find('#input'));
     }
 
-    var makeStatic = function (event, template) {
-      preventActionsForEvent(event);
-
-      var value = event.target.value,
-          textContent = event.target.textContent,
-          $eventTarget = $(event.target),
-          parent = event.target.parentElement,
-          contentId = parent.id,
-          sibling = parent.nextSibling,
-          websiteId = Session.get('editing_website'),
-          setModifier = { $set: {} };
-
-      if ( event.which === 13 ){
-        // enter pressed
-        setModifier.$set['content.'+ contentId ] = value;
-        Websites.update({_id:websiteId}, setModifier);
-      }
-      
-      if(contentId === "address") {
-        sibling = parent.previousElementSibling;
-        $(parent).toggle();
-      } else {
-        $(parent).remove();  
-      }
-      Session.set('editing_field', null);
-      $(sibling).show();
-    }
+    
 
     var showAlert = function (alert) {
       $('div.alert').text(alert).slideDown(300).delay(2000).slideUp(300);
@@ -348,28 +279,15 @@ if (Meteor.isClient) {
           return;
         }
 
-        //place.geometry.location.k
-        //place.geometry.location.B
-        //place.formatted_address
-
-        // If the place has a geometry, then present it on a map.
         if (place.geometry.viewport) {
-          console.log('showing viewport');
           map.fitBounds(place.geometry.viewport);
         } else {
-          console.log('showing location');
           map.setCenter(place.geometry.location);
           console.log('place.geometry.location:'+place.geometry.location);
           map.setZoom(17);  // Why 17? Because it looks good.
         }
 
         var editingWebsite = Session.get('editing_website');
-        // debugger
-
-        // var setModifier = { $set: {} };
-        // setModifier.$set['content.'+this.to ] = event.target.result;
-        // Websites.update({_id:websiteId}, setModifier);
-
 
         Websites.update({_id:editingWebsite},{ $set: { 
           'content.address': place.formatted_address,
@@ -405,29 +323,83 @@ Template.create.rendered = function () {
       });
     };
 
+    var makeStatic = function (event, template, escaped) {
+      console.log('escaped:'+escaped);
+      preventActionsForEvent(event);
+
+      var value = event.target.value,
+          textContent = event.target.textContent,
+          $eventTarget = $(event.target),
+          parent = event.target.parentElement,
+          contentId = parent.id,
+          sibling = parent.nextSibling,
+          websiteId = Session.get('editing_website'),
+          setModifier = { $set: {} };
+
+      if ( !escaped ){
+        // enter pressed
+        setModifier.$set['content.'+ contentId ] = value;
+        Websites.update({_id:websiteId}, setModifier);
+      }
+      
+      if(contentId === "address") {
+        sibling = parent.previousElementSibling;
+        $(parent).toggle();
+      } else {
+        console.log('removing parent:'+parent);
+        $(parent).remove(); // calls focusout event 
+      }
+      
+      Session.set('editing_field', null);
+      $(sibling).show();
+    }
 
     Template.create.events({
-      'click p,h1,h2,h3,h4,h5,h6': function( event, template ){
-        console.log('clicked: '+ event.target);
+      'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
         makeEditable( event, template );
       }, 
-      'mouseenter p,h1,h2,h3,h4,h5,h6': function (event) {
+      'mouseenter p,h1,h2,h3,h4,h5,h6': function ( event ) {
         $(event.currentTarget).addClass("text-info");
       },
-      'mouseleave p,h1,h2,h3,h4,h5,h6': function (event) {
+      'mouseleave p,h1,h2,h3,h4,h5,h6': function ( event ) {
         $(event.currentTarget).removeClass("text-info");
       },
-      'keydown #input' : function( event, template ){
+      'keyup #input' : function( event, template ) {
         if (event.which === 27) {
           // escape pressed
-          console.log('escape pressed');
-          makeStatic(event, template);
+          preventActionsForEvent(event);
+          $(event.target).blur();
         }
         if (event.which === 13) {
           // enter pressed
-          console.log('enter pressed');
-          makeStatic(event, template);
+          preventActionsForEvent(event);
+
+          var websiteId = Session.get('editing_website'),
+              parent = event.target.parentElement,
+              value = event.target.value,
+              setModifier = { $set: {} };
+
+          setModifier.$set['content.'+ parent.id ] = value;
+          Websites.update({_id:websiteId}, setModifier);
+
+          $(event.target).blur();
         }
+      },
+      'focusout #input' : function ( event, template ) {
+        console.log('focusout on:'+ event.target.parentElement.id);
+          preventActionsForEvent(event);
+          var parent = event.target.parentElement,
+          sibling = parent.nextSibling;
+
+          if(parent.id === "address") {
+            sibling = parent.previousElementSibling;
+            $(parent).toggle();
+          } else {
+            $(parent).remove(); // calls focusout event 
+          }
+
+          Session.set('editing_field', null);
+         $(sibling).show();
       }
     });
 
@@ -464,7 +436,6 @@ Template.create.rendered = function () {
         var styleId = $(e.target).data('styleid');
         var styleCss = Session.get('styleOptions')[styleId].css;
         styleCss = 'css/'+styleCss;
-        console.log('styleCss:'+styleCss);
         Session.set('currentStyle', styleCss);
       }
     });
@@ -562,8 +533,6 @@ var okCancelEvents = function (selector, callbacks) {
 
         var sitename = template.find('#input-sitename').value;
 
-        console.log("sitename: " + sitename);
-
         var websiteId = Session.get('editing_website');
         Websites.update({_id:websiteId},{ $set: { 
           'sitename': sitename,
@@ -609,8 +578,6 @@ Template.website.rendered = function () {
     'click .fancybox': function (e,t) {
       $('.fancybox').fancybox();
       // preventActionsForEvent(e);
-      
-      console.log('fancybox clicked from tempalte events');
     },
     'click .logout': function (event, Template) {
       Meteor.logout();
