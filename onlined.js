@@ -164,52 +164,21 @@ if (Meteor.isClient) {
           saturdayHours: "closed", sundayHours: "closed",
           firstProduct: "Product ONE",
           firstProductDescription: "Toto je one brutalny produkt no nekup to. Toto je brutalny produkt no nekup to.",
+          firstProductImage: "draglogo.jpg",
           secondProduct: "Product TWO",
           secondProductDescription: "Toto je two brutalny produkt no nekup to. Toto je brutalny produkt no nekup to.",
+          secondProductImage: "draglogo.jpg",
           teamTitle: "team members", 
-          firstTeamMember: "Jano Mrazik", firstTeamMemberTagline: "stale sa flaka",
-          secondTeamMember: "Jano Mrazik 2", secondTeamMemberTagline: "stale sa flaka 2",
-          thirdTeamMember: "Jano Mrazik 3", thirdTeamMemberTagline: "stale sa flaka 3",
-          fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4",
+          firstTeamMember: "Jano Mrazik", firstTeamMemberTagline: "stale sa flaka", firstTeamMemberImage: "draglogo.jpg",
+          secondTeamMember: "Jano Mrazik 2", secondTeamMemberTagline: "stale sa flaka 2", secondTeamMemberImage: "draglogo.jpg",
+          thirdTeamMember: "Jano Mrazik 3", thirdTeamMemberTagline: "stale sa flaka 3", thirdTeamMemberImage: "draglogo.jpg",
+          fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4", fourthTeamMemberImage: "draglogo.jpg",
           address: "Krizikvova 52, Praha 8, Czech Republic",
           latLng: {lat:50.092547, lng:14.45133999999996}
         }
       });
       Session.set('editing_website', website_id);
     };
-
-    var saveFile = function (file, to) { 
-      var reader = new FileReader();
-      reader.to = to;
-      console.log('saving file: '+file+" to: "+to);
-      reader.onload = function(event) {
-        var websiteId = Session.get('editing_website');
-        var setModifier = { $set: {} };
-        setModifier.$set['content.'+this.to ] = event.target.result;
-        Websites.update({_id:websiteId}, setModifier);
-      };
-
-      reader.readAsDataURL(file);
-    };
-
-    var saveGalleryImage = function (gallery, file, position) {
-      var reader = new FileReader();
-      reader.gallery = gallery;
-      reader.position = position;
-
-      reader.onload = function(event) {
-        var websiteId = Session.get('editing_website');
-        var setModifier = { $set: {} };
-
-        // BUG: This is saving small image also for Slider gallery!!!
-
-        setModifier.$set['content.'+this.gallery+'.'+this.position+'.small' ] = event.target.result;
-        setModifier.$set['content.'+this.gallery+'.'+this.position+'.src' ] = event.target.result;
-        Websites.update({_id:websiteId}, setModifier);
-      };
-
-      reader.readAsDataURL(file);
-    }
 
     Template.websiteListItem.helpers({
       email: function () {
@@ -316,7 +285,7 @@ Template.create.rendered = function () {
       setupMap();
 
       var slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-      slider.nav.find('button').on('click', function() {
+      slider.nav.find('img').on('click', function() {
         // console.log('clicked'+$(this).data('dir'));
         slider.setCurrent( $(this).data('dir') );
         slider.transition();
@@ -400,8 +369,79 @@ Template.create.rendered = function () {
 
           Session.set('editing_field', null);
          $(sibling).show();
+      },
+      'dragover .reimg' : function ( event, template ) { 
+        preventActionsForEvent(event); 
+      },
+      'drop .reimg' : function ( event, template ) {
+        preventActionsForEvent(event);
+        saveFile(event);
       }
     });
+
+    var saveFile = function (event) { 
+      var file = event.originalEvent.dataTransfer.files[0],
+          reader = new FileReader(),
+          id = event.target.id;
+      
+      reader.to = id;
+      reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
+      reader.slider = (id.toLowerCase().indexOf("slider") >= 0) ? true : false;
+      if(reader.gallery) {
+        reader.to = id.slice(0,-1);
+        reader.position = id.slice(-1);
+      }
+      console.log('saving file: '+file+" to: "+event.target.id);
+      reader.onload = function(event) {
+        var websiteId = Session.get('editing_website');
+        var setModifier = { $set: {} };
+
+        if (this.gallery)
+        {
+          //it is a gallery image, get a position from id
+          setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
+          setModifier.$set['content.'+this.to+'.'+this.position+'.src' ] = event.target.result;
+        } else if (this.slider) {
+          // it is a slider image, get a position from id
+        } else {
+          //it is a single image, no position needed
+          setModifier.$set['content.'+this.to ] = event.target.result;
+        }
+
+        Websites.update({_id:websiteId}, setModifier);
+      };
+
+      reader.readAsDataURL(file);
+    };
+
+    var saveGalleryImage = function (gallery, file, position) {
+      var reader = new FileReader();
+      reader.gallery = gallery;
+      reader.position = position;
+
+      reader.onload = function(event) {
+        var websiteId = Session.get('editing_website');
+        var setModifier = { $set: {} };
+
+        // BUG: This is saving small image also for Slider gallery!!!
+
+        setModifier.$set['content.'+this.gallery+'.'+this.position+'.small' ] = event.target.result;
+        setModifier.$set['content.'+this.gallery+'.'+this.position+'.src' ] = event.target.result;
+        Websites.update({_id:websiteId}, setModifier);
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    // Template.gallery.events({
+    //   'dragover ul.imageGallery li' : function (e) { preventActionsForEvent(e); },
+
+    //   'drop ul.imageGallery li' : function (e) {
+    //     preventActionsForEvent(e);  
+    //     var file = e.originalEvent.dataTransfer.files[0];
+    //     saveGalleryImage('galleryImages', file, this.position);
+    //   }
+    // });
 
     Template.create.helpers({
       editing_website: function () {
@@ -412,6 +452,9 @@ Template.create.rendered = function () {
       },
       email: function () {
         return Meteor.user().emails[0].address;
+      },
+      galleryImages: function () {
+        return this.content.galleryImages;
       }
     });
 
@@ -497,34 +540,6 @@ var okCancelEvents = function (selector, callbacks) {
       return events;
     };
     */
-
-    Template.logo.events({
-      'dragover' : function (e) { preventActionsForEvent(e); },
-
-      'drop' : function (e) {
-        preventActionsForEvent(e);
-        var file = e.originalEvent.dataTransfer.files[0];
-        saveFile(file, 'logo');
-      }
-
-    // 'change .upload': function(event, template) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-
-    //   var file = template.find(".upload").files[0];
-    //   saveFile(file);
-    // }
-  });
-
-    Template.topImage.events({
-      'dragover' : function (e) { preventActionsForEvent(e); },
-
-      'drop' : function (e) {
-        preventActionsForEvent(e);
-        var file = e.originalEvent.dataTransfer.files[0];
-        saveFile(file, 'topImage');
-      }
-    });
 
     Template.form.events({
       'submit form': function( event, template ){
@@ -696,48 +711,11 @@ Template.website.rendered = function () {
 
       'drop div.sliderGallery img' : function (e) {
         preventActionsForEvent(e);
+        debugger
         var file = e.originalEvent.dataTransfer.files[0];
         saveGalleryImage('sliderImages', file, this.position);
       }
     });
-
-  Template.gallery.helpers({
-    galleryImages: function () {
-      // console.log(this.content.galleryImages);
-      return this.content.galleryImages;
-    }
-  });
-
-  Template.gallery.events({
-      'dragover ul.imageGallery li' : function (e) { preventActionsForEvent(e); },
-
-      'drop ul.imageGallery li' : function (e) {
-        preventActionsForEvent(e);  
-        var file = e.originalEvent.dataTransfer.files[0];
-        saveGalleryImage('galleryImages', file, this.position);
-      }
-
-      // 'click a.fancybox' : function (e) {
-      //   console.log('li clicked:'+ e.target);
-      //   preventActionsForEvent(e);
-      //   // debugger
-      //   $(e.target).fancybox({
-      //      afterClose: function(){
-      //        $($("[style$='display: none;']")).css("display","");
-      //       }
-      //   }).click();
-      // }
-    });
-
-  // Meteor.autorun(function() {
-  //   // Whenever this session variable changes, run this function.
-  //   var message = Session.get('displayMessage');
-  //   if (message) {
-  //     alert(message);
-  //     Session.set('displayMessage', null);
-  //   }
-  // });
-
 }
 
 if (Meteor.isServer) {

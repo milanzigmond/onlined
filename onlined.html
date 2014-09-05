@@ -169,7 +169,7 @@
 <template name="create">
 	{{#if editing_website}}
 	{{#with editing_website}}
-	{{>topImage}}
+	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
 	<div class="container">	
 		<div class="section-heading">
 			<h1 id="title" class="text-center">{{content.title}}</h1>
@@ -179,7 +179,7 @@
 		<div class="section-intro">
 			<div class="row">
 				<div class="col-md-5">
-					{{>logo}}
+					<div id="logo" class="rounded reimg" style="background-image: url({{content.logo}})"></div>
 				</div>
 				<div class="col-md-7 introtext">
 					<h3 id="heading">{{content.heading}}</h3>
@@ -189,7 +189,19 @@
 		</div>
 	</div>	
 
-	{{> gallery}}
+	<div class="section-gallery">
+		<div class="row">
+			<ul class="imageGallery">
+				{{#each galleryImages}}
+					<li>
+						<a href="{{src}}" class="fancybox" rel="gallery">
+							<img id="galleryImages{{position}}" src="{{small}}" class="reimg" alt="This is alt">
+						</a>
+					</li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
 
 	<div class="section-email text-center">
 		<span class="glyphicon glyphicon-envelope white"></span>
@@ -327,12 +339,12 @@
 		<div class="section-text">
 			<div class="row text-center">
 				<div class="col-md-4 col-md-offset-2">
-					<img width="50%" src="draglogo.jpg" class="reimg" alt="">
+					<img id="firstProductImage" width="50%" src="{{content.firstProductImage}}" class="reimg" alt="">
 					<h3 id="firstProduct">{{content.firstProduct}}</h3>
 					<p id="firstProductDescription">{{content.firstProductDescription}}</p>
 				</div>
 				<div class="col-md-4">
-					<img width="50%" src="draglogo.jpg" class="reimg" alt="">
+					<img id="secondProductImage" width="50%" src="{{content.secondProductImage}}" class="reimg" alt="">
 					<h3 id="secondProduct">{{content.secondProduct}}</h3>
 					<p id="secondProductDescription">{{content.secondProductDescription}}</p>
 				</div>
@@ -363,54 +375,45 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-3">
-								<img class="member reimg" width="50%" src="draglogo.jpg" alt="">
+								<img id="firstTeamMemberImage" width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
 								<div class="membercaption">
 									<h4 id="firstTeamMember">{{content.firstTeamMember}}</h4>
 									<p id="firstTeamMemberTagline">{{content.firstTeamMemberTagline}}</p>
 								</div>
 							</div>
 							<div class="col-lg-3">
-								<img class="member reimg" width="50%" src="draglogo.jpg" alt="">
+								<img id="secondTeamMemberImage" width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
 								<div class="membercaption">
 									<h4 id="secondTeamMember">{{content.secondTeamMember}}</h4>
 									<p id="secondTeamMemberTagline">{{content.secondTeamMemberTagline}}</p>
 								</div>
 							</div>
 							<div class="col-lg-3">
-								<img class="member reimg" width="50%" src="draglogo.jpg" alt="">
+								<img id="thirdTeamMemberImage" width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
 								<div class="membercaption">
 									<h4 id="thirdTeamMember">{{content.thirdTeamMember}}</h4>
 									<p id="thirdTeamMemberTagline">{{content.thirdTeamMemberTagline}}</p>
 								</div>
 							</div>
 							<div class="col-lg-3">
-								<img class="member reimg" width="50%" src="draglogo.jpg" alt="">
+								<img id="fourthTeamMemberImage" width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
 								<div class="membercaption">
 									<h4 id="fourthTeamMember">{{content.fourthTeamMember}}</h4>
 									<p id="fourthTeamMemberTagline">{{content.fourthTeamMemberTagline}}</p>
 								</div>
 							</div>
 						</div>
-					</div>
-
+					</div>	
 					{{>slider}}
-					{{>form}}
 				</div>
+				
+				
+				{{>form}}
 
 				{{/with}}
 				{{else}}
 				{{goHome}}
 				{{/if}}
-</template>
-
-<template name="logo">
-	<div class="rounded reimg" style="background-image: url({{content.logo}})"></div> 
-</template>
-
-<template name="topImage">
-	<div class="topImage">
-		<img class="img img-responsive reimg" src="{{content.topImage}}">
-	</div>
 </template>
 
 <template name="form">
@@ -519,43 +522,6 @@
 		<img src="arrowR.png" class="sliderarrow" data-dir="next">
 	</div>
 </template>
-
-<template name="gallery">
-	<div class="section-gallery">
-		<!-- 
-<button type="button" class="btn btn-link" data-dir="prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
-		<button type="button" class="btn btn-link" data-dir="next"><span class="glyphicon glyphicon-chevron-right"></span></button>
-
-
-
-		<div class="row">
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img1.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img2.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img3.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img4.jpg" alt=""></div>
-		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img5.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img6.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img7.jpg" alt=""></div>
-			<div class="col-lg-3 col-md-6"><img width="100%" src="img8.jpg" alt=""></div>
-		</div> -->
-		
-		<div class="row">
-			<ul class="imageGallery">
-				{{#each galleryImages}}	
-					<li id="{{position}}">
-						<a href="{{src}}" class="fancybox" rel="gallery">
-							<img src="{{small}}" class="reimg" alt="This is alt">
-						</a>
-					</li>
-				{{/each}}
-			</ul>
-		</div>
-	</div>
-</template>
-
-
 
 
 
