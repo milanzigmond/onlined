@@ -327,12 +327,12 @@
 		<div class="section-text">
 			<div class="row text-center">
 				<div class="col-md-4 col-md-offset-2">
-					<img width="50%" src="draglogo.jpg" alt="">
+					<img width="50%" src="draglogo.jpg" class="reimg" alt="">
 					<h3 id="firstProduct">{{content.firstProduct}}</h3>
 					<p id="firstProductDescription">{{content.firstProductDescription}}</p>
 				</div>
 				<div class="col-md-4">
-					<img width="50%" src="draglogo.jpg" alt="">
+					<img width="50%" src="draglogo.jpg" class="reimg" alt="">
 					<h3 id="secondProduct">{{content.secondProduct}}</h3>
 					<p id="secondProductDescription">{{content.secondProductDescription}}</p>
 				</div>
@@ -363,28 +363,28 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-3">
-								<img class="member" width="50%" src="draglogo.jpg" alt="">
+								<img class="member reimg" width="50%" src="draglogo.jpg" alt="">
 								<div class="membercaption">
 									<h4 id="firstTeamMember">{{content.firstTeamMember}}</h4>
 									<p id="firstTeamMemberTagline">{{content.firstTeamMemberTagline}}</p>
 								</div>
 							</div>
 							<div class="col-lg-3">
-								<img class="member" width="50%" src="draglogo.jpg" alt="">
+								<img class="member reimg" width="50%" src="draglogo.jpg" alt="">
 								<div class="membercaption">
 									<h4 id="secondTeamMember">{{content.secondTeamMember}}</h4>
 									<p id="secondTeamMemberTagline">{{content.secondTeamMemberTagline}}</p>
 								</div>
 							</div>
 							<div class="col-lg-3">
-								<img class="member" width="50%" src="draglogo.jpg" alt="">
+								<img class="member reimg" width="50%" src="draglogo.jpg" alt="">
 								<div class="membercaption">
 									<h4 id="thirdTeamMember">{{content.thirdTeamMember}}</h4>
 									<p id="thirdTeamMemberTagline">{{content.thirdTeamMemberTagline}}</p>
 								</div>
 							</div>
 							<div class="col-lg-3">
-								<img class="member" width="50%" src="draglogo.jpg" alt="">
+								<img class="member reimg" width="50%" src="draglogo.jpg" alt="">
 								<div class="membercaption">
 									<h4 id="fourthTeamMember">{{content.fourthTeamMember}}</h4>
 									<p id="fourthTeamMemberTagline">{{content.fourthTeamMemberTagline}}</p>
@@ -404,12 +404,12 @@
 </template>
 
 <template name="logo">
-	<div class="rounded" style="background-image: url({{content.logo}})"></div> 
+	<div class="rounded reimg" style="background-image: url({{content.logo}})"></div> 
 </template>
 
 <template name="topImage">
 	<div class="topImage">
-		<img class="img img-responsive" src="{{content.topImage}}">
+		<img class="img img-responsive reimg" src="{{content.topImage}}">
 	</div>
 </template>
 
@@ -509,7 +509,7 @@
 	<div class="sliderGallery">
 		<ul>
 			{{#each sliderImages}}
-			<li><img id="{{position}}" class="img img-responsive" src="{{src}}" alt=""></li>
+			<li><img id="{{position}}" class="img img-responsive reimg" src="{{src}}" alt=""></li>
 			{{/each}}
 		</ul>
 	</div>
@@ -546,7 +546,7 @@
 				{{#each galleryImages}}	
 					<li id="{{position}}">
 						<a href="{{src}}" class="fancybox" rel="gallery">
-							<img src="{{small}}" alt="This is alt">
+							<img src="{{small}}" class="reimg" alt="This is alt">
 						</a>
 					</li>
 				{{/each}}

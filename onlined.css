@@ -65,15 +65,69 @@ body {
 .sliderGallery li {
   float: left;
 }
+
+
+//sectiongallery
+
+ul.imageGallery {
+  list-style: none;
+}
+ul.imageGallery li {
+  float: left;
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
+
+
+input {
+-webkit-box-shadow:inset 0 0 1px 1px rgba(0,0,0,0.2);
+box-shadow:inset 0 0 1px 1px rgba(0,0,0,0.2);
+-webkit-border-radius: 3px; 
+-moz-border-radius: 3px; 
+border-radius: 3px;
+text-align: inherit;
+background-color: rgba(0, 0, 0, 0.1);
+font-family: inherit;
+width: inherit;
+}
+
 .col-lg-3 {
   padding: 0px;
 }
 h1 {
   font-size: 2.8em;
 }
+
 h3 {
   margin-top: 10px;
 }
+
+h4 {
+  font-size: 1.3em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+.logo {
+  border-radius: 300px;
+  width: 350px;
+  height: 350px;
+  display: none;
+}
+.rounded {
+  border-radius: 300px;
+  width: 300px;
+  height: 300px;
+  background-position: 50% 50%;
+}
+
 .section-heading {
   margin-top: 20px;
 }
@@ -87,7 +141,7 @@ h3 {
   padding-top: 100px;
   padding-bottom: 100px;
   margin-top: 150px;
-  background-color: #cf615c;
+  background-color: #bbbbbb;
 }
 .section-text {
   margin-top: 150px;
@@ -99,7 +153,7 @@ h3 {
   padding-top: 100px;
   padding-bottom: 100px;
   margin-top: 150px;
-  background-color: #cf615c;
+  background-color: #bbbbbb;
 }
 .section-openinghours {
   margin-top: 150px;
@@ -108,7 +162,7 @@ h3 {
   padding-top: 100px;
   padding-bottom: 100px;
   margin-top: 150px;
-  background-color: #cf615c;
+  background-color: #bbbbbb;
 }
 .section-eventcalender {
   margin-top: 150px;
@@ -123,11 +177,28 @@ h3 {
 .white {
   color: #fff;
 }
-img:hover {
-  -webkit-filter: brightness(130%);
-  filter: brightness(130%);
-  -webkit-transition: all 300ms ease;
+
+.reimg {
+-webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+       -o-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+          background-image: url("/stars.png");
 }
+
+.reimg:hover {
+  -webkit-filter: brightness(0.7);
+-webkit-transform: rotate(1deg);
+     -moz-transform: rotate(1deg);
+       -o-transform: rotate(1deg);
+      -ms-transform: rotate(1deg);
+          transform: rotate(1deg);
+          -webkit-box-shadow: 5px 5px 7px 1px rgba(0,0,0,0.6);
+      box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.6);
+
+ }
+
 .verticaltable {
   width: 700px;
   text-align: center;
@@ -139,12 +210,12 @@ img:hover {
 .verticaltable th {
   text-align: center;
   font-size: 1.2em;
-  color: #cf615c;
+  color: #bbbbbb;
   text-transform: uppercase;
 }
 .line {
   height: 1px;
-  background-color: #ccc;
+  background-color: #bbbbbb;
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -163,7 +234,7 @@ img:hover {
   height: 40px;
 }
 .eventtable td:nth-child(1) {
-  color: #cf615c;
+  color: #bbbbbb;
   font-size: 1.3em;
   font-weight: 200;
 }
