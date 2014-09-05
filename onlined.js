@@ -387,7 +387,7 @@ Template.create.rendered = function () {
       reader.to = id;
       reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
       reader.slider = (id.toLowerCase().indexOf("slider") >= 0) ? true : false;
-      if(reader.gallery) {
+      if(reader.gallery || reader.slider) {
         reader.to = id.slice(0,-1);
         reader.position = id.slice(-1);
       }
@@ -396,13 +396,11 @@ Template.create.rendered = function () {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
 
-        if (this.gallery)
+        if (this.gallery || this.slider)
         {
           //it is a gallery image, get a position from id
           setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
           setModifier.$set['content.'+this.to+'.'+this.position+'.src' ] = event.target.result;
-        } else if (this.slider) {
-          // it is a slider image, get a position from id
         } else {
           //it is a single image, no position needed
           setModifier.$set['content.'+this.to ] = event.target.result;
@@ -455,6 +453,9 @@ Template.create.rendered = function () {
       },
       galleryImages: function () {
         return this.content.galleryImages;
+      },
+      sliderImages: function () {
+        return this.content.sliderImages;
       }
     });
 
@@ -698,24 +699,6 @@ Template.website.rendered = function () {
       return false; 
     }
   });
-
-  Template.slider.helpers({
-    sliderImages: function () {
-      // console.log(this.content.sliderImages);
-      return this.content.sliderImages;
-    }
-  });
-
-  Template.slider.events({
-      'dragover div.sliderGallery img' : function (e) { preventActionsForEvent(e); },
-
-      'drop div.sliderGallery img' : function (e) {
-        preventActionsForEvent(e);
-        debugger
-        var file = e.originalEvent.dataTransfer.files[0];
-        saveGalleryImage('sliderImages', file, this.position);
-      }
-    });
 }
 
 if (Meteor.isServer) {

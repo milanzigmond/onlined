@@ -147,23 +147,231 @@
 			</div>
 		</div>
 	</div>
-	{{>topImage}}
-	<div class="container">
-		<div class="jumbotron">
+	
+	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
+	<div class="container">	
+		<div class="section-heading">
 			<h1 id="title" class="text-center">{{content.title}}</h1>
-			<p id="tagline" class="text-center" >{{content.tagline}}</p>
+			<h4 id="tagline" class="text-center">{{content.tagline}}</h4>
 		</div>
+		
+		<div class="section-intro">
+			<div class="row">
+				<div class="col-md-5">
+					<div id="logo" class="rounded reimg" style="background-image: url({{content.logo}})"></div>
+				</div>
+				<div class="col-md-7 introtext">
+					<h3 id="heading">{{content.heading}}</h3>
+					<p id="paragraph" class="lead">{{content.paragraph}}</p>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<div class="section-gallery">
 		<div class="row">
-			<div class="col-md-7">
-				<h3 id="heading">{{content.heading}}</h3>
-				<p id="paragraph" class="lead">{{content.paragraph}}</p>
-			</div>
-			<div class="col-md-5">
-				<img class="img-responsive" src="{{content.logo}}">
+			<ul class="imageGallery">
+				{{#each galleryImages}}
+					<li>
+						<a href="{{src}}" class="fancybox" rel="gallery">
+							<img id="galleryImages{{position}}" src="{{small}}" class="reimg" alt="This is alt">
+						</a>
+					</li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+
+	<div class="section-email text-center">
+		<span class="glyphicon glyphicon-envelope white"></span>
+		<h4 class="white">{{email}}</h4>
+	</div>
+
+	<div class="container">	
+		<div class="section-text">
+			<div class="row text-center">
+				<div class="col-md-4">
+					<h3 id="textColumns1Heading">{{content.textColumns1Heading}}</h3>
+					<p id="textColumns1Text">{{content.textColumns1Text}}</p>
+				</div>
+
+				<div class="col-md-4">
+					<h3 id="textColumns2Heading">{{content.textColumns2Heading}}</h3>
+					<p id="textColumns2Text">{{content.textColumns2Text}}</p>
+				</div>
+
+				<div class="col-md-4">
+					<h3 id="textColumns3Heading">{{content.textColumns3Heading}}</h3>
+					<p id="textColumns3Text">{{content.textColumns3Text}}</p>
+				</div>
 			</div>
 		</div>
-		{{>footer}}
+
+		<div class="section-location text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="glyphicon glyphicon-map-marker"></span>
+				</div>
+			</div>	
+			<div class="row">
+				<div class="col-lg-12">
+					<h4 id="address">{{content.address}}</h4>
+					<h4 id="address" hidden><input id="input" class="controls" type="text" placeholder="Enter a location" value="{{content.address}}"></h4>
+				</div>
+			</div>		
+			<div class="row">
+				<div class="col-lg-12">
+					<div id="map-canvas" style="width:100%;height:200px;"></div>
+				</div>
+			</div>
+		</div>
 	</div>
+
+	<div class="section-telnumber text-center">
+		<span class="glyphicon glyphicon-phone-alt white"></span>
+		<h4 id="phoneNumber" class="white">{{content.phoneNumber}}</h4>
+	</div>
+
+	<div class="section-openinghours text-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="glyphicon glyphicon-time"></span>
+					<h3 id="openingHoursTitle">{{content.openingHoursTitle}}</h3>
+					<table class="verticaltable">
+						<tr>
+							<th><h5 id="monday">{{content.monday}}</h5></th>
+							<th><h5 id="tuesday">{{content.tuesday}}</h5></th>
+							<th><h5 id="wednesday">{{content.wednesday}}</h5></th>
+							<th><h5 id="thursday">{{content.thursday}}</h5></th>
+							<th><h5 id="friday">{{content.friday}}</h5></th>
+							<th><h5 id="saturday">{{content.saturday}}</h5></th>
+							<th><h5 id="sunday">{{content.sunday}}</h5></th>
+						</tr>
+						<tr>
+							<td colspan="7">
+								<div class="line"></div>
+							</td>
+						</tr>
+						<tr>
+							<td><h6 id="mondayHours">{{content.mondayHours}}</h6></td>
+							<td><h6 id="tuesdayHours">{{content.tuesdayHours}}</h6></td>
+							<td><h6 id="wednesdayHours">{{content.wednesdayHours}}</h6></td>
+							<td><h6 id="thursdayHours">{{content.thursdayHours}}</h6></td>
+							<td><h6 id="fridayHours">{{content.fridayHours}}</h6></td>
+							<td><h6 id="saturdayHours">{{content.saturdayHours}}</h6></td>
+							<td><h6 id="sundayHours">{{content.sundayHours}}</h6></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section-links text-center">	
+		<div class="container">
+			<span class="glyphicon glyphicon-link white"></span>
+
+			<div class="row links">
+				<div class="col-xs-6 col-md-3">
+					<a href="#"><img class="link" src="ic_twitterW.png" alt=""></a>
+				</div>
+				<div class="col-xs-6 col-md-3">
+					<a href="#"><img class="link" src="ic_youtubeW.png" alt=""></a>
+				</div>
+				<div class="col-xs-6 col-md-3">
+					<a href="#"><img class="link" src="ic_linkedW.png" alt=""></a>
+				</div>
+				<div class="col-xs-6 col-md-3">
+					<a href="#"><img class="link" src="ic_instagramW.png" alt=""></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">	
+		<div class="section-text">
+			<div class="row text-center">
+				<div class="col-md-4 col-md-offset-2">
+					<img id="firstProductImage" width="50%" src="{{content.firstProductImage}}" class="reimg" alt="">
+					<h3 id="firstProduct">{{content.firstProduct}}</h3>
+					<p id="firstProductDescription">{{content.firstProductDescription}}</p>
+				</div>
+				<div class="col-md-4">
+					<img id="secondProductImage" width="50%" src="{{content.secondProductImage}}" class="reimg" alt="">
+					<h3 id="secondProduct">{{content.secondProduct}}</h3>
+					<p id="secondProductDescription">{{content.secondProductDescription}}</p>
+				</div>
+			</div>
+		</div>
+	</div>		
+
+	<div class="section-video">
+		<video width="100%" height="500" controls autoplay>
+			<source src="movie.ogg" type="video/ogg">
+			<source src="movie.mp4" type="video/mp4">
+			<object data="movie.mp4" width="100%" height="500">
+				<embed width="100%" height="500" src="movie.swf">
+			</object>
+		</video>
+	</div>
+
+	<div class="container">	
+		<div class="section-team text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="glyphicon glyphicon-user"></span>
+					<h3 id="teamTitle">{{content.teamTitle}}</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-xs-6">
+					<img id="firstTeamMemberImage" width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
+					<div class="membercaption">
+						<h4 id="firstTeamMember">{{content.firstTeamMember}}</h4>
+						<p id="firstTeamMemberTagline">{{content.firstTeamMemberTagline}}</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-6">
+					<img id="secondTeamMemberImage" width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
+					<div class="membercaption">
+						<h4 id="secondTeamMember">{{content.secondTeamMember}}</h4>
+						<p id="secondTeamMemberTagline">{{content.secondTeamMemberTagline}}</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-6">
+					<img id="thirdTeamMemberImage" width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
+					<div class="membercaption">
+						<h4 id="thirdTeamMember">{{content.thirdTeamMember}}</h4>
+						<p id="thirdTeamMemberTagline">{{content.thirdTeamMemberTagline}}</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-6">
+					<img id="fourthTeamMemberImage" width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
+					<div class="membercaption">
+						<h4 id="fourthTeamMember">{{content.fourthTeamMember}}</h4>
+						<p id="fourthTeamMemberTagline">{{content.fourthTeamMemberTagline}}</p>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="sliderGallery">
+			<ul>
+				{{#each sliderImages}}
+				<li>
+					<img id="sliderImages{{position}}" src="{{src}}" class="img img-responsive reimg" alt="">
+				</li>
+				{{/each}}
+			</ul>
+		</div>
+
+		<div id="sliderGalleryNav">
+			<img src="arrowL.png" class="sliderarrow" data-dir="prev">
+			<img src="arrowR.png" class="sliderarrow" data-dir="next">
+		</div>
+	</div>
+
+	{{>footer}}
 </template>
 
 <template name="create">
@@ -243,7 +451,6 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div id="map-canvas" style="width:100%;height:200px;"></div>
-					<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.960735410441!2d14.42070699999999!3d50.08702199999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94e939c02f49%3A0xf17b44b25aa20696!2sPrague+Astronomical+Clock!5e0!3m2!1sen!2scz!4v1409217218519" width="100%" height="200" frameborder="0" style="border:0"></iframe> -->
 				</div>
 			</div>
 		</div>
@@ -290,7 +497,6 @@
 		</div>
 	</div>
 
-
 	<div class="section-links text-center">	
 		<div class="container">
 			<span class="glyphicon glyphicon-link white"></span>
@@ -312,29 +518,6 @@
 		</div>
 	</div>
 
-	<!-- <div class="section-eventcalender text-center">
-		<div class="row">
-			<div class="col-lg-12">
-				<span class="glyphicon glyphicon-calendar"></span>
-				<h3>event calender</h3>
-				<table class="eventtable">
-					<tr>
-						<td>02-04-14</td>
-						<td>event in prague</td>
-					</tr>
-					<tr>
-						<td>18-06-14</td>
-						<td>event in budapest</td>
-					</tr>
-					<tr>
-						<td>23-12-14</td>
-						<td>event in paris</td>
-					</tr>
-				</table>	
-			</div>
-		</div>
-	</div> -->
-
 	<div class="container">	
 		<div class="section-text">
 			<div class="row text-center">
@@ -355,65 +538,74 @@
 	<div class="section-video">
 		<video width="100%" height="500" controls autoplay>
 			<source src="movie.ogg" type="video/ogg">
-				<source src="movie.mp4" type="video/mp4">
-					<object data="movie.mp4" width="100%" height="500">
-						<embed width="100%" height="500" src="movie.swf">
-						</object>
-					</video>
+			<source src="movie.mp4" type="video/mp4">
+			<object data="movie.mp4" width="100%" height="500">
+				<embed width="100%" height="500" src="movie.swf">
+			</object>
+		</video>
+	</div>
+
+	<div class="container">	
+		<div class="section-team text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="glyphicon glyphicon-user"></span>
+					<h3 id="teamTitle">{{content.teamTitle}}</h3>
 				</div>
-
-
-
-				<div class="container">	
-
-					<div class="section-team text-center">
-						<div class="row">
-							<div class="col-lg-12">
-								<span class="glyphicon glyphicon-user"></span>
-								<h3 id="teamTitle">{{content.teamTitle}}</h3>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3 col-xs-6">
-								<img id="firstTeamMemberImage" width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
-								<div class="membercaption">
-									<h4 id="firstTeamMember">{{content.firstTeamMember}}</h4>
-									<p id="firstTeamMemberTagline">{{content.firstTeamMemberTagline}}</p>
-								</div>
-							</div>
-							<div class="col-md-3 col-xs-6">
-								<img id="secondTeamMemberImage" width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
-								<div class="membercaption">
-									<h4 id="secondTeamMember">{{content.secondTeamMember}}</h4>
-									<p id="secondTeamMemberTagline">{{content.secondTeamMemberTagline}}</p>
-								</div>
-							</div>
-							<div class="col-md-3 col-xs-6">
-								<img id="thirdTeamMemberImage" width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
-								<div class="membercaption">
-									<h4 id="thirdTeamMember">{{content.thirdTeamMember}}</h4>
-									<p id="thirdTeamMemberTagline">{{content.thirdTeamMemberTagline}}</p>
-								</div>
-							</div>
-							<div class="col-md-3 col-xs-6">
-								<img id="fourthTeamMemberImage" width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
-								<div class="membercaption">
-									<h4 id="fourthTeamMember">{{content.fourthTeamMember}}</h4>
-									<p id="fourthTeamMemberTagline">{{content.fourthTeamMemberTagline}}</p>
-								</div>
-							</div>
-						</div>
-					</div>	
-					{{>slider}}
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-xs-6">
+					<img id="firstTeamMemberImage" width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
+					<div class="membercaption">
+						<h4 id="firstTeamMember">{{content.firstTeamMember}}</h4>
+						<p id="firstTeamMemberTagline">{{content.firstTeamMemberTagline}}</p>
+					</div>
 				</div>
-				
-				
-				{{>form}}
+				<div class="col-md-3 col-xs-6">
+					<img id="secondTeamMemberImage" width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
+					<div class="membercaption">
+						<h4 id="secondTeamMember">{{content.secondTeamMember}}</h4>
+						<p id="secondTeamMemberTagline">{{content.secondTeamMemberTagline}}</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-6">
+					<img id="thirdTeamMemberImage" width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
+					<div class="membercaption">
+						<h4 id="thirdTeamMember">{{content.thirdTeamMember}}</h4>
+						<p id="thirdTeamMemberTagline">{{content.thirdTeamMemberTagline}}</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-6">
+					<img id="fourthTeamMemberImage" width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
+					<div class="membercaption">
+						<h4 id="fourthTeamMember">{{content.fourthTeamMember}}</h4>
+						<p id="fourthTeamMemberTagline">{{content.fourthTeamMemberTagline}}</p>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="sliderGallery">
+			<ul>
+				{{#each sliderImages}}
+				<li>
+					<img id="sliderImages{{position}}" src="{{src}}" class="img img-responsive reimg" alt="">
+				</li>
+				{{/each}}
+			</ul>
+		</div>
 
-				{{/with}}
-				{{else}}
-				{{goHome}}
-				{{/if}}
+		<div id="sliderGalleryNav">
+			<img src="arrowL.png" class="sliderarrow" data-dir="prev">
+			<img src="arrowR.png" class="sliderarrow" data-dir="next">
+		</div>
+	</div>
+	
+	{{>form}}
+
+	{{/with}}
+	{{else}}
+	{{goHome}}
+	{{/if}}
 </template>
 
 <template name="form">
@@ -507,22 +699,6 @@
 	</form>
 	{{/if}}
 </template>
-
-<template name="slider">
-	<div class="sliderGallery">
-		<ul>
-			{{#each sliderImages}}
-			<li><img id="{{position}}" class="img img-responsive reimg" src="{{src}}" alt=""></li>
-			{{/each}}
-		</ul>
-	</div>
-
-	<div id="sliderGalleryNav">
-		<img src="arrowL.png" class="sliderarrow" data-dir="prev">
-		<img src="arrowR.png" class="sliderarrow" data-dir="next">
-	</div>
-</template>
-
 
 
 
