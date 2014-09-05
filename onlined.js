@@ -235,6 +235,14 @@ if (Meteor.isClient) {
     });
   };
 
+  var setupSlider = function () {
+    var slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
+    slider.nav.find('img').on('click', function() {
+      slider.setCurrent( $(this).data('dir') );
+      slider.transition();
+    });
+  }
+
   var saveFile = function (event) { 
     var file = event.originalEvent.dataTransfer.files[0],
         reader = new FileReader(),
@@ -562,6 +570,9 @@ if (Meteor.isClient) {
   });
 
   Template.website.rendered = function () {
+    setupMap();
+    setupSlider();
+
     if (Meteor.user() && Session.get('editing_website')) {
       Session.set('editing_website', null);
       $(".modal").modal('show');
@@ -570,13 +581,7 @@ if (Meteor.isClient) {
 
   Template.create.rendered = function () {
     setupMap();
-
-    var slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-    slider.nav.find('img').on('click', function() {
-      // console.log('clicked'+$(this).data('dir'));
-      slider.setCurrent( $(this).data('dir') );
-      slider.transition();
-    });
+    setupSlider();
   };
 
   Template.selectStyle.rendered = function () {
