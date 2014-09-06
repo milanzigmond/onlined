@@ -83,23 +83,25 @@ if (Meteor.isClient) {
     var contentId = event.target.id,
         textContent = event.target.textContent,
         $eventTarget = $(event.target),
-        tagName = $eventTarget.get(0).tagName;
-        
-     // $eventTarget.is("h3")
+        tagName = $eventTarget.get(0).tagName,
+        textAlign = $eventTarget.css('text-align'),
+        lines = countLines(contentId);
+
     if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
     // it's a text field
       
       if (contentId === "address") {
         $(event.target.nextElementSibling).toggle();
       } else {
-        var input = '<input id="input" class="textInput" type="text" placeholder="" value="'+textContent+'"/>';
+        var input = '<input id="input" class="textInput" style="text-align:'+textAlign+';" type="text" placeholder="" value="'+textContent+'"/>';
         $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
       }
       $( event.target ).hide();
     }
     else if (tagName === "P") {
       // it's a text area
-      var input = '<textarea id="input" rows="6" cols="50">'+textContent+'</textarea>';
+
+      var input = '<textarea id="input" style="text-align:'+textAlign+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
 
       $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
       $( event.target ).hide();
@@ -176,6 +178,15 @@ if (Meteor.isClient) {
     });
     Session.set('editing_website', website_id);
   };
+
+  var countLines = function (id) {
+    var element = document.getElementById(id),
+    divHeight = element.offsetHeight;
+    var lineHeight = parseInt(element.style.lineHeight);
+    if (!lineHeight) lineHeight = parseInt(getComputedStyle(element, null).getPropertyValue("line-height"));
+    var lines = Math.ceil(divHeight / lineHeight);
+    return lines;
+  }
 
   var setupMap = function () {
     var editingWebsite = Websites.findOne(Session.get('editing_website')),
@@ -331,6 +342,9 @@ if (Meteor.isClient) {
 
   Template.create.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
+
+      countLines(event.target.id);
+
       makeEditable( event, template );
     }, 
     'mouseenter p,h1,h2,h3,h4,h5,h6': function ( event ) {
