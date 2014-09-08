@@ -349,7 +349,16 @@ if (Meteor.isClient) {
       countLines(event.target.id);
 
       makeEditable( event, template );
-    }, 
+    },
+    'click #loginFacebook' : function ( event, template ) {
+      Meteor.loginWithFacebook({
+        requestPermissions: ['email'] // http://developers.facebook.com/docs/authentication/permissions/
+      }, function (error) {
+        if (error) {
+          console.log('error:'+error);
+        }
+      });
+    },
     // 'mouseenter p,h1,h2,h3,h4,h5,h6': function ( event ) {
     //   $(event.currentTarget).addClass("text-info");
     // },
@@ -611,6 +620,29 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+
+  // debugger
+  // // first, remove configuration entry in case service is already configured
+  // Accounts.ServiceConfiguration.configurations.remove({
+  //   service: "facebook"
+  // });
+  // Accounts.ServiceConfiguration.configurations.insert({
+  //   service: "facebook",
+  //   appId: "636768589764143",
+  //   secret: "08df277b0663b6beb93f7795843b98f7"
+  // });
+
+  // first, remove configuration entry in case service is already configured
+  // Accounts.loginServiceConfiguration.remove({
+  //   service: "google"
+  // });
+  // Accounts.loginServiceConfiguration.insert({
+  //   service: "google",
+  //   clientId: "yourClientId",
+  //   secret: "yourSecret"
+  // });
+
+
   Meteor.publish('allUsers', function () {
     return Meteor.users.find();
   });
