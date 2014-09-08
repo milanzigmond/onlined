@@ -103,6 +103,10 @@ ul.imageGallery li {
 
 .editable {
   transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
 }
 
 .editable:hover {
@@ -237,15 +241,14 @@ h6 {
 }*/
 
 .reimg {
-  background: #89b504;
-  -moz-transition: background .3s linear;  
-    -webkit-transition: background .3s linear;  
-    -o-transition: background .3s linear;  
-    transition: background .3s linear;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
+
 .reimg:hover {
-  opacity: .5;
+  -webkit-box-shadow:inset 1px 1px 100px 1000px rgba(137,181,4,0.7);
+box-shadow:inset 1px 1px 100px 100px rgba(137,181,4,0.7);
 }
 
 .verticaltable {

@@ -625,11 +625,6 @@ if (Meteor.isClient) {
   Template.create.rendered = function () {
     setupMap();
     setupSlider();
-
-    $('img').each(function(n) {
-        n += 1;
-        $(this).wrap('<figure class="tint t'+ n + '"></figure>');
-      });
   };
 
   Template.selectStyle.rendered = function () {
