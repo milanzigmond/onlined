@@ -336,7 +336,15 @@ if (Meteor.isClient) {
 
   Template.userItem.helpers({
     email: function () {
-      return this.emails[0].address;
+      var email;
+
+      if (this.emails) {
+        email = this.emails[0].address;
+      } else {
+        email = this.services.facebook.email;
+      }
+
+      return email;
     },
     numberOfWebsites: function () {
       return Websites.find({userId:this._id}).count();
@@ -349,15 +357,6 @@ if (Meteor.isClient) {
       countLines(event.target.id);
 
       makeEditable( event, template );
-    },
-    'click #loginFacebook' : function ( event, template ) {
-      Meteor.loginWithFacebook({
-        requestPermissions: ['email'] // http://developers.facebook.com/docs/authentication/permissions/
-      }, function (error) {
-        if (error) {
-          console.log('error:'+error);
-        }
-      });
     },
     // 'mouseenter p,h1,h2,h3,h4,h5,h6': function ( event ) {
     //   $(event.currentTarget).addClass("text-info");
@@ -485,7 +484,18 @@ if (Meteor.isClient) {
       return Session.get("alertMessage");
     },
     email: function () {
-      return Meteor.user().emails[0].address;
+
+      var email;
+
+      if (Meteor.user().emails) {
+        email = Meteor.user().emails[0].address;
+      } else {
+        email = Meteor.user().services.facebook.email;
+      }
+      
+      console.log('email:'+email);
+
+      return email;
     }
   });
 
@@ -501,6 +511,16 @@ if (Meteor.isClient) {
     'click .createWebsiteButton': function (event, template) {
       createDefaultWebsite();
       Router.go('create');
+    },
+    'click #loginFacebook' : function ( event, template ) {
+      console.log('click');
+      Meteor.loginWithFacebook({
+        requestPermissions: ['email'] // http://developers.facebook.com/docs/authentication/permissions/
+      }, function (error) {
+        if (error) {
+          console.log('error:'+error);
+        }
+      });
     }
   });
 
@@ -626,16 +646,15 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
 
-  // debugger
-  // // first, remove configuration entry in case service is already configured
-  // Accounts.ServiceConfiguration.configurations.remove({
-  //   service: "facebook"
-  // });
-  // Accounts.ServiceConfiguration.configurations.insert({
-  //   service: "facebook",
-  //   appId: "636768589764143",
-  //   secret: "08df277b0663b6beb93f7795843b98f7"
-  // });
+  // first, remove configuration entry in case service is already configured
+  ServiceConfiguration.configurations.remove({
+    service: "facebook"
+  });
+  ServiceConfiguration.configurations.insert({
+    service: "facebook",
+    appId: "636768589764143",
+    secret: "08df277b0663b6beb93f7795843b98f7"
+  });
 
   // first, remove configuration entry in case service is already configured
   // Accounts.loginServiceConfiguration.remove({
