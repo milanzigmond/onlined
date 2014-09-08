@@ -133,6 +133,7 @@
 	{{#if editing_website}}
 	{{#with editing_website}}
 	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
+
 	<div class="container">	
 		<div class="section-heading">
 			<h1 id="title" class="editable text-center">{{content.title}}</h1>
@@ -208,6 +209,19 @@
 					<div id="map-canvas" style="width:100%;height:200px;"></div>
 				</div>
 			</div>
+		</div>
+
+		<div class="section-highlight">
+			<div id="effect-6" class="effects clearfix">
+				{{#each highlightImages}}
+					<div class="img">
+		                <img id="highlightImages{{position}}" src="{{src}}" alt="">
+		                <div class="overlay">
+		                    <a href="#" class="expand">+drag image here</a>
+		                </div>
+		            </div>
+				{{/each}}
+	        </div>
 		</div>
 	</div>
 

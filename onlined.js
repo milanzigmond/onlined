@@ -143,7 +143,7 @@ if (Meteor.isClient) {
           {position: 1, src:"sliderImage02.jpg"},
           {position: 2, src:"sliderImage03.jpg"},
           {position: 3, src:"sliderImage04.jpg"}
-          ], 
+        ], 
         galleryImages: [
           {position: 0, src:"family01.jpg", small:"family01small.jpg"},
           {position: 1, src:"family02.jpg", small:"family02small.jpg"},
@@ -153,6 +153,12 @@ if (Meteor.isClient) {
           {position: 5, src:"family06.jpg", small:"family06small.jpg"},
           {position: 6, src:"family07.jpg", small:"family07small.jpg"}
         ],
+        highlightImages: [ 
+          {position: 0, src:"highlightImage01.jpg"}, 
+          {position: 1, src:"highlightImage02.jpg"},
+          {position: 2, src:"highlightImage03.jpg"},
+          {position: 3, src:"highlightImage04.jpg"}
+        ], 
         textColumns1Heading: "You will love this!",
         textColumns2Heading: "Unbelievable",
         textColumns3Heading: "FAST",
@@ -360,17 +366,9 @@ if (Meteor.isClient) {
 
   Template.create.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
-
       countLines(event.target.id);
-
       makeEditable( event, template );
     },
-    // 'mouseenter p,h1,h2,h3,h4,h5,h6': function ( event ) {
-    //   $(event.currentTarget).addClass("text-info");
-    // },
-    // 'mouseleave p,h1,h2,h3,h4,h5,h6': function ( event ) {
-    //   $(event.currentTarget).removeClass("text-info");
-    // },
     'keyup #input' : function( event, template ) {
       if (event.which === 27) {
         // escape pressed
@@ -408,6 +406,14 @@ if (Meteor.isClient) {
         Session.set('editing_field', null);
        $(sibling).show();
     },
+    'mouseenter div.img' : function ( event, template ) {
+      preventActionsForEvent( event );
+      $( event.target ).addClass("hover");
+    },
+    'mouseleave div.img' : function ( event, template) {
+      preventActionsForEvent(event);
+      $( event.target ).removeClass("hover");
+    },
     'dragover .reimg' : function ( event, template ) { 
       preventActionsForEvent(event); 
     },
@@ -429,6 +435,9 @@ if (Meteor.isClient) {
     },
     sliderImages: function () {
       return this.content.sliderImages;
+    },
+    highlightImages: function () {
+      return this.content.highlightImages;
     }
   });
 
