@@ -131,7 +131,7 @@ if (Meteor.isClient) {
       createdAt: new Date(),
       css: Session.get('currentStyle'),
       content: {
-        email: Meteor.user().emails[0].address,
+        email: getUserEmail(),
         title: "Onlined",
         tagline: "Create your website in minutes",
         heading: "What is it that makes onlined special?",
@@ -181,6 +181,19 @@ if (Meteor.isClient) {
     });
     Session.set('editing_website', website_id);
   };
+
+  var getUserEmail = function () {
+    var email;
+    if (Meteor.user().emails) {
+      email = Meteor.user().emails[0].address;
+    } else {
+      email = Meteor.user().services.facebook.email;
+    }
+    
+    console.log('email:'+email);
+
+    return email;
+  }
 
   var countLines = function (id) {
     var element = document.getElementById(id),
@@ -306,7 +319,8 @@ if (Meteor.isClient) {
   Template.websiteListItem.helpers({
     email: function () {
       if(this.userId){
-        return Meteor.users.findOne(this.userId).emails[0].address;  
+        // return Meteor.users.findOne(this.userId).emails[0].address; 
+        return getUserEmail(); 
       }
       else {
         return "loading";
@@ -336,15 +350,7 @@ if (Meteor.isClient) {
 
   Template.userItem.helpers({
     email: function () {
-      var email;
-
-      if (this.emails) {
-        email = this.emails[0].address;
-      } else {
-        email = this.services.facebook.email;
-      }
-
-      return email;
+      return getUserEmail();
     },
     numberOfWebsites: function () {
       return Websites.find({userId:this._id}).count();
@@ -468,7 +474,7 @@ if (Meteor.isClient) {
 
   Template.website.helpers({
       email: function () {
-        return Meteor.user().emails[0].address;
+        return getUserEmail();
       },
       galleryImages: function () {
         return this.content.galleryImages;
