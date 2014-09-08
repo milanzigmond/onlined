@@ -183,14 +183,15 @@ if (Meteor.isClient) {
   };
 
   var getUserEmail = function () {
-    var email;
-    if (Meteor.user().emails) {
-      email = Meteor.user().emails[0].address;
-    } else {
-      email = Meteor.user().services.facebook.email;
-    }
-    
-    console.log('email:'+email);
+    var email,
+        emails = Meteor.user().emails,
+        services = Meteor.user().services;
+
+    if (emails) {
+      email = emails[0].address;
+    } else if (services) {
+      email = services.facebook.email;
+    };
 
     return email;
   }
@@ -490,18 +491,7 @@ if (Meteor.isClient) {
       return Session.get("alertMessage");
     },
     email: function () {
-
-      var email;
-
-      if (Meteor.user().emails) {
-        email = Meteor.user().emails[0].address;
-      } else {
-        email = Meteor.user().services.facebook.email;
-      }
-      
-      console.log('email:'+email);
-
-      return email;
+      return getUserEmail();
     }
   });
 
