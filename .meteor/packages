@@ -12,4 +12,5 @@ less
 mrt:bootstrap-3
 iron:router
 accounts-facebook
+service-configuration
 
