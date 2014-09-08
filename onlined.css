@@ -103,6 +103,10 @@ ul.imageGallery li {
 
 .editable {
   transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
 }
 
 .editable:hover {
@@ -131,6 +135,24 @@ h5 {
 
 h6 {
   font-size: 1em;
+}
+
+.onlinedlogo {
+  height: 10px;
+  width: 10px;
+  border-radius: 300px;
+  background-color: #89b504;
+  position: fixed;
+  z-index: 4;
+  right: 24px;
+  margin-top: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+.onlinedlogo:hover {
+  height: 14px;
+  width: 16px;
+  background-color: #aade0d;
 }
 
 .logo {
@@ -196,7 +218,7 @@ h6 {
   color: #fff;
 }
 
-.reimg {
+/*.reimg {
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -216,6 +238,17 @@ h6 {
   -webkit-box-shadow: 5px 5px 7px 1px rgba(0,0,0,0.6);
   box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.6);
 
+}*/
+
+.reimg {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+
+.reimg:hover {
+  -webkit-box-shadow:inset 1px 1px 100px 1000px rgba(137,181,4,0.7);
+box-shadow:inset 1px 1px 100px 100px rgba(137,181,4,0.7);
 }
 
 .verticaltable {

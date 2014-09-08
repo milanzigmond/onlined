@@ -7,6 +7,8 @@
 	{{> layout}}
 </body>
 
+
+
 <template name="layout">
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
@@ -132,6 +134,9 @@
 <template name="create">
 	{{#if editing_website}}
 	{{#with editing_website}}
+
+<a href="http://localhost:3000"><div class="onlinedlogo"></div></a>
+
 	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
 
 	<div class="container">	
