@@ -80,16 +80,12 @@ if (Meteor.isClient) {
     if(Session.get('editing_field')) return;
     Session.set('editing_field', event.target.id);
 
-    console.log('click');
-
     var contentId = event.target.id,
         textContent = event.target.textContent,
         $eventTarget = $(event.target),
         tagName = $eventTarget.get(0).tagName,
         textAlign = $eventTarget.css('text-align'),
         lines = countLines(contentId);
-
-    debugger
 
     if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
     // it's a text field
@@ -135,6 +131,7 @@ if (Meteor.isClient) {
       createdAt: new Date(),
       css: Session.get('currentStyle'),
       content: {
+        email: Meteor.user().emails[0].address,
         title: "Onlined",
         tagline: "Create your website in minutes",
         heading: "What is it that makes onlined special?",
@@ -411,9 +408,6 @@ if (Meteor.isClient) {
     },
     goHome: function () {
       Router.go('home');
-    },
-    email: function () {
-      return Meteor.user().emails[0].address;
     },
     galleryImages: function () {
       return this.content.galleryImages;
