@@ -80,12 +80,16 @@ if (Meteor.isClient) {
     if(Session.get('editing_field')) return;
     Session.set('editing_field', event.target.id);
 
+    console.log('click');
+
     var contentId = event.target.id,
         textContent = event.target.textContent,
         $eventTarget = $(event.target),
         tagName = $eventTarget.get(0).tagName,
         textAlign = $eventTarget.css('text-align'),
         lines = countLines(contentId);
+
+    debugger
 
     if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
     // it's a text field
@@ -95,6 +99,7 @@ if (Meteor.isClient) {
       } else {
         var input = '<input id="input" class="textInput" style="text-align:'+textAlign+';" type="text" placeholder="" value="'+textContent+'"/>';
         $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
+        // $( event.target ).before(input);
       }
       $( event.target ).hide();
     }
@@ -104,6 +109,7 @@ if (Meteor.isClient) {
       var input = '<textarea id="input" style="text-align:'+textAlign+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
 
       $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
+      // $( event.target ).before(input);
       $( event.target ).hide();
     }
     Deps.flush();
@@ -347,12 +353,12 @@ if (Meteor.isClient) {
 
       makeEditable( event, template );
     }, 
-    'mouseenter p,h1,h2,h3,h4,h5,h6': function ( event ) {
-      $(event.currentTarget).addClass("text-info");
-    },
-    'mouseleave p,h1,h2,h3,h4,h5,h6': function ( event ) {
-      $(event.currentTarget).removeClass("text-info");
-    },
+    // 'mouseenter p,h1,h2,h3,h4,h5,h6': function ( event ) {
+    //   $(event.currentTarget).addClass("text-info");
+    // },
+    // 'mouseleave p,h1,h2,h3,h4,h5,h6': function ( event ) {
+    //   $(event.currentTarget).removeClass("text-info");
+    // },
     'keyup #input' : function( event, template ) {
       if (event.which === 27) {
         // escape pressed

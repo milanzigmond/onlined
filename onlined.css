@@ -80,24 +80,17 @@ ul.imageGallery li {
 }
 
 #input {
-  transition: all 0.3s ease-in-out;
+  /*transition: all 0.3s ease-in-out;*/
  /* -webkit-box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);
   box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);*/
   background: #89b504;
+  /*background: red;*/
   color: #fff;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   outline:none;
   border:0;
   width:100%;
-}
-
-.text-info {
-  transition: all 0.3s ease-in-out;
-  color: #fff;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background: #89b504;
 }
 
 #topImage {
@@ -106,6 +99,18 @@ ul.imageGallery li {
 
 .col-lg-3 {
   padding: 0px;
+}
+
+.editable {
+  transition: all 0.3s ease-in-out;
+}
+
+.editable:hover {
+  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: #89b504;
+  opacity: 0.6;
 }
 
 h1 {
