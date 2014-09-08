@@ -414,7 +414,10 @@ if (Meteor.isClient) {
       preventActionsForEvent(event);
       $( event.target ).removeClass("hover");
     },
-    'dragover .reimg' : function ( event, template ) { 
+    'dragover' : function ( event, template ) { 
+      preventActionsForEvent(event); 
+    },
+    'drop' : function ( event, template ) { 
       preventActionsForEvent(event); 
     },
     'drop .reimg' : function ( event, template ) {
