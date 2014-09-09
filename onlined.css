@@ -5,6 +5,10 @@ div.center {
   width: 300px;
   margin: auto;
 }
+.loginButton {
+  padding-top: 25px;
+  padding-right: 25px;
+}
 .registerForm {
   /*position: absolute;
   top: 0;
