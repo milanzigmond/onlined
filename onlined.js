@@ -181,7 +181,7 @@ if (Meteor.isClient) {
         secondTeamMember: "Jano Mrazik 2", secondTeamMemberTagline: "stale sa flaka 2", secondTeamMemberImage: "draglogo.jpg",
         thirdTeamMember: "Jano Mrazik 3", thirdTeamMemberTagline: "stale sa flaka 3", thirdTeamMemberImage: "draglogo.jpg",
         fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4", fourthTeamMemberImage: "draglogo.jpg",
-        address: "Krizikvova 52, Praha 8, Czech Republic",
+        address: "Krizikova 52, Praha 8, Czech Republic",
         latLng: {lat:50.092547, lng:14.45133999999996}
       }
     });
@@ -619,6 +619,13 @@ if (Meteor.isClient) {
       return false; 
     }
   });
+
+  Template.layout.rendered = function () {
+    $("nav.navbar-fixed-top").autoHidingNavbar({
+      'animationDuration' : 300
+    });
+    console.log('rendered');
+  };
 
   Template.website.rendered = function () {
     setupMap();
