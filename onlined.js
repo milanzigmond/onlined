@@ -112,6 +112,24 @@ if (Meteor.isClient) {
     activateInput(template.find('#input'));
   };
 
+  var registerUser = function ( event, template ) {
+    var email = trimInput(template.find('#register-email').value),
+        password = template.find('#register-password').value;
+
+    if (isValidPassword(password)) {
+      Accounts.createUser({email: email, password : password}, function(err){
+        if (err) {
+            console.log(err);
+            showAlert(err.reason);
+        } else {
+          console.log('registered and logged in');
+        }
+      });
+    }
+
+    return false;
+  }
+
   var showAlert = function (alert) {
     $('div.alert').text(alert).slideDown(300).delay(2000).slideUp(300);
   };
@@ -189,6 +207,7 @@ if (Meteor.isClient) {
   };
 
   var getUserEmail = function () {
+    if(!Meteor.user()) return;
     var email,
         emails = Meteor.user().emails,
         services = Meteor.user().services;
@@ -508,6 +527,32 @@ if (Meteor.isClient) {
   });
 
   Template.layout.events({
+    'click #getStarted' : function ( event, template ) {
+      $('div.registerForm').animate({width:'toggle'}, 300);
+    
+      var $form = $('div.registerForm');
+
+      // $form.animate({left: parseInt($form.css('left'),10) == 0 ? $form.outerWidth() : 0}, 300);
+
+      // $(event.target).animate({width:'toggle'}, 300);
+       // $( "div.registerForm" ).animate({
+       //    display: "block",
+       //    left: "+=50"
+       //  }, 5000, function() {
+       //    // Animation complete.
+       //  });
+    },
+    'click .registerForm img' : function(event, template) {
+      preventActionsForEvent(event)
+      registerUser( event, template );
+    },
+    'keyup .registerForm input': function( event, template) {
+        preventActionsForEvent(event);
+        if (event.which === 13) {
+            registerUser( event, template);
+            return false;
+        }
+    },
     'click .fancybox': function (e,t) {
       $('.fancybox').fancybox();
       // preventActionsForEvent(e);
@@ -554,29 +599,6 @@ if (Meteor.isClient) {
       }
   });
 
-  Template.register.events({
-    'submit #register-form' : function(event, template) {
-      preventActionsForEvent(event)
-
-      var email = trimInput(template.find('#register-email').value),
-          password = template.find('#register-password').value;
-
-      if (isValidPassword(password)) {
-        Accounts.createUser({email: email, password : password}, function(err){
-          if (err) {
-              console.log(err);
-              showAlert(err.reason);
-          } else {
-            console.log('registered and logged in');
-            Router.go('home');
-          }
-        });
-      }
-      
-      return false;
-    }
-  });
-
   Template.passwordRecovery.helpers({
     resetPassword : function(t) {
       return Session.get('resetPassword');
@@ -585,7 +607,7 @@ if (Meteor.isClient) {
 
   Template.passwordRecovery.events({
     'submit #recovery-form' : function(e, t) {
-      e.preventDefault()
+      e.preventDefault();
       var email = trimInput(t.find('#recovery-email').value)
 
       if (isNotEmpty(email) === isEmail(email)) {
@@ -621,6 +643,10 @@ if (Meteor.isClient) {
   });
 
   Template.layout.rendered = function () {
+
+    // var $form = $('div.registerForm');
+    // $form.css("left", -($form.outerWidth()));
+
     $("nav.navbar-fixed-top").autoHidingNavbar({
       'animationDuration' : 300
     });

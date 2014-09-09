@@ -2,29 +2,48 @@
 	<title>onlined</title>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 	<script src="js/jquery.bootstrap-autohidingnavbar.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 	{{> layout}}
 </body>
 
-
-
 <template name="layout">
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="{{pathFor 'home'}}">Onlined</a>
+			<a class="navBrand" href="{{pathFor 'home'}}">onlined.at</a>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				{{#if currentUser}}
 				<button type="button" class="btn btn-primary navbar-btn createWebsiteButton">Create Website</button>
-				{{>selectStyle}}
 				<button type="submit" class="btn btn-default navbar-btn logout">Logout</button>
 				<span class="username">{{email}}</span>
 				{{else}}
-				<a href="{{pathFor 'register'}}">
-					<button type="submit" class="btn btn-primary navbar-btn">Start Here</button>
-				</a>
-				<button id="loginFacebook" class="btn btn-primary navbar-btn">Login with Facebook</button>
+				<div class="registerForm">
+					<form id="register-form" action="action" role="form">
+						<div class="row">
+							<div class="col-md-6">
+									<div class="form-group">
+										<input id="register-email" type="email" class="form-control" placeholder="Enter email">
+									</div>
+								<div class="alert alert-danger" role="alert" hidden></div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<input id="register-password" type="password" class="form-control" placeholder="Enter password">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<!-- <button id="register-button" type="submit" class="btn btn-lg btn-success btn-block">Register</button> -->
+									<img id="register-button" src="logo.png">
+							</div>
+						</div>
+					</form>
+				</div>
+				<button id="getStarted" class="btn navbar-btn">GET STARTED</button>
+				<!-- <button id="loginFacebook" class="btn btn-primary navbar-btn">Login with Facebook</button> -->
+				<ul class="nav navbar-nav navbar-right">
+		        </ul>
 				{{/if}}
 			</div>
 		</div>
@@ -40,10 +59,6 @@
 
 <template name="loading">
 	<h1>loading ...</h1>
-</template>
-
-<template name="alert">
-	<div class="alert alert-danger" role="alert" hidden></div>
 </template>
 
 <template name="home">
@@ -427,28 +442,6 @@
 				</div>
 				<button id="login-button" type="submit" class="btn btn-lg btn-success btn-block">Login</button><br />
 			</form>
-			<a href="{{pathFor 'register'}}"><button type="button" class="btn btn-default btn-block">Register</button></a>
-			<br />
-			{{> alert}}
-		</div>
-	</div>
-</template>
-
-<template name="register">
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-			<form id="register-form" action="action" role="form">
-				<div class="form-group">
-					<label for="register-email">Email address</label>
-					<input id="register-email" type="email" class="form-control" placeholder="Enter email">
-				</div>
-				<div class="form-group">
-					<label for="register-password">Password</label>
-					<input id="register-password" type="password" class="form-control" placeholder="Enter password">
-				</div>
-				<button id="register-button" type="submit" class="btn btn-lg btn-success btn-block">Register</button><br />
-			</form>
-			<a href="{{pathFor 'login'}}"><button type="button" class="btn btn-default btn-block">Login</button></a>
 			<br />
 			{{> alert}}
 		</div>
