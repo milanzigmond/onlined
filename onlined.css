@@ -337,7 +337,7 @@ box-shadow:inset 1px 1px 100px 100px rgba(137,181,4,0.7);
   display: block;
   position: absolute;
   z-index: 20;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(137, 181, 4, 0.8);
   overflow: hidden;
   transition: all 0.5s;
 }
@@ -345,15 +345,14 @@ a.expand {
   display: block;
   position: absolute;
   z-index: 100;
-  width: 60px;
+  width: 180px;
   height: 60px;
-  border: solid 5px #fff;
   text-align: center;
   color: #fff;
-  line-height: 50px;
+  line-height: 32px;
   font-weight: 700;
-  font-size: 30px;
-  border-radius: 30px;
+  text-decoration: none;
+  font-size: 26px;
 }
 
 
