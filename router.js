@@ -40,7 +40,6 @@ Router.map(function() {
 		path: '/create'
 	});
 	this.route('login', {path: '/login'});
-	this.route('register', {path: '/register'});
 	this.route('website', { 
 		path: '/:sitename',
 		waitOn: function () {
