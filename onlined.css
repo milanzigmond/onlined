@@ -8,6 +8,21 @@ div.center {
 html, body {
   height:100%;
 }
+.close {
+  color: white;
+  font-weight: bold;
+}
+.websiteListItem {
+  height: 200px;
+  margin: 20px;
+  padding: 30px;
+  font-size: 30px;
+  color:white;
+  font-weight: bold;
+
+  display:block;
+  position:relative;
+}
 
 .home {
   padding: 0px;
@@ -25,7 +40,9 @@ html, body {
   display: table-cell;
   background-color: #313131;
   color: #ccc;
-  float:none;
+  float: none;
+  padding: 0px;
+  margin: 0px;
 }
 .home div.myWebsites {
   display: table-cell;

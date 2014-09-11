@@ -34,13 +34,17 @@ if (Meteor.isClient) {
    long: "DD MMMM YYYY HH:mm (dddd)"
   };
 
-  UI.registerHelper("formatDate", function(datetime) {
+  Template.registerHelper("formatDate", function(datetime) {
     if (moment) {
       return moment(datetime).fromNow();
     }
     else {
       return datetime;
     }
+  });
+
+  Template.registerHelper('toUpperCase', function(str) {
+    return str.toUpperCase();
   });
 
   // SLIDER START
