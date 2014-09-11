@@ -17,6 +17,7 @@
   width:100%;
   height: 100%;
 }
+
 span.username {
   padding-left: 10px;
 }
@@ -32,12 +33,13 @@ html, body {
   font-weight: bold;
 }
 .websiteListItem {
-  height: 200px;
-  margin: 20px;
-  font-size: 30px;
+  height: 220px;
   color:white;
-  font-weight: bold;
   position: relative;
+  margin-top: 20px;
+  background-position: 20% 20%;
+  display:block;
+  position:relative;
 }
 .myWebsiteListItem {
   height: 100px;
@@ -47,6 +49,7 @@ html, body {
   color:white;
   font-weight: bold;
 }
+
 .createWebsiteButton {
   display: block;
   color:white;
@@ -82,26 +85,13 @@ ul {
   list-style-type: none;
 }
 
-.websiteListItem {
-  height: 220px;
-  margin-top: 20px;
-  padding: 30px;
-  font-size: 30px;
-  color:white;
-  font-weight: bold;
-  background-position: 20% 20%;
-  display:block;
-  position:relative;
-}
-
 .home div.stream h2 {
   font-weight: 600;
-  margin-top: -5px;
-  margin-bottom: -18px;
+  padding-top: 30px;
 }
 
 .home div.stream h3 {
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 30px;
   margin-bottom: -30px;
 }
