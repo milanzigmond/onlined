@@ -34,10 +34,9 @@ if (Meteor.isClient) {
    long: "DD MMMM YYYY HH:mm (dddd)"
   };
 
-  UI.registerHelper("formatDate", function(datetime, format) {
+  UI.registerHelper("formatDate", function(datetime) {
     if (moment) {
-      f = DateFormats[format];
-      return moment(datetime).format(f);
+      return moment(datetime).fromNow();
     }
     else {
       return datetime;
@@ -368,21 +367,6 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.userItem.events({
-    'click .close' : function () {
-      Meteor.users.remove({_id:this._id});
-    }
-  });
-
-  Template.userItem.helpers({
-    email: function () {
-      return getUserEmail();
-    },
-    numberOfWebsites: function () {
-      return Websites.find({userId:this._id}).count();
-    }
-  });
-
   Template.create.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
       countLines(event.target.id);
@@ -445,6 +429,13 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.home.events({
+    'click .createWebsiteButton': function (event, template) {
+      createDefaultWebsite();
+      Router.go('create');
+    },
+  });
+
   Template.create.helpers({
     editing_website: function () {
       return Websites.findOne(Session.get('editing_website'));
@@ -464,6 +455,9 @@ if (Meteor.isClient) {
   });
 
   Template.home.helpers({
+    numberOfWebsites: function () {
+      return Websites.find().count();
+    },
     websites: function () {
       return Websites.find({},{sort: {createdAt: -1}});
     },
@@ -560,10 +554,6 @@ if (Meteor.isClient) {
     'click .logout': function (event, Template) {
       Meteor.logout();
       Router.go('home');
-    },
-    'click .createWebsiteButton': function (event, template) {
-      createDefaultWebsite();
-      Router.go('create');
     },
     'click #loginFacebook' : function ( event, template ) {
       console.log('click');
