@@ -135,8 +135,8 @@ ul.sectionsbar {
   margin: 0;
   margin-top: 12px;
   padding: 0;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background-color:rgba(0,0,0,0.7);
   text-align: center;
   position: fixed;
@@ -168,16 +168,19 @@ ul.sectionsbar li {
 .sectionsbar a.active {
   color: #fff;
   border-top: 3px solid #89b504;
+  padding-top: 20px;
 }
 
 .sectionsbar a:hover{
   color: #fff;
+  border-top: 3px solid #89b504;
+  padding-top: 20px;
   text-decoration: none;
-  -webkit-transition: color 200ms linear;
-  -moz-transition: color 200ms linear;
-  -o-transition: color 200ms linear;
-  -ms-transition: color 200ms linear;
-  transition: color 200ms linear;
+  -webkit-transition: all 200ms linear;
+  -moz-transition: all 200ms linear;
+  -o-transition: all 200ms linear;
+  -ms-transition: all 200ms linear;
+  transition: all 200ms linear;
 }
 
 /*sections nav bar end*/
