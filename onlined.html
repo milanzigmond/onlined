@@ -69,8 +69,8 @@
 	<div class="container-fluid home">
 		<div class="row streamRow">
 			<div class="col-md-6 stream">
-				<h4><strong>latest</strong> / popular</h4>
-				<h4>{{numberOfWebsites}} websites onlined</h4>
+				<h4 class="listsorting"><strong>latest</strong> / popular</h4>
+				<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
 				<ul class="streamList">
 					{{#each websites}}
 						<li class="streamListItem">
@@ -105,9 +105,9 @@
 
 <template name="websiteListItem">
 	<div class="text-center websiteListItem" style="background-image: url({{content.topImage}})">
-		{{formatDate createdAt}}<br />
+		<h3>{{formatDate createdAt}}</h3><br />
 		<h2>{{toUpperCase sitename}}</h2>
-		<span class="glyphicon glyphicon-heart"></span> 18
+		<h3><span class="glyphicon glyphicon-heart"></span> 18</h3>
 		<button type="button" class="close">x</button>
 	</div>
 </template>
