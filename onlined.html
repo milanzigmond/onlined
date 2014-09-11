@@ -141,7 +141,22 @@
 	{{#if editing_website}}
 	{{#with editing_website}}
 
-<a href="http://localhost:3000"><div class="onlinedlogo"></div></a>
+<ul class="sectionsbar">
+  <li><a href="#" class="complete">header image</a></li>
+  <li><a href="#" class="complete">headline</a></li>
+  <li><a href="#" class="complete">introduction</a></li>
+  <li><a href="#" class="complete">gallery</a></li>
+  <li><a href="#">email</a></li>
+  <li><a href="#" class="active">text paragraphs</a></li>
+  <li><a href="#">location</a></li>
+  <li><a href="#">phone number</a></li>
+  <li><a href="#">opening hours</a></li>
+  <li><a href="#">social links</a></li>
+  <li><a href="#">products</a></li>
+  <li><a href="#">video</a></li>
+  <li><a href="#">team members</a></li>
+  <li><a href="#">slideshow</a></li>
+</ul>
 
 	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
 
@@ -223,12 +238,12 @@
 		</div>
 
 		<div class="section-highlight">
-			<div id="effect-6" class="effects clearfix">
+			<div id="effect-6" class="effects">
 				{{#each highlightImages}}
 					<div class="img">
 		                <img id="highlightImages{{position}}" src="{{src}}" alt="">
 		                <div class="overlay">
-		                    <a href="#" class="expand">+drag image here</a>
+		                    <a href="#" class="expand">+ drag image here</a>
 		                </div>
 		            </div>
 				{{/each}}
