@@ -35,7 +35,7 @@
 							</div>
 							<div class="col-md-2">
 								<!-- <button id="register-button" type="submit" class="btn btn-lg btn-success btn-block">Register</button> -->
-									<img id="register-button" src="logo.png">
+									<img src="logo.png">
 							</div>
 						</div>
 					</form>
@@ -43,6 +43,10 @@
 				<button id="getStarted" class="btn navbar-btn">GET STARTED</button>
 				<!-- <button id="loginFacebook" class="btn btn-primary navbar-btn">Login with Facebook</button> -->
 				<ul class="nav navbar-nav navbar-right">
+					<div class="loginButton">
+						<span>LOG IN</span>
+						<img src="logo.png" width="25px;">
+					</div>
 		        </ul>
 				{{/if}}
 			</div>
@@ -63,9 +67,30 @@
 
 <template name="home">
 	<div class="container-fluid">
-
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-md-6">
+				<h3><strong>latest</strong> / popular</h3>
+				<h3>2323 websites onlined</h3>
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr>
+							<th>Website</th>
+							<th>Author</th>
+							<th>Created</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each websites}}
+						<tr>
+							{{>websiteListItem}}
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-6">
 				<h1>Websites</h1>
 				<table class="table table-striped table-hover ">
 					<thead>
@@ -87,7 +112,7 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-lg-12">
 				<h1>Users</h1>
 				<table class="table table-striped table-hover ">
@@ -108,7 +133,7 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 
