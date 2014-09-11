@@ -34,10 +34,9 @@ if (Meteor.isClient) {
    long: "DD MMMM YYYY HH:mm (dddd)"
   };
 
-  UI.registerHelper("formatDate", function(datetime, format) {
+  UI.registerHelper("formatDate", function(datetime) {
     if (moment) {
-      f = DateFormats[format];
-      return moment(datetime).format(f);
+      return moment(datetime).fromNow();
     }
     else {
       return datetime;

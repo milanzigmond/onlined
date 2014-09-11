@@ -9,6 +9,10 @@ div.center {
   padding-top: 25px;
   padding-right: 25px;
 }
+.stream {
+  background-color: #313131;
+  color: #ccc;
+}
 .registerForm {
   /*position: absolute;
   top: 0;
