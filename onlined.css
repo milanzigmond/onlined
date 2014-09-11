@@ -31,6 +31,7 @@ html, body {
   color: white;
   font-weight: bold;
 }
+
 .websiteListItem {
   height: 200px;
   margin: 20px;
@@ -60,18 +61,63 @@ html, body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 .home div.streamRow {
   height: 100%;
   display: table-row;
 }
 .home div.stream {
+  font-family: "Cantarell", sans-serif;
+  text-transform: uppercase;
   display: table-cell;
   background-color: #313131;
   color: #ccc;
   float: none;
   padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
   margin: 0px;
 }
+
+ul {
+  list-style-type: none;
+}
+
+.websiteListItem {
+  height: 220px;
+  margin-top: 20px;
+  padding: 30px;
+  font-size: 30px;
+  color:white;
+  font-weight: bold;
+  background-position: 20% 20%;
+  display:block;
+  position:relative;
+}
+
+.home div.stream h2 {
+  font-weight: 600;
+  margin-top: -5px;
+  margin-bottom: -18px;
+}
+
+.home div.stream h3 {
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: -30px;
+}
+
+.home div.stream h4 {
+  font-size: 18px;
+}
+
+.listsorting {
+  float: right;
+}
+
+.numberofsites {
+ }
+
 .home div.myWebsites {
   display: table-cell;
   float: none;
