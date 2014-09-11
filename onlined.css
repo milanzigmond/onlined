@@ -1,3 +1,22 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.websiteItemOverlay {
+  opacity: .5;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.websiteItemContent {
+  padding: 20px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width:100%;
+  height: 100%;
+}
 span.username {
   padding-left: 10px;
 }
@@ -15,15 +34,24 @@ html, body {
 .websiteListItem {
   height: 200px;
   margin: 20px;
-  padding: 30px;
   font-size: 30px;
   color:white;
   font-weight: bold;
-
-  display:block;
-  position:relative;
+  position: relative;
 }
-
+.myWebsiteListItem {
+  height: 100px;
+  margin: 20px;
+  padding: 10px;
+  font-size: 16px;
+  color:white;
+  font-weight: bold;
+}
+.createWebsiteButton {
+  display: block;
+  color:white;
+  text-decoration: none;
+}
 .home {
   padding: 0px;
   display: table;
@@ -139,10 +167,6 @@ a.navBrand {
   color: #cccccc;
   margin: 20px;
   padding: 20px;
-}
-* {
-  padding: 0;
-  margin: 0;
 }
 
 /*sections nav bar*/

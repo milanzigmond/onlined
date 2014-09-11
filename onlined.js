@@ -345,31 +345,34 @@ if (Meteor.isClient) {
     }
   };
 
-  Template.websiteListItem.helpers({
-    email: function () {
-      if(this.userId){
-        // return Meteor.users.findOne(this.userId).emails[0].address; 
-        return getUserEmail(); 
-      }
-      else {
-        return "loading";
-      }
+  // Template.websiteListItem.helpers({
+  //   email: function () {
+  //     if(this.userId){
+  //       // return Meteor.users.findOne(this.userId).emails[0].address; 
+  //       return getUserEmail(); 
+  //     }
+  //     else {
+  //       return "loading";
+  //     }
       
-    }
-  });
+  //   }
+  // });
 
-  Template.websiteListItem.events({
+  // Template.websiteListItem.events({
+  //   'click' : function ( event, template) {
+  //     preventActionsForEvent( event );
+  //     Router.go("/"+this.sitename);
+  //   }
+  //   // 'click .title' : function () {
+  //   //   Session.set('editing_website', this._id);
+  //   //   Router.go('create');
+  //   // },
 
-    'click .title' : function () {
-      Session.set('editing_website', this._id);
-      Router.go('create');
-    },
-
-    'click .close' : function () {
-      Session.set('editing_website', null);
-      Websites.remove({_id:this._id});
-    }
-  });
+  //   // 'click .close' : function () {
+  //   //   Session.set('editing_website', null);
+  //   //   Websites.remove({_id:this._id});
+  //   // }
+  // });
 
   Template.create.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
@@ -465,7 +468,9 @@ if (Meteor.isClient) {
     websites: function () {
       return Websites.find({},{sort: {createdAt: -1}});
     },
-
+    myWebsites: function () {
+      return Websites.find({userId:Meteor.userId()},{sort: {createdAt: -1}});
+    },
     users: function () {
       return Meteor.users.find();
     }
