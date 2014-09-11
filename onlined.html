@@ -12,7 +12,17 @@
 <template name="layout">
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
-			<a class="navBrand" href="{{pathFor 'home'}}">onlined.at</a>
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+			<a class="navBrand" href="{{pathFor 'home'}}">ONLINED.AT</a>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				{{#if currentUser}}
 				<button type="submit" class="btn btn-default navbar-btn logout">Logout</button>
@@ -40,14 +50,14 @@
 						</div>
 					</form>
 				</div>
-				<button id="getStarted" class="btn navbar-btn">GET STARTED</button>
 				<!-- <button id="loginFacebook" class="btn btn-primary navbar-btn">Login with Facebook</button> -->
-				<ul class="nav navbar-nav navbar-right">
+				<div class="nav navbar-nav navbar-right">
+					<button id="getStarted" class="btn navbar-btn">GET STARTED</button>
 					<div class="loginButton">
 						<span>LOG IN</span>
 						<img src="logo.png" width="25px;">
 					</div>
-		        </ul>
+		        </div>
 				{{/if}}
 			</div>
 		</div>
