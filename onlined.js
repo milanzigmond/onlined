@@ -345,19 +345,6 @@ if (Meteor.isClient) {
     }
   };
 
-  // Template.websiteListItem.helpers({
-  //   email: function () {
-  //     if(this.userId){
-  //       // return Meteor.users.findOne(this.userId).emails[0].address; 
-  //       return getUserEmail(); 
-  //     }
-  //     else {
-  //       return "loading";
-  //     }
-      
-  //   }
-  // });
-
   // Template.websiteListItem.events({
   //   'click' : function ( event, template) {
   //     preventActionsForEvent( event );
@@ -437,6 +424,10 @@ if (Meteor.isClient) {
   });
 
   Template.home.events({
+    'click' : function ( event, template) {
+      preventActionsForEvent( event );
+      Router.go("/"+this.sitename);
+    },
     'click .createWebsiteButton': function (event, template) {
       createDefaultWebsite();
       Router.go('create');
@@ -533,7 +524,7 @@ if (Meteor.isClient) {
     'click #getStarted' : function ( event, template ) {
       $('div.registerForm').animate({width:'toggle'}, 300);
     
-      var $form = $('div.registerForm');
+      // var $form = $('div.registerForm');
 
       // $form.animate({left: parseInt($form.css('left'),10) == 0 ? $form.outerWidth() : 0}, 300);
 
