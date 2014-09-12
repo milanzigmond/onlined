@@ -5,6 +5,23 @@
 div.relativePosition {
   position: relative;
 }
+div.center {
+  width: 300px;
+  margin: auto;
+}
+html, body {
+  height:100%;
+}
+.close {
+  color: white;
+  font-weight: bold;
+}
+
+/*===================================================================ONLINED HOMEPAGE start*/
+
+/*======================================================index NAV BAR start*/
+
+>>>>>>> 1d12bda79b1508863ec3f8d7af8a705d459ecc47
 .form-group {
   margin-top: 8px;
   margin-bottom: 8px;
@@ -29,13 +46,139 @@ div.relativePosition {
   font-weight: bold;
   line-height: 38px;
 }
+
+span.username {
+  padding-left: 10px;
+}
+
+.loginButton {
+  padding-top: 25px;
+  padding-right: 25px;
+}
+.registerForm {
+  /*position: absolute;
+  top: 0;
+  left: 0;
+  */
+  /*display: none;*/
+  margin: 0px;
+  padding:0px;
+  background-color: #808080;
+  color: white;
+  border: none;
+  border-radius: 0px;
+  font-family: "Cantarell", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.registerForm input {
+  border-radius:0px;
+  border: none;
+  color: #b2b2b2;
+  text-transform: uppercase;
+  margin-left:10px;
+}
+
+.registerForm:last-child {
+  text-align:center;
+}
+
+.registerForm img {
+  width: 32px;
+}
+
+.registerForm img:hover {
+  width: 36px;
+}
+
+.navbar {
+  border-radius: 0px;
+  border: none;
+  margin-bottom: 0px;
+  background-color: #5f5f5f;
+  color: white;
+}
+
+a.navBrand {
+  color:white;
+  float:left;
+  font-size: 18pt;
+  line-height: 50px;
+  font-family: "Calibri", sans-serif;
+  padding-right: 30px;
+}
+
+.drop {
+  border: 2px dashed #ff0000;
+  width: 400px;
+  height: 200px;
+  color: #cccccc;
+  margin: 20px;
+  padding: 20px;
+}
+
+/*======================================================index NAV BAR end*/
+
+
+.home {
+  padding: 0px;
+  display: table;
+  width: 100%;
+  height:100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/*======================================================home STREAM half start*/
+
+.home div.streamRow {
+  height: 100%;
+  display: table-row;
+}
+
+.listsorting {
+  float: right;
+}
+
+.numberofsites {
+ }
+
+.home div.stream {
+  font-family: "Cantarell", sans-serif;
+  text-transform: uppercase;
+  display: table-cell;
+  background-color: #313131;
+  color: #ccc;
+  float: none;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0px;
+}
+
+.websiteListItem {
+  height: 220px;
+  color:white;
+  position: relative;
+  margin-top: 20px;
+  background-position: 20% 20%;
+  display:block;
+  position:relative;
+  cursor: pointer;
+}
+
 .websiteItemOverlay {
   opacity: .5;
   background-color: black;
   width: 100%;
   height: 100%;
-  position: relative;
   z-index: 50;
+  position: relative;
   -webkit-transition: all 200ms linear;
 -moz-transition: all 200ms linear;
 -ms-transition: all 200ms linear;
@@ -54,6 +197,76 @@ transition: all 200ms linear;
   left: 0px;
   width:100%;
   height: 100%;
+}
+
+.home div.stream h2 {
+  font-weight: 600;
+  padding-top: 30px;
+}
+
+.home div.stream h3 {
+  font-size: 16px;
+  margin-top: 30px;
+  margin-bottom: -30px;
+}
+
+.home div.stream h4 {
+  font-size: 18px;
+}
+
+/*======================================================home STREAM half end*/
+
+
+/*======================================================home MY PAGES half start*/
+
+.home div.myWebsites {
+  display: table-cell;
+  float: none;
+}
+.myWebsitesList {
+  list-style: none;
+  background-color: #89b504;
+  color: white;
+  height: 82px;
+  font-family: "Cantarell", sans-serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 82px;
+  cursor: pointer;
+  position: relative;
+}
+
+.createWebsiteButton {
+  display: block;
+  color:white;
+  text-decoration: none;
+  width: 100%;
+-webkit-transition: all 200ms ease-in-out;
+-moz-transition: all 200ms ease-in-out;
+-ms-transition: all 200ms ease-in-out;
+-o-transition: all 200ms ease-in-out;
+transition: all 200ms ease-in-out;
+}
+
+.createWebsiteButton:hover{
+  color: white;
+  text-decoration: none;
+  background-color: #a3ce22;
+  font-size: 18px;
+}
+
+.myWebsiteListItem {
+  position:relative;
+  height: 100px;
+  width: 100%;
+  margin: 0px;
+  margin-top: 20px;
+  font-size: 16px;
+  color:white;
+  font-weight: bold;
+  font-family: "Cantarell", sans-serif;
 }
 
 .myWebsiteItemOverlay {
@@ -81,133 +294,6 @@ transition: all 200ms linear;
   left: 0px;
   width:100%;
   height: 100%;
-}
-
-span.username {
-  padding-left: 10px;
-}
-div.center {
-  width: 300px;
-  margin: auto;
-}
-html, body {
-  height:100%;
-}
-.close {
-  color: white;
-  font-weight: bold;
-}
-
-.websiteListItem {
-  height: 220px;
-  color:white;
-  position: relative;
-  margin-top: 20px;
-  background-position: 20% 20%;
-  display:block;
-  position:relative;
-  cursor: pointer;
-}
-
-.myWebsiteListItem {
-  position:relative;
-  height: 100px;
-  width: 100%;
-  margin: 20px;
-  font-size: 16px;
-  color:white;
-  font-weight: bold;
-  font-family: "Cantarell", sans-serif;
-}
-
-.createWebsiteButton {
-  display: block;
-  color:white;
-  text-decoration: none;
-  width: 100%;
--webkit-transition: all 200ms ease-in-out;
--moz-transition: all 200ms ease-in-out;
--ms-transition: all 200ms ease-in-out;
--o-transition: all 200ms ease-in-out;
-transition: all 200ms ease-in-out;
-}
-
-.createWebsiteButton:hover{
-  color: white;
-  text-decoration: none;
-  background-color: #a3ce22;
-  font-size: 18px;
-}
-
-.home {
-  padding: 0px;
-  display: table;
-  width: 100%;
-  height:100%;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.home div.streamRow {
-  height: 100%;
-  display: table-row;
-}
-.home div.stream {
-  font-family: "Cantarell", sans-serif;
-  text-transform: uppercase;
-  display: table-cell;
-  background-color: #313131;
-  color: #ccc;
-  float: none;
-  padding: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin: 0px;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.home div.stream h2 {
-  font-weight: 600;
-  padding-top: 30px;
-}
-
-.home div.stream h3 {
-  font-size: 16px;
-  margin-top: 30px;
-  margin-bottom: -30px;
-}
-
-.home div.stream h4 {
-  font-size: 18px;
-}
-
-.listsorting {
-  float: right;
-}
-
-.numberofsites {
- }
-
-.home div.myWebsites {
-  display: table-cell;
-  float: none;
-}
-.myWebsitesList {
-  list-style: none;
-  background-color: #89b504;
-  color: white;
-  height: 82px;
-  font-family: "Cantarell", sans-serif;
-  text-transform: uppercase;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 82px;
-  cursor: pointer;
-  position: relative;
 }
 
 .home div.myWebsites h2 {
@@ -284,17 +370,20 @@ a.navBrand {
   font-family: "Calibri", sans-serif;
   padding-right: 30px;
 }
+/*======================================================home MY PAGES half end*/
 
-.drop {
-  border: 2px dashed #ff0000;
-  width: 400px;
-  height: 200px;
-  color: #cccccc;
-  margin: 20px;
-  padding: 20px;
-}
+/*===================================================================ONLINED HOMEPAGE end*/
 
-/*sections nav bar*/
+
+
+
+
+
+/*===================================================================CREATE NEW PAGE start*/
+
+
+
+/*======================================================SECTIONS NAV BAR start*/
 
 ul.sectionsbar {
   list-style-type: none;
@@ -349,7 +438,9 @@ ul.sectionsbar li {
   transition: all 200ms linear;
 }
 
-/*sections nav bar end*/
+/*======================================================SECTIONS NAV BAR end*/
+
+/*======================================================GLOBAL SETTINGS start*/
 
 body {
   font-family: "Cantarell", sans-serif;
@@ -361,6 +452,77 @@ body {
   padding-top: 30px;
   padding-bottom: 30px;
 }
+
+.col-lg-3 {
+  padding: 0px;
+}
+
+.editable {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+}
+
+.editable:hover {
+  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: #89b504;
+  opacity: 0.6;
+}
+
+.reimg {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.reimg:hover {
+  -webkit-box-shadow:inset 1px 1px 100px 1000px rgba(137,181,4,0.7);
+box-shadow:inset 1px 1px 100px 100px rgba(137,181,4,0.7);
+}
+
+#input {
+  /*transition: all 0.3s ease-in-out;*/
+ /* -webkit-box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);
+  box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);*/
+  background: #89b504;
+  /*background: red;*/
+  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  outline:none;
+  border:0;
+  width:100%;
+}
+
+h1 {
+  font-size: 2.8em;
+}
+
+h3 {
+  margin-top: 10px;
+}
+
+h4 {
+  font-size: 1.3em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+.white {
+  color: #fff;
+}
+
+
+
 #sliderGalleryNav {
   margin-top: 1em;
   text-align: center;
@@ -406,63 +568,15 @@ ul.imageGallery li {
   margin: 0px;
 }
 
-#input {
-  /*transition: all 0.3s ease-in-out;*/
- /* -webkit-box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);
-  box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);*/
-  background: #89b504;
-  /*background: red;*/
-  color: #fff;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  outline:none;
-  border:0;
-  width:100%;
-}
+
 
 #topImage {
   margin: 0 auto;
 } 
 
-.col-lg-3 {
-  padding: 0px;
-}
 
-.editable {
-  transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-}
 
-.editable:hover {
-  color: #fff;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  background: #89b504;
-  opacity: 0.6;
-}
 
-h1 {
-  font-size: 2.8em;
-}
-
-h3 {
-  margin-top: 10px;
-}
-
-h4 {
-  font-size: 1.3em;
-}
-
-h5 {
-  font-size: 1em;
-}
-
-h6 {
-  font-size: 1em;
-}
 
 .onlinedlogo {
   height: 10px;
@@ -541,42 +655,10 @@ h6 {
   margin-top: 150px;
   margin-bottom: 150px;
 }
-.white {
-  color: #fff;
-}
-
-/*.reimg {
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  background-image: url("/stars.png");
-  clip-path: polygon(0px 208px, 146.5px 207px, 147px 141.2px);
-}
-
-.reimg:hover {
-  -webkit-filter: brightness(0.7);
-  -webkit-transform: rotate(1deg);
-  -moz-transform: rotate(1deg);
-  -o-transform: rotate(1deg);
-  -ms-transform: rotate(1deg);
-  transform: rotate(1deg);
-  -webkit-box-shadow: 5px 5px 7px 1px rgba(0,0,0,0.6);
-  box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.6);
-
-}*/
-
-.reimg {
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
 
 
-.reimg:hover {
-  -webkit-box-shadow:inset 1px 1px 100px 1000px rgba(137,181,4,0.7);
-box-shadow:inset 1px 1px 100px 100px rgba(137,181,4,0.7);
-}
+
+
 
 .verticaltable {
   width: 700px;
