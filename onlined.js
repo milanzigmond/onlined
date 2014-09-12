@@ -44,6 +44,8 @@ if (Meteor.isClient) {
   });
 
   Template.registerHelper('toUpperCase', function(str) {
+    // check(str, String);
+    if(!str) return;
     return str.toUpperCase();
   });
 
@@ -522,7 +524,8 @@ if (Meteor.isClient) {
 
   Template.layout.events({
     'click #getStarted' : function ( event, template ) {
-      $('div.registerForm').animate({width:'toggle'}, 300);
+      $('div.registerForm').animate({top:"50"}, 300);
+      $('#getStarted').slide(300);
     
       // var $form = $('div.registerForm');
 
@@ -640,7 +643,6 @@ if (Meteor.isClient) {
     $("nav.navbar-fixed-top").autoHidingNavbar({
       'animationDuration' : 300
     });
-    console.log('rendered');
   };
 
   Template.website.rendered = function () {

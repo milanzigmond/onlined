@@ -2,12 +2,19 @@
   padding: 0;
   margin: 0;
 }
+div.relativePosition {
+  position: relative;
+}
 .form-group {
-  margin-top: 15px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 .btn {
   border: none;
   border-radius: 0px;
+}
+.btn:focus, .navbar-btn:focus {
+  outline: none;
 }
 .navbar-btn {
   margin-top:0px;
@@ -230,11 +237,12 @@ ul {
   padding-right: 25px;
 }
 .registerForm {
-  /*position: absolute;
-  top: 0;
-  left: 0;
-  */
+  position: absolute;
+  z-index: 4;
+  top: 0px;
+  left: 0px;
   /*display: none;*/
+  width:100%;
   margin: 0px;
   padding:0px;
   background-color: #808080;
