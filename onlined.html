@@ -119,9 +119,12 @@
 
 <template name="myWebsiteListItem">
 	<div class="text-center myWebsiteListItem" style="background-image: url({{content.topImage}})">
-		<h2>{{toUpperCase sitename}}</h2>
-		{{formatDate createdAt}}<br />
-		<span class="glyphicon glyphicon-heart"></span> 10
+		<div class="myWebsiteItemOverlay"></div>
+		<div class="myWebsiteItemContent">
+			<h3>{{formatDate createdAt}}</h3>
+			<h2>{{toUpperCase sitename}}</h2>
+			<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>
+		</div>
 	</div>
 </template>
 
