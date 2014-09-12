@@ -536,7 +536,7 @@ if (Meteor.isClient) {
        //    // Animation complete.
        //  });
     },
-    'click .registerForm img' : function(event, template) {
+    'click .registerForm button' : function(event, template) {
       preventActionsForEvent(event)
       registerUser( event, template );
     },

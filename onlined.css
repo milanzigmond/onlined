@@ -2,6 +2,26 @@
   padding: 0;
   margin: 0;
 }
+.form-group {
+  margin-top: 15px;
+}
+.btn {
+  border: none;
+  border-radius: 0px;
+}
+.navbar-btn {
+  margin-top:0px;
+  margin-bottom:0px;
+  background-color: #89b504;
+  color: white;
+  border: none;
+  border-radius: 0px;
+  font-family: "Cantarell", sans-serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 38px;
+}
 .websiteItemOverlay {
   opacity: .5;
   background-color: black;
@@ -136,22 +156,18 @@ ul {
   */
   /*display: none;*/
   margin: 0px;
+  padding:0px;
   background-color: #808080;
   color: white;
   border: none;
   border-radius: 0px;
-  height: 82px;
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
   font-weight: bold;
-  width:50%;
-  float:left;
 }
 .registerForm input {
   border-radius:0px;
   border: none;
-  height: 40px;
-  margin-top: 21px;
   color: #b2b2b2;
   text-transform: uppercase;
   margin-left:10px;
@@ -161,38 +177,24 @@ ul {
 }
 .registerForm img {
   width: 32px;
-  padding-top: 25px;
 }
 .registerForm img:hover {
   width: 36px;
-  padding-top: 25px;
 }
 .navbar {
   border-radius: 0px;
   border: none;
   margin-bottom: 0px;
   background-color: #5f5f5f;
-  height: 82px;
   color: white;
 }
 a.navBrand {
   color:white;
   float:left;
-  font-size: 26pt;
+  font-size: 18pt;
+  line-height: 50px;
   font-family: "Calibri", sans-serif;
-  padding-top: 10px;
   padding-right: 30px;
-}
-.navbar button {
-  margin: 0px;
-  background-color: #89b504;
-  color: white;
-  border: none;
-  border-radius: 0px;
-  font-family: "Cantarell", sans-serif;
-  text-transform: uppercase;
-  font-size: 16px;
-  font-weight: bold;
 }
 
 .drop {
@@ -209,7 +211,7 @@ a.navBrand {
 ul.sectionsbar {
   list-style-type: none;
   margin: 0;
-  margin-top: 12px;
+  /*margin-top: 12px;*/
   padding: 0;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -231,7 +233,7 @@ ul.sectionsbar li {
   font-weight: bold;
   font-size: 14px;
   text-align: center;
-  line-height: 46px;
+  line-height: 50px;
   letter-spacing: -1px;
   margin-right: 0.7%;
   margin-left: 0.7%;
@@ -262,12 +264,10 @@ ul.sectionsbar li {
 /*sections nav bar end*/
 
 body {
-  padding-top: 70px;
+  font-family: "Cantarell", sans-serif;
+  padding-top: 50px;
   font-size: 16px;
   line-height: 1.5;
-}
-.jumbotron {
-  margin-top: 60px;
 }
 .row.withpadding {
   padding-top: 30px;
@@ -511,7 +511,7 @@ box-shadow:inset 1px 1px 100px 100px rgba(137,181,4,0.7);
   margin-top: 10px;
 }
 .link {
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   height: 30px;
 }
 .eventtable {
