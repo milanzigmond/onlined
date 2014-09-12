@@ -524,8 +524,17 @@ if (Meteor.isClient) {
 
   Template.layout.events({
     'click #getStarted' : function ( event, template ) {
-      $('div.registerForm').animate({top:"50"}, 300);
-      $('#getStarted').slide(300);
+      
+      var form = $('div.registerForm').css('top');
+      console.log('form:'+form);
+      if(form === "0px") {
+        $('div.registerForm').animate({top:"50"}, 300);
+      }
+
+      if(form === "50px") {
+        $('div.registerForm').animate({top:"0"}, 300);
+      }
+      
     
       // var $form = $('div.registerForm');
 
@@ -541,6 +550,7 @@ if (Meteor.isClient) {
     },
     'click .registerForm button' : function(event, template) {
       preventActionsForEvent(event)
+      $('div.registerForm').css({top:"0"});
       registerUser( event, template );
     },
     'keyup .registerForm input': function( event, template) {
