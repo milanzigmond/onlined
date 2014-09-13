@@ -17,6 +17,10 @@ html, body {
   font-weight: bold;
 }
 
+.myWebsites .col-md-10 {
+  margin-top:20px;
+}
+
 /*===================================================================ONLINED HOMEPAGE start*/
 
 /*======================================================index NAV BAR start*/
@@ -55,15 +59,16 @@ span.username {
   padding-top: 25px;
   padding-right: 25px;
 }
-.registerForm {
-  /*position: absolute;
+
+.getStartedForm {
+  position: absolute;
   top: 0;
   left: 0;
-  */
-  /*display: none;*/
+  z-index:3;
+  width:100%;
   margin: 0px;
   padding:0px;
-  background-color: #808080;
+  background-color: #5f5f5f;
   color: white;
   border: none;
   border-radius: 0px;
@@ -72,7 +77,7 @@ span.username {
   font-weight: bold;
 }
 
-.registerForm input {
+.getStartedForm input {
   border-radius:0px;
   border: none;
   color: #b2b2b2;
@@ -80,15 +85,15 @@ span.username {
   margin-left:10px;
 }
 
-.registerForm:last-child {
+.getStartedForm:last-child {
   text-align:center;
 }
 
-.registerForm img {
+.getStartedForm img {
   width: 32px;
 }
 
-.registerForm img:hover {
+.getStartedForm img:hover {
   width: 36px;
 }
 
@@ -121,25 +126,11 @@ a.navBrand {
 /*======================================================index NAV BAR end*/
 
 
-.home {
-  padding: 0px;
-  display: table;
-  width: 100%;
-  height:100%;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 ul {
   list-style-type: none;
 }
 
 /*======================================================home STREAM half start*/
-
-.home div.streamRow {
-  height: 100%;
-  display: table-row;
-}
 
 .listsorting {
   float: right;
@@ -151,10 +142,8 @@ ul {
 .home div.stream {
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
-  display: table-cell;
   background-color: #313131;
   color: #ccc;
-  float: none;
   padding: 0px;
   padding-left: 20px;
   padding-right: 20px;
@@ -219,10 +208,6 @@ transition: all 200ms linear;
 
 /*======================================================home MY PAGES half start*/
 
-.home div.myWebsites {
-  display: table-cell;
-  float: none;
-}
 .myWebsitesList {
   list-style: none;
   background-color: #89b504;
@@ -321,39 +306,6 @@ transition: all 200ms linear;
 .loginButton {
   padding-top: 25px;
   padding-right: 25px;
-}
-.registerForm {
-  position: absolute;
-  z-index: 4;
-  top: 0px;
-  left: 0px;
-  /*display: none;*/
-  width:100%;
-  margin: 0px;
-  padding:0px;
-  background-color: #808080;
-  color: white;
-  border: none;
-  border-radius: 0px;
-  font-family: "Cantarell", sans-serif;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.registerForm input {
-  border-radius:0px;
-  border: none;
-  color: #b2b2b2;
-  text-transform: uppercase;
-  margin-left:10px;
-}
-.registerForm:last-child {
-  text-align:center;
-}
-.registerForm img {
-  width: 32px;
-}
-.registerForm img:hover {
-  width: 36px;
 }
 .navbar {
   border-radius: 0px;

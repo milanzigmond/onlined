@@ -525,35 +525,37 @@ if (Meteor.isClient) {
   Template.layout.events({
     'click #getStarted' : function ( event, template ) {
       
-      var form = $('div.registerForm').css('top');
+      var form = $('div.getStartedForm').css('top');
       console.log('form:'+form);
       if(form === "0px") {
-        $('div.registerForm').animate({top:"50"}, 300);
+        $('div.getStartedForm').animate({top:"50"}, 300);
+        $('#getStarted').hide();
       }
 
       if(form === "50px") {
-        $('div.registerForm').animate({top:"0"}, 300);
+        $('div.getStartedForm').animate({top:"0"}, 300);
+        $('#getStarted').show();
       }
       
     
-      // var $form = $('div.registerForm');
+      // var $form = $('div.getStartedForm');
 
       // $form.animate({left: parseInt($form.css('left'),10) == 0 ? $form.outerWidth() : 0}, 300);
 
       // $(event.target).animate({width:'toggle'}, 300);
-       // $( "div.registerForm" ).animate({
+       // $( "div.getStartedForm" ).animate({
        //    display: "block",
        //    left: "+=50"
        //  }, 5000, function() {
        //    // Animation complete.
        //  });
     },
-    'click .registerForm button' : function(event, template) {
+    'click .getStartedForm button' : function(event, template) {
       preventActionsForEvent(event)
-      $('div.registerForm').css({top:"0"});
+      $('div.getStartedForm').css({top:"0"});
       registerUser( event, template );
     },
-    'keyup .registerForm input': function( event, template) {
+    'keyup .getStartedForm input': function( event, template) {
         preventActionsForEvent(event);
         if (event.which === 13) {
             registerUser( event, template);
@@ -647,7 +649,7 @@ if (Meteor.isClient) {
 
   Template.layout.rendered = function () {
 
-    // var $form = $('div.registerForm');
+    // var $form = $('div.getStartedForm');
     // $form.css("left", -($form.outerWidth()));
 
     $("nav.navbar-fixed-top").autoHidingNavbar({
