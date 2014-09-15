@@ -202,8 +202,8 @@
 	</div>	
 
 	<div class="section-gallery">
-		<div class="row">
-			<ul class="imageGallery">
+		<div class="row gallerydiv">
+				<ul class="imageGallery">
 				{{#each galleryImages}}
 					<li>
 						<a href="{{src}}" class="fancybox" rel="gallery">
@@ -211,8 +211,21 @@
 						</a>
 					</li>
 				{{/each}}
-			</ul>
+				</ul>
 		</div>
+		<div class="row gallerydiv2">
+			<div class="col-lg-3 col-md-6 col-xs-12 obrazek zluty"></div>
+			<div class="col-lg-3 col-md-6 col-xs-12 obrazek cerv"></div>
+			<div class="col-lg-3 col-md-6 col-xs-12 obrazek modr"></div>
+			<div class="col-lg-3 col-md-6 col-xs-12 obrazek zluty"></div>
+		</div>
+		<div class="row gallerydiv2">
+			<div class="col-lg-3 col-md-6 col-xs-12 obrazek cerv"></div>
+			<div class="col-lg-3 col-md-6 col-xs-12 obrazek modr"></div>
+			<div class="col-lg-3 col-md-6 col-xs-12 obrazek zluty"></div>
+			<div class="col-lg-3 col-md-6 col-xs-12 obrazek cerv"></div>
+		</div>
+				
 	</div>
 
 	<div class="section-email text-center">
@@ -336,15 +349,15 @@
 	</div>
 
 	<div class="container">	
-		<div class="section-text">
+		<div class="section-products">
 			<div class="row text-center">
 				<div class="col-md-4 col-md-offset-2">
-					<img id="firstProductImage" width="50%" src="{{content.firstProductImage}}" class="reimg" alt="">
+					<img id="firstProductImage" src="{{content.firstProductImage}}" class="reimg" alt="">
 					<h3 id="firstProduct" class="editable">{{content.firstProduct}}</h3>
 					<p id="firstProductDescription" class="editable">{{content.firstProductDescription}}</p>
 				</div>
 				<div class="col-md-4">
-					<img id="secondProductImage" width="50%" src="{{content.secondProductImage}}" class="reimg" alt="">
+					<img id="secondProductImage" src="{{content.secondProductImage}}" class="reimg" alt="">
 					<h3 id="secondProduct" class="editable">{{content.secondProduct}}</h3>
 					<p id="secondProductDescription" class="editable">{{content.secondProductDescription}}</p>
 				</div>
