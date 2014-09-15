@@ -46,6 +46,7 @@ html, body {
   font-size: 16px;
   font-weight: bold;
   line-height: 38px;
+  position:absolute;
 }
 
 span.username {

@@ -568,19 +568,22 @@ Template.layout.helpers({
 });
 
 Template.layout.events({
-    'click #getStarted' : function ( event, template ) {
+    'click #createWebsite' : function ( event, template ) {
 
-        var form = $('div.getStartedForm').css('top');
-        console.log('form:'+form);
-        if(form === "0px") {
-            $('div.getStartedForm').animate({top:"50"}, 300);
-            $('#getStarted').hide();
-        }
+        $(event.target).animate({left:'0px',width:'400px'},300);
 
-        if(form === "50px") {
-            $('div.getStartedForm').animate({top:"0"}, 300);
-            $('#getStarted').show();
-        }
+
+        // var form = $('div.getStartedForm').css('top');
+        // console.log('form:'+form);
+        // if(form === "0px") {
+        //     $('div.getStartedForm').animate({top:"50"}, 300);
+        //     $('#getStarted').hide();
+        // }
+
+        // if(form === "50px") {
+        //     $('div.getStartedForm').animate({top:"0"}, 300);
+        //     $('#getStarted').show();
+        // }
 
 
 // var $form = $('div.getStartedForm');
