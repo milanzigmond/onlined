@@ -521,6 +521,16 @@ if (Meteor.isClient) {
   });
 
   Template.layout.helpers({
+    onlinedTitle: function () {
+      var o = "ONLINED.AT",
+          id = Session.get('editing_website'),
+          w = Websites.findOne(id);
+
+      if (w)
+        return o + '/' + w.sitename.toUpperCase();
+      else 
+        return o;
+    },
     alert: function () {
         console.log('logging from helpers alertMessage: '+ Session.get('alertMessage'));
       return Session.get("alertMessage");
