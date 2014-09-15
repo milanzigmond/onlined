@@ -426,6 +426,11 @@ if (Meteor.isClient) {
   });
 
   Template.home.events({
+    'click .myWebsiteListItem' : function ( event, template ) {
+      preventActionsForEvent( event );
+      Session.set('editing_website', this._id);
+      Router.go('/create');
+    },
     'click .websiteListItem' : function ( event, template) {
       preventActionsForEvent( event );
       Router.go("/"+this.sitename);
