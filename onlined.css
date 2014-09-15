@@ -570,11 +570,63 @@ ul.imageGallery {
   list-style: none;
 }
 ul.imageGallery li {
+  display: inline-block;
+  margin: 0px;
+  margin-top: 5px;
+}
+
+ul.imageGallery img {
+  height: 240px;
+}
+
+.gallerydiv {
+  display: table;
+  padding: 0px;
+  text-align: center;
+}
+
+
+
+
+
+
+.gallerydiv2 {
+  background-color: #ccc;
+  display: table;
+  padding: 0px;
+  text-align: center;
+  width: 100%;
+}
+
+ul.imageGallery2 {
+  list-style: none;
+  width: 100%;
+}
+ul.imageGallery2 li {
   float: left;
   display: inline-block;
-  padding: 0px;
   margin: 0px;
+  width: 25%;
 }
+
+.obrazek {
+  height: 200px;
+  background-position: center;
+  background-size: 200%;
+}
+
+.zluty {
+  background-color: yellow;
+  background-image: url("sliderImage02.jpg");
+}
+
+.cerv {
+  background-color: red;
+  background-image: url("phare.jpg");
+}
+
+
+
 
 /*======================================================SECTION MAIL start*/
 
@@ -655,7 +707,15 @@ ul.imageGallery li {
 
 /*======================================================SECTION PRODUCTS start*/
 
+.section-products {
+  margin-top: 150px;
+}
 
+.section-products img {
+  min-height: 200px;
+  max-height: 300px;
+  max-width: 80%;
+}
 
 /*======================================================SECTION VIDEO start*/
 
@@ -701,6 +761,10 @@ ul.imageGallery li {
 }
 
 
+.sliderGallery img {
+  opacity: .5;
+  height: 100%;
+}
 
 
 
