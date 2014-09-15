@@ -68,55 +68,78 @@
 <template name="home">
 	<div class="container-fluid home">
 		<div class="row">
-			<div class="col-md-6 stream">
-				<h4 class="listsorting"><strong>latest</strong> / popular</h4>
-				<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
-				<ul>
-					{{#each websites}}
-						<li>
-							<div class="text-center websiteListItem">
-								<div class="websiteItemContent">
-									<h3>{{formatDate createdAt}}</h3>
-									<h2>{{toUpperCase sitename}}</h2>
-									<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
-								</div>
-								<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
-								<div class="websiteItemOverlay"></div>
-							</div>
-						</li>
-					{{/each}}
-				</ul>
-			</div>
-
-			<div class="col-md-6 myWebsites">
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-						<ul class="myWebsitesList">
+			{{#if currentUser}}
+				<div class="col-md-6 stream">
+					<h4 class="listsorting"><strong>latest</strong> / popular</h4>
+					<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
+					<ul>
+						{{#each websites}}
 							<li>
-								<!-- <a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a> -->
-								<a class="createWebsiteButton">Create New Website 2</a>
-							</li>
-							{{#each myWebsites}}
-							<li>
-								<div class="text-center myWebsiteListItem">
-									<div class="myWebsiteItemContent">
+								<div class="text-center websiteListItem">
+									<div class="websiteItemContent">
 										<h3>{{formatDate createdAt}}</h3>
 										<h2>{{toUpperCase sitename}}</h2>
-										<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>
+										<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
 									</div>
 									<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
-									<div class="row editRow">
-										<div class="col-md-6 editbuttons edit"><h4>edit</h4></div>
-										<div class="col-md-6 editbuttons delete"><h4>delete</h4></div>
-									</div>
-									<div class="myWebsiteItemOverlay"></div>
+									<div class="websiteItemOverlay"></div>
 								</div>
 							</li>
-							{{/each}}
-						</ul>
+						{{/each}}
+					</ul>
+				</div>
+
+				<div class="col-md-6 myWebsites">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<ul class="myWebsitesList">
+								<li>
+									<!-- <a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a> -->
+									<a class="createWebsiteButton">Create New Website 2</a>
+								</li>
+								{{#each myWebsites}}
+								<li>
+									<div class="text-center myWebsiteListItem">
+										<div class="myWebsiteItemContent">
+											<h3>{{formatDate createdAt}}</h3>
+											<h2>{{toUpperCase sitename}}</h2>
+											<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>
+										</div>
+										<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+										<div class="row editRow">
+											<div class="col-md-6 editbuttons edit"><h4>edit</h4></div>
+											<div class="col-md-6 editbuttons delete"><h4>delete</h4></div>
+										</div>
+										<div class="websiteItemOverlay"></div>
+									</div>
+								</li>
+								{{/each}}
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
+			{{else}}
+				<!-- <div class="col-md-12 stream">
+					<h4 class="listsorting"><strong>latest</strong> / popular</h4>
+					<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
+					<ul>
+						{{#each websites}}
+							<li>
+								<div class="text-center websiteListItem">
+									<div class="websiteItemContent">
+										<h3>{{formatDate createdAt}}</h3>
+										<h2>{{toUpperCase sitename}}</h2>
+										<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
+									</div>
+									<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+									<div class="websiteItemOverlay"></div>
+								</div>
+							</li>
+						{{/each}}
+					</ul>
+				</div> -->
+			{{/if}}
+			
 		</div>
 	</div>
 </template>
