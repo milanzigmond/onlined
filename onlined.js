@@ -425,6 +425,14 @@ if (Meteor.isClient) {
     }
   });
 
+  var websiteListItemMouseEnter = function ( event ) {
+    $(event.target.lastElementChild).animate({opacity: 0.1}, 200);
+  }
+
+  var websiteListItemMouseLeave = function ( event ) {
+    $(event.target.lastElementChild).animate({opacity: 0.5}, 200);
+  }
+
   Template.home.events({
     'click .myWebsiteListItem' : function ( event, template ) {
       preventActionsForEvent( event );
@@ -435,14 +443,29 @@ if (Meteor.isClient) {
       preventActionsForEvent( event );
       Router.go("/"+this.sitename);
     },
-    'click .createWebsiteButton': function (event, template) {
-      createDefaultWebsite();
-      Router.go('create');
+
+    'mouseenter .websiteListItem' : function ( event, template ) {
+      websiteListItemMouseEnter ( event );
     },
-    'hover .websiteItemContent' : function ( event, template ) {
-      preventActionsForEvent( event );
-    }
-  });
+    'mouseleave .websiteListItem' : function ( event, template ) {
+      websiteListItemMouseLeave( event );
+    },
+
+    'mouseenter .myWebsiteListItem' : function ( event, template ) {
+     websiteListItemMouseEnter ( event );
+   },
+   'mouseleave .myWebsiteListItem' : function ( event, template ) {
+     websiteListItemMouseLeave( event );
+   },
+
+   'click .createWebsiteButton': function (event, template) {
+    createDefaultWebsite();
+    Router.go('create');
+  },
+  'hover .websiteItemContent' : function ( event, template ) {
+    preventActionsForEvent( event );
+  }
+});
 
   Template.create.helpers({
     editing_website: function () {
@@ -522,6 +545,8 @@ if (Meteor.isClient) {
 
   Template.layout.helpers({
     onlinedTitle: function () {
+      if (!Router.current()) return;
+
       var o = "ONLINED.AT",
           id = Session.get('editing_website'),
           w = Websites.findOne(id);
