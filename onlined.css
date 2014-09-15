@@ -195,6 +195,8 @@ ul {
 
 .home div.stream h2 {
   font-weight: 600;
+  color: red;
+  opacity: 1;
   padding-top: 30px;
 }
 
@@ -441,11 +443,7 @@ box-shadow:inset 1px 1px 100px 100px rgba(137,181,4,0.7);
 }
 
 #input {
-  /*transition: all 0.3s ease-in-out;*/
- /* -webkit-box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);
-  box-shadow: 0 0 8px 2px rgba(177,235,0,0.6);*/
   background: #89b504;
-  /*background: red;*/
   color: #fff;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -478,62 +476,23 @@ h6 {
   color: #fff;
 }
 
+/*======================================================GLOBAL SETTINGS end*/
 
-
-#sliderGalleryNav {
-  margin-top: 1em;
-  text-align: center;
-}
-
-#sliderGalleryNav img {
-  padding: 1em;
-  margin-right: 1em;
-  border-right: 10px;
-  cursor: pointer;
-  height: 70px;
-}
-
-#sliderGalleryNav img:hover{
-  -webkit-filter: brightness(90%);
-  filter: brightness(100%);
-  -webkit-transition: all 300ms ease;
-}
-
-.sliderGallery {
-  width: inherit;
-  height: 500px;
-  overflow: hidden;
-}
-.sliderGallery ul {
-  width: 10000px;
-  list-style-type: none;
-}
-.sliderGallery li {
-  float: left;
-}
-
-
-//sectiongallery
-
-ul.imageGallery {
-  list-style: none;
-}
-ul.imageGallery li {
-  float: left;
-  display: inline-block;
-  padding: 0px;
-  margin: 0px;
-}
-
-
+/*======================================================SECTION HEADING start*/
 
 #topImage {
   margin: 0 auto;
 } 
 
+.section-heading {
+  margin-top: 20px;
+}
 
+/*======================================================SECTION INTRO start*/
 
-
+.section-intro {
+  margin-top: 200px;
+}
 
 .onlinedlogo {
   height: 10px;
@@ -566,56 +525,61 @@ ul.imageGallery li {
   background-position: 50% 50%;
 }
 
-.section-heading {
-  margin-top: 20px;
-}
-.section-intro {
-  margin-top: 200px;
-}
+/*======================================================SECTION GALLERY start*/
+
 .section-gallery {
   margin-top: 200px;
 }
+
+ul.imageGallery {
+  list-style: none;
+}
+ul.imageGallery li {
+  float: left;
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*======================================================SECTION MAIL start*/
+
 .section-email {
   padding-top: 100px;
   padding-bottom: 100px;
   margin-top: 150px;
   background-color: #bbbbbb;
 }
+
+/*======================================================SECTION TEXT start*/
+
 .section-text {
   margin-top: 150px;
 }
+
+/*======================================================SECTION LOCATION start*/
+
 .section-location {
   margin-top: 150px;
 }
+
+/*======================================================SECTION IMAGE HOVER TRYOUT start*/
+
+
+
+/*======================================================SECTION TEL NUMBER start*/
+
 .section-telnumber {
   padding-top: 100px;
   padding-bottom: 100px;
   margin-top: 150px;
   background-color: #bbbbbb;
 }
+
+/*======================================================SECTION OPENING HOURS start*/
+
 .section-openinghours {
   margin-top: 150px;
 }
-.section-links {
-  padding-top: 100px;
-  padding-bottom: 100px;
-  margin-top: 150px;
-  background-color: #bbbbbb;
-}
-.section-eventcalender {
-  margin-top: 150px;
-}
-.section-video {
-  margin-top: 150px;
-}
-.section-team {
-  margin-top: 150px;
-  margin-bottom: 150px;
-}
-
-
-
-
 
 .verticaltable {
   width: 700px;
@@ -625,22 +589,51 @@ ul.imageGallery li {
   color: #000;
   font-weight: 200;
 }
+
 .verticaltable th {
   text-align: center;
   font-size: 1.2em;
   color: #bbbbbb;
   text-transform: uppercase;
 }
+
 .line {
   height: 1px;
   background-color: #bbbbbb;
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
+/*======================================================SECTION LINKS start*/
+
+.section-links {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin-top: 150px;
+  background-color: #bbbbbb;
+}
+
 .link {
   /*margin-top: 20px;*/
   height: 30px;
 }
+
+/*======================================================SECTION PRODUCTS start*/
+
+
+
+/*======================================================SECTION VIDEO start*/
+
+.section-video {
+  margin-top: 150px;
+}
+
+/*======================================================SECTION EVENT TABLE start*/
+
+.section-eventcalender {
+  margin-top: 150px;
+}
+
 .eventtable {
   width: 300px;
   text-align: center;
@@ -656,6 +649,14 @@ ul.imageGallery li {
   font-size: 1.3em;
   font-weight: 200;
 }
+
+/*======================================================SECTION TEAM MEMBERS start*/
+
+.section-team {
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
 .member {
   border-radius: 100px;
   margin-top: 30px;
@@ -667,11 +668,9 @@ ul.imageGallery li {
 
 
 
-/*
 
--------------------- images for rollover
 
-*/
+/*======================================================IMAGES FOR ROLLOVER start*/
 
 .effects {
   padding-left: 15px;
@@ -874,4 +873,38 @@ a.expand {
   top: 50%;
   margin-top: -30px;
   opacity: 1;
+}
+
+/*======================================================SECTION SLIDER start*/
+
+#sliderGalleryNav {
+  margin-top: 1em;
+  text-align: center;
+}
+
+#sliderGalleryNav img {
+  padding: 1em;
+  margin-right: 1em;
+  border-right: 10px;
+  cursor: pointer;
+  height: 70px;
+}
+
+#sliderGalleryNav img:hover{
+  -webkit-filter: brightness(90%);
+  filter: brightness(100%);
+  -webkit-transition: all 300ms ease;
+}
+
+.sliderGallery {
+  width: inherit;
+  height: 500px;
+  overflow: hidden;
+}
+.sliderGallery ul {
+  width: 10000px;
+  list-style-type: none;
+}
+.sliderGallery li {
+  float: left;
 }
