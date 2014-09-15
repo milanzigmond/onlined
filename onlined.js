@@ -426,7 +426,7 @@ if (Meteor.isClient) {
   });
 
   Template.home.events({
-    'click' : function ( event, template) {
+    'click .websiteListItem' : function ( event, template) {
       preventActionsForEvent( event );
       Router.go("/"+this.sitename);
     },
