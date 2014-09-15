@@ -195,6 +195,8 @@ ul {
 
 .home div.stream h2 {
   font-weight: 600;
+  color: red;
+  opacity: 1;
   padding-top: 30px;
 }
 
@@ -611,6 +613,11 @@ ul.imageGallery li {
   background-color: #bbbbbb;
 }
 
+.link {
+  /*margin-top: 20px;*/
+  height: 30px;
+}
+
 /*======================================================SECTION PRODUCTS start*/
 
 
@@ -621,31 +628,12 @@ ul.imageGallery li {
   margin-top: 150px;
 }
 
-/*======================================================SECTION TEAM MEMBERS start*/
-
-.section-team {
-  margin-top: 150px;
-  margin-bottom: 150px;
-}
-
-
-
-
+/*======================================================SECTION EVENT TABLE start*/
 
 .section-eventcalender {
   margin-top: 150px;
 }
 
-
-
-
-
-
-
-.link {
-  /*margin-top: 20px;*/
-  height: 30px;
-}
 .eventtable {
   width: 300px;
   text-align: center;
@@ -661,6 +649,14 @@ ul.imageGallery li {
   font-size: 1.3em;
   font-weight: 200;
 }
+
+/*======================================================SECTION TEAM MEMBERS start*/
+
+.section-team {
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
 .member {
   border-radius: 100px;
   margin-top: 30px;
@@ -672,11 +668,9 @@ ul.imageGallery li {
 
 
 
-/*
 
--------------------- images for rollover
 
-*/
+/*======================================================IMAGES FOR ROLLOVER start*/
 
 .effects {
   padding-left: 15px;
