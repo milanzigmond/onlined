@@ -31,22 +31,22 @@
 			</div>
 		</div>
 	</nav>
-	<div class="registerForm">
+	<div class="getStartedForm">
 		<form id="register-form" action="action" role="form">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-sm-6">
 						<div class="form-group">
 							<input id="register-email" type="email" class="form-control" placeholder="Enter email">
 						</div>
 					<div class="alert alert-danger" role="alert" hidden></div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<div class="form-group">
 						<input id="register-password" type="password" class="form-control" placeholder="Enter password">
 					</div>
 				</div>
-				<div class="col-md-2">
-					<button id="register-button" type="submit" class="btn navbar-btn">TO MY WEBSITE</button>
+				<div class="col-sm-2">
+					<button id="register-button" type="submit" class="btn navbar-btn pull-right">TO MY WEBSITE</button>
 						<!-- <img src="logo.png"> -->
 				</div>
 			</div>
@@ -67,20 +67,20 @@
 
 <template name="home">
 	<div class="container-fluid home">
-		<div class="row streamRow">
+		<div class="row">
 			<div class="col-md-6 stream">
 				<h4 class="listsorting"><strong>latest</strong> / popular</h4>
 				<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
 				<ul>
 					{{#each websites}}
 						<li>
-							<div class="text-center websiteListItem" style="background-image: url({{content.topImage}})">
-								<div class="websiteItemOverlay"></div>
+							<div class="text-center websiteListItem">
 								<div class="websiteItemContent">
 									<h3>{{formatDate createdAt}}</h3>
 									<h2>{{toUpperCase sitename}}</h2>
 									<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
 								</div>
+								<div class="websiteItemOverlay" style="background-image: url({{content.topImage}})"></div>
 							</div>
 						</li>
 					{{/each}}
@@ -92,7 +92,8 @@
 					<div class="col-md-10 col-md-offset-1">
 						<ul class="myWebsitesList">
 							<li>
-								<a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a>
+								<!-- <a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a> -->
+								<a class="createWebsiteButton">Create New Website 2</a>
 							</li>
 							{{#each myWebsites}}
 							<li>
