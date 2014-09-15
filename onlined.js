@@ -526,7 +526,7 @@ if (Meteor.isClient) {
           id = Session.get('editing_website'),
           w = Websites.findOne(id);
 
-      if (w)
+      if (w && Router.current().path === '/create')
         return o + '/' + w.sitename.toUpperCase();
       else 
         return o;

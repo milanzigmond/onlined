@@ -37,13 +37,7 @@ Router.map(function() {
 		// onBeforeAction: clearUnfinishedWebsite
 	});
 	this.route('create', {
-		path: '/create',
-		waitOn: function () {
-			// if(Websites.find().count() !== 0){
-			// 	this.params.sitename;
-			// 	$(".navBar").attr("href", style);
-			// }
-		},
+		path: '/create'
 	});
 	this.route('login', {path: '/login'});
 	this.route('website', { 
