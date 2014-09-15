@@ -236,6 +236,7 @@ if (Meteor.isClient) {
   }
 
   var setupMap = function () {
+debugger
     var editingWebsite = Websites.findOne(Session.get('editing_website')),
         address = editingWebsite.content.address,
         latLng = editingWebsite.content.latLng,
@@ -704,10 +705,10 @@ if (Meteor.isClient) {
     setupMap();
     setupSlider();
 
-    if (Meteor.user() && Session.get('editing_website')) {
-      Session.set('editing_website', null);
-      $(".modal").modal('show');
-    };
+    // if (Meteor.user() && Session.get('editing_website')) {
+    //   Session.set('editing_website', null);
+    //   $(".modal").modal('show');
+    // };
   };
 
   Template.create.rendered = function () {
