@@ -411,11 +411,11 @@ $(sibling).show();
 });
 
 var websiteListItemMouseEnter = function ( event ) {
-    $(event.target).find('.myWebsiteItemOverlay').animate({opacity: 0.1}, 200);
+    $(event.target).find('.websiteItemOverlay').animate({opacity: 0.1}, 200);
 }
 
 var websiteListItemMouseLeave = function ( event ) {
-    $(event.target).find('.myWebsiteItemOverlay').animate({opacity: 0.5}, 200);
+    $(event.target).find('.websiteItemOverlay').animate({opacity: 0.5}, 200);
 }
 
 Template.home.events({
@@ -553,7 +553,7 @@ Template.layout.helpers({
         id = Session.get('editing_website'),
         w = Websites.findOne(id);
 
-        if (w && Router.current().path === '/create')
+        if (w && Router.current().path === '/create' && w.sitename)
             return o + '/' + w.sitename.toUpperCase();
         else 
             return o;
