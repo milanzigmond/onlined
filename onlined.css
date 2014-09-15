@@ -137,6 +137,10 @@ ul {
 .numberofsites {
  }
 
+.home div.myWebsites {
+  /*background-color: red;*/
+}
+
 .home div.stream {
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
@@ -146,27 +150,6 @@ ul {
   padding-left: 20px;
   padding-right: 20px;
   margin: 0px;
-}
-
-.websiteListItem {
-  height: 220px;
-  color:white;
-  position: relative;
-  margin-top: 20px;
-  background-position: 20% 20%;
-  display:block;
-  position:relative;
-  cursor: pointer;
-}
-
-.websiteItemContent {
-  padding: 20px;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width:100%;
-  height: 100%;
-  z-index: 50;
 }
 
 .home div.stream h2 {
@@ -225,6 +208,17 @@ transition: all 200ms ease-in-out;
   font-size: 18px;
 }
 
+.websiteListItem {
+  height: 220px;
+  color:white;
+  position: relative;
+  margin-top: 20px;
+  background-position: 20% 20%;
+  display:block;
+  position:relative;
+  cursor: pointer;
+}
+
 .myWebsiteListItem {
   background-position: 20% 20%;
   position:relative;
@@ -243,23 +237,46 @@ transition: all 200ms ease-in-out;
   background-color: black;
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index:40;
 }
+
+.websiteItemBg {
+  width: 100%;
+  height: 100%;
+ }
 
 .websiteItemOverlay:hover{
   opacity: .1;
 }
 
 .myWebsiteItemOverlay {
-  opacity: .3;
+  opacity: .5;
   background-color: black;
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
 }
 
 .myWebsiteItemOverlay:hover{
   opacity: .1;
+}
+
+
+
+.websiteItemContent {
+  padding: 20px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width:100%;
+  height: 100%;
+  z-index: 50;
 }
 
 .myWebsiteItemContent {
