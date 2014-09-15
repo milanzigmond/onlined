@@ -74,13 +74,13 @@
 				<ul>
 					{{#each websites}}
 						<li>
-							<div class="text-center websiteListItem" style="background-image: url({{content.topImage}})">
-								<div class="websiteItemOverlay"></div>
+							<div class="text-center websiteListItem">
 								<div class="websiteItemContent">
 									<h3>{{formatDate createdAt}}</h3>
 									<h2>{{toUpperCase sitename}}</h2>
 									<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
 								</div>
+								<div class="websiteItemOverlay" style="background-image: url({{content.topImage}})"></div>
 							</div>
 						</li>
 					{{/each}}

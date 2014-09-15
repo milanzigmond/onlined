@@ -434,6 +434,9 @@ if (Meteor.isClient) {
       createDefaultWebsite();
       Router.go('create');
     },
+    'hover .websiteItemContent' : function ( event, template ) {
+      preventActionsForEvent( event );
+    }
   });
 
   Template.create.helpers({
