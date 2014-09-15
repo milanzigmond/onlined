@@ -570,6 +570,7 @@ h6 {
   width: 300px;
   height: 300px;
   background-position: 50% 50%;
+  background-size: 250%;
 }
 
 /*======================================================SECTION GALLERY start*/
@@ -595,6 +596,7 @@ ul.imageGallery img {
   display: table;
   padding: 0px;
   text-align: center;
+  margin-bottom: 100px;
 }
 
 
@@ -622,19 +624,21 @@ ul.imageGallery2 li {
 }
 
 .obrazek {
-  height: 200px;
+  height: 260px;
   background-position: center;
   background-size: 200%;
 }
 
 .zluty {
-  background-color: yellow;
   background-image: url("sliderImage02.jpg");
 }
 
 .cerv {
-  background-color: red;
   background-image: url("phare.jpg");
+}
+
+.modr {
+  background-image: url("sliderImage03.jpg");
 }
 
 
@@ -774,8 +778,7 @@ ul.imageGallery2 li {
 
 
 .sliderGallery img {
-  opacity: .5;
-  height: 100%;
+ max-width: 1100px;
 }
 
 
