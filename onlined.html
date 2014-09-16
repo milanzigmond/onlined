@@ -19,24 +19,31 @@
 					<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
 					<span>CREATE WEBSITE</span>
 				</div>
-				<div class="nav navbar-nav navbar-right">
-					<button type="submit" class="btn btn-default navbar-btn logout">Logout</button>
-					<span class="username">{{email}}</span>
+				
+				<ul class="nav navbar-nav navbar-right">
 					{{>selectStyle}}
+
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{email}} <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a class="logout" href="#">Logout</a></li>
+						</ul>
+					</li>
+				</ul>
 					<!-- <div class="loginButton">
 						<span>LOG IN</span>
 						<img src="logo.png" width="25px;">
 					</div> -->
-				</div>
 				{{else}}
 				<div id="register-sitename" class="btn navbar-btn firstButton">
 					<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
 					<span>CREATE WEBSITE</span>
 				</div>
 				<!-- <button id="loginFacebook" class="btn btn-primary navbar-btn">Login with Facebook</button> -->
-					{{/if}}
-				</div>
+				{{/if}}
 			</div>
+		</div>
 	</nav>
 	<div class="getStartedForm">
 		<form id="register-form" action="action" role="form">
@@ -155,7 +162,7 @@
 </template>
 
 <template name="selectStyle">
-	<div class="btn-group">
+	<!-- <div class="btn-group">
 		<a href="#" class="btn btn-primary navbar-btn dropdown-toggle" data-toggle="dropdown">
 			Change Visual Style
 			<span class="caret"></span>
@@ -165,7 +172,15 @@
 			<li><a href="#" data-styleid="{{value}}">{{name}}</a></li>
 			{{/each}}
 		</ul>
-	</div>
+	</div> -->
+	<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Change Style <span class="caret"></span></a>
+		<ul class="dropdown-menu">
+			{{#each styleOptions}}
+			<li><a href="#" data-styleid="{{value}}">{{name}}</a></li>
+			{{/each}}
+		</ul>
+	</li>
 </template>
 
 <template name="create">
