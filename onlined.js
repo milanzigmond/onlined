@@ -448,13 +448,13 @@ Template.dashboard.events({
 
     'mouseenter .myWebsiteListItem' : function ( event, template ) {
         websiteListItemMouseEnter ( event );
-        // $(event.target).find('.editRow').slideDown();
+        $(event.target).find('.editRow').slideDown();
     },
 
     // my website list item
     'mouseleave .myWebsiteListItem' : function ( event, template ) {
         websiteListItemMouseLeave( event );
-        // $(event.target).find('.editRow').slideUp();
+        $(event.target).find('.editRow').slideUp();
     },
 
     'click .edit' : function ( event , template ) {
@@ -771,6 +771,10 @@ Template.passwordRecovery.events({
         return false; 
     }
 });
+
+Template.dashboard.rendered = function () {
+    $('.editRow').slideUp(0);
+};
 
 Template.layout.rendered = function () {
 
