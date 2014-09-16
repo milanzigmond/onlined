@@ -579,6 +579,9 @@ Template.layout.helpers({
     },
     email: function () {
         return getUserEmail();
+    },
+    dashboard: function () {
+        return (Router.current().path === '/');
     }
 });
 

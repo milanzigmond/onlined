@@ -15,11 +15,12 @@
 			<a class="navBrand">{{onlinedTitle}}</a>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				{{#if currentUser}}
-				<div id="register-sitename" class="btn navbar-btn firstButton">
-					<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
-					<span>CREATE WEBSITE</span>
-				</div>
-				
+					{{#if dashboard}}
+						<div id="register-sitename" class="btn navbar-btn firstButton">
+							<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
+							<span>CREATE WEBSITE</span>
+						</div>
+					{{/if}}	
 				<ul class="nav navbar-nav navbar-right">
 					{{>selectStyle}}
 
