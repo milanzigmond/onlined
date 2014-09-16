@@ -119,7 +119,10 @@ activateInput(template.find('#input'));
 
 var registerUser = function ( event, template ) {
     var email = trimInput(template.find('#register-email').value),
-    password = template.find('#register-password').value;
+        password = template.find('#register-password').value,
+        sitename = template.find('.textInput').value;
+
+        console.log('registering user with email: ' + email + ", password: " + password);
 
     if (isValidPassword(password)) {
         Accounts.createUser({email: email, password : password}, function(err){
@@ -127,7 +130,10 @@ var registerUser = function ( event, template ) {
                 console.log(err);
                 showAlert(err.reason);
             } else {
-                console.log('registered and logged in');
+                console.log('registered and logged in with sitename:'+sitename);
+                createDefaultWebsite(sitename);
+                Session.set('registerInProgress', false);
+                Router.go('create');
             }
         });
     }
@@ -149,10 +155,12 @@ var activateInput = function (input) {
     input.select();
 };
 
-var createDefaultWebsite = function () {
+var createDefaultWebsite = function ( sitename ) {
     var website_id = Websites.insert({
         createdAt: new Date(),
         css: Session.get('currentStyle'),
+        sitename: sitename,
+        userId: Meteor.userId(),
         content: {
             email: getUserEmail(),
             title: "Onlined",
@@ -418,11 +426,11 @@ var websiteListItemMouseLeave = function ( event ) {
     $(event.target).find('.websiteItemOverlay').animate({opacity: 0.5}, 200);
 }
 
-Template.home.events({
+Template.dashboard.events({
     'click .myWebsiteListItem' : function ( event, template ) {
         preventActionsForEvent( event );
         Session.set('editing_website', this._id);
-        Router.go('/create');
+        Router.go('create');
     },
     'click .websiteListItem' : function ( event, template) {
         preventActionsForEvent( event );
@@ -460,10 +468,26 @@ Template.home.events({
         Websites.remove({_id:this._id});
     },
 
-    'click .createWebsiteButton': function (event, template) {
-        createDefaultWebsite();
-        Router.go('create');
+    'hover .websiteItemContent' : function ( event, template ) {
+        preventActionsForEvent( event );
+    }
+});
+
+Template.home.events({
+    'click .websiteListItem' : function ( event, template) {
+        preventActionsForEvent( event );
+        Router.go("/"+this.sitename);
     },
+
+    'mouseenter .websiteListItem' : function ( event, template ) {
+        websiteListItemMouseEnter ( event );
+    },
+
+    // website list item
+    'mouseleave .websiteListItem' : function ( event, template ) {
+        websiteListItemMouseLeave( event );
+    },
+
     'hover .websiteItemContent' : function ( event, template ) {
         preventActionsForEvent( event );
     }
@@ -493,12 +517,18 @@ Template.home.helpers({
     },
     websites: function () {
         return Websites.find({},{sort: {createdAt: -1}});
+    }
+});
+
+Template.dashboard.helpers({
+    numberOfWebsites: function () {
+        return Websites.find().count();
+    },
+    websites: function () {
+        return Websites.find({},{sort: {createdAt: -1}});
     },
     myWebsites: function () {
         return Websites.find({userId:Meteor.userId()},{sort: {createdAt: -1}});
-    },
-    users: function () {
-        return Meteor.users.find();
     }
 });
 
@@ -514,22 +544,6 @@ Template.selectStyle.events({
         var styleCss = Session.get('styleOptions')[styleId].css;
         styleCss = 'css/'+styleCss;
         Session.set('currentStyle', styleCss);
-    }
-});
-
-Template.form.events({
-    'submit form': function( event, template ){
-        event.preventDefault();
-        event.stopPropagation();
-
-        var sitename = template.find('#input-sitename').value;
-
-        var websiteId = Session.get('editing_website');
-        Websites.update({_id:websiteId},{ $set: { 
-            'sitename': sitename,
-            'userId': Meteor.userId()
-        }});
-        Router.go('/'+sitename);
     }
 });
 
@@ -568,10 +582,29 @@ Template.layout.helpers({
     }
 });
 
-Template.layout.events({
-    'click #createWebsite' : function ( event, template ) {
+var blurCreateWebsiteInput = function () {
+    var parent = $('#register-sitename');
+    var input = parent.find('input');
+    var label = parent.find('span');
+        console.log('blur');
 
-        var parent = $('#createWebsite'),
+    input.fadeOut(200);
+    parent.delay(250).animate({"margin-left":"100px",width:'auto'},200, function(){
+        label.fadeTo("fast", 100);
+    });
+}
+
+Template.layout.events({
+    'click .navBrand' : function ( event, template ) {
+        if(Meteor.user()) {
+            Router.go('dashboard');
+        } else {
+            Router.go('home');
+        }
+    },
+    'click #register-sitename' : function ( event, template ) {
+
+        var parent = $('#register-sitename'),
             input = parent.find('input'),
             label = parent.find('span');
 
@@ -581,20 +614,6 @@ Template.layout.events({
         parent.delay(100).animate({"margin-left":"-5px",width:'260px'},200, function(){
             input.fadeIn(200).focus();
         });
-        
-
-        // var form = $('div.getStartedForm').css('top');
-        // console.log('form:'+form);
-        // if(form === "0px") {
-        //     $('div.getStartedForm').animate({top:"50"}, 300);
-        //     $('#getStarted').hide();
-        // }
-
-        // if(form === "50px") {
-        //     $('div.getStartedForm').animate({top:"0"}, 300);
-        //     $('#getStarted').show();
-        // }
-
 
     // var $form = $('div.getStartedForm');
 
@@ -609,21 +628,20 @@ Template.layout.events({
     //  });
     },
     'focusout .textInput' : function ( event, template ) {
-        var parent = $('#createWebsite');
-        var input = parent.find('input');
-        var label = parent.find('span');
-
-        input.fadeOut(200);
-        parent.delay(250).animate({"margin-left":"0px",width:'auto'},200, function(){
-            label.fadeTo("fast", 100);
-        });
+        if(Session.get('registerInProgress')) {
+        } else {
+            blurCreateWebsiteInput();
+        }
     },
     'keyup .textInput' : function ( event, template ) {
         var input = $(event.target),
             parent = input.parent(),
-            is_name = input.val();
+            sitename = $('.textInput').val(),
+            value = input.val();
 
-        if( is_name.length > 2 ) {
+            console.log('sitename:'+sitename);
+
+        if( value.length > 2 ) {
             parent.removeClass("invalid").addClass("valid");
         } else {
             parent.removeClass("valid").addClass("invalid");
@@ -631,11 +649,35 @@ Template.layout.events({
 
         if (event.which === 13) {
             console.log('enter');
+            if(Meteor.user()) {
+                // logged in
+                blurCreateWebsiteInput();
+                createDefaultWebsite(sitename);
+                Router.go('create');
+            } else {
+                // not logged in
+                var form = $('div.getStartedForm'),
+                    inputs = form.find('input'),
+                    top = form.css('top');
+                
+                $(inputs).val("");
+                
+                if(top === "0px") {
+                    $('div.getStartedForm').animate({top:"50"}, 300);
+                }
+
+                if(top === "50px") {
+                    $('div.getStartedForm').animate({top:"0"}, 300);
+                }
+
+                Session.set('registerInProgress', true);
+            }
         };
     },
     'click .getStartedForm button' : function(event, template) {
         preventActionsForEvent(event)
         $('div.getStartedForm').css({top:"0"});
+
         registerUser( event, template );
     },
     'keyup .getStartedForm input': function( event, template) {
