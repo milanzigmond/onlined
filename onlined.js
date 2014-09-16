@@ -549,12 +549,13 @@ Template.layout.helpers({
     onlinedTitle: function () {
         if (!Router.current()) return;
 
-        var o = "ONLINED.AT",
+        var o = "ONLINED.AT/",
         id = Session.get('editing_website'),
         w = Websites.findOne(id);
 
         if (w && Router.current().path === '/create' && w.sitename)
-            return o + '/' + w.sitename.toUpperCase();
+            // return o + '/' + w.sitename.toUpperCase();
+            return o + w.sitename.toUpperCase();
         else 
             return o;
     },
@@ -570,8 +571,17 @@ Template.layout.helpers({
 Template.layout.events({
     'click #createWebsite' : function ( event, template ) {
 
-        $(event.target).animate({left:'0px',width:'400px'},300);
+        var parent = $('#createWebsite'),
+            input = parent.find('input'),
+            label = parent.find('span');
 
+        $(input).val("");
+
+        label.fadeTo("fast", 0);
+        parent.delay(100).animate({"margin-left":"-5px",width:'260px'},200, function(){
+            input.fadeIn(200).focus();
+        });
+        
 
         // var form = $('div.getStartedForm').css('top');
         // console.log('form:'+form);
@@ -586,48 +596,73 @@ Template.layout.events({
         // }
 
 
-// var $form = $('div.getStartedForm');
+    // var $form = $('div.getStartedForm');
 
-// $form.animate({left: parseInt($form.css('left'),10) == 0 ? $form.outerWidth() : 0}, 300);
+    // $form.animate({left: parseInt($form.css('left'),10) == 0 ? $form.outerWidth() : 0}, 300);
 
-// $(event.target).animate({width:'toggle'}, 300);
-// $( "div.getStartedForm" ).animate({
-//    display: "block",
-//    left: "+=50"
-//  }, 5000, function() {
-//    // Animation complete.
-//  });
-},
-'click .getStartedForm button' : function(event, template) {
-    preventActionsForEvent(event)
-    $('div.getStartedForm').css({top:"0"});
-    registerUser( event, template );
-},
-'keyup .getStartedForm input': function( event, template) {
-    preventActionsForEvent(event);
-    if (event.which === 13) {
-        registerUser( event, template);
-        return false;
+    // $(event.target).animate({width:'toggle'}, 300);
+    // $( "div.getStartedForm" ).animate({
+    //    display: "block",
+    //    left: "+=50"
+    //  }, 5000, function() {
+    //    // Animation complete.
+    //  });
+    },
+    'focusout .textInput' : function ( event, template ) {
+        var parent = $('#createWebsite');
+        var input = parent.find('input');
+        var label = parent.find('span');
+
+        input.fadeOut(200);
+        parent.delay(250).animate({"margin-left":"0px",width:'auto'},200, function(){
+            label.fadeTo("fast", 100);
+        });
+    },
+    'keyup .textInput' : function ( event, template ) {
+        var input = $(event.target),
+            parent = input.parent(),
+            is_name = input.val();
+
+        if( is_name.length > 2 ) {
+            parent.removeClass("invalid").addClass("valid");
+        } else {
+            parent.removeClass("valid").addClass("invalid");
+        }
+
+        if (event.which === 13) {
+            console.log('enter');
+        };
+    },
+    'click .getStartedForm button' : function(event, template) {
+        preventActionsForEvent(event)
+        $('div.getStartedForm').css({top:"0"});
+        registerUser( event, template );
+    },
+    'keyup .getStartedForm input': function( event, template) {
+        preventActionsForEvent(event);
+        if (event.which === 13) {
+            registerUser( event, template);
+            return false;
+        }
+    },
+    'click .fancybox': function (e,t) {
+        $('.fancybox').fancybox();
+    // preventActionsForEvent(e);
+    },
+    'click .logout': function (event, Template) {
+        Meteor.logout();
+        Router.go('home');
+    },
+    'click #loginFacebook' : function ( event, template ) {
+        console.log('click');
+        Meteor.loginWithFacebook({
+        requestPermissions: ['email'] // http://developers.facebook.com/docs/authentication/permissions/
+        }, function (error) {
+            if (error) {
+                console.log('error:'+error);
+            }
+        });
     }
-},
-'click .fancybox': function (e,t) {
-    $('.fancybox').fancybox();
-// preventActionsForEvent(e);
-},
-'click .logout': function (event, Template) {
-    Meteor.logout();
-    Router.go('home');
-},
-'click #loginFacebook' : function ( event, template ) {
-    console.log('click');
-    Meteor.loginWithFacebook({
-requestPermissions: ['email'] // http://developers.facebook.com/docs/authentication/permissions/
-}, function (error) {
-    if (error) {
-        console.log('error:'+error);
-    }
-});
-}
 });
 
 Template.login.events({
