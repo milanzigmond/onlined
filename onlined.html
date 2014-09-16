@@ -12,29 +12,31 @@
 <template name="layout">
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
-			<a class="navBrand" href="{{pathFor 'home'}}">{{onlinedTitle}}</a>
+			<a class="navBrand">{{onlinedTitle}}</a>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				{{#if currentUser}}
-				<button type="submit" class="btn btn-default navbar-btn logout">Logout</button>
-				<span class="username">{{email}}</span>
-				{{>selectStyle}}
-				{{else}}
-				<!-- <button id="loginFacebook" class="btn btn-primary navbar-btn">Login with Facebook</button> -->
-				<!-- <div class="nav navbar-nav navbar-right"> -->
-					<!-- <button id="createWebsite" class="btn navbar-btn">CREATE WEBSITE</button> -->
-					
-					<div id="createWebsite" class="btn navbar-btn firstButton">
-						<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
-						<span>CREATE WEBSITE</span>
-					</div>
+				<div id="register-sitename" class="btn navbar-btn firstButton">
+					<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
+					<span>CREATE WEBSITE</span>
+				</div>
+				<div class="nav navbar-nav navbar-right">
+					<button type="submit" class="btn btn-default navbar-btn logout">Logout</button>
+					<span class="username">{{email}}</span>
+					{{>selectStyle}}
 					<!-- <div class="loginButton">
 						<span>LOG IN</span>
 						<img src="logo.png" width="25px;">
 					</div> -->
-		        <!-- </div> -->
-				{{/if}}
+				</div>
+				{{else}}
+				<div id="register-sitename" class="btn navbar-btn firstButton">
+					<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
+					<span>CREATE WEBSITE</span>
+				</div>
+				<!-- <button id="loginFacebook" class="btn btn-primary navbar-btn">Login with Facebook</button> -->
+					{{/if}}
+				</div>
 			</div>
-		</div>
 	</nav>
 	<div class="getStartedForm">
 		<form id="register-form" action="action" role="form">
@@ -84,78 +86,77 @@
 	<div class="container-fluid home">
 
 		<div class="row">
-			{{#if currentUser}}
-				<div class="col-md-6 stream">
-					<h4 class="listsorting"><strong>latest</strong> / popular</h4>
-					<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
-					<ul>
-						{{#each websites}}
-							<li>
-								<div class="text-center websiteListItem">
-									<div class="websiteItemContent">
-										<h3>{{formatDate createdAt}}</h3>
-										<h2>{{toUpperCase sitename}}</h2>
-										<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
-									</div>
-									<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
-									<div class="websiteItemOverlay"></div>
-								</div>
-							</li>
-						{{/each}}
-					</ul>
-				</div>
-
-				<div class="col-md-6 myWebsites">
-					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
-							<ul class="myWebsitesList">
-								<li>
-									<!-- <a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a> -->
-									<a class="createWebsiteButton">Create New Website 2</a>
-								</li>
-								{{#each myWebsites}}
-								<li>
-									<div class="text-center myWebsiteListItem">
-										<div class="myWebsiteItemContent">
-											<h3>{{formatDate createdAt}}</h3>
-											<h2>{{toUpperCase sitename}}</h2>
-											<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>
-										</div>
-										<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
-										<div class="row editRow">
-											<div class="col-md-6 editbuttons edit"><h4>edit</h4></div>
-											<div class="col-md-6 editbuttons delete"><h4>delete</h4></div>
-										</div>
-										<div class="websiteItemOverlay"></div>
-									</div>
-								</li>
-								{{/each}}
-							</ul>
+			<div class="col-md-12 stream">
+				<h4 class="listsorting"><strong>latest</strong> / popular</h4>
+				<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
+				<ul>
+					{{#each websites}}
+					<li>
+						<div class="text-center websiteListItem">
+							<div class="websiteItemContent">
+								<h3>{{formatDate createdAt}}</h3>
+								<h2>{{toUpperCase sitename}}</h2>
+								<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
+							</div>
+							<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+							<div class="websiteItemOverlay"></div>
 						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="dashboard">
+	<div class="col-md-6 stream">
+		<h4 class="listsorting"><strong>latest</strong> / popular</h4>
+		<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
+		<ul>
+			{{#each websites}}
+			<li>
+				<div class="text-center websiteListItem">
+					<div class="websiteItemContent">
+						<h3>{{formatDate createdAt}}</h3>
+						<h2>{{toUpperCase sitename}}</h2>
+						<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
 					</div>
+					<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+					<div class="websiteItemOverlay"></div>
 				</div>
-			{{else}}
-				<div class="col-md-12 stream">
-					<h4 class="listsorting"><strong>latest</strong> / popular</h4>
-					<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
-					<ul>
-						{{#each websites}}
-							<li>
-								<div class="text-center websiteListItem">
-									<div class="websiteItemContent">
-										<h3>{{formatDate createdAt}}</h3>
-										<h2>{{toUpperCase sitename}}</h2>
-										<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
-									</div>
-									<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
-									<div class="websiteItemOverlay"></div>
-								</div>
-							</li>
-						{{/each}}
-					</ul>
-				</div>
-			{{/if}}
-			
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+
+	<div class="col-md-6 myWebsites">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<ul class="myWebsitesList">
+					<!-- <li>
+						<a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a>
+						<a class="createWebsiteButton">Create New Website 2</a>
+					</li> -->
+					{{#each myWebsites}}
+					<li>
+						<div class="text-center myWebsiteListItem">
+							<div class="myWebsiteItemContent">
+								<h3>{{formatDate createdAt}}</h3>
+								<h2>{{toUpperCase sitename}}</h2>
+								<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>
+							</div>
+							<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+							<div class="row editRow">
+								<div class="col-md-6 editbuttons edit"><h4>edit</h4></div>
+								<div class="col-md-6 editbuttons delete"><h4>delete</h4></div>
+							</div>
+							<div class="websiteItemOverlay"></div>
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
 		</div>
 	</div>
 </template>
@@ -444,34 +445,11 @@
 			<img src="arrowR.png" class="sliderarrow" data-dir="next">
 		</div>
 	</div>
-	
-	{{>form}}
 
 	{{/with}}
 	{{else}}
-	{{goHome}}
+		{{goHome}}
 	{{/if}}
-</template>
-
-<template name="form">
-	<form class="form-horizontal">
-		<fieldset>
-			<legend>...</legend>
-
-			<div class="form-group form-group-lg">
-				<div class="col-lg-2">
-					<label for="input-sitename" class="col-sm-2 control-label">www.onlined.at/</label>
-				</div>
-
-				<div class="col-lg-8">
-					<input type="text" class="form-control input-lg" id="input-sitename" placeholder="yourwebsitename">
-				</div>
-				<div class="col-lg-2">
-					<button type="submit" class="btn btn-success btn-lg">Create Web</button>
-				</div>
-			</div>
-		</fieldset>
-	</form>
 </template>
 
 <template name="footer">
