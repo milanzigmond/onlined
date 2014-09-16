@@ -597,6 +597,27 @@ var blurCreateWebsiteInput = function () {
     });
 }
 
+var checkFields = function ( event ) {
+    var value = $(event.target).val(),
+        allowedChars = new RegExp("^[a-zA-Z0-9\-]+$");
+
+    if (allowedChars.test(value)) {
+        if (value.length < 3) {
+            return false;
+        };
+        return true;
+    };
+    return false;
+}
+
+var checkDuplicity = function ( event ) {
+    var value = $(event.target).val(),
+        exists = Websites.find({sitename:value}).fetch();
+        console.log('value:'+value+', exists: '+exists.length);
+    if( exists.length > 0 ) { return false; }
+    return true;
+}
+
 Template.layout.events({
     'click .navBrand' : function ( event, template ) {
         if(Meteor.user()) {
@@ -636,27 +657,46 @@ Template.layout.events({
             blurCreateWebsiteInput();
         }
     },
+    'keydown .textInput' : function ( event, template ) {
+        var parent = $(event.target).parent();
+
+            console.log('fields are ' + checkFields(event) + ', duplicity is ' + checkDuplicity(event));
+
+        if ( checkFields( event ) && checkDuplicity ( event ) ) {
+            parent.removeClass( "invalid" ).addClass( "valid" );
+        } else {
+            parent.removeClass( "valid" ).addClass( "invalid" );
+        }
+    },
     'keyup .textInput' : function ( event, template ) {
         var input = $(event.target),
             parent = input.parent(),
             sitename = $('.textInput').val(),
             value = input.val();
 
-            console.log('sitename:'+sitename);
-
-        if( value.length > 2 ) {
-            parent.removeClass("invalid").addClass("valid");
+        if ( checkFields( event ) && checkDuplicity ( event ) ) {
+            parent.removeClass( "invalid" ).addClass( "valid" );
         } else {
-            parent.removeClass("valid").addClass("invalid");
+            parent.removeClass( "valid" ).addClass( "invalid" );
         }
+        // if( value.length > 3 && value.indexOf(' ') < 0) {
+        //     parent.removeClass("invalid").addClass("valid");
+        // } else {
+        //     parent.removeClass("valid").addClass("invalid");
+        // }
 
         if (event.which === 13) {
             console.log('enter');
             if(Meteor.user()) {
-                // logged in
-                blurCreateWebsiteInput();
-                createDefaultWebsite(sitename);
-                Router.go('create');
+                if ( checkFields( event ) && checkDuplicity ( event ) ) {
+                    // logged in
+                    blurCreateWebsiteInput();
+                    createDefaultWebsite(sitename);
+                    Router.go('create');
+                } else {
+                        console.log('som tu');
+                    $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
+                }
             } else {
                 // not logged in
                 var form = $('div.getStartedForm'),
