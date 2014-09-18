@@ -40,6 +40,14 @@
 
 </template>
 
+<template name="app">
+	{{#if currentUser}}
+		{{>dashboard}}
+	{{else}}
+		{{>home}}
+	{{/if}}
+</template>
+
 <template name="notFound">
 	not found
 </template>

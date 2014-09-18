@@ -32,16 +32,7 @@ Router.configure({
 });
 
 Router.map(function() {
-	this.route('home', {
-		path: '/'
-     //    onBeforeAction: function (pause) {
-     //    	if (!Meteor.user() && Session.get('editing_website')) {
-		   //      this.render('create');
-		   //      pause();
-		   //  }
-	    // }
-	});
-	this.route('dashboard', {
+	this.route('app', {
 		path: '/'
 	});
 	this.route('create', {
