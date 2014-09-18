@@ -13,19 +13,12 @@
 
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
-			<a class="navBrand">{{onlinedTitle}}</a>
+			<a class="navBrand" href="{{pathFor 'app'}}">{{onlinedTitle}}</a>
 			<div class="collapse navbar-collapse">
-				{{#if currentUser}}
-					{{#if dashboard}}
-						<div id="register-sitename" class="btn navbar-btn firstButton">
-							<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
-							<span>CREATE WEBSITE</span>
-						</div>
-					{{/if}}	
-				{{/if}}
 		        <ul class="nav navbar-nav navbar-right">
 		        	{{#if currentUser}}
 		            	{{#if create}}
+		            		<li><a href="{{pathFor 'app'}}">Dashboard</a></li>
 							{{>selectStyle}}
 						{{/if}}
 					{{/if}}
@@ -109,6 +102,14 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
 						<ul class="myWebsitesList">
+							<li>
+
+								<div id="register-sitename" class="btn firstButton">
+									<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
+									<span>CREATE WEBSITE</span>
+								</div>
+
+							</li>
 							<!-- <li>
 								<a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a>
 								<a class="createWebsiteButton">Create New Website 2</a>

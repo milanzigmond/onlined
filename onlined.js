@@ -132,7 +132,6 @@ var registerUser = function ( event, template ) {
             } else {
                 console.log('registered and logged in with sitename:'+sitename);
                 createDefaultWebsite(sitename);
-                Session.set('registerInProgress', false);
                 Router.go('create');
             }
         });
@@ -323,24 +322,25 @@ var saveFile = function (event) {
         reader.position = id.slice(-1);
     }
     console.log('saving file: '+file+" to: "+event.target.id);
+    
     reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
 
         if (this.gallery || this.slider)
         {
-//it is a gallery image, get a position from id
-setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
-setModifier.$set['content.'+this.to+'.'+this.position+'.src' ] = event.target.result;
-} else {
-//it is a single image, no position needed
-setModifier.$set['content.'+this.to ] = event.target.result;
-}
+            //it is a gallery image, get a position from id
+            setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
+            setModifier.$set['content.'+this.to+'.'+this.position+'.src' ] = event.target.result;
+        } else {
+        //it is a single image, no position needed
+            setModifier.$set['content.'+this.to ] = event.target.result;
+    }
 
-Websites.update({_id:websiteId}, setModifier);
-};
+    Websites.update({_id:websiteId}, setModifier);
+    };
 
-reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 };
 
 var trimInput = function(val) {
@@ -363,59 +363,59 @@ Template.create.events({
     },
     'keyup #input' : function( event, template ) {
         if (event.which === 27) {
-// escape pressed
-preventActionsForEvent(event);
-$(event.target).blur();
-}
-if (event.which === 13) {
-// enter pressed
-preventActionsForEvent(event);
-
-var websiteId = Session.get('editing_website'),
-parent = event.target.parentElement,
-value = event.target.value,
-setModifier = { $set: {} };
-
-setModifier.$set['content.'+ parent.id ] = value;
-Websites.update({_id:websiteId}, setModifier);
-
-$(event.target).blur();
-}
-},
-'focusout #input' : function ( event, template ) {
-    console.log('focusout on:'+ event.target.parentElement.id);
+    // escape pressed
     preventActionsForEvent(event);
-    var parent = event.target.parentElement,
-    sibling = parent.nextSibling;
-
-    if(parent.id === "address") {
-        sibling = parent.previousElementSibling;
-        $(parent).toggle();
-    } else {
-$(parent).remove(); // calls focusout event 
-}
-
-Session.set('editing_field', null);
-$(sibling).show();
-},
-'mouseenter div.img' : function ( event, template ) {
-    preventActionsForEvent( event );
-    $( event.target ).addClass("hover");
-},
-'mouseleave div.img' : function ( event, template) {
+    $(event.target).blur();
+    }
+    if (event.which === 13) {
+    // enter pressed
     preventActionsForEvent(event);
-    $( event.target ).removeClass("hover");
-},
-'dragover' : function ( event, template ) { 
-    preventActionsForEvent(event); 
-},
-'drop' : function ( event, template ) { 
-    preventActionsForEvent(event); 
-},
-'drop .reimg' : function ( event, template ) {
-    preventActionsForEvent(event);
-    saveFile(event);
-}
+
+    var websiteId = Session.get('editing_website'),
+    parent = event.target.parentElement,
+    value = event.target.value,
+    setModifier = { $set: {} };
+
+    setModifier.$set['content.'+ parent.id ] = value;
+    Websites.update({_id:websiteId}, setModifier);
+
+    $(event.target).blur();
+    }
+    },
+    'focusout #input' : function ( event, template ) {
+        console.log('focusout on:'+ event.target.parentElement.id);
+        preventActionsForEvent(event);
+        var parent = event.target.parentElement,
+        sibling = parent.nextSibling;
+
+        if(parent.id === "address") {
+            sibling = parent.previousElementSibling;
+            $(parent).toggle();
+        } else {
+    $(parent).remove(); // calls focusout event 
+    }
+
+    Session.set('editing_field', null);
+    $(sibling).show();
+    },
+    'mouseenter div.img' : function ( event, template ) {
+        preventActionsForEvent( event );
+        $( event.target ).addClass("hover");
+    },
+    'mouseleave div.img' : function ( event, template) {
+        preventActionsForEvent(event);
+        $( event.target ).removeClass("hover");
+    },
+    'dragover' : function ( event, template ) { 
+        preventActionsForEvent(event); 
+    },
+    'drop' : function ( event, template ) { 
+        preventActionsForEvent(event); 
+    },
+    'drop .reimg' : function ( event, template ) {
+        preventActionsForEvent(event);
+        saveFile(event);
+    }
 });
 
 var websiteListItemMouseEnter = function ( event ) {
@@ -426,7 +426,83 @@ var websiteListItemMouseLeave = function ( event ) {
     $(event.target).find('.websiteItemOverlay').animate({opacity: 0.5}, 200);
 }
 
+var blurCreateWebsiteInput = function () {
+    var parent = $('#register-sitename');
+    var input = parent.find('input');
+    var label = parent.find('span');
+
+    input.fadeOut(200);
+    // label.delay(250).fadeTo("fast", 100);
+    label.delay(250).fadeIn(100);
+}
+
 Template.dashboard.events({
+    'click #register-sitename' : function ( event, template ) {
+
+        var parent = $('#register-sitename'),
+            input = parent.find('input'),
+            label = parent.find('span');
+
+        $(input).val("");
+
+        // label.fadeTo("fast", 0);
+        label.fadeOut(200);
+        input.delay(250).fadeIn(200, function(){
+            this.focus();
+        });
+    },
+    'focusout .textInput' : function ( event, template ) {
+        var parent = $(event.target).parent();
+        blurCreateWebsiteInput();
+        parent.removeClass( "invalid" ).addClass( "valid" );
+    },
+    'keydown .textInput' : function ( event, template ) {
+        var parent = $(event.target).parent();
+
+        if ( checkFields( event ) && checkDuplicity ( event ) ) {
+            parent.removeClass( "invalid" ).addClass( "valid" );
+        } else {
+            parent.removeClass( "valid" ).addClass( "invalid" );
+        }
+    },
+    'keyup .textInput' : function ( event, template ) {
+        var input = $(event.target),
+            parent = input.parent(),
+            sitename = $('.textInput').val(),
+            value = input.val();
+
+        if ( checkFields( event ) && checkDuplicity ( event ) ) {
+            parent.removeClass( "invalid" ).addClass( "valid" );
+        } else {
+            parent.removeClass( "valid" ).addClass( "invalid" );
+        }
+        // if( value.length > 3 && value.indexOf(' ') < 0) {
+        //     parent.removeClass("invalid").addClass("valid");
+        // } else {
+        //     parent.removeClass("valid").addClass("invalid");
+        // }
+
+        if (event.which === 13) {
+            if ( checkFields( event ) && checkDuplicity ( event ) ) {
+                if(Meteor.user()) {
+                    blurCreateWebsiteInput();
+                    createDefaultWebsite(sitename);
+                    Router.go('create');    
+                } else {
+                    var form = $('div.getStartedForm'),
+                        inputs = form.find('input'),
+                        top = form.css('top');
+                    
+                    if(top === "0px") {$('div.getStartedForm').animate({top:"50"}, 300);}
+                    if(top === "50px") {$('div.getStartedForm').animate({top:"0"}, 300);}
+
+                    $(inputs).val("");
+                }
+            } else {
+                $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
+            }
+        };
+    },
     'click .myWebsiteListItem' : function ( event, template ) {
         preventActionsForEvent( event );
         Session.set('editing_website', this._id);
@@ -580,25 +656,10 @@ Template.layout.helpers({
     email: function () {
         return getUserEmail();
     },
-    dashboard: function () {
-        return (Router.current().path === '/');
-    },
     create: function () {
         return (Router.current().path === '/create');
     }
 });
-
-var blurCreateWebsiteInput = function () {
-    var parent = $('#register-sitename');
-    var input = parent.find('input');
-    var label = parent.find('span');
-        console.log('blur');
-
-    input.fadeOut(200);
-    parent.delay(250).animate({"margin-left":"100px",width:'auto'},200, function(){
-        label.fadeTo("fast", 100);
-    });
-}
 
 var checkFields = function ( event ) {
     var value = $(event.target).val(),
@@ -616,93 +677,13 @@ var checkFields = function ( event ) {
 var checkDuplicity = function ( event ) {
     var value = $(event.target).val(),
         exists = Websites.find({sitename:value}).fetch();
-        console.log('value:'+value+', exists: '+exists.length);
     if( exists.length > 0 ) { return false; }
     return true;
 }
 
 Template.layout.events({
-    'click .navBrand' : function ( event, template ) {
-        if(Meteor.user()) {
-            Router.go('dashboard');
-        } else {
-            Router.go('home');
-        }
-    },
-    'click #register-sitename' : function ( event, template ) {
-
-        var parent = $('#register-sitename'),
-            input = parent.find('input'),
-            label = parent.find('span');
-
-        $(input).val("");
-
-        label.fadeTo("fast", 0);
-        parent.delay(100).animate({"margin-left":"-5px",width:'260px'},200, function(){
-            input.fadeIn(200).focus();
-        });
-    },
-    'focusout .textInput' : function ( event, template ) {
-        if(Session.get('registerInProgress')) {
-        } else {
-            blurCreateWebsiteInput();
-        }
-    },
-    'keydown .textInput' : function ( event, template ) {
-        var parent = $(event.target).parent();
-
-            console.log('fields are ' + checkFields(event) + ', duplicity is ' + checkDuplicity(event));
-
-        if ( checkFields( event ) && checkDuplicity ( event ) ) {
-            parent.removeClass( "invalid" ).addClass( "valid" );
-        } else {
-            parent.removeClass( "valid" ).addClass( "invalid" );
-        }
-    },
-    'keyup .textInput' : function ( event, template ) {
-        var input = $(event.target),
-            parent = input.parent(),
-            sitename = $('.textInput').val(),
-            value = input.val();
-
-        if ( checkFields( event ) && checkDuplicity ( event ) ) {
-            parent.removeClass( "invalid" ).addClass( "valid" );
-        } else {
-            parent.removeClass( "valid" ).addClass( "invalid" );
-        }
-        // if( value.length > 3 && value.indexOf(' ') < 0) {
-        //     parent.removeClass("invalid").addClass("valid");
-        // } else {
-        //     parent.removeClass("valid").addClass("invalid");
-        // }
-
-        if (event.which === 13) {
-            console.log('enter');
-            if ( checkFields( event ) && checkDuplicity ( event ) ) {
-                if(Meteor.user()) {
-                    blurCreateWebsiteInput();
-                    createDefaultWebsite(sitename);
-                    Router.go('create');    
-                } else {
-                    var form = $('div.getStartedForm'),
-                        inputs = form.find('input'),
-                        top = form.css('top');
-                    
-                    if(top === "0px") {$('div.getStartedForm').animate({top:"50"}, 300);}
-                    if(top === "50px") {$('div.getStartedForm').animate({top:"0"}, 300);}
-
-                    $(inputs).val("");
-                    Session.set('registerInProgress', true);
-                }
-            } else {
-                    console.log('som tu');
-                $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
-            }
-        };
-    },
     'click .fancybox': function (e,t) {
         $('.fancybox').fancybox();
-    // preventActionsForEvent(e);
     }
 });
 

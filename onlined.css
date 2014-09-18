@@ -259,7 +259,6 @@ ul {
 
 .myWebsitesList {
   list-style: none;
-  background-color: #89b504;
   color: white;
   height: 82px;
   font-family: "Cantarell", sans-serif;
@@ -275,10 +274,10 @@ ul {
 .firstButton {
   font-family: "Calibri", sans-serif;
   font-size: 16pt;
-  line-height: 50px;
-  position:absolute;
-  left: 150px;
-  width:180px;
+  line-height: 82px;
+  width:100%;
+  height:82px;
+  background-color: #89b504;
   -webkit-transition: all 200ms ease-in-out;
   -moz-transition: all 200ms ease-in-out;
   -ms-transition: all 200ms ease-in-out;
@@ -581,12 +580,13 @@ body {
 }
 
 .textInput {
-  background: transparent;
+  background:transparent;
   color: #fff;
   text-transform: uppercase;
   outline:none;
   border:0;
   width:100%;
+  text-align: center;
 }
 
 .valid {
