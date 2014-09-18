@@ -582,6 +582,9 @@ Template.layout.helpers({
     },
     dashboard: function () {
         return (Router.current().path === '/');
+    },
+    create: function () {
+        return (Router.current().path === '/create');
     }
 });
 
@@ -687,33 +690,25 @@ Template.layout.events({
 
         if (event.which === 13) {
             console.log('enter');
-            if(Meteor.user()) {
-                if ( checkFields( event ) && checkDuplicity ( event ) ) {
-                    // logged in
+            if ( checkFields( event ) && checkDuplicity ( event ) ) {
+                if(Meteor.user()) {
                     blurCreateWebsiteInput();
                     createDefaultWebsite(sitename);
-                    Router.go('create');
+                    Router.go('create');    
                 } else {
-                        console.log('som tu');
-                    $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
+                    var form = $('div.getStartedForm'),
+                        inputs = form.find('input'),
+                        top = form.css('top');
+                    
+                    if(top === "0px") {$('div.getStartedForm').animate({top:"50"}, 300);}
+                    if(top === "50px") {$('div.getStartedForm').animate({top:"0"}, 300);}
+
+                    $(inputs).val("");
+                    Session.set('registerInProgress', true);
                 }
             } else {
-                // not logged in
-                var form = $('div.getStartedForm'),
-                    inputs = form.find('input'),
-                    top = form.css('top');
-                
-                $(inputs).val("");
-                
-                if(top === "0px") {
-                    $('div.getStartedForm').animate({top:"50"}, 300);
-                }
-
-                if(top === "50px") {
-                    $('div.getStartedForm').animate({top:"0"}, 300);
-                }
-
-                Session.set('registerInProgress', true);
+                    console.log('som tu');
+                $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
             }
         };
     },

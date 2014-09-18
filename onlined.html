@@ -22,7 +22,9 @@
 						</div>
 					{{/if}}	
 				<ul class="nav navbar-nav navbar-right">
-					{{>selectStyle}}
+					{{#if create}}
+						{{>selectStyle}}
+					{{/if}}
 
 
 					<li class="dropdown">
@@ -32,42 +34,35 @@
 						</ul>
 					</li>
 				</ul>
-					<!-- <div class="loginButton">
-						<span>LOG IN</span>
-						<img src="logo.png" width="25px;">
-					</div> -->
 				{{else}}
 				<div id="register-sitename" class="btn navbar-btn firstButton">
 					<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
 					<span>CREATE WEBSITE</span>
 				</div>
-				<!-- <button id="loginFacebook" class="btn btn-primary navbar-btn">Login with Facebook</button> -->
 				{{/if}}
 			</div>
 		</div>
 	</nav>
-	<div class="getStartedForm">
-		<form id="register-form" action="action" role="form">
-			<div class="row">
-				<div class="col-sm-6">
+		<div class="getStartedForm">
+			<form id="register-form" action="action" role="form">
+				<div class="row">
+					<div class="col-sm-6">
+							<div class="form-group">
+								<input id="register-email" type="email" class="form-control" placeholder="Enter email">
+							</div>
+						<div class="alert alert-danger" role="alert" hidden></div>
+					</div>
+					<div class="col-sm-4">
 						<div class="form-group">
-							<input id="register-email" type="email" class="form-control" placeholder="Enter email">
+							<input id="register-password" type="password" class="form-control" placeholder="Enter password">
 						</div>
-					<div class="alert alert-danger" role="alert" hidden></div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<input id="register-password" type="password" class="form-control" placeholder="Enter password">
+					</div>
+					<div class="col-sm-2">
+						<button id="register-button" type="submit" class="btn navbar-btn pull-right">TO MY WEBSITE</button>
 					</div>
 				</div>
-				<div class="col-sm-2">
-					<button id="register-button" type="submit" class="btn navbar-btn pull-right">TO MY WEBSITE</button>
-						<!-- <img src="logo.png"> -->
-				</div>
-			</div>
-		</form>
-	</div>
-	
+			</form>
+		</div>
 	{{> yield}}
 
 </template>
@@ -461,15 +456,6 @@
 	{{/if}}
 </template>
 
-<template name="footer">
-	<div class="row withpadding">
-		<div class="col-lg-6"><a href="#" class="btn btn-default btn-md">Edit</a></div>
-		<div class="col-lg-6">
-			<img src="onlinedLogo.png" width="100px" height="auto" class="pull-right">
-		</div>
-	</div>
-</template>
-
 <template name="login">
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
@@ -763,8 +749,6 @@
 			<img src="arrowR.png" class="sliderarrow" data-dir="next">
 		</div>
 	</div>
-
-	{{>footer}}
 </template>
 
 
