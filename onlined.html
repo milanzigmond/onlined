@@ -10,10 +10,11 @@
 </body>
 
 <template name="layout">
+
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<a class="navBrand">{{onlinedTitle}}</a>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse">
 				{{#if currentUser}}
 					{{#if dashboard}}
 						<div id="register-sitename" class="btn navbar-btn firstButton">
@@ -21,48 +22,20 @@
 							<span>CREATE WEBSITE</span>
 						</div>
 					{{/if}}	
-				<ul class="nav navbar-nav navbar-right">
-					{{#if create}}
-						{{>selectStyle}}
-					{{/if}}
-
-
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{email}} <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a class="logout" href="#">Logout</a></li>
-						</ul>
-					</li>
-				</ul>
-				{{else}}
-				<div id="register-sitename" class="btn navbar-btn firstButton">
-					<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
-					<span>CREATE WEBSITE</span>
-				</div>
 				{{/if}}
-			</div>
+		        <ul class="nav navbar-nav navbar-right">
+		        	{{#if currentUser}}
+		            	{{#if create}}
+							{{>selectStyle}}
+						{{/if}}
+					{{/if}}
+		            
+		            {{> loginButtons }}
+		        </ul>
+		    </div>
 		</div>
 	</nav>
-		<div class="getStartedForm">
-			<form id="register-form" action="action" role="form">
-				<div class="row">
-					<div class="col-sm-6">
-							<div class="form-group">
-								<input id="register-email" type="email" class="form-control" placeholder="Enter email">
-							</div>
-						<div class="alert alert-danger" role="alert" hidden></div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<input id="register-password" type="password" class="form-control" placeholder="Enter password">
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<button id="register-button" type="submit" class="btn navbar-btn pull-right">TO MY WEBSITE</button>
-					</div>
-				</div>
-			</form>
-		</div>
+
 	{{> yield}}
 
 </template>

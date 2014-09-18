@@ -641,18 +641,6 @@ Template.layout.events({
         parent.delay(100).animate({"margin-left":"-5px",width:'260px'},200, function(){
             input.fadeIn(200).focus();
         });
-
-    // var $form = $('div.getStartedForm');
-
-    // $form.animate({left: parseInt($form.css('left'),10) == 0 ? $form.outerWidth() : 0}, 300);
-
-    // $(event.target).animate({width:'toggle'}, 300);
-    // $( "div.getStartedForm" ).animate({
-    //    display: "block",
-    //    left: "+=50"
-    //  }, 5000, function() {
-    //    // Animation complete.
-    //  });
     },
     'focusout .textInput' : function ( event, template ) {
         if(Session.get('registerInProgress')) {
@@ -712,36 +700,9 @@ Template.layout.events({
             }
         };
     },
-    'click .getStartedForm button' : function(event, template) {
-        preventActionsForEvent(event)
-        $('div.getStartedForm').css({top:"0"});
-
-        registerUser( event, template );
-    },
-    'keyup .getStartedForm input': function( event, template) {
-        preventActionsForEvent(event);
-        if (event.which === 13) {
-            registerUser( event, template);
-            return false;
-        }
-    },
     'click .fancybox': function (e,t) {
         $('.fancybox').fancybox();
     // preventActionsForEvent(e);
-    },
-    'click .logout': function (event, Template) {
-        Meteor.logout();
-        Router.go('home');
-    },
-    'click #loginFacebook' : function ( event, template ) {
-        console.log('click');
-        Meteor.loginWithFacebook({
-        requestPermissions: ['email'] // http://developers.facebook.com/docs/authentication/permissions/
-        }, function (error) {
-            if (error) {
-                console.log('error:'+error);
-            }
-        });
     }
 });
 
