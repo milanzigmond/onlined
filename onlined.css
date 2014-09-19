@@ -15,6 +15,12 @@
      opacity:  0.5;
 }
 
+.logoDot {
+  width:15px;
+  position:absolute;
+  top:18px;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -521,6 +527,7 @@ a.navBrand {
   line-height: 50px;
   font-family: "Cantarell", sans-serif;
   padding-right: 40px;
+  margin-left: 20px;
   z-index:60;
   cursor:pointer;
 }
