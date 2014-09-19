@@ -39,13 +39,21 @@ html, body {
 }
 
 .navbar-default .navbar-nav>li>a {
-  color: white;
-  font-family: "Calibri", sans-serif;
-  font-weight: 100;
+  color: #89b504;
+  font-family: "Cantarell", sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  -webkit-transition: all 100ms ease-in-out;
+  -moz-transition: all 100ms ease-in-out;
+  -ms-transition: all 100ms ease-in-out;
+  -o-transition: all 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
 }
 
 .navbar-default .navbar-nav>li>a:hover {
-  color: white;
+  color: #fff;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
@@ -63,7 +71,7 @@ html, body {
 }
 
 .myWebsites .col-md-10 {
-  margin-top:20px;
+  margin-top:4px;
 }
 
 a {
@@ -108,6 +116,7 @@ button:hover{
 /*===================================================================ONLINED HOMEPAGE start*/
 
 /*======================================================index NAV BAR start*/
+
 .form-group {
   margin-top: 8px;
   margin-bottom: 8px;
@@ -187,14 +196,6 @@ span.username {
   color: white;
 }
 
-a.navBrand {
-  color:white;
-  float:left;
-  font-size: 18pt;
-  line-height: 50px;
-  font-family: "Calibri", sans-serif;
-  padding-right: 30px;
-}
 
 .drop {
   border: 2px dashed #ff0000;
@@ -203,6 +204,62 @@ a.navBrand {
   color: #cccccc;
   margin: 20px;
   padding: 20px;
+}
+
+.btn-Facebook {
+color: white;
+background-color: #3b5998;
+font-weight: 100;
+}
+
+.btn-primary {
+color: #fff;
+background-color: #89b504;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
+}
+
+.btn-primary:hover {
+background-color: #a3ce22;
+}
+
+#login-dropdown-list input:first-of-type {
+border-top-left-radius: 0px;
+border-top-right-radius: 0px;
+margin-bottom: 10px;
+-webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+#login-dropdown-list input:last-of-type {
+margin-bottom: 5px;
+border-bottom-left-radius: 0px;
+border-bottom-right-radius: 0px;
+-webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+#login-email {
+background: #eaeaea;
+border: 0px;
+font-size: 16px;
+}
+
+#login-password {
+background: #eaeaea;
+border: 0px;
+font-size: 16px;
+}
+
+#forgot-password-email {
+background: #eaeaea;
+border: 0px;
+font-size: 16px;
 }
 
 /*======================================================index NAV BAR end*/
@@ -221,19 +278,23 @@ ul {
 .numberofsites {
 }
 
+.home {
+  background-color: #ccc;
+}
+
 .home div.myWebsites {
+  padding-top: 50px;
   /*background-color: red;*/
 }
 
 .home div.stream {
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
-  background-color: #313131;
+  background-color: #333;
   color: #ccc;
   padding: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
   margin: 0px;
+  padding-top:50px;
 }
 
 .home div.stream h2 {
@@ -272,7 +333,7 @@ ul {
 }
 
 .firstButton {
-  font-family: "Calibri", sans-serif;
+  font-family: "Cantarell", sans-serif;
   font-size: 16pt;
   line-height: 82px;
   width:100%;
@@ -314,7 +375,7 @@ ul {
   height: 220px;
   color:white;
   position: relative;
-  margin-top: 20px;
+  margin-top: 15px;
   background-position: 20% 20%;
   display:block;
   position:relative;
@@ -327,7 +388,7 @@ ul {
   height: 100px;
   width: 100%;
   margin: 0px;
-  margin-top: 28px;
+  margin-top: 30px;
   font-size: 16px;
   color:white;
   font-weight: bold;
@@ -429,20 +490,16 @@ ul {
   background-color: #89b504;
 }
 
-.edit:hover {
-  background-color: #89b504;
-}
-
-.delete {
-  background-color: #e0a29d;
-}
-
 .edit:hover{
   background-color: #a3ce22;
 }
 
+.delete {
+  background-color: #d28e89;
+}
+
 .delete:hover{
-  background-color: #a3ce22;
+  background-color: #e0a29d;
 }
 
 .loginButton {
@@ -453,18 +510,26 @@ ul {
   border-radius: 0px;
   border: none;
   margin-bottom: 0px;
-  background-color: #5f5f5f;
+  /*background-color: #5f5f5f;*/
+  background-color: rgba(0,0,0,0.7);
   color: white;
 }
 a.navBrand {
   color:white;
   float:left;
-  font-size: 16pt;
+  font-size: 14pt;
   line-height: 50px;
-  font-family: "Calibri", sans-serif;
-  padding-right: 30px;
+  font-family: "Cantarell", sans-serif;
+  padding-right: 40px;
   z-index:60;
   cursor:pointer;
+}
+
+a.navBrand:hover {
+  color:#89b504;
+}
+
+#register-sitename {
 }
 /*======================================================home MY PAGES half end*/
 
@@ -504,7 +569,7 @@ ul.sectionsbar li {
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
   text-align: center;
   line-height: 50px;
   letter-spacing: -1px;
@@ -518,12 +583,10 @@ ul.sectionsbar li {
 
 .sectionsbar a.active {
   color: #fff;
-  border-top: 3px solid #89b504;
-  padding-top: 20px;
 }
 
 .sectionsbar a:hover{
-  color: #fff;
+/*  color: #fff;
   border-top: 3px solid #89b504;
   padding-top: 20px;
   text-decoration: none;
@@ -532,7 +595,7 @@ ul.sectionsbar li {
   -o-transition: all 200ms linear;
   -ms-transition: all 200ms linear;
   transition: all 200ms linear;
-}
+*/}
 
 /*======================================================SECTIONS NAV BAR end*/
 
@@ -540,7 +603,7 @@ ul.sectionsbar li {
 
 body {
   font-family: "Cantarell", sans-serif;
-  padding-top: 50px;
+  /*padding-top: 50px;*/
   font-size: 16px;
   line-height: 1.5;
 }
@@ -582,11 +645,15 @@ body {
 .textInput {
   background:transparent;
   color: #fff;
-  text-transform: uppercase;
   outline:none;
   border:0;
   width:100%;
   text-align: center;
+  font-family: "Cantarell", sans-serif;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .valid {
@@ -624,7 +691,22 @@ h5 {
 }
 
 h6 {
-  font-size: 1em;
+  font-weight: 0;
+  font-family: "Calibri", sans-serif;
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+.home div.myWebsites h2.websitesHeader {
+  padding-top: 30px;
+  color:#333;
+  text-align: left;
+}
+
+.line {
+  background:#ccc; 
+  border:0; 
+  height:7px;
 }
 
 .white {

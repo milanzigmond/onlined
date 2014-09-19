@@ -7,7 +7,7 @@
  *  Under Apache License v2.0 License
  */
 ;(function($, window, document, undefined) {
-  console.log('autohiding on');
+  // console.log('autohiding on');
   var pluginName = 'autoHidingNavbar',
       $window = $(window),
       $document = $(document),

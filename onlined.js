@@ -757,13 +757,9 @@ Template.dashboard.rendered = function () {
 };
 
 Template.layout.rendered = function () {
-
-// var $form = $('div.getStartedForm');
-// $form.css("left", -($form.outerWidth()));
-
-$("nav.navbar-fixed-top").autoHidingNavbar({
-    'animationDuration' : 300
-});
+    $("nav.navbar-fixed-top").autoHidingNavbar({
+        'animationDuration' : 300
+    });
 };
 
 Template.website.rendered = function () {
@@ -795,32 +791,25 @@ Template.selectStyle.rendered = function () {
 
 if (Meteor.isServer) {
 
-// first, remove configuration entry in case service is already configured
-ServiceConfiguration.configurations.remove({
+//  Accounts.config({
+//     sendVerificationEmail: true, 
+//     forbidClientAccountCreation: false
+// });
+
+   ServiceConfiguration.configurations.remove({
     service: "facebook"
-});
-ServiceConfiguration.configurations.insert({
+    });
+   ServiceConfiguration.configurations.insert({
     service: "facebook",
     appId: "636768589764143",
     secret: "08df277b0663b6beb93f7795843b98f7"
 });
 
-// first, remove configuration entry in case service is already configured
-// Accounts.loginServiceConfiguration.remove({
-//   service: "google"
-// });
-// Accounts.loginServiceConfiguration.insert({
-//   service: "google",
-//   clientId: "yourClientId",
-//   secret: "yourSecret"
-// });
-
-
-Meteor.publish('allUsers', function () {
+   Meteor.publish('allUsers', function () {
     return Meteor.users.find();
 });
 
-Meteor.publish('allWebsites', function () {
+   Meteor.publish('allWebsites', function () {
     return Websites.find();
 });
 }

@@ -10,7 +10,6 @@
 </body>
 
 <template name="layout">
-
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<a class="navBrand" href="{{pathFor 'app'}}">{{onlinedTitle}}</a>
@@ -27,10 +26,26 @@
 		        </ul>
 		    </div>
 		</div>
+		{{#if create}}
+			<ul class="sectionsbar">
+			  <li><a href="#" class="complete">header image</a></li>
+			  <li><a href="#" class="complete">headline</a></li>
+			  <li><a href="#" class="complete">introduction</a></li>
+			  <li><a href="#" class="complete">gallery</a></li>
+			  <li><a href="#">email</a></li>
+			  <li><a href="#" class="active">text paragraphs</a></li>
+			  <li><a href="#">location</a></li>
+			  <li><a href="#">phone number</a></li>
+			  <li><a href="#">opening hours</a></li>
+			  <li><a href="#">social links</a></li>
+			  <li><a href="#">products</a></li>
+			  <li><a href="#">video</a></li>
+			  <li><a href="#">team members</a></li>
+			  <li><a href="#">slideshow</a></li>
+			</ul>
+		{{/if}}
 	</nav>
-
 	{{> yield}}
-
 </template>
 
 <template name="app">
@@ -53,8 +68,8 @@
 	<div class="container-fluid home">
 		<div class="row">
 			<div class="col-md-12 stream">
-				<h4 class="listsorting"><strong>latest</strong> / popular</h4>
-				<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
+				<h5 class="listsorting"><strong>latest</strong> / popular</h5>
+				<h5 class="numberofsites">{{numberOfWebsites}} websites onlined</h5>
 				<ul>
 					{{#each websites}}
 					<li>
@@ -79,36 +94,41 @@
 	<div class="container-fluid home">
 		<div class="row">
 			<div class="col-md-6 stream">
-				<h4 class="listsorting"><strong>latest</strong> / popular</h4>
-				<h4 class="numberofsites">{{numberOfWebsites}} websites onlined</h4>
-				<ul>
-					{{#each websites}}
-					<li>
-						<div class="text-center websiteListItem">
-							<div class="websiteItemContent">
-								<h3>{{formatDate createdAt}}</h3>
-								<h2>{{toUpperCase sitename}}</h2>
-								<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
+				<div class="container-fluid">
+					<h6 class="listsorting"><strong>latest</strong> / popular</h6>
+					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
+					<ul>
+						{{#each websites}}
+						<li>
+							<div class="text-center websiteListItem">
+								<div class="websiteItemContent">
+									<h3>{{formatDate createdAt}}</h3>
+									<h2>{{toUpperCase sitename}}</h2>
+									<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
+								</div>
+								<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+								<div class="websiteItemOverlay"></div>
 							</div>
-							<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
-							<div class="websiteItemOverlay"></div>
-						</div>
-					</li>
-					{{/each}}
-				</ul>
+						</li>
+						{{/each}}
+					</ul>
+				</div>
 			</div>
 
 			<div class="col-md-6 myWebsites">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
+						<h6 class="listsorting">5 WEBSITES I LIKE&nbsp;<span class="glyphicon glyphicon-heart"></span></h6>
+						<h6 class="numberofsites"><strong>10</strong> OF MY 14 WEBSITES ARE LIVE</h6>
 						<ul class="myWebsitesList">
 							<li>
 
 								<div id="register-sitename" class="btn firstButton">
-									<input class="textInput" type="text" placeholder="websitename" value="" hidden/>
+									<input class="textInput uppercase" type="text" placeholder="websitename" value="" hidden/>
 									<span>CREATE WEBSITE</span>
 								</div>
-
+								<h2 class="websitesHeader">My Websites</h2>
+								<hr class="line" />
 							</li>
 							<!-- <li>
 								<a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a>
@@ -164,23 +184,6 @@
 <template name="create">
 	{{#if editing_website}}
 	{{#with editing_website}}
-
-<ul class="sectionsbar">
-  <li><a href="#" class="complete">header image</a></li>
-  <li><a href="#" class="complete">headline</a></li>
-  <li><a href="#" class="complete">introduction</a></li>
-  <li><a href="#" class="complete">gallery</a></li>
-  <li><a href="#">email</a></li>
-  <li><a href="#" class="active">text paragraphs</a></li>
-  <li><a href="#">location</a></li>
-  <li><a href="#">phone number</a></li>
-  <li><a href="#">opening hours</a></li>
-  <li><a href="#">social links</a></li>
-  <li><a href="#">products</a></li>
-  <li><a href="#">video</a></li>
-  <li><a href="#">team members</a></li>
-  <li><a href="#">slideshow</a></li>
-</ul>
 
 	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
 

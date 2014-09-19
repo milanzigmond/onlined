@@ -36,7 +36,12 @@ Router.map(function() {
 		path: '/'
 	});
 	this.route('create', {
-		path: '/create'
+		path: '/create',
+		onBeforeAction: function () {
+			if (!Session.get('editing_website')) {
+				Router.go('/');
+			};
+		}
 	});
 	this.route('login', {path: '/login'});
 	this.route('website', { 
