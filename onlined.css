@@ -289,7 +289,7 @@ ul {
 }
 
 .home div.myWebsites {
-  padding-top: 50px;
+  padding-top: 94px;
   /*background-color: red;*/
 }
 
@@ -399,6 +399,12 @@ ul {
   color:white;
   font-weight: bold;
   font-family: "Cantarell", sans-serif;
+}
+
+.myWebsitesList h6 {
+  color: #333;
+  padding-top: 0px;
+  margin: 0px;
 }
 
 .websiteItemOverlay {
@@ -533,7 +539,7 @@ a.navBrand {
 }
 
 a.navBrand:hover {
-  color:#89b504;
+  color:#eee;
 }
 
 #register-sitename {

@@ -574,7 +574,7 @@ Template.create.helpers({
         return Websites.findOne(Session.get('editing_website'));
     },
     goHome: function () {
-        Router.go('home');
+        Router.go('/');
     },
     galleryImages: function () {
         return this.content.galleryImages;
@@ -639,13 +639,13 @@ Template.layout.helpers({
     onlinedTitle: function () {
         if (!Router.current()) return;
 
-        var o = "ONLINED.AT/",
+        var o = "ONLINED.AT",
         id = Session.get('editing_website'),
         w = Websites.findOne(id);
 
         if (w && Router.current().path === '/create' && w.sitename)
-            // return o + '/' + w.sitename.toUpperCase();
-            return o + w.sitename.toUpperCase();
+            return o + '/' + w.sitename.toUpperCase();
+            // return o + w.sitename.toUpperCase();
         else 
             return o;
     },
@@ -684,71 +684,6 @@ var checkDuplicity = function ( event ) {
 Template.layout.events({
     'click .fancybox': function (e,t) {
         $('.fancybox').fancybox();
-    }
-});
-
-Template.login.events({
-    'submit #login-form' : function(e, t){
-        e.preventDefault();
-        e.stopPropagation();
-
-        var email = trimInput(t.find('#login-email').value)
-        , password = t.find('#login-password').value;
-
-        Meteor.loginWithPassword(email, password, function(err){
-            if (err) {
-                showAlert(err.reason);
-                console.log(err);
-            }
-            else {
-                console.log('logged in');
-                Router.go('home');
-            }
-        });
-        return false; 
-    }
-});
-
-Template.passwordRecovery.helpers({
-    resetPassword : function(t) {
-        return Session.get('resetPassword');
-    }
-});
-
-Template.passwordRecovery.events({
-    'submit #recovery-form' : function(e, t) {
-        e.preventDefault();
-        var email = trimInput(t.find('#recovery-email').value)
-
-        if (isNotEmpty(email) === isEmail(email)) {
-            Session.set('loading', true);
-            Accounts.forgotPassword({email: email}, function(err){
-                if (err)
-                    Session.set('displayMessage', 'Password Reset Error &amp; Doh')
-                else {
-                    Session.set('displayMessage', 'Email Sent &amp; Please check your email.')
-                }
-                Session.set('loading', false);
-            });
-        }
-        return false; 
-    },
-
-    'submit #new-password' : function(e, t) {
-        e.preventDefault();
-        var pw = t.find('#new-password-password').value;
-        if (isNotEmpty(pw) === isValidPassword(pw)) {
-            Session.set('loading', true);
-            Accounts.resetPassword(Session.get('resetPassword'), pw, function(err){
-                if (err)
-                    Session.set('displayMessage', 'Password Reset Error &amp; Sorry');
-                else {
-                    Session.set('resetPassword', null);
-                }
-                Session.set('loading', false);
-            });
-        }
-        return false; 
     }
 });
 
