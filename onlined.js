@@ -312,7 +312,10 @@ var setupSlider = function () {
 var saveFile = function (event) { 
     var file = event.originalEvent.dataTransfer.files[0],
     reader = new FileReader(),
-    id = event.target.id;
+
+    // id = event.target.id;
+    id = event.target.previousElementSibling.id;
+
 
     reader.to = id;
     reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
@@ -321,7 +324,7 @@ var saveFile = function (event) {
         reader.to = id.slice(0,-1);
         reader.position = id.slice(-1);
     }
-    console.log('saving file: '+file+" to: "+event.target.id);
+    console.log('saving file: '+file+" to: "+id);
     
     reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
@@ -412,7 +415,7 @@ Template.create.events({
     'drop' : function ( event, template ) { 
         preventActionsForEvent(event); 
     },
-    'drop .reimg' : function ( event, template ) {
+    'drop .overlay' : function ( event, template ) {
         preventActionsForEvent(event);
         saveFile(event);
     }

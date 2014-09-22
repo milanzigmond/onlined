@@ -69,23 +69,25 @@
 	<div class="container-fluid home">
 		<div class="row">
 			<div class="col-md-12 stream">
-				<h5 class="listsorting"><strong>latest</strong> / popular</h5>
-				<h5 class="numberofsites">{{numberOfWebsites}} websites onlined</h5>
-				<ul>
-					{{#each websites}}
-					<li>
-						<div class="text-center websiteListItem">
-							<div class="websiteItemContent">
-								<h3>{{formatDate createdAt}}</h3>
-								<h2>{{toUpperCase sitename}}</h2>
-								<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
+				<div class="container-fluid">
+					<h6 class="listsorting">latest / popular</h6>
+					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
+					<ul>
+						{{#each websites}}
+						<li>
+							<div class="text-center websiteListItem">
+								<div class="websiteItemContent">
+									<h3>{{formatDate createdAt}}</h3>
+									<h2>{{toUpperCase sitename}}</h2>
+									<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	 -->
+								</div>
+								<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+								<div class="websiteItemOverlay"></div>
 							</div>
-							<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
-							<div class="websiteItemOverlay"></div>
-						</div>
-					</li>
-					{{/each}}
-				</ul>
+						</li>
+						{{/each}}
+					</ul>	
+				</div>
 			</div>
 		</div>
 	</div>
@@ -94,7 +96,7 @@
 <template name="dashboard">
 	<div class="container-fluid home">
 		<div class="row">
-			<div class="col-md-6 stream">
+			<div class="col-sm-6 stream">
 				<div class="container-fluid">
 					<h6 class="listsorting"><strong>latest</strong> / popular</h6>
 					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
@@ -105,7 +107,7 @@
 								<div class="websiteItemContent">
 									<h3>{{formatDate createdAt}}</h3>
 									<h2>{{toUpperCase sitename}}</h2>
-									<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
+									<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	 -->
 								</div>
 								<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
 								<div class="websiteItemOverlay"></div>
@@ -116,9 +118,9 @@
 				</div>
 			</div>
 
-			<div class="col-md-6 myWebsites">
+			<div class="col-sm-6 myWebsites">
 				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
+					<div class="col-sm-10 col-sm-offset-1">
 						<ul class="myWebsitesList">
 							<li>
 								<div id="register-sitename" class="btn firstButton">
@@ -150,8 +152,8 @@
 									</div>
 									<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
 									<div class="row editRow">
-										<div class="col-md-6 editbuttons edit"><h4>edit</h4></div>
-										<div class="col-md-6 editbuttons delete"><h4>delete</h4></div>
+										<div class="col-sm-6 editbuttons edit"><h4>edit</h4></div>
+										<div class="col-sm-6 editbuttons delete"><h4>delete</h4></div>
 									</div>
 									<div class="websiteItemOverlay"></div>
 								</div>
@@ -191,7 +193,17 @@
 	{{#if editing_website}}
 	{{#with editing_website}}
 
-	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
+	<!-- <img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt=""> -->
+
+	<div id="effect-6" class="effects">
+		<div class="img">
+            <img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
+            <div class="overlay">
+                <a href="#" class="expand">+ drag image here</a>
+            </div>
+        </div>
+    </div>
+
 
 	<div class="container">	
 		<div class="section-heading">
@@ -448,7 +460,7 @@
 </template>
 
 <template name="website">
-	<div class="modal">
+	<!-- <div class="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -476,7 +488,7 @@
 			<button class="sharebutton">share it with friends</button>
 			<h4><a href="#">view site</a> or <a href="#">continue editing</a></h4><br>
 		</div>
-	</div>
+	</div> -->
 	
 	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
 	<div class="container">	
