@@ -193,8 +193,6 @@
 	{{#if editing_website}}
 	{{#with editing_website}}
 
-	<!-- <img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt=""> -->
-
 	<div id="effect-6" class="effects">
 		<div class="img">
             <img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
@@ -225,7 +223,7 @@
 	</div>	
 
 	<div class="section-gallery">
-		<div class="row gallerydiv">
+		<!-- <div class="row gallerydiv">
 				<ul class="imageGallery">
 				{{#each galleryImages}}
 					<li>
@@ -235,20 +233,15 @@
 					</li>
 				{{/each}}
 				</ul>
-		</div>
+		</div> -->
 		<div class="row gallerydiv2">
-			<div class="col-lg-3 col-md-6 col-xs-12 obrazek zluty"></div>
-			<div class="col-lg-3 col-md-6 col-xs-12 obrazek cerv"></div>
-			<div class="col-lg-3 col-md-6 col-xs-12 obrazek modr"></div>
-			<div class="col-lg-3 col-md-6 col-xs-12 obrazek zluty"></div>
-		</div>
-		<div class="row gallerydiv2">
-			<div class="col-lg-3 col-md-6 col-xs-12 obrazek cerv"></div>
-			<div class="col-lg-3 col-md-6 col-xs-12 obrazek modr"></div>
-			<div class="col-lg-3 col-md-6 col-xs-12 obrazek zluty"></div>
-			<div class="col-lg-3 col-md-6 col-xs-12 obrazek cerv"></div>
-		</div>
 				
+			{{#each galleryImages}}
+				<a href="{{src}}" class="fancybox" rel="gallery">
+					<div id="galleryImages{{position}}" class="col-lg-3 col-md-6 col-xs-12 reimg obrazek" style="background-image: url({{src}})"></div>
+				</a>
+			{{/each}}
+		</div>	
 	</div>
 
 	<div class="section-email text-center">

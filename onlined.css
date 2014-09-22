@@ -10,7 +10,8 @@
     color:    white;
      opacity:  0.5;
 }
-:-ms-input-placeholder { /* Internet Explorer 10+ */
+:-ms-
+-placeholder { /* Internet Explorer 10+ */
     color:    white;
      opacity:  0.5;
 }
@@ -639,8 +640,8 @@ body {
 
 .editable:hover {
   color: #fff;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   background: #89b504;
   opacity: 0.6;
 }
@@ -680,8 +681,9 @@ body {
 #input {
   background: #89b504;
   color: #fff;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  /*padding-top: 5px;
+  padding-bottom: 5px;*/
+  margin:0px;
   outline:none;
   border:0;
   width:100%;
@@ -830,6 +832,7 @@ ul.imageGallery2 li {
   height: 260px;
   background-position: center;
   background-size: 200%;
+  width:25%;
 }
 
 .zluty {
