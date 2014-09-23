@@ -10,16 +10,11 @@ if (Meteor.isClient) {
     Session.setDefault('styleOptions', []);
     Session.setDefault('currentStyle', null);
     Session.setDefault('themes', [
-        {name:'styl1', css: 'dark.css'},
-        {name:'styl2', css: 'styl2.css'},
-        {name:'styl3', css: 'styl3.css'},
-        {name:'styl4', css: 'styl4.css'},
-        {name:'styl5', css: 'styl5.css'},
-        {name:'Darkly', css: 'darkly.css'},
-        {name:'Flatly', css: 'flatly.css'},
-        {name:'Paper', css: 'paper.css'},
-        {name:'Readable', css: 'readable.css'},
-        {name:'Slate', css: 'slate.css'}
+        {name:'Default', css: 'default.css'},
+        {name:'Elegant', css: 'elegant.css'},
+        {name:'Airy', css: 'airy.css'},
+        {name:'Starry', css: 'starry.css'},
+        {name:'Intense', css: 'intense.css'}
         ]);
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
