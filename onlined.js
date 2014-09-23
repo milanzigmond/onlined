@@ -78,8 +78,11 @@ return pos;
 var makeEditable = function (event, template) {
     preventActionsForEvent(event);
 
+        console.log('pred');
     if(Session.get('editing_field')) return;
     Session.set('editing_field', event.target.id);
+        console.log('po');
+
 
     var contentId = event.target.id,
     textContent = event.target.textContent,
@@ -87,8 +90,8 @@ var makeEditable = function (event, template) {
     tagName = $eventTarget.get(0).tagName,
     textAlign = $eventTarget.css('text-align'),
     fontFamily = $eventTarget.css('fontFamily'),
-    fontSize = $eventTarget.css('fontSize'),
-    lines = countLines(contentId);
+    fontSize = $eventTarget.css('fontSize');
+
 
     if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
         // it's a text field
@@ -102,7 +105,9 @@ var makeEditable = function (event, template) {
     
         $( event.target ).hide();
     }
-    else if (tagName === "P") {
+    
+    if (tagName === "P") {
+        var lines = countLines(contentId);
         // it's a text area
         var input = '<textarea id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
 
@@ -110,7 +115,8 @@ var makeEditable = function (event, template) {
         // $( event.target ).before(input);
         $( event.target ).hide();
     }
-    else if (tagName === "IMG") {
+    
+    if (tagName === "IMG") {
         // it's an image
         console.log('tagName is IMG');
         
@@ -216,7 +222,11 @@ var createDefaultWebsite = function ( sitename ) {
             thirdTeamMember: "Jano Mrazik 3", thirdTeamMemberTagline: "stale sa flaka 3", thirdTeamMemberImage: "draglogo.jpg",
             fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4", fourthTeamMemberImage: "draglogo.jpg",
             address: "Krizikova 52, Praha 8, Czech Republic",
-            latLng: {lat:50.092547, lng:14.45133999999996}
+            latLng: {lat:50.092547, lng:14.45133999999996},
+            twitter: "farklegame",
+            youtube: "Getsomeheadspace",
+            facebook: "jano.ferenc.5",
+            instagram: "kettyinverted"
         }
     });
 Session.set('editing_website', website_id);
@@ -728,8 +738,6 @@ Template.create.rendered = function () {
     setupMap();
 
     slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-
-    console.log('rendered : ' + slider);
 };
 
 Template.selectStyle.rendered = function () {
