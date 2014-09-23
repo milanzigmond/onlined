@@ -194,11 +194,12 @@
 	{{#with editing_website}}
 
 	<div id="effect-6" class="effects">
-		<div class="img">
-            <img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
+		<div id="topImage" class="img">
+            <img class="img img-responsive reimg" src="{{content.topImage}}" alt="">
             <div class="overlay">
                 <a href="#" class="expand">+ drag image here</a>
             </div>
+            <input type="file" class="hiddenFileInput"/>
         </div>
     </div>
 
@@ -212,7 +213,17 @@
 		<div class="section-intro">
 			<div class="row">
 				<div class="col-md-5">
-					<div id="logo" class="rounded reimg" style="background-image: url({{content.logo}})"></div>
+
+					<div id="effect-6" class="effects">
+						<div class="img">
+				            <!-- <img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt=""> -->
+				            <div id="logo" class="rounded reimg" style="background-image: url({{content.logo}})"></div>
+				            <div class="overlay">
+				                <a href="#" class="expand">+ drag image here</a>
+				            </div>
+				        </div>
+				    </div>
+
 				</div>
 				<div class="col-md-7 introtext">
 					<h3 id="heading" class="editable">{{content.heading}}</h3>

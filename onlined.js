@@ -308,13 +308,11 @@ var setupSlider = function () {
     });
 }
 
-var saveFile = function (event) { 
-    var file = event.originalEvent.dataTransfer.files[0],
+var saveFile = function ( event, file) { 
     reader = new FileReader(),
 
     // id = event.target.id;
-    id = event.target.previousElementSibling.id;
-
+    id = event.target.parentElement.id;
 
     reader.to = id;
     reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
@@ -416,7 +414,17 @@ Template.create.events({
     },
     'drop .overlay' : function ( event, template ) {
         preventActionsForEvent(event);
-        saveFile(event);
+        var file = event.originalEvent.dataTransfer.files[0];
+        saveFile(event, file);
+    },
+    'click .overlay' : function ( event, template ) {
+        preventActionsForEvent( event );
+        $(event.target.nextElementSibling).click();
+    },
+    'change input[type=file]' : function ( event, template ) {
+        preventActionsForEvent( event );
+        var file = event.target.files[0];
+        saveFile(event, file);
     }
 });
 

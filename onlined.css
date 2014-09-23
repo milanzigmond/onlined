@@ -16,6 +16,12 @@
      opacity:  0.5;
 }
 
+.hiddenFileInput {
+  position: absolute;
+  bottom: 0px;
+  visibility: hidden;
+}
+
 .logoDot {
   width:15px;
   position:absolute;
@@ -993,7 +999,7 @@ ul.imageGallery2 li {
 /*======================================================IMAGES FOR ROLLOVER start*/
 
 .effects {
-  padding-left: 15px;
+  /*padding-left: 15px;*/
 }
 .effects .img {
   position: relative;
@@ -1001,7 +1007,7 @@ ul.imageGallery2 li {
   margin-bottom: 5px;
   overflow: hidden;
 }
-.effects .img:nth-child(n) {
+/*.effects .img:nth-child(n) {
   margin-right: 5px;
 }
 .effects .img:first-child {
@@ -1009,7 +1015,7 @@ ul.imageGallery2 li {
 }
 .effects .img:last-child {
   margin-right: 0;
-}
+}*/
 .effects .img img {
   display: block;
   margin: 0;
