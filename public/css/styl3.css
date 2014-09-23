@@ -141,6 +141,7 @@ display: none;
   color: #fff;
   font-weight: 200;
 }
+
 .verticaltable th {
   text-align: center;
   font-size: 1.2em;
@@ -153,7 +154,7 @@ display: none;
   font-weight: 300;
 }
 
-.createcontent.line {
+.createcontent .line {
   height: 1px;
   background-color: #fff;
   margin-bottom: 12px;
@@ -163,7 +164,7 @@ display: none;
 .section-products img {
   min-height: 120px;
   max-height: 200px;
-  max-width: 70%;
+  max-width: 60%;
   border-radius: 300px;
 }
 
