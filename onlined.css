@@ -733,7 +733,9 @@ h6 {
 /*======================================================SECTION HEADING start*/
 
 #topImage {
-  margin: 0 auto;
+  margin-left: auto;
+   margin-right: auto;
+  text-align: center;
 } 
 
 .section-heading {
