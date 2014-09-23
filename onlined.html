@@ -244,9 +244,9 @@
 				{{/each}}
 				</ul>
 		</div> -->
-		<div class="row gallerydiv2">
-				
+		<div class="row gallerydiv2">	
 			{{#each galleryImages}}
+			<!-- <a href="{{src}}" class="fancybox" rel="gallery"></a> -->
 				<div id="effect-6" class="effects">
 					<div id="galleryImages{{position}}" class="img col-lg-3 col-md-6 col-xs-12">
 			            <div class="obrazek" style="background-image: url({{src}})"></div>
@@ -256,9 +256,6 @@
 			            <input type="file" class="hiddenFileInput"/>
 			        </div>
 			    </div>
-				<!-- <a href="{{src}}" class="fancybox" rel="gallery">
-					<div id="galleryImages{{position}}" class="col-lg-3 col-md-6 col-xs-12 reimg obrazek" style="background-image: url({{src}})"></div>
-				</a> -->
 			{{/each}}
 		</div>	
 	</div>
@@ -387,28 +384,38 @@
 		<div class="section-products">
 			<div class="row text-center">
 				<div class="col-md-4 col-md-offset-2">
-					<img id="firstProductImage" src="{{content.firstProductImage}}" class="reimg" alt="">
+
+					<div id="effect-6" class="effects">
+						<div id="firstProductImage" class="img">
+				            <img src="{{content.firstProductImage}}" alt="">
+				            <div class="overlay">
+				                <a href="#" class="expand">+ drag image here</a>
+				            </div>
+				            <input type="file" class="hiddenFileInput"/>
+				        </div>
+				    </div>
+
 					<h3 id="firstProduct" class="editable">{{content.firstProduct}}</h3>
 					<p id="firstProductDescription" class="editable">{{content.firstProductDescription}}</p>
 				</div>
 				<div class="col-md-4">
-					<img id="secondProductImage" src="{{content.secondProductImage}}" class="reimg" alt="">
+
+					<div id="effect-6" class="effects">
+						<div id="secondProductImage" class="img">
+				            <img src="{{content.secondProductImage}}" alt="">
+				            <div class="overlay">
+				                <a href="#" class="expand">+ drag image here</a>
+				            </div>
+				            <input type="file" class="hiddenFileInput"/>
+				        </div>
+				    </div>
+
 					<h3 id="secondProduct" class="editable">{{content.secondProduct}}</h3>
 					<p id="secondProductDescription" class="editable">{{content.secondProductDescription}}</p>
 				</div>
 			</div>
 		</div>
 	</div>		
-
-	<div class="section-video">
-		<video width="100%" height="500" controls autoplay>
-			<source src="movie.ogg" type="video/ogg">
-			<source src="movie.mp4" type="video/mp4">
-			<object data="movie.mp4" width="100%" height="500">
-				<embed width="100%" height="500" src="movie.swf">
-			</object>
-		</video>
-	</div>
 
 	<div class="container">	
 		<div class="section-team text-center">
@@ -420,28 +427,68 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3 col-xs-6">
-					<img id="firstTeamMemberImage" width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
+
+					<div id="effect-6" class="effects">
+						<div id="firstTeamMemberImage" class="img">
+				            <img width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
+				            <div class="overlay member">
+				                <a href="#" class="expand">+ drag image here</a>
+				            </div>
+				            <input type="file" class="hiddenFileInput"/>
+				        </div>
+				    </div>
+
 					<div class="membercaption">
 						<h4 id="firstTeamMember" class="editable">{{content.firstTeamMember}}</h4>
 						<p id="firstTeamMemberTagline" class="editable">{{content.firstTeamMemberTagline}}</p>
 					</div>
 				</div>
 				<div class="col-md-3 col-xs-6">
-					<img id="secondTeamMemberImage" width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
+
+					<div id="effect-6" class="effects">
+						<div id="secondTeamMemberImage" class="img">
+				            <img width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
+				            <div class="overlay member">
+				                <a href="#" class="expand">+ drag image here</a>
+				            </div>
+				            <input type="file" class="hiddenFileInput"/>
+				        </div>
+				    </div>
+
 					<div class="membercaption">
 						<h4 id="secondTeamMember" class="editable">{{content.secondTeamMember}}</h4>
 						<p id="secondTeamMemberTagline" class="editable">{{content.secondTeamMemberTagline}}</p>
 					</div>
 				</div>
 				<div class="col-md-3 col-xs-6">
-					<img id="thirdTeamMemberImage" width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
+					
+					<div id="effect-6" class="effects">
+						<div id="thirdTeamMemberImage" class="img">
+				            <img width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
+				            <div class="overlay member">
+				                <a href="#" class="expand">+ drag image here</a>
+				            </div>
+				            <input type="file" class="hiddenFileInput"/>
+				        </div>
+				    </div>
+
 					<div class="membercaption">
 						<h4 id="thirdTeamMember" class="editable">{{content.thirdTeamMember}}</h4>
 						<p id="thirdTeamMemberTagline" class="editable">{{content.thirdTeamMemberTagline}}</p>
 					</div>
 				</div>
 				<div class="col-md-3 col-xs-6">
-					<img id="fourthTeamMemberImage" width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
+
+					<div id="effect-6" class="effects">
+						<div id="fourthTeamMemberImage" class="img">
+				            <img width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
+				            <div class="overlay member">
+				                <a href="#" class="expand">+ drag image here</a>
+				            </div>
+				            <input type="file" class="hiddenFileInput"/>
+				        </div>
+				    </div>
+				    
 					<div class="membercaption">
 						<h4 id="fourthTeamMember" class="editable">{{content.fourthTeamMember}}</h4>
 						<p id="fourthTeamMemberTagline" class="editable">{{content.fourthTeamMemberTagline}}</p>
@@ -462,6 +509,16 @@
 		<div id="sliderGalleryNav">
 			<img src="arrowL.png" class="sliderarrow" data-dir="prev">
 			<img src="arrowR.png" class="sliderarrow" data-dir="next">
+		</div>
+
+		<div class="section-video">
+			<video width="100%" height="500" controls autoplay>
+				<source src="movie.ogg" type="video/ogg">
+				<source src="movie.mp4" type="video/mp4">
+				<object data="movie.mp4" width="100%" height="500">
+					<embed width="100%" height="500" src="movie.swf">
+				</object>
+			</video>
 		</div>
 	</div>
 

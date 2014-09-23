@@ -777,6 +777,8 @@ h6 {
   display: none;
 }
 .rounded {
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 300px;
   width: 300px;
   height: 300px;
@@ -814,7 +816,6 @@ ul.imageGallery img {
 
 
 
-
 .gallerydiv2 {
   background-color: #ccc;
   display: table;
@@ -840,20 +841,6 @@ ul.imageGallery2 li {
   background-size: 200%;
   /*width:25%;*/
 }
-
-.zluty {
-  background-image: url("sliderImage02.jpg");
-}
-
-.cerv {
-  background-image: url("phare.jpg");
-}
-
-.modr {
-  background-image: url("sliderImage03.jpg");
-}
-
-
 
 
 /*======================================================SECTION MAIL start*/
@@ -1003,7 +990,7 @@ ul.imageGallery2 li {
 }
 .effects .img {
   position: relative;
-  float: left;
+  /*float: left;*/
   /*margin-bottom: 5px;*/
   overflow: hidden;
 }
@@ -1018,12 +1005,15 @@ ul.imageGallery2 li {
 }*/
 .effects .img img {
   display: block;
-  margin: 0;
-  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  /*padding: 0;*/
   max-width: 100%;
   height: auto;
 }
 .overlay {
+  margin-left: auto;
+  margin-right: auto;
   display: block;
   position: absolute;
   z-index: 20;
