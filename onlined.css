@@ -838,7 +838,7 @@ ul.imageGallery2 li {
   height: 260px;
   background-position: center;
   background-size: 200%;
-  width:25%;
+  /*width:25%;*/
 }
 
 .zluty {
@@ -1004,7 +1004,7 @@ ul.imageGallery2 li {
 .effects .img {
   position: relative;
   float: left;
-  margin-bottom: 5px;
+  /*margin-bottom: 5px;*/
   overflow: hidden;
 }
 /*.effects .img:nth-child(n) {
@@ -1030,6 +1030,7 @@ ul.imageGallery2 li {
   background: rgba(137, 181, 4, 0.8);
   overflow: hidden;
   transition: all 0.3s;
+  cursor: pointer;
 }
 a.expand {
   display: block;
