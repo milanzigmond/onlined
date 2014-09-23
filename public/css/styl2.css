@@ -8,14 +8,14 @@
   font-family: 'Merriweather', serif;
   font-weight: 300;
   color: #82735E;
-  background-image: url('binding2.png') repeat;
+  background-color: #f9f7f6;
 }
 
 .createcontent h1 {
   font-family: 'Allura', cursive;
   margin-top: 60px;
   font-size: 5.5em;
-  color: #CCBD9B;
+  color: #e29f81;
 }
 
 .createcontent h2 {
@@ -69,6 +69,7 @@
   background-color: #f7e6d7;
   outline: 2px solid #f7e6d7;
   outline-offset: 3px;
+  background-image: url(/binding3.png);
 }
 
 .section-telnumber {
@@ -78,6 +79,7 @@
   background-color: #f7e6d7;
   outline: 2px solid #f7e6d7;
   outline-offset: 3px;
+  background-image: url(/binding3.png);
 }
 
 .section-links {
@@ -87,6 +89,17 @@
   background-color: #f7e6d7;
   outline: 2px solid #f7e6d7;
   outline-offset: 3px;
+  background-image: url(/binding3.png);
+}
+
+.textureline {
+  background-image: url(/binding3.png);
+  height: 4px;
+  width: 100%;
+  outline: 2px solid #f7e6d7;
+  outline-offset: 4px;
+  margin-top: 40px;
+  margin-bottom: -130px;
 }
 
 .verticaltable {
@@ -115,5 +128,18 @@
   background-color: #CCBD9B;
   margin-bottom: 12px;
   margin-top: 12px;
+}
+
+.section-products img {
+  min-height: 200px;
+  max-height: 300px;
+  max-width: 80%;
+  border-radius: 3px;
+}
+
+.member {
+  border-radius: 3px;
+  height: 150px;
+  width: 150px;
 }
 
