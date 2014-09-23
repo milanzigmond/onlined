@@ -27,7 +27,7 @@
 		        </ul>
 		    </div>
 		</div>
-		{{#if create}}
+		<!-- {{#if create}}
 			<ul class="sectionsbar">
 			  <li><a href="#" class="complete">header image</a></li>
 			  <li><a href="#" class="complete">headline</a></li>
@@ -44,7 +44,7 @@
 			  <li><a href="#">team members</a></li>
 			  <li><a href="#">slideshow</a></li>
 			</ul>
-		{{/if}}
+		{{/if}} -->
 	</nav>
 	{{> yield}}
 </template>
@@ -365,16 +365,16 @@
 
 			<div class="row links">
 				<div class="col-xs-6 col-md-3">
-					<a href="#"><img class="link" src="ic_twitterW.png" alt=""></a>
+					<img class="link" src="ic_twitterW.png" alt="">
 				</div>
 				<div class="col-xs-6 col-md-3">
-					<a href="#"><img class="link" src="ic_youtubeW.png" alt=""></a>
+					<img class="link" src="ic_youtubeW.png" alt="">
 				</div>
 				<div class="col-xs-6 col-md-3">
-					<a href="#"><img class="link" src="ic_linkedW.png" alt=""></a>
+					<img class="link" src="ic_linkedW.png" alt="">
 				</div>
 				<div class="col-xs-6 col-md-3">
-					<a href="#"><img class="link" src="ic_instagramW.png" alt=""></a>
+					<img class="link" src="ic_instagramW.png" alt="">
 				</div>
 			</div>
 		</div>
@@ -511,7 +511,6 @@
 				        </div>
 				    </div>
 
-					<!-- <img id="sliderImages{{position}}" src="{{src}}" class="img img-responsive reimg" alt=""> -->
 				</li>
 				{{/each}}
 			</ul>
@@ -523,13 +522,14 @@
 		</div>
 
 		<div class="section-video">
-			<video width="100%" height="500" controls autoplay>
+			<iframe width="100%" height="500" src="//www.youtube.com/embed/iZYf7Bqvkb8?rel=0" frameborder="0" allowfullscreen></iframe>
+			<!-- <video width="100%" height="500" controls autoplay>
 				<source src="movie.ogg" type="video/ogg">
 				<source src="movie.mp4" type="video/mp4">
 				<object data="movie.mp4" width="100%" height="500">
 					<embed width="100%" height="500" src="movie.swf">
 				</object>
-			</video>
+			</video> -->
 		</div>
 	</div>
 

@@ -96,28 +96,37 @@ var makeEditable = function (event, template) {
     lines = countLines(contentId);
 
     if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
-// it's a text field
+        // it's a text field
+        if (contentId === "address") {
+            $(event.target.nextElementSibling).toggle();
+        } else {
+            var input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="" value="'+textContent+'"/>';
+            $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
+        // $( event.target ).before(input);
+        }
+    
+        $( event.target ).hide();
+    }
+    else if (tagName === "P") {
+        // it's a text area
+        var input = '<textarea id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
 
-if (contentId === "address") {
-    $(event.target.nextElementSibling).toggle();
-} else {
-    var input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="" value="'+textContent+'"/>';
-    $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
-// $( event.target ).before(input);
-}
-$( event.target ).hide();
-}
-else if (tagName === "P") {
-// it's a text area
+        $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
+        // $( event.target ).before(input);
+        $( event.target ).hide();
+    }
+    else if (tagName === "IMG") {
+        // it's an image
+        console.log('tagName is IMG');
+        
+        var input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="" value="'+textContent+'"/>';
+        
+        $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
+        $( event.target ).hide();
+    }
 
-var input = '<textarea id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
-
-$( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
-// $( event.target ).before(input);
-$( event.target ).hide();
-}
-Deps.flush();
-activateInput(template.find('#input'));
+    Deps.flush();
+    activateInput(template.find('#input'));
 };
 
 var registerUser = function ( event, template ) {
@@ -352,6 +361,10 @@ var isValidPassword = function(val, field) {
 Template.create.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
         countLines(event.target.id);
+        makeEditable( event, template );
+    },
+    'click .link' : function ( event, template ) {
+        console.log('link clicked');
         makeEditable( event, template );
     },
     'keyup #input' : function( event, template ) {
