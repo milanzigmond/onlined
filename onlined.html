@@ -488,7 +488,7 @@
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
 				    </div>
-				    
+
 					<div class="membercaption">
 						<h4 id="fourthTeamMember" class="editable">{{content.fourthTeamMember}}</h4>
 						<p id="fourthTeamMemberTagline" class="editable">{{content.fourthTeamMemberTagline}}</p>
@@ -500,7 +500,18 @@
 			<ul>
 				{{#each sliderImages}}
 				<li>
-					<img id="sliderImages{{position}}" src="{{src}}" class="img img-responsive reimg" alt="">
+
+					<div id="effect-6" class="effects">
+						<div id="sliderImages{{position}}" class="img">
+				            <img src="{{src}}" class="img img-responsive reimg" alt="">
+				            <div class="overlay">
+				                <a class="expand">+ drag image here</a>
+				            </div>
+				            <input type="file" class="hiddenFileInput"/>
+				        </div>
+				    </div>
+
+					<!-- <img id="sliderImages{{position}}" src="{{src}}" class="img img-responsive reimg" alt=""> -->
 				</li>
 				{{/each}}
 			</ul>

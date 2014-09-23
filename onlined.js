@@ -23,6 +23,7 @@ if (Meteor.isClient) {
         ]);
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
+    Session.setDefault('slider', null);
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -300,14 +301,6 @@ infowindow.open(map, marker);
 });
 };
 
-var setupSlider = function () {
-    var slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-    slider.nav.find('img').on('click', function() {
-        slider.setCurrent( $(this).data('dir') );
-        slider.transition();
-    });
-}
-
 var saveFile = function ( event, file) { 
     reader = new FileReader(),
 
@@ -363,24 +356,24 @@ Template.create.events({
     },
     'keyup #input' : function( event, template ) {
         if (event.which === 27) {
-    // escape pressed
-    preventActionsForEvent(event);
-    $(event.target).blur();
-    }
-    if (event.which === 13) {
-    // enter pressed
-    preventActionsForEvent(event);
+        // escape pressed
+        preventActionsForEvent(event);
+        $(event.target).blur();
+        }
+        if (event.which === 13) {
+        // enter pressed
+        preventActionsForEvent(event);
 
-    var websiteId = Session.get('editing_website'),
-    parent = event.target.parentElement,
-    value = event.target.value,
-    setModifier = { $set: {} };
+        var websiteId = Session.get('editing_website'),
+        parent = event.target.parentElement,
+        value = event.target.value,
+        setModifier = { $set: {} };
 
-    setModifier.$set['content.'+ parent.id ] = value;
-    Websites.update({_id:websiteId}, setModifier);
+        setModifier.$set['content.'+ parent.id ] = value;
+        Websites.update({_id:websiteId}, setModifier);
 
-    $(event.target).blur();
-    }
+        $(event.target).blur();
+        }
     },
     'focusout #input' : function ( event, template ) {
         console.log('focusout on:'+ event.target.parentElement.id);
@@ -392,11 +385,11 @@ Template.create.events({
             sibling = parent.previousElementSibling;
             $(parent).toggle();
         } else {
-    $(parent).remove(); // calls focusout event 
-    }
+            $(parent).remove(); // calls focusout event 
+        }
 
-    Session.set('editing_field', null);
-    $(sibling).show();
+        Session.set('editing_field', null);
+        $(sibling).show();
     },
     'mouseenter div.img' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -425,6 +418,13 @@ Template.create.events({
         preventActionsForEvent( event );
         var file = event.target.files[0];
         saveFile(event, file);
+    }, 
+    'click #sliderGalleryNav img' : function ( event, template ) {
+        preventActionsForEvent( event );
+        console.log('slider arrow clicked: '+ slider + ', '+ $(event.target).data('dir'));
+        if (!slider) return;
+        slider.setCurrent( $(event.target).data('dir') );
+        slider.transition();
     }
 });
 
@@ -709,17 +709,19 @@ Template.layout.rendered = function () {
 
 Template.website.rendered = function () {
     setupMap();
-    setupSlider();
 
 // if (Meteor.user() && Session.get('editing_website')) {
-//   Session.set('editing_website', null);
+//   Session.set('editing_website', null);  
 //   $(".modal").modal('show');
 // };
 };
 
 Template.create.rendered = function () {
     setupMap();
-    setupSlider();
+
+    slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
+
+    console.log('rendered : ' + slider);
 };
 
 Template.selectStyle.rendered = function () {
