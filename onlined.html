@@ -194,14 +194,14 @@
 	{{#with editing_website}}
 	<div class="createcontent">
 	<div id="effect-6" class="effects">
-		<div class="img">
-            <img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
+		<div id="topImage" class="img">
+            <img class="img img-responsive reimg" src="{{content.topImage}}" alt="">
             <div class="overlay">
                 <a href="#" class="expand">+ drag image here</a>
             </div>
+            <input type="file" class="hiddenFileInput"/>
         </div>
     </div>
-
 
 	<div class="container">	
 		<div class="section-heading">
@@ -212,7 +212,17 @@
 		<div class="section-intro">
 			<div class="row">
 				<div class="col-md-5">
-					<div id="logo" class="rounded reimg" style="background-image: url({{content.logo}})"></div>
+
+					<div id="effect-6" class="effects">
+						<div id="logo" class="img">
+				            <div class="rounded reimg" style="background-image: url({{content.logo}})"></div>
+				            <div class="overlay rounded">
+				                <a class="expand">+ drag image here</a>
+				            </div>
+				            <input type="file" class="hiddenFileInput"/>
+				        </div>
+				    </div>
+
 				</div>
 				<div class="col-md-7 introtext">
 					<h3 id="heading" class="editable">{{content.heading}}</h3>
@@ -237,9 +247,18 @@
 		<div class="row gallerydiv2">
 				
 			{{#each galleryImages}}
-				<a href="{{src}}" class="fancybox" rel="gallery">
+				<div id="effect-6" class="effects">
+					<div id="galleryImages{{position}}" class="img col-lg-3 col-md-6 col-xs-12">
+			            <div class="obrazek" style="background-image: url({{src}})"></div>
+			            <div class="overlay">
+			                <a class="expand">+ drag image here</a>
+			            </div>
+			            <input type="file" class="hiddenFileInput"/>
+			        </div>
+			    </div>
+				<!-- <a href="{{src}}" class="fancybox" rel="gallery">
 					<div id="galleryImages{{position}}" class="col-lg-3 col-md-6 col-xs-12 reimg obrazek" style="background-image: url({{src}})"></div>
-				</a>
+				</a> -->
 			{{/each}}
 		</div>	
 	</div>
@@ -288,7 +307,7 @@
 			</div>
 		</div>
 
-		<div class="section-highlight">
+		<!-- <div class="section-highlight">
 			<div id="effect-6" class="effects">
 				{{#each highlightImages}}
 					<div class="img">
@@ -299,7 +318,7 @@
 		            </div>
 				{{/each}}
 	        </div>
-		</div>
+		</div> -->
 	</div>
 
 	<div class="section-telnumber text-center">

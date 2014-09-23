@@ -16,6 +16,12 @@
      opacity:  0.5;
 }
 
+.hiddenFileInput {
+  position: absolute;
+  bottom: 0px;
+  visibility: hidden;
+}
+
 .logoDot {
   width:15px;
   position:absolute;
@@ -834,7 +840,7 @@ ul.imageGallery2 li {
   height: 260px;
   background-position: center;
   background-size: 200%;
-  width:25%;
+  /*width:25%;*/
 }
 
 .zluty {
@@ -995,15 +1001,15 @@ ul.imageGallery2 li {
 /*======================================================IMAGES FOR ROLLOVER start*/
 
 .effects {
-  padding-left: 15px;
+  /*padding-left: 15px;*/
 }
 .effects .img {
   position: relative;
   float: left;
-  margin-bottom: 5px;
+  /*margin-bottom: 5px;*/
   overflow: hidden;
 }
-.effects .img:nth-child(n) {
+/*.effects .img:nth-child(n) {
   margin-right: 5px;
 }
 .effects .img:first-child {
@@ -1011,7 +1017,7 @@ ul.imageGallery2 li {
 }
 .effects .img:last-child {
   margin-right: 0;
-}
+}*/
 .effects .img img {
   display: block;
   margin: 0;
@@ -1026,6 +1032,7 @@ ul.imageGallery2 li {
   background: rgba(137, 181, 4, 0.8);
   overflow: hidden;
   transition: all 0.3s;
+  cursor: pointer;
 }
 a.expand {
   display: block;
