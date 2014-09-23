@@ -192,7 +192,7 @@
 <template name="create">
 	{{#if editing_website}}
 	{{#with editing_website}}
-
+	<div class="createcontent">
 	<div id="effect-6" class="effects">
 		<div id="topImage" class="img">
             <img class="img img-responsive reimg" src="{{content.topImage}}" alt="">
@@ -206,9 +206,11 @@
 	<div class="container">	
 		<div class="section-heading">
 			<h1 id="title" class="editable text-center">{{content.title}}</h1>
-			<h4 id="tagline" class="editable text-center">{{content.tagline}}</h4>
+			<h2 id="tagline" class="editable text-center">{{content.tagline}}</h2>
 		</div>
-		
+	</div>
+		<div class="textureline"></div>
+	<div class="container">	
 		<div class="section-intro">
 			<div class="row">
 				<div class="col-md-5">
@@ -532,7 +534,7 @@
 			</video> -->
 		</div>
 	</div>
-
+</div>
 	{{/with}}
 	{{else}}
 		{{goHome}}
@@ -777,6 +779,7 @@
 				</div>
 			</div>
 		</div>	
+
 		<div class="sliderGallery">
 			<ul>
 				{{#each sliderImages}}
@@ -791,6 +794,7 @@
 			<img src="arrowL.png" class="sliderarrow" data-dir="prev">
 			<img src="arrowR.png" class="sliderarrow" data-dir="next">
 		</div>
+
 	</div>
 </template>
 

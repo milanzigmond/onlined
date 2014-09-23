@@ -1,31 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Amatic+SC);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans);
-@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic);
-span.username {
-  padding-left: 10px;
-}
-div.center {
-  width: 300px;
-  margin: auto;
-}
-.navbar {
-  border-radius: 0px;
-  border: none;
-  margin-bottom: 0px;
-}
-.drop {
-  border: 2px dashed #ff0000;
-  width: 400px;
-  height: 200px;
-  color: #cccccc;
-  margin: 20px;
-  padding: 20px;
-}
-* {
-  padding: 0;
-  margin: 0;
-}
-body {
+
+
+.createcontent {
   padding-top: 70px;
   font-size: 16px;
   line-height: 1.5;
@@ -35,70 +12,15 @@ body {
   background: url(/stardust.png);
 }
 
-.container {
-  
-}
-
-.jumbotron {
-  margin-top: 60px;
-}
-.row.withpadding {
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
-#sliderGalleryNav {
-  margin-top: 1em;
-}
-#sliderGalleryNav button {
-  padding: 1em;
-  margin-right: 1em;
-  border-right: 10px;
-  cursor: pointer;
-}
-.sliderGallery {
-  width: inherit;
-  height: 500px;
-  overflow: hidden;
-}
-.sliderGallery ul {
-  width: 10000px;
-  list-style-type: none;
-}
-.sliderGallery li {
-  float: left;
-}
-
-//sectiongallery
-
-ul.imageGallery {
-  list-style: none;
-}
-ul.imageGallery li {
-  float: left;
-  display: inline-block;
-  padding: 0px;
-  margin: 0px;
-}
-
-
-.col-lg-3 {
-  padding: 0px;
-}
-h1 {
+.createcontent h1 {
   font-family: 'Amatic SC', cursive;
   margin-top: 20px;
   font-size: 4.5em;
   letter-spacing: -2px;
   color: #ff6445;
 }
-h3 {
-  font-family: 'Amatic SC', cursive;
-  margin-top: 10px;
-  color: #ff6445;
-  font-size: 2.6em;
-}
 
-h4 {
+.createcontent h2 {
   color: #fff;
   font-family: 'Amatic SC', cursive;
   font-weight: 400;
@@ -106,49 +28,47 @@ h4 {
   letter-spacing: 2px;
 }
 
-h5 {
+.createcontent h3 {
+  font-family: 'Amatic SC', cursive;
+  margin-top: 10px;
+  color: #ff6445;
+  font-size: 2.6em;
+}
+
+.createcontent h4 {
+  color: #fff;
+  font-family: 'Amatic SC', cursive;
+  font-weight: 400;
+  font-size: 2.2em;
+  letter-spacing: 2px;
+}
+
+.createcontent h5 {
   font-size: 1.5em;
   color: #ff6445;
   font-family: 'Amatic SC', cursive;
 }
 
-h6 {
+.createcontent h6 {
   font-size: 1em;
 }
 
-.logo {
-  border-radius: 300px;
-  width: 350px;
-  height: 350px;
-  display: none;
+#paragraph {
+  font-size: 19px;
 }
+
 .rounded {
-  border-radius: 300px;
+  border-radius: 2px;
   width: 300px;
   height: 300px;
   background-position: 50% 50%;
-  -webkit-filter: brightness(1) contrast(1.2) grayscale(0.3);
-  }
-
-.section-heading {
-  margin-top: 10px;
-  padding-top: 20px;
-  padding-bottom: 40px;
-}
-.section-intro {
-  margin-top: 120px;
-  padding-top: 20px;
-  padding-bottom: 40px;
+  background-size: 250%;
 }
 
 .introtext {
-  background-color:rgba(0,0,0,0.4);
-  padding: 40px;
+  margin-left: -40px;
 }
 
-.section-gallery {
-  margin-top: 140px;
-}
 .section-email {
   padding-top: 160px;
   padding-bottom: 160px;
@@ -158,12 +78,6 @@ h6 {
   background-repeat: no-repeat;
 }
 
-.section-text {
-  margin-top: 150px;
-}
-.section-location {
-  margin-top: 150px;
-}
 .section-telnumber {
   padding-top: 180px;
   padding-bottom: 180px;
@@ -172,9 +86,7 @@ h6 {
   background-image: url(/stars.png);
   background-repeat: no-repeat;
 }
-.section-openinghours {
-  margin-top: 150px;
-}
+
 .section-links {
   padding-top: 180px;
   padding-bottom: 180px;
@@ -183,32 +95,9 @@ h6 {
   background-image: url(/stars.png);
   background-repeat: no-repeat;
 }
-.section-eventcalender {
-  margin-top: 150px;
-}
-.section-video {
-  margin-top: 150px;
-}
-.section-team {
-  margin-top: 150px;
-  margin-bottom: 150px;
-  background-color:rgba(0,0,0,0.4);
-  padding: 20px;
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-.white {
-  color: #fff;
-}
 
-img {
-  -webkit-filter: brightness(1) contrast(1.2) grayscale(0.3);
-}
-
-img:hover {
-  -webkit-filter: brightness(120%);
-  filter: brightness(120%);
-  -webkit-transition: all 300ms ease;
+.textureline {
+display: none;
 }
 
 .textp {
@@ -226,46 +115,42 @@ img:hover {
 }
 
 .verticaltable {
-  width: 700px;
+  width: 800px;
   text-align: center;
   margin: auto;
   margin-top: 30px;
   color: #fff;
-  font-weight: 300;
-}
-.verticaltable th {
-  text-align: center;
- }
-.line {
-  height: 1px;
-  background-color: #fff;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-.link {
-  margin-top: 20px;
-  height: 40px;
-}
-.eventtable {
-  width: 300px;
-  text-align: center;
-  margin: auto;
-  margin-top: 20px;
-  font-size: 1em;
-}
-.eventtable tr {
-  height: 40px;
-}
-.eventtable td:nth-child(1) {
-  color: #fff;
-  font-size: 1.3em;
   font-weight: 200;
 }
-.member {
-  border-radius: 100px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+
+.verticaltable th {
+  text-align: center;
+  font-size: 1.2em;
+  text-transform: uppercase;
 }
 
-.membercaption {
- }
+.verticaltable td {
+  font-family: 'Merriweather', serif;
+  font-weight: 300;
+}
+
+.createcontent.line {
+  height: 1px;
+  background-color: #fff;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.section-products img {
+  min-height: 200px;
+  max-height: 300px;
+  max-width: 80%;
+  border-radius: 3px;
+}
+
+.member {
+  border-radius: 3px;
+  height: 150px;
+  width: 150px;
+}
+

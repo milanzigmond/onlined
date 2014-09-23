@@ -1,150 +1,114 @@
-@import url(http://fonts.googleapis.com/css?family=Allura);
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700italic);
-@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic);
-span.username {
-  padding-left: 10px;
-}
-div.center {
-  width: 300px;
-  margin: auto;
-}
-.navbar {
-  border-radius: 0px;
-  border: none;
-  margin-bottom: 0px;
-}
-.drop {
-  border: 2px dashed #ff0000;
-  width: 400px;
-  height: 200px;
-  color: #cccccc;
-  margin: 20px;
-  padding: 20px;
-}
-* {
-  padding: 0;
-  margin: 0;
-}
-body {
-  padding-top: 70px;
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,700,300);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,500italic);
+
+
+.createcontent {
   font-size: 16px;
   line-height: 1.5;
-  font-family: 'Merriweather', serif;
-  font-weight: 300;
-  color: #82735E;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #000;
+  background-color: #fff;
 }
-.jumbotron {
-  margin-top: 60px;
+
+.createcontent h1 {
+  font-family: 'Oswald', sans-serif;
+  margin-top: 50px;
+  font-size: 5.5em;
+  color: #e50000;
 }
-.row.withpadding {
-  padding-top: 30px;
-  padding-bottom: 30px;
+
+.createcontent h2 {
+  font-family: 'Oswald', sans-serif;
+  color: #000;
+  font-size: 24px;
 }
-#sliderGalleryNav {
-  margin-top: 1em;
-}
-#sliderGalleryNav button {
-  padding: 1em;
-  margin-right: 1em;
-  border-right: 10px;
-  cursor: pointer;
-}
-.sliderGallery {
-  width: inherit;
-  height: 500px;
-  overflow: hidden;
-}
-.sliderGallery ul {
-  width: 10000px;
-  list-style-type: none;
-}
-.sliderGallery li {
-  float: left;
-}
-.col-lg-3 {
-  padding: 0px;
-}
-h1 {
-  font-family: 'Allura', cursive;
-  margin-top: 60px;
-  font-size: 5em;
-  color: #CCBD9B;
-}
-h3 {
-  font-family: 'Droid Serif', serif;
-  font-style: italic;
+
+.createcontent h3 {
+  font-family: 'Oswald', sans-serif;
   margin-top: 10px;
-  color: #CCBD9B;
-  font-size: 1.8em;
+  color: #e50000;
+  font-size: 2em;
 }
-h4 {
-  color: #CCBD9B;
-  font-family: 'Droid Serif', serif;
-  font-style: italic;
-  font-size: 1.3em;
+
+.createcontent h4 {
+  color: #fff;
+  font-weight: 400;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
 }
-.section-heading {
-  margin-top: 20px;
+
+.createcontent h5 {
+  font-size: 1em;
 }
-.section-intro {
-  margin-top: 200px;
+
+.createcontent h6 {
+  font-size: 1em;
 }
-.section-gallery {
-  margin-top: 200px;
+
+.section-location h4 {
+  color: black;
 }
+
+.section-team h4 {
+  color: #e50000;
+}
+
+#paragraph {
+  font-size: 19px;
+}
+
+.createcontent .glyphicon {
+  color: #e50000;
+}
+
+.white {
+  color: #e50000;
+}
+
+.rounded {
+  border-radius: 0px;
+  width: 260px;
+  height: 260px;
+  background-position: 50% 50%;
+  background-size: 250%;
+}
+
+.introtext {
+  margin-left: -40px;
+}
+
 .section-email {
-  padding-top: 160px;
-  padding-bottom: 160px;
-  margin-top: 150px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
-  outline-offset: 6px;
+  padding-top: 180px;
+  padding-bottom: 180px;
+  margin-top: 190px;
+  background-color: black;
 }
-.section-text {
-  margin-top: 150px;
-}
-.section-location {
-  margin-top: 150px;
-}
+
 .section-telnumber {
   padding-top: 180px;
   padding-bottom: 180px;
-  margin-top: 150px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
-  outline-offset: 6px;
+  margin-top: 190px;
+  background-color: black;
 }
-.section-openinghours {
-  margin-top: 150px;
-}
+
 .section-links {
   padding-top: 180px;
   padding-bottom: 180px;
-  margin-top: 150px;
-  background-color: #FFE5E0;
-  outline: 3px solid #FFE5E0;
-  outline-offset: 6px;
+  margin-top: 190px;
+  background-color: black;
 }
-.section-eventcalender {
-  margin-top: 150px;
+
+.textureline {
+  background-color: black;
+  height: 10px;
+  width: 100%;
+   margin-top: 40px;
+  margin-bottom: -130px;
 }
-.section-video {
-  margin-top: 150px;
-}
-.section-team {
-  margin-top: 150px;
-  margin-bottom: 150px;
-}
-.white {
-  color: #fff;
-}
-img:hover {
-  -webkit-filter: brightness(130%);
-  filter: brightness(130%);
-  -webkit-transition: all 300ms ease;
-}
+
 .verticaltable {
-  width: 700px;
+  width: 800px;
   text-align: center;
   margin: auto;
   margin-top: 30px;
@@ -154,36 +118,31 @@ img:hover {
 .verticaltable th {
   text-align: center;
   font-size: 1.2em;
-  color: #cf615c;
   text-transform: uppercase;
+  color: #e50000;
 }
-.line {
+
+.verticaltable td {
+  font-weight: 300;
+}
+
+.createcontent .line {
   height: 1px;
-  background-color: #ccc;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  background-color: #000;
+  margin-bottom: 12px;
+  margin-top: 12px;
 }
-.link {
-  margin-top: 20px;
-  height: 30px;
+
+.section-products img {
+  min-height: 200px;
+  max-height: 300px;
+  max-width: 80%;
+  border-radius: 0px;
 }
-.eventtable {
-  width: 300px;
-  text-align: center;
-  margin: auto;
-  margin-top: 20px;
-  font-size: 1em;
-}
-.eventtable tr {
-  height: 40px;
-}
-.eventtable td:nth-child(1) {
-  color: #cf615c;
-  font-size: 1.3em;
-  font-weight: 200;
-}
+
 .member {
-  border-radius: 100px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  border-radius: 0px;
+  height: 150px;
+  width: 150px;
 }
+
