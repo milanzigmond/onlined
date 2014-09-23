@@ -1,0 +1,175 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic);
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic);
+
+
+.createcontent {
+  padding: 0px;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  color: #fff;
+  background: url(/fullbg2.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.createcontent h1 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  margin-top: 20px;
+  font-size: 4em;
+  letter-spacing: -2px;
+  color: #fff;
+}
+
+.createcontent h2 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  margin-top: 10px;
+  color: #fff;
+  font-size: 2.2em;
+}
+
+.createcontent h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  margin-top: 10px;
+  color: #fff;
+  font-size: 2.2em;
+}
+
+.createcontent h4 {
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.6em;
+}
+
+.createcontent h5 {
+  font-size: 1em;
+}
+
+.createcontent h6 {
+  font-size: 1em;
+}
+
+
+
+#paragraph {
+  font-size: 19px;
+}
+
+.rounded {
+  border-radius: 300px;
+  width: 320px;
+  height: 320px;
+}
+
+.section-heading {
+  margin-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+.section-intro {
+  margin-top: 120px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.introtext {
+  background-color:rgba(0,0,0,0.2);
+  padding: 40px;
+}
+
+.section-email {
+  padding-top: 160px;
+  padding-bottom: 160px;
+  margin-top: 150px;
+  background-color:rgba(0,0,0,0.2);
+  background-image: url(/lines.png);
+  background-repeat: no-repeat;
+}
+
+.section-telnumber {
+  padding-top: 180px;
+  padding-bottom: 180px;
+  margin-top: 150px;
+  background-color:rgba(0,0,0,0.2);
+  background-image: url(/lines.png);
+  background-repeat: no-repeat;
+}
+
+.section-links {
+  padding-top: 180px;
+  padding-bottom: 180px;
+  margin-top: 150px;
+  background-color:rgba(0,0,0,0.2);
+  background-image: url(/lines.png);
+  background-repeat: no-repeat;
+}
+
+
+.textureline {
+display: none;
+}
+
+.textp {
+  background-color:rgba(0,0,0,0.2);
+  padding: 15px;
+  margin-right: 10px;
+  max-width: 32%;
+  min-height: 300px;
+}
+
+.textp:last-child {
+  background-color:rgba(0,0,0,0.2);
+  padding: 10px;
+  margin-right: 0px;
+}
+
+.verticaltable {
+  width: 800px;
+  text-align: center;
+  margin: auto;
+  margin-top: 30px;
+  color: #fff;
+  font-weight: 200;
+}
+.verticaltable th {
+  text-align: center;
+  font-size: 1.2em;
+  color: #fff;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.verticaltable td {
+  font-weight: 300;
+}
+
+.createcontent.line {
+  height: 1px;
+  background-color: #fff;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.section-products img {
+  min-height: 120px;
+  max-height: 200px;
+  max-width: 70%;
+  border-radius: 300px;
+}
+
+.member {
+  border-radius: 300px;
+  height: 150px;
+  width: 150px;
+}
+
