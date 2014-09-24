@@ -19,6 +19,7 @@ if (Meteor.isClient) {
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
     Session.setDefault('slider', null);
+    Session.set('version', '0.1.0');
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -698,7 +699,10 @@ Template.layout.helpers({
         return (Router.current().path === '/create');
     },
     isNotLiveWebsite: function () {
-        return (Router.current().path === '/');
+        return (Router.current().path === '/' || Router.current().path === '/create');
+    },
+    version: function () {
+        return Session.get('version');;
     }
 });
 
