@@ -702,7 +702,10 @@ Template.layout.helpers({
     },
     isNotLiveWebsite: function () {
         return (Router.current().path === '/' || Router.current().path === '/create');
-    },
+    }
+});
+
+Template.app.helpers({
     version: function () {
         return Session.get('version');;
     }
