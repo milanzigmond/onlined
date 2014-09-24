@@ -22,11 +22,7 @@
   visibility: hidden;
 }
 
-.logoDot {
-  width:15px;
-  position:absolute;
-  top:18px;
-}
+
 
 * {
   padding: 0;
@@ -353,6 +349,11 @@ ul {
   position: relative;
 }
 
+@-webkit-keyframes pulse { 
+  0% {background-color: #89b504;} 
+  100% {background-color: #a3ce22;}
+} 
+
 .firstButton {
   font-family: "Cantarell", sans-serif;
   font-size: 16pt;
@@ -360,36 +361,23 @@ ul {
   width:100%;
   height:82px;
   background-color: #89b504;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
+}
+
+.pulseEffect {
+  -webkit-animation: pulse 2s infinite alternate;
+  -webkit-animation-delay: 2s;
 }
 
 .firstButton:hover{
   color:white;
-  /*background-color: #a3ce22;*/
-  /*font-size: 18pt;*/
 }
 
-.createWebsiteButton {
-  display: block;
-  color:white;
-  text-decoration: none;
-  width: 100%;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
-}
-
-.createWebsiteButton:hover{
-  color: white;
-  text-decoration: none;
-  background-color: #a3ce22;
-  font-size: 18px;
+.logoDot {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 18px;
+  border-radius: 10px;
 }
 
 .websiteListItem {
@@ -730,6 +718,7 @@ h6 {
   padding-top: 30px;
   color:#333;
   text-align: left;
+  cursor: default;
 }
 
 .line {

@@ -19,6 +19,7 @@ if (Meteor.isClient) {
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
     Session.setDefault('slider', null);
+    Session.set('version', '0.1.0');
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -478,9 +479,10 @@ Template.dashboard.events({
             input = parent.find('input'),
             label = parent.find('span');
 
+        parent.removeClass( 'pulseEffect' );
+
         $(input).val("");
 
-        // label.fadeTo("fast", 0);
         label.fadeOut(200);
         input.delay(250).fadeIn(200, function(){
             this.focus();
@@ -488,6 +490,7 @@ Template.dashboard.events({
     },
     'focusout .textInput' : function ( event, template ) {
         var parent = $(event.target).parent();
+        parent.addClass( 'pulseEffect');
         blurCreateWebsiteInput();
         parent.removeClass( "invalid" ).addClass( "valid" );
     },
@@ -698,7 +701,10 @@ Template.layout.helpers({
         return (Router.current().path === '/create');
     },
     isNotLiveWebsite: function () {
-        return (Router.current().path === '/');
+        return (Router.current().path === '/' || Router.current().path === '/create');
+    },
+    version: function () {
+        return Session.get('version');;
     }
 });
 

@@ -13,12 +13,13 @@
 	{{#if isNotLiveWebsite}}
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
-				<img src="logo.png" class="logoDot">
-				<a class="navBrand" href="{{pathFor 'app'}}">{{onlinedTitle}}</a>
+				<div class="logoDot pulseEffect"></div>
+				<a class="navBrand" href="{{pathFor 'app'}}">{{onlinedTitle}} ({{version}})</a>
 				<div class="collapse navbar-collapse">
 			        <ul class="nav navbar-nav navbar-right">
 			        	{{#if currentUser}}
 			            	{{#if create}}
+			            		<li><a href="{{pathFor 'app'}}">Live Website</a></li>
 			            		<li><a href="{{pathFor 'app'}}">Dashboard</a></li>
 								{{>selectStyle}}
 							{{/if}}
@@ -100,7 +101,7 @@
 		<div class="row">
 			<div class="col-sm-6 stream">
 				<div class="container-fluid">
-					<h6 class="listsorting"><strong>latest</strong> / popular</h6>
+					<h6 class="listsorting">latest</h6>
 					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
 					<ul>
 						{{#each websites}}
@@ -124,8 +125,8 @@
 				<div class="row">
 					<div class="col-sm-10 col-sm-offset-1">
 						<ul class="myWebsitesList">
-							<li>
-								<div id="register-sitename" class="btn firstButton">
+							<li style="cursor:default;">
+								<div id="register-sitename" class="btn firstButton pulseEffect">
 									<input class="textInput uppercase" type="text" placeholder="websitename" value="" hidden/>
 									<span>CREATE WEBSITE</span>
 								</div>
@@ -140,10 +141,6 @@
 									</div> -->
 								</div>
 							</li>
-							<!-- <li>
-								<a class="createWebsiteButton" href="{{pathFor 'create'}}">Create New Website</a>
-								<a class="createWebsiteButton">Create New Website 2</a>
-							</li> -->
 							{{#each myWebsites}}
 							<li>
 								<div class="text-center myWebsiteListItem">
