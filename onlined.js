@@ -47,6 +47,8 @@ return str.toUpperCase();
 
 // SLIDER START
 
+var slider;
+
 function Slider ( container, nav ) {
     this.container = container;
     this.nav = nav;
@@ -66,10 +68,10 @@ Slider.prototype.transition = function(coords) {
 Slider.prototype.setCurrent = function(dir) {
     var pos = this.current;
 
-pos += ( ~~( dir == 'next') || -1); // add or subtract 1
-this.current = (pos < 0) ? this.imgsLen - 1 : pos % this.imgsLen;
+    pos += ( ~~( dir == 'next') || -1); // add or subtract 1
+    this.current = (pos < 0) ? this.imgsLen - 1 : pos % this.imgsLen;
 
-return pos;
+    return pos;
 };
 
 // SLIDER END
@@ -444,7 +446,6 @@ Template.create.events({
     }, 
     'click #sliderGalleryNav img' : function ( event, template ) {
         preventActionsForEvent( event );
-        if (!slider) return;
         slider.setCurrent( $(event.target).data('dir') );
         slider.transition();
     }
@@ -743,8 +744,8 @@ Template.website.rendered = function () {
 
 Template.create.rendered = function () {
     setupMap();
-
     slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
+    console.log('slider created: '+slider);
 };
 
 Template.selectStyle.rendered = function () {
