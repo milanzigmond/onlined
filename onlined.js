@@ -87,10 +87,12 @@ var makeEditable = function (event, template) {
     var contentId = event.target.id,
     textContent = event.target.textContent,
     $eventTarget = $(event.target),
+    parent = event.target.parentElement,
     tagName = $eventTarget.get(0).tagName,
     textAlign = $eventTarget.css('text-align'),
     fontFamily = $eventTarget.css('fontFamily'),
-    fontSize = $eventTarget.css('fontSize');
+    fontSize = $eventTarget.css('fontSize'),
+    input;
 
 
     if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
@@ -98,7 +100,7 @@ var makeEditable = function (event, template) {
         if (contentId === "address") {
             $(event.target.nextElementSibling).toggle();
         } else {
-            var input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="" value="'+textContent+'"/>';
+            input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="" value="'+textContent+'"/>';
             $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
         // $( event.target ).before(input);
         }
@@ -109,25 +111,34 @@ var makeEditable = function (event, template) {
     if (tagName === "P") {
         var lines = countLines(contentId);
         // it's a text area
-        var input = '<textarea id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
+        input = '<textarea id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
 
         $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
         // $( event.target ).before(input);
-        $( event.target ).hide();
+        $( event.target ).hide();   
     }
     
     if (tagName === "IMG") {
         // it's an image
-        console.log('tagName is IMG');
         
-        var input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="" value="'+textContent+'"/>';
+        var website = Websites.findOne(Session.get('editing_website'));
+        var id = event.target.parentElement.id;
+
+        input = '<input id="input" class="textInput" type="text" placeholder="" value="'+website.content[id]+'"/>';
         
-        $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
+        $( event.target ).before(input);
         $( event.target ).hide();
     }
 
+    activateInput($(parent).find('#input'));
+};
+
+
+var activateInput = function (input) {
     Deps.flush();
-    activateInput(template.find('#input'));
+    console.log('activateInput: '+input);
+    input.focus()
+    input.select();
 };
 
 var registerUser = function ( event, template ) {
@@ -160,11 +171,6 @@ var showAlert = function (alert) {
 var preventActionsForEvent = function (event) {
     event.preventDefault();
     event.stopPropagation();
-};
-
-var activateInput = function (input) {
-    input.focus();
-    input.select();
 };
 
 var createDefaultWebsite = function ( sitename ) {
@@ -290,14 +296,14 @@ var setupMap = function () {
         } else {
             map.setCenter(place.geometry.location);
             console.log('place.geometry.location:'+place.geometry.location);
-map.setZoom(17);  // Why 17? Because it looks good.
-}
+            map.setZoom(17);  // Why 17? Because it looks good.
+        }
 
-var editingWebsite = Session.get('editing_website');
+        var editingWebsite = Session.get('editing_website');
 
-Websites.update({_id:editingWebsite},{ $set: { 
-    'content.address': place.formatted_address,
-    'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}
+        Websites.update({_id:editingWebsite},{ $set: { 
+            'content.address': place.formatted_address,
+            'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}
 }});
 
 marker.setIcon(/** @type {google.maps.Icon} */({
@@ -374,35 +380,40 @@ Template.create.events({
     },
     'keyup #input' : function( event, template ) {
         if (event.which === 27) {
-        // escape pressed
-        preventActionsForEvent(event);
-        $(event.target).blur();
+            // escape pressed
+            preventActionsForEvent(event);
+            $(event.target).blur();
         }
         if (event.which === 13) {
-        // enter pressed
-        preventActionsForEvent(event);
+            // enter pressed
+            preventActionsForEvent(event);
 
-        var websiteId = Session.get('editing_website'),
-        parent = event.target.parentElement,
-        value = event.target.value,
-        setModifier = { $set: {} };
+            var websiteId = Session.get('editing_website'),
+            parent = event.target.parentElement,
+            value = event.target.value,
+            setModifier = { $set: {} };
 
-        setModifier.$set['content.'+ parent.id ] = value;
-        Websites.update({_id:websiteId}, setModifier);
+            setModifier.$set['content.'+ parent.id ] = value;
+            Websites.update({_id:websiteId}, setModifier);
 
-        $(event.target).blur();
+            $(event.target).blur();
         }
     },
     'focusout #input' : function ( event, template ) {
         console.log('focusout on:'+ event.target.parentElement.id);
         preventActionsForEvent(event);
         var parent = event.target.parentElement,
-        sibling = parent.nextSibling;
+        sibling = parent.nextSibling,
+        social = ['twitter', 'youtube', 'facebook', 'instagram'];
+
 
         if(parent.id === "address") {
             sibling = parent.previousElementSibling;
             $(parent).toggle();
-        } else {
+        } else if (_.contains(social, parent.id) ) {
+            sibling = event.target.nextElementSibling; 
+            $(event.target).remove();
+        } else {    
             $(parent).remove(); // calls focusout event 
         }
 
