@@ -168,19 +168,8 @@
 </template>
 
 <template name="selectStyle">
-	<!-- <div class="btn-group">
-		<a href="#" class="btn btn-primary navbar-btn dropdown-toggle" data-toggle="dropdown">
-			Change Visual Style
-			<span class="caret"></span>
-		</a>
-		<ul class="dropdown-menu">
-			{{#each styleOptions}}
-			<li><a href="#" data-styleid="{{value}}">{{name}}</a></li>
-			{{/each}}
-		</ul>
-	</div> -->
 	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Change Style <span class="caret"></span></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{selectedStyle}}<span class="caret"></span></a>
 		<ul class="dropdown-menu">
 			{{#each styleOptions}}
 			<li><a href="#" data-styleid="{{value}}">{{name}}</a></li>

@@ -8,7 +8,7 @@ if (Meteor.isClient) {
     Session.setDefault('editing_field', null);
     Session.setDefault('editing_website', null);
     Session.setDefault('styleOptions', []);
-    Session.setDefault('currentStyle', null);
+    Session.setDefault('currentStyle', "default.css");
     Session.setDefault('themes', [
         {name:'Default', css: 'default.css'},
         {name:'Elegant', css: 'elegant.css'},
@@ -78,10 +78,8 @@ return pos;
 var makeEditable = function (event, template) {
     preventActionsForEvent(event);
 
-        console.log('pred');
     if(Session.get('editing_field')) return;
     Session.set('editing_field', event.target.id);
-        console.log('po');
 
 
     var contentId = event.target.id,
@@ -136,7 +134,6 @@ var makeEditable = function (event, template) {
 
 var activateInput = function (input) {
     Deps.flush();
-    console.log('activateInput: '+input);
     input.focus()
     input.select();
 };
@@ -176,7 +173,7 @@ var preventActionsForEvent = function (event) {
 var createDefaultWebsite = function ( sitename ) {
     var website_id = Websites.insert({
         createdAt: new Date(),
-        css: Session.get('currentStyle'),
+        css: 'css/'+Session.get('currentStyle'),
         sitename: sitename,
         userId: Meteor.userId(),
         content: {
@@ -295,7 +292,6 @@ var setupMap = function () {
             map.fitBounds(place.geometry.viewport);
         } else {
             map.setCenter(place.geometry.location);
-            console.log('place.geometry.location:'+place.geometry.location);
             map.setZoom(17);  // Why 17? Because it looks good.
         }
 
@@ -335,7 +331,7 @@ var saveFile = function ( event, file) {
         reader.position = id.slice(-1);
     }
     console.log('saving file: '+file+" to: "+id);
-    
+
     reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
@@ -348,9 +344,9 @@ var saveFile = function ( event, file) {
         } else {
         //it is a single image, no position needed
             setModifier.$set['content.'+this.to ] = event.target.result;
-    }
+         }
 
-    Websites.update({_id:websiteId}, setModifier);
+        Websites.update({_id:websiteId}, setModifier);
     };
 
     reader.readAsDataURL(file);
@@ -375,7 +371,6 @@ Template.create.events({
         makeEditable( event, template );
     },
     'click .link' : function ( event, template ) {
-        console.log('link clicked');
         makeEditable( event, template );
     },
     'keyup #input' : function( event, template ) {
@@ -400,7 +395,6 @@ Template.create.events({
         }
     },
     'focusout #input' : function ( event, template ) {
-        console.log('focusout on:'+ event.target.parentElement.id);
         preventActionsForEvent(event);
         var parent = event.target.parentElement,
         sibling = parent.nextSibling,
@@ -450,7 +444,6 @@ Template.create.events({
     }, 
     'click #sliderGalleryNav img' : function ( event, template ) {
         preventActionsForEvent( event );
-        console.log('slider arrow clicked: '+ slider + ', '+ $(event.target).data('dir'));
         if (!slider) return;
         slider.setCurrent( $(event.target).data('dir') );
         slider.transition();
@@ -650,6 +643,10 @@ Template.dashboard.helpers({
 Template.selectStyle.helpers({
     styleOptions: function () {
         return Session.get('styleOptions');
+    },
+    selectedStyle: function () {
+        var str = Session.get('currentStyle');
+        return str.substring(0, str.length - 4);
     }
 });
 
@@ -657,7 +654,6 @@ Template.selectStyle.events({
     'click li': function (e,t) {
         var styleId = $(e.target).data('styleid');
         var styleCss = Session.get('styleOptions')[styleId].css;
-        styleCss = 'css/'+styleCss;
         Session.set('currentStyle', styleCss);
     }
 });

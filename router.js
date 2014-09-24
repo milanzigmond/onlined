@@ -65,6 +65,7 @@ Router.map(function() {
 var loadCSS = function() {
 	var currentStyle = Session.get("currentStyle");
 	if (currentStyle) {
+		currentStyle = 'css/'+currentStyle;
 		// $("link").attr("href", currentStyle);
 		$.get(currentStyle, function (data) {
 			var customStyleLink;
