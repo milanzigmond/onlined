@@ -80,6 +80,7 @@ html, body {
 
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
   background-color: #89b504;
+  color: white;
 }
 
 .dropdown-menu {

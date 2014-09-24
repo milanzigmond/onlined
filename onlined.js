@@ -446,6 +446,8 @@ Template.create.events({
     }, 
     'click #sliderGalleryNav img' : function ( event, template ) {
         preventActionsForEvent( event );
+        // console.log('slider:'+slider +', current: '+$(event.target).data('dir'));
+        if(!slider) slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
         slider.setCurrent( $(event.target).data('dir') );
         slider.transition();
     }
@@ -694,6 +696,9 @@ Template.layout.helpers({
     },
     create: function () {
         return (Router.current().path === '/create');
+    },
+    isNotLiveWebsite: function () {
+        return (Router.current().path === '/');
     }
 });
 
@@ -744,8 +749,8 @@ Template.website.rendered = function () {
 
 Template.create.rendered = function () {
     setupMap();
-    slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-    console.log('slider created: '+slider);
+    // slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
+    // console.log('slider created: '+slider);
 };
 
 Template.selectStyle.rendered = function () {
