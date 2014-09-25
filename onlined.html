@@ -19,7 +19,7 @@
 			        <ul class="nav navbar-nav navbar-right">
 			        	{{#if currentUser}}
 			            	{{#if create}}
-			            		<li><a href="{{pathFor 'app'}}">Live Website</a></li>
+			            		<li><a href="{{pathForLiveWebsite}}" target="_blank">Live Website</a></li>
 			            		<li><a href="{{pathFor 'app'}}">Dashboard</a></li>
 								{{>selectStyle}}
 							{{/if}}
@@ -188,7 +188,7 @@
 		<div id="topImage" class="img">
             <img class="img img-responsive reimg" src="{{content.topImage}}" alt="">
             <div class="overlay">
-                <a href="#" class="expand">+ drag image here</a>
+                <a href="#" class="expand">click or drag&drop</a>
             </div>
             <input type="file" class="hiddenFileInput"/>
         </div>
@@ -210,7 +210,7 @@
 						<div id="logo" class="img">
 				            <div class="rounded reimg" style="background-image: url({{content.logo}})"></div>
 				            <div class="overlay rounded">
-				                <a class="expand">+ drag image here</a>
+				                <a class="expand">click or drag&drop</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -233,7 +233,7 @@
 					<div id="galleryImages{{position}}" class="img col-lg-3 col-md-6 col-xs-12">
 			            <div class="obrazek" style="background-image: url({{src}})"></div>
 			            <div class="overlay">
-			                <a class="expand">+ drag image here</a>
+			                <a class="expand">click or drag&drop</a>
 			            </div>
 			            <input type="file" class="hiddenFileInput"/>
 			        </div>
@@ -292,7 +292,7 @@
 					<div class="img">
 		                <img id="highlightImages{{position}}" src="{{src}}" alt="">
 		                <div class="overlay">
-		                    <a href="#" class="expand">+ drag image here</a>
+		                    <a href="#" class="expand">+ getStartedForm</a>
 		                </div>
 		            </div>
 				{{/each}}
@@ -351,7 +351,7 @@
 						<div id="firstProductImage" class="img">
 				            <img src="{{content.firstProductImage}}" alt="">
 				            <div class="overlay">
-				                <a href="#" class="expand">+ drag image here</a>
+				                <a href="#" class="expand">click or drag&drop</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -366,7 +366,7 @@
 						<div id="secondProductImage" class="img">
 				            <img src="{{content.secondProductImage}}" alt="">
 				            <div class="overlay">
-				                <a href="#" class="expand">+ drag image here</a>
+				                <a href="#" class="expand">click or drag&drop</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -377,7 +377,28 @@
 				</div>
 			</div>
 		</div>
-	</div>		
+	</div>	
+
+	<div class="section-links text-center">	
+		<div class="container">
+			<span class="glyphicon glyphicon-2white"></span>
+
+			<div class="row links">
+				<div id="twitter" class="col-xs-6 col-md-3">
+					<img class="link" src="ic_twitterW.png" alt="">
+				</div>
+				<div id="youtube" class="col-xs-6 col-md-3">
+					<img class="link" src="ic_youtubeW.png" alt="">
+				</div>
+				<div id="facebook" class="col-xs-6 col-md-3">
+					<img class="link" src="ic_facebookW.png" alt="">
+				</div>
+				<div id="instagram" class="col-xs-6 col-md-3">
+					<img class="link" src="ic_instagramW.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="container">	
 		<div class="section-team text-center">
@@ -394,7 +415,7 @@
 						<div id="firstTeamMemberImage" class="img teamimg">
 				            <img width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
 				            <div class="overlay member">
-				                <a href="#" class="expand">+ drag image here</a>
+				                <a href="#" class="expand">click or drag&drop</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -411,7 +432,7 @@
 						<div id="secondTeamMemberImage" class="img teamimg">
 				            <img width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
 				            <div class="overlay member">
-				                <a href="#" class="expand">+ drag image here</a>
+				                <a href="#" class="expand">click or drag&drop</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -428,7 +449,7 @@
 						<div id="thirdTeamMemberImage" class="img teamimg">
 				            <img width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
 				            <div class="overlay member">
-				                <a href="#" class="expand">+ drag image here</a>
+				                <a href="#" class="expand">click or drag&drop</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -445,7 +466,7 @@
 						<div id="fourthTeamMemberImage" class="img teamimg">
 				            <img width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
 				            <div class="overlay member">
-				                <a href="#" class="expand">+ drag image here</a>
+				                <a href="#" class="expand">click or drag&drop</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -468,7 +489,7 @@
 						<div id="sliderImages{{position}}" class="img">
 				            <img src="{{src}}" class="img img-responsive reimg" alt="">
 				            <div class="overlay">
-				                <a class="expand">+ drag image here</a>
+				                <a class="expand">click or drag&drop</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -496,26 +517,7 @@
 		</div>-->
 	</div>
 
-	<div class="section-links text-center">	
-		<div class="container">
-			<span class="glyphicon glyphicon-2white"></span>
-
-			<div class="row links">
-				<div id="twitter" class="col-xs-6 col-md-3">
-					<img class="link" src="ic_twitterW.png" alt="">
-				</div>
-				<div id="youtube" class="col-xs-6 col-md-3">
-					<img class="link" src="ic_youtubeW.png" alt="">
-				</div>
-				<div id="facebook" class="col-xs-6 col-md-3">
-					<img class="link" src="ic_facebookW.png" alt="">
-				</div>
-				<div id="instagram" class="col-xs-6 col-md-3">
-					<img class="link" src="ic_instagramW.png" alt="">
-				</div>
-			</div>
-		</div>
-	</div>
+	
 </div>
 	{{/with}}
 	{{else}}

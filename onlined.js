@@ -702,6 +702,10 @@ Template.layout.helpers({
     },
     isNotLiveWebsite: function () {
         return (Router.current().path === '/' || Router.current().path === '/create');
+    },
+    pathForLiveWebsite: function () {
+        var website = Websites.findOne(Session.get('editing_website'));
+        return '/' + website.sitename;
     }
 });
 
