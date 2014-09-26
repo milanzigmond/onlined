@@ -19,7 +19,7 @@
 			        <ul class="nav navbar-nav navbar-right">
 			        	{{#if currentUser}}
 			            	{{#if create}}
-			            		<li><a href="{{pathForLiveWebsite}}" target="_blank">Live Website</a></li>
+			            		 <li><a href="{{pathForLiveWebsite}}" target="_blank">Live Website</a></li>
 			            		<li><a href="{{pathFor 'app'}}">Dashboard</a></li>
 								{{>selectStyle}}
 							{{/if}}
@@ -184,7 +184,7 @@
 	{{#if editing_website}}
 	{{#with editing_website}}
 
-	<div class="createcontent">
+	<div class="{{style}} createcontent">
 
 		<div id="effect-6" class="effects">
 			<div id="topImage" class="img">
@@ -529,6 +529,7 @@
 <template name="website">
 	{{#if live_website}}
 	{{#with live_website}}
+	<div class="{{style}} createcontent">
 	<!-- <div class="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -782,6 +783,7 @@
 		</div>
 
 	</div>
+</div>
 	{{/with}}
 	{{/if}}
 </template>

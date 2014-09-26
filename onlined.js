@@ -2,13 +2,9 @@ Websites = new Meteor.Collection("websites");
 
 if (Meteor.isClient) {
 
-    // Meteor.subscribe('allUsers');
-    // Meteor.subscribe('allWebsites');
-
     Session.setDefault('editing_field', null);
     Session.setDefault('editing_website', null);
     Session.setDefault('styleOptions', []);
-    Session.setDefault('currentStyle', "default.css");
     Session.setDefault('themes', [
         {name:'Default', css: 'default.css'},
         {name:'Elegant', css: 'elegant.css'},
@@ -176,7 +172,7 @@ var preventActionsForEvent = function (event) {
 var createDefaultWebsite = function ( sitename ) {
     var website_id = Websites.insert({
         createdAt: new Date(),
-        css: 'css/'+Session.get('currentStyle'),
+        css: 'css/default.css',
         sitename: sitename,
         userId: Meteor.userId(),
         content: {
@@ -612,6 +608,10 @@ Template.home.events({
 });
 
 Template.create.helpers({
+    style: function () {
+        var str = this.css;
+        return str.substring(4, str.length - 4);
+    },
     editing_website: function () {
         return Websites.findOne(Session.get('editing_website'));
     },
@@ -655,8 +655,8 @@ Template.selectStyle.helpers({
         return Session.get('styleOptions');
     },
     selectedStyle: function () {
-        var str = Session.get('currentStyle');
-        return str.substring(0, str.length - 4);
+        var str = Websites.findOne(Session.get('editing_website')).css;
+        return str.substring(4, str.length - 4);
     }
 });
 
@@ -664,8 +664,7 @@ Template.selectStyle.events({
     'click li': function (e,t) {
         var styleId = $(e.target).data('styleid');
 
-        if(!styleId) return;
-
+        if(styleId === undefined) return;
 
         var styleCss = Session.get('styleOptions')[styleId].css,
             currentStyle = 'css/' + styleCss,
@@ -673,23 +672,19 @@ Template.selectStyle.events({
         
         if (editingWebsite) {
 
-
-        //     var setModifier = { $set: {} };
-        //     setModifier.$set['css'] = currentStyle;
-        // debugger
-        //     Websites.update({_id:editingWebsite}, setModifier);
-
             Websites.update(
                 {_id: editingWebsite},
                 { $set: { css: currentStyle}}
             );
         };
-
-        Session.set('currentStyle', styleCss);
     }
 });
 
 Template.website.helpers({
+    style: function () {
+        var str = this.css;
+        return str.substring(4, str.length - 4);
+    },
     live_website: function () {
         var routeName = Router.current().route.name,
             websiteNameFull = Router.current().path,    
@@ -738,8 +733,7 @@ Template.layout.helpers({
     },
     pathForLiveWebsite: function () {
         var website = Websites.findOne(Session.get('editing_website'));
-        return Router.routes['website'].url({_id: website.sitename});
-        // return '/' + website.sitename;
+        return '/' + website.sitename;
     }
 });
 
