@@ -28,12 +28,16 @@ var clearUnfinishedWebsite = function () {
 Router.configure({
 	layoutTemplate: 'layout',
 	notFoundTemplate: 'notFound',
-	loadingTemplate: 'loading'
+	loadingTemplate: 'loading',
+	waitOn: function () {
+		return Meteor.subscribe('allWebsites');
+	}
 });
 
 Router.map(function() {
 	this.route('app', {
-		path: '/'
+		path: '/',
+		template: 'app'	
 	});
 	this.route('create', {
 		path: '/create',
@@ -45,20 +49,25 @@ Router.map(function() {
 	});
 	this.route('login', {path: '/login'});
 	this.route('website', { 
-		path: '/:sitename',
-		waitOn: function () {
-			if(Websites.find().count() !== 0){
-				var style = Websites.findOne({sitename:this.params.sitename},{css:1, _id:0}).css;
-				if (style) {
-					console.log('style:'+style);
-					$("link").attr("href", style);
-					// $("link").attr("href", style);
-				};
-			}
-		},
-		data: function() { 
-			return Websites.findOne({sitename:this.params.sitename})
-		}
+		path: '/:sitename'
+		// waitOn: function () {
+		// 	return Meteor.subscribe('allWebsites');
+		// 	// return Websites.findOne({sitename:this.params.sitename})
+		// 	// if(Websites.find().count() !== 0){
+		// 	// 	var style = Websites.findOne({sitename:this.params.sitename},{css:1, _id:0}).css;
+		// 	// 	if (style) {
+		// 	// 		console.log('style:'+style);
+		// 	// 		// $("link").attr("href", style);
+		// 	// 		// $("link").attr("href", style);
+		// 	// 	};
+		// 	// }
+		// },	
+		// data: function() {
+		// 	// debugger 
+		// 	var websiteData = Websites.findOne({sitename:this.params.sitename});
+		// 	console.log('data:'+ websiteData);
+		// 	return websiteData;
+		// }
 	});
 });
 
@@ -68,7 +77,16 @@ var loadCSS = function() {
 		currentStyle = 'css/'+currentStyle;
 		// $("link").attr("href", currentStyle);
 		$.get(currentStyle, function (data) {
-			var customStyleLink;
+
+			var customStyleLink,
+				savedStyle,
+				routeName = Router.current().route.name,
+				websiteNameFull = Router.current().path,	
+				websiteName = websiteNameFull.substring(1, websiteNameFull.length);
+
+			console.log('customStyleLink: '+customStyleLink+', savedStyle: '+savedStyle+', routeName: '+routeName+', websiteName: '+websiteName);
+
+			debugger
 
 			$( "link" ).each(function() {
 				if($(this).data('custom-style')){
@@ -77,9 +95,21 @@ var loadCSS = function() {
 			});
 
 			if(customStyleLink) {
+				if(routeName === "website") return;
+				$(customStyleLink).attr("data-custom-style", currentStyle);
 				$(customStyleLink).attr("href", currentStyle);
 			} else {
-				$('head').append('<link rel="stylesheet" data-custom-style="'+currentStyle+'" href="'+currentStyle+'" type="text/css" />');
+				
+				if(websiteName) {
+					savedStyle = Websites.findOne({sitename:websiteName},{css:1, _id:0}).css;	
+				}
+				
+				if (savedStyle) {
+					$('head').append('<link rel="stylesheet" data-custom-style="'+savedStyle+'" href="'+savedStyle+'" type="text/css" />');
+				} else {
+					$('head').append('<link rel="stylesheet" data-custom-style="'+currentStyle+'" href="'+currentStyle+'" type="text/css" />');
+				};
+				
 			}
 
 
@@ -89,4 +119,8 @@ var loadCSS = function() {
 	};
 }
 
-Router.waitOn(loadCSS);
+// Router.waitOn(loadCss);
+Router.onBeforeAction('loading');
+
+
+

@@ -2,8 +2,8 @@ Websites = new Meteor.Collection("websites");
 
 if (Meteor.isClient) {
 
-    Meteor.subscribe('allUsers');
-    Meteor.subscribe('allWebsites');
+    // Meteor.subscribe('allUsers');
+    // Meteor.subscribe('allWebsites');
 
     Session.setDefault('editing_field', null);
     Session.setDefault('editing_website', null);
@@ -264,22 +264,25 @@ var countLines = function (id) {
 
 var setupMap = function () {
 
-    var editingWebsite = Websites.findOne(Session.get('editing_website')),
-    address = editingWebsite.content.address,
-    latLng = editingWebsite.content.latLng,
-    mapOptions = {
-        scrollwheel: false,
-        center: new google.maps.LatLng(latLng.lat, latLng.lng),
-        zoom: 13
-    },
-    map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions),
-    input = (document.getElementById('input')),
-    autocomplete = new google.maps.places.Autocomplete(input),
-    infowindow = new google.maps.InfoWindow(),
-    marker = new google.maps.Marker({
-        map: map,
-        anchorPoint: new google.maps.Point(0, -29)
-    });
+    var editingWebsite = Websites.findOne(Session.get('editing_website'));
+    if(!editingWebsite) return;
+    
+    var address = editingWebsite.content.address,
+        latLng = editingWebsite.content.latLng,
+        mapOptions = {
+            scrollwheel: false,
+            center: new google.maps.LatLng(latLng.lat, latLng.lng),
+            zoom: 13
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions),
+        input = (document.getElementById('input')),
+        autocomplete = new google.maps.places.Autocomplete(input),
+        infowindow = new google.maps.InfoWindow(),
+        marker = new google.maps.Marker({
+            map: map,
+            anchorPoint: new google.maps.Point(0, -29)
+        });
+
 
     autocomplete.bindTo('bounds', map);
 
@@ -303,7 +306,8 @@ var setupMap = function () {
         Websites.update({_id:editingWebsite},{ $set: { 
             'content.address': place.formatted_address,
             'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}
-}});
+        }
+});
 
 marker.setIcon(/** @type {google.maps.Icon} */({
     url: place.icon,
@@ -659,12 +663,40 @@ Template.selectStyle.helpers({
 Template.selectStyle.events({
     'click li': function (e,t) {
         var styleId = $(e.target).data('styleid');
-        var styleCss = Session.get('styleOptions')[styleId].css;
+
+        if(!styleId) return;
+
+
+        var styleCss = Session.get('styleOptions')[styleId].css,
+            currentStyle = 'css/' + styleCss,
+            editingWebsite = Session.get('editing_website');
+        
+        if (editingWebsite) {
+
+
+        //     var setModifier = { $set: {} };
+        //     setModifier.$set['css'] = currentStyle;
+        // debugger
+        //     Websites.update({_id:editingWebsite}, setModifier);
+
+            Websites.update(
+                {_id: editingWebsite},
+                { $set: { css: currentStyle}}
+            );
+        };
+
         Session.set('currentStyle', styleCss);
     }
 });
 
 Template.website.helpers({
+    live_website: function () {
+        var routeName = Router.current().route.name,
+            websiteNameFull = Router.current().path,    
+            websiteName = websiteNameFull.substring(1, websiteNameFull.length),
+            websiteData = Websites.findOne({sitename:websiteName});
+        return websiteData;
+    },
     email: function () {
         return getUserEmail();
     },
@@ -701,11 +733,13 @@ Template.layout.helpers({
         return (Router.current().path === '/create');
     },
     isNotLiveWebsite: function () {
+        if(!Router.current()) return;
         return (Router.current().path === '/' || Router.current().path === '/create');
     },
     pathForLiveWebsite: function () {
         var website = Websites.findOne(Session.get('editing_website'));
-        return '/' + website.sitename;
+        return Router.routes['website'].url({_id: website.sitename});
+        // return '/' + website.sitename;
     }
 });
 
@@ -752,7 +786,7 @@ Template.layout.rendered = function () {
 };
 
 Template.website.rendered = function () {
-    setupMap();
+    setupMap(); 
 
 // if (Meteor.user() && Session.get('editing_website')) {
 //   Session.set('editing_website', null);  
