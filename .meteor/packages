@@ -9,8 +9,9 @@ accounts-password
 mrt:moment
 mrt:fancybox
 less
-iron:router
 accounts-facebook
 service-configuration
 ian:bootstrap-3
 ian:accounts-ui-bootstrap-3
+iron:router
+

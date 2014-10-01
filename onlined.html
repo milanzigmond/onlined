@@ -5,51 +5,52 @@
 	<link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
 </head>
 
-<body>
-	{{> layout}}
-</body>
-
 <template name="layout">
 	{{#if isNotLiveWebsite}}
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container-fluid">
-				<div class="logoDot pulseEffect"></div>
-				<a class="navBrand" href="{{pathFor 'app'}}">{{onlinedTitle}}</a>
-				<div class="collapse navbar-collapse">
-			        <ul class="nav navbar-nav navbar-right">
-			        	{{#if currentUser}}
-			            	{{#if create}}
-			            		 <li><a href="{{pathForLiveWebsite}}" target="_blank">Live Website</a></li>
-			            		<li><a href="{{pathFor 'app'}}">Dashboard</a></li>
-								{{>selectStyle}}
-							{{/if}}
-						{{/if}}
-			            
-			            {{> loginButtons }}
-			        </ul>
-			    </div>
-			</div>
-			<!-- {{#if create}}
-				<ul class="sectionsbar">
-				  <li><a href="#" class="complete">header image</a></li>
-				  <li><a href="#" class="complete">headline</a></li>
-				  <li><a href="#" class="complete">introduction</a></li>
-				  <li><a href="#" class="complete">gallery</a></li>
-				  <li><a href="#">email</a></li>
-				  <li><a href="#" class="active">text paragraphs</a></li>
-				  <li><a href="#">location</a></li>
-				  <li><a href="#">phone number</a></li>
-				  <li><a href="#">opening hours</a></li>
-				  <li><a href="#">social links</a></li>
-				  <li><a href="#">products</a></li>
-				  <li><a href="#">video</a></li>
-				  <li><a href="#">team members</a></li>
-				  <li><a href="#">slideshow</a></li>
-				</ul>
-			{{/if}} -->
-		</nav>
+		{{> yield "menu"}}
 	{{/if}}
+
 	{{> yield}}
+</template>
+
+<template name="menu">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="logoDot pulseEffect"></div>
+			<a class="navBrand" href="{{pathFor 'app'}}">{{onlinedTitle}}</a>
+			<div class="collapse navbar-collapse">
+		        <ul class="nav navbar-nav navbar-right">
+		        	{{#if currentUser}}
+		            	{{#if create}}
+		            		 <li><a href="{{pathForLiveWebsite}}" target="_blank">Live Website</a></li>
+		            		<li><a href="{{pathFor 'app'}}">Dashboard</a></li>
+							{{>selectStyle}}
+						{{/if}}
+					{{/if}}
+		            
+		            {{> loginButtons }}
+		        </ul>
+		    </div>
+		</div>
+		<!-- {{#if create}}
+			<ul class="sectionsbar">
+			  <li><a href="#" class="complete">header image</a></li>
+			  <li><a href="#" class="complete">headline</a></li>
+			  <li><a href="#" class="complete">introduction</a></li>
+			  <li><a href="#" class="complete">gallery</a></li>
+			  <li><a href="#">email</a></li>
+			  <li><a href="#" class="active">text paragraphs</a></li>
+			  <li><a href="#">location</a></li>
+			  <li><a href="#">phone number</a></li>
+			  <li><a href="#">opening hours</a></li>
+			  <li><a href="#">social links</a></li>
+			  <li><a href="#">products</a></li>
+			  <li><a href="#">video</a></li>
+			  <li><a href="#">team members</a></li>
+			  <li><a href="#">slideshow</a></li>
+			</ul>
+		{{/if}} -->
+	</nav>
 </template>
 
 <template name="app">
