@@ -737,11 +737,11 @@ Template.layout.helpers({
     }
 });
 
-Template.app.helpers({
-    version: function () {
-        return Session.get('version');;
-    }
-});
+// Template.app.helpers({
+//     version: function () {
+//         return Session.get('version');;
+//     }
+// });
 
 var checkFields = function ( event ) {
     var value = $(event.target).val(),

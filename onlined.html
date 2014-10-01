@@ -6,24 +6,59 @@
 </head>
 
 <template name="layout">
-	{{#if isNotLiveWebsite}}
-		{{> yield "menu"}}
-	{{/if}}
-
+	{{> yield "menu"}}
+	
 	{{> yield}}
+
+	{{> version}}
 </template>
 
-<template name="menu">
+<!-- <template name="app">
+	{{#if currentUser}}
+		{{>dashboard}}
+	{{else}}
+		{{>home}}
+	{{/if}}
+</template>
+ -->
+<template name="version">
+	<div class="container-fluid text-center">VERSION {{version}}</div>
+</template>
+
+<template name="notFound">
+	not found
+</template>
+
+<template name="loading">
+	<div class="container-fluid text-center">
+		<h3>GETTING ONLINED ...</h3>	
+	</div>
+</template>
+
+<template name="login">
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="logoDot pulseEffect"></div>
-			<a class="navBrand" href="{{pathFor 'app'}}">{{onlinedTitle}}</a>
+			<a class="navBrand" href="{{pathFor 'home'}}">{{onlinedTitle}}</a>
+			<div class="collapse navbar-collapse">
+		        <ul class="nav navbar-nav navbar-right">{{> loginButtons }}</ul>
+		    </div>
+		</div>
+	</nav>
+</template>
+
+<template name="home">
+	<!-- {{#contentFor "menu"}}
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="logoDot pulseEffect"></div>
+			<a class="navBrand" href="{{pathFor 'home'}}">{{onlinedTitle}}</a>
 			<div class="collapse navbar-collapse">
 		        <ul class="nav navbar-nav navbar-right">
 		        	{{#if currentUser}}
 		            	{{#if create}}
 		            		 <li><a href="{{pathForLiveWebsite}}" target="_blank">Live Website</a></li>
-		            		<li><a href="{{pathFor 'app'}}">Dashboard</a></li>
+		            		<li><a href="{{pathFor 'home'}}">Dashboard</a></li>
 							{{>selectStyle}}
 						{{/if}}
 					{{/if}}
@@ -32,7 +67,7 @@
 		        </ul>
 		    </div>
 		</div>
-		<!-- {{#if create}}
+		{{#if create}}
 			<ul class="sectionsbar">
 			  <li><a href="#" class="complete">header image</a></li>
 			  <li><a href="#" class="complete">headline</a></li>
@@ -49,30 +84,11 @@
 			  <li><a href="#">team members</a></li>
 			  <li><a href="#">slideshow</a></li>
 			</ul>
-		{{/if}} -->
+		{{/if}}
 	</nav>
-</template>
+	{{/contentFor}} -->
 
-<template name="app">
-	{{#if currentUser}}
-		{{>dashboard}}
-	{{else}}
-		{{>home}}
-	{{/if}}
-	<div class="container-fluid text-center">VERSION {{version}}</div>
-</template>
 
-<template name="notFound">
-	not found
-</template>
-
-<template name="loading">
-	<div class="container-fluid text-center">
-		<h3>GETTING ONLINED ...</h3>	
-	</div>
-</template>
-
-<template name="home">
 	<div class="container-fluid home">
 		<div class="row">
 			<div class="col-md-12 stream">

@@ -1,3 +1,12 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic);
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic);
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700italic);
+@import url(http://fonts.googleapis.com/css?family=Allura);
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,700,300);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,500italic);
+@import url(http://fonts.googleapis.com/css?family=Amatic+SC);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
+
 ::-webkit-input-placeholder { /* WebKit browsers */
     color:    white;
     opacity:  0.5;
@@ -987,24 +996,10 @@ ul.imageGallery2 li {
 
 /*======================================================IMAGES FOR ROLLOVER start*/
 
-.effects {
-  /*padding-left: 15px;*/
-}
 .effects .img {
   position: relative;
-  /*float: left;*/
-  /*margin-bottom: 5px;*/
   overflow: hidden;
 }
-/*.effects .img:nth-child(n) {
-  margin-right: 5px;
-}
-.effects .img:first-child {
-  margin-left: -15px;
-}
-.effects .img:last-child {
-  margin-right: 0;
-}*/
 .effects .img img {
   display: block;
   margin-left: auto;
@@ -1292,10 +1287,6 @@ STARRY
 
 */
 
-@import url(http://fonts.googleapis.com/css?family=Amatic+SC);
-@import url(http://fonts.googleapis.com/css?family=PT+Sans);
-
-
 .starry.createcontent {
   padding-top: 50px;
   font-size: 16px;
@@ -1455,11 +1446,7 @@ INTENSE
 
 */
 
-@import url(http://fonts.googleapis.com/css?family=Oswald:400,700,300);
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,500italic);
-
-
-.intense.createcontent {
+createco.intense.ntent {
   font-size: 16px;
   line-height: 1.5;
   font-family: 'Roboto', sans-serif;
@@ -1609,10 +1596,6 @@ ELEGANT
 
 */
 
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700italic);
-@import url(http://fonts.googleapis.com/css?family=Allura);
-
-
 .elegant.createcontent {
   font-size: 16px;
   line-height: 1.5;
@@ -1759,9 +1742,6 @@ ELEGANT
 AIRY
 
 */
-
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic);
-@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic);
 
 
 .airy.createcontent {
