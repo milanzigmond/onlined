@@ -612,9 +612,6 @@ Template.create.helpers({
         var str = this.css;
         return str.substring(4, str.length - 4);
     },
-    editing_website: function () {
-        return Websites.findOne(Session.get('editing_website'));
-    },
     goHome: function () {
         Router.go('/');
     },
@@ -684,13 +681,6 @@ Template.website.helpers({
     style: function () {
         var str = this.css;
         return str.substring(4, str.length - 4);
-    },
-    live_website: function () {
-        var routeName = Router.current().route.name,
-            websiteNameFull = Router.current().path,    
-            websiteName = websiteNameFull.substring(1, websiteNameFull.length),
-            websiteData = Websites.findOne({sitename:websiteName});
-        return websiteData;
     },
     email: function () {
         return getUserEmail();
@@ -808,25 +798,28 @@ Template.selectStyle.rendered = function () {
 
 if (Meteor.isServer) {
 
-//  Accounts.config({
-//     sendVerificationEmail: true, 
-//     forbidClientAccountCreation: false
-// });
-
-   ServiceConfiguration.configurations.remove({
-    service: "facebook"
+    ServiceConfiguration.configurations.remove({
+        service: "facebook"
     });
-   ServiceConfiguration.configurations.insert({
-    service: "facebook",
-    appId: "636768589764143",
-    secret: "08df277b0663b6beb93f7795843b98f7"
-});
+    ServiceConfiguration.configurations.insert({
+        service: "facebook",
+        appId: "636768589764143",
+        secret: "08df277b0663b6beb93f7795843b98f7"
+    });
 
-   Meteor.publish('allUsers', function () {
-    return Meteor.users.find();
-});
+    Meteor.publish('allUsers', function () {
+        return Meteor.users.find();
+    });
 
-   Meteor.publish('allWebsites', function () {
-    return Websites.find();
-});
+    Meteor.publish('allWebsites', function () {
+        return Websites.find();
+    });
+
+    Meteor.publish('editWebsite', function (id) {
+        return Websites.find({_id:id});
+    });
+
+    Meteor.publish('liveWebsite', function (sitename) {
+        return Websites.find({sitename:sitename});
+    });
 }

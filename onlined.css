@@ -382,6 +382,7 @@ ul {
 }
 
 .logoDot {
+  background-color: #89b504;
   width: 15px;
   height: 15px;
   position: absolute;
