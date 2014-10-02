@@ -14,6 +14,7 @@ if (Meteor.isClient) {
         ]);
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
+    Session.setDefault('hidingNavbar', null);
     Session.set('version', '0.1.0');
 
     if (Accounts._resetPasswordToken) {
@@ -756,30 +757,41 @@ var checkDuplicity = function ( event ) {
     return true;
 }
 
+var autohideNavbar = function () {
+    $("nav.navbar-fixed-top").autoHidingNavbar({'animationDuration' : 300});
+}
+
+var destroyNavbar = function () {
+    console.log('destroyNavbar');
+    $("nav.navbar-fixed-top").autoHidingNavbar('destroy');
+}
+
 Template.dashboard.rendered = function () {
+    window.scrollTo(0, 0);
     $('.editRow').slideUp(0);
-};
-
-Template.login.rendered = function () {
-    $("nav.navbar-fixed-top").autoHidingNavbar({
-        'animationDuration' : 300
-    });
-};
-
-Template.createMenu.rendered = function () {
-    $("nav.navbar-fixed-top").autoHidingNavbar({
-        'animationDuration' : 300
-    });
+    autohideNavbar();
 };
 
 Template.website.rendered = function () {
+    window.scrollTo(0, 0);
     var website = this.data;
     showMap(website); 
 };
 
 Template.create.rendered = function () {
+    window.scrollTo(0, 0);
     setupMap();
+    autohideNavbar();
 };
+
+Template.dashboard.destroyed = function () {
+    destroyNavbar();
+};
+
+Template.create.destroyed = function () {
+    destroyNavbar();
+};
+
 
 Template.selectStyle.rendered = function () {
     var themes = Session.get('themes');
