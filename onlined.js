@@ -289,7 +289,6 @@ var setupMap = function () {
         if (!place.geometry) {
             return;
         }
-
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
         } else {
@@ -303,21 +302,57 @@ var setupMap = function () {
             'content.address': place.formatted_address,
             'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}
         }
-});
+        });
 
-marker.setIcon(/** @type {google.maps.Icon} */({
-    url: place.icon,
-    size: new google.maps.Size(71, 71),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(17, 34),
-    scaledSize: new google.maps.Size(35, 35)
-}));
-marker.setPosition(place.geometry.location);
-marker.setVisible(true);
+        marker.setIcon(({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
 
-infowindow.setContent('<div><strong>' + place.name + '</strong>');
-infowindow.open(map, marker);
-});
+        infowindow.setContent('<div><strong>' + place.name + '</strong>');
+        infowindow.open(map, marker);
+    });
+};
+
+var showMap = function (website) {
+    var address = website.content.address,
+        latLng = website.content.latLng,
+        mapOptions = {
+            scrollwheel: false,
+            center: new google.maps.LatLng(latLng.lat, latLng.lng),
+            zoom: 13
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions),
+
+        infowindow = new google.maps.InfoWindow(),
+        marker = new google.maps.Marker({
+            map: map,
+            anchorPoint: new google.maps.Point(0, -29)
+        });
+    
+    infowindow.close();
+    marker.setVisible(false);
+
+    map.setCenter(latLng);
+    map.setZoom(17);
+    
+    marker.setIcon(({
+        url: "logo.png",
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(35, 35)
+    }));
+    marker.setPosition(latLng);
+    marker.setVisible(true);
+
+    infowindow.setContent('<div><strong>' + address + '</strong>');
+    infowindow.open(map, marker);
 };
 
 var saveFile = function ( event, file) { 
@@ -720,18 +755,15 @@ Template.layout.helpers({
     isNotLiveWebsite: function () {
         if(!Router.current()) return;
         return (Router.current().path === '/' || Router.current().path === '/create');
-    },
+    }
+});
+
+Template.createMenu.helpers({
     pathForLiveWebsite: function () {
         var website = Websites.findOne(Session.get('editing_website'));
         return '/' + website.sitename;
     }
 });
-
-// Template.app.helpers({
-//     version: function () {
-//         return Session.get('version');;
-//     }
-// });
 
 var checkFields = function ( event ) {
     var value = $(event.target).val(),
@@ -753,12 +785,6 @@ var checkDuplicity = function ( event ) {
     return true;
 }
 
-Template.layout.events({
-    'click .fancybox': function (e,t) {
-        $('.fancybox').fancybox();
-    }
-});
-
 Template.dashboard.rendered = function () {
     $('.editRow').slideUp(0);
 };
@@ -770,12 +796,8 @@ Template.layout.rendered = function () {
 };
 
 Template.website.rendered = function () {
-    setupMap(); 
-
-// if (Meteor.user() && Session.get('editing_website')) {
-//   Session.set('editing_website', null);  
-//   $(".modal").modal('show');
-// };
+    var website = this.data;
+    showMap(website); 
 };
 
 Template.create.rendered = function () {

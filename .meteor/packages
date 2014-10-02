@@ -7,11 +7,9 @@ insecure
 accounts-base
 accounts-password
 mrt:moment
-mrt:fancybox
 less
 accounts-facebook
 service-configuration
 ian:bootstrap-3
 ian:accounts-ui-bootstrap-3
 iron:router@=1.0.0-pre2
-
