@@ -14,7 +14,6 @@ if (Meteor.isClient) {
         ]);
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
-    Session.setDefault('slider', null);
     Session.set('version', '0.1.0');
 
     if (Accounts._resetPasswordToken) {
@@ -41,37 +40,6 @@ if (Meteor.isClient) {
 if(!str) return;
 return str.toUpperCase();
 });
-
-// SLIDER START
-
-var slider;
-
-function Slider ( container, nav ) {
-    this.container = container;
-    this.nav = nav;
-    this.imgs = this.container.find('img');
-    this.imgWidth = this.imgs[0].width;
-    this.imgsLen = this.imgs.length;
-
-    this.current = 0;
-};
-
-Slider.prototype.transition = function(coords) {
-    this.container.animate({
-        'margin-left': coords || -(this.current * this.imgWidth)
-    });
-};
-
-Slider.prototype.setCurrent = function(dir) {
-    var pos = this.current;
-
-    pos += ( ~~( dir == 'next') || -1); // add or subtract 1
-    this.current = (pos < 0) ? this.imgsLen - 1 : pos % this.imgsLen;
-
-    return pos;
-};
-
-// SLIDER END
 
 ////////// Helpers for in-place editing //////////
 var makeEditable = function (event, template) {
@@ -183,12 +151,6 @@ var createDefaultWebsite = function ( sitename ) {
             paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
             logo: "draglogo.jpg",
             topImage: "topImage.jpg",
-            sliderImages: [ 
-            {position: 0, src:"sliderImage01.jpg"}, 
-            {position: 1, src:"sliderImage02.jpg"},
-            {position: 2, src:"sliderImage03.jpg"},
-            {position: 3, src:"sliderImage04.jpg"}
-            ], 
             galleryImages: [
             {position: 0, src:"family01.jpg", small:"family01small.jpg"},
             {position: 1, src:"family02.jpg", small:"family02small.jpg"},
@@ -360,8 +322,7 @@ var saveFile = function ( id, file) {
 
     reader.to = id;
     reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
-    reader.slider = (id.toLowerCase().indexOf("slider") >= 0) ? true : false;
-    if(reader.gallery || reader.slider) {
+    if(reader.gallery) {
         reader.to = id.slice(0,-1);
         reader.position = id.slice(-1);
     }
@@ -371,7 +332,7 @@ var saveFile = function ( id, file) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
 
-        if (this.gallery || this.slider)
+        if (this.gallery)
         {
             //it is a gallery image, get a position from id
             setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
@@ -487,13 +448,6 @@ Template.create.events({
         var id = event.target.parentElement.id;
         var file = event.target.files[0];
         saveFile(id, file);
-    }, 
-    'click #sliderGalleryNav img' : function ( event, template ) {
-        preventActionsForEvent( event );
-        // console.log('slider:'+slider +', current: '+$(event.target).data('dir'));
-        if(!slider) slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-        slider.setCurrent( $(event.target).data('dir') );
-        slider.transition();
     }
 });
 
@@ -664,9 +618,6 @@ Template.create.helpers({
     galleryImages: function () {
         return this.content.galleryImages;
     },
-    sliderImages: function () {
-        return this.content.sliderImages;
-    },
     highlightImages: function () {
         return this.content.highlightImages;
     }
@@ -758,9 +709,6 @@ Template.website.helpers({
     },
     galleryImages: function () {
         return this.content.galleryImages;
-    },
-    sliderImages: function () {
-        return this.content.sliderImages;
     }
 });
 
@@ -831,8 +779,6 @@ Template.website.rendered = function () {
 
 Template.create.rendered = function () {
     setupMap();
-    // slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-    // console.log('slider created: '+slider);
 };
 
 Template.selectStyle.rendered = function () {
