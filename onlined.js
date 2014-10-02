@@ -305,7 +305,7 @@ var setupMap = function () {
         });
 
         marker.setIcon(({
-            url: place.icon,
+            url: 'logo.png',
             size: new google.maps.Size(71, 71),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
@@ -381,7 +381,13 @@ var saveFile = function ( id, file) {
             setModifier.$set['content.'+this.to ] = event.target.result;
          }
 
-        Websites.update({_id:websiteId}, setModifier);
+        Websites.update({_id:websiteId}, setModifier, function (error, numOfAffectedDocs) {
+            if(error){
+                console.log('error:'+error);
+            } else {
+                console.log('numOfAffectedDocs:'+numOfAffectedDocs);
+            }
+        });
     };
 
     reader.readAsDataURL(file);
@@ -717,6 +723,31 @@ Template.selectStyle.events({
     }
 });
 
+Template.version.helpers({
+    version: function () {
+        return Session.get('version');
+    }
+});
+
+Template.login.helpers({
+    onlinedTitle: function () {
+        return "ONLINED.AT";
+    }
+});
+
+Template.createMenu.helpers({
+    onlinedTitle: function () {
+
+        var o = "ONLINED.AT",
+        w = Websites.findOne(this.id);
+
+        if (Router.current().path === '/create' && w.sitename)
+            return o + '/' + w.sitename.toUpperCase();
+        else 
+            return o;
+    }
+});
+
 Template.website.helpers({
     style: function () {
         var str = this.css;
@@ -734,19 +765,6 @@ Template.website.helpers({
 });
 
 Template.layout.helpers({
-    onlinedTitle: function () {
-        if (!Router.current()) return;
-
-        var o = "ONLINED.AT",
-        id = Session.get('editing_website'),
-        w = Websites.findOne(id);
-
-        if (w && Router.current().path === '/create' && w.sitename)
-            return o + '/' + w.sitename.toUpperCase();
-            // return o + w.sitename.toUpperCase();
-        else 
-            return o;
-    },
     alert: function () {
         console.log('logging from helpers alertMessage: '+ Session.get('alertMessage'));
         return Session.get("alertMessage");
@@ -794,7 +812,13 @@ Template.dashboard.rendered = function () {
     $('.editRow').slideUp(0);
 };
 
-Template.layout.rendered = function () {
+Template.login.rendered = function () {
+    $("nav.navbar-fixed-top").autoHidingNavbar({
+        'animationDuration' : 300
+    });
+};
+
+Template.createMenu.rendered = function () {
     $("nav.navbar-fixed-top").autoHidingNavbar({
         'animationDuration' : 300
     });
