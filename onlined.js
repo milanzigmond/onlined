@@ -355,11 +355,8 @@ var showMap = function (website) {
     infowindow.open(map, marker);
 };
 
-var saveFile = function ( event, file) { 
+var saveFile = function ( id, file) { 
     reader = new FileReader(),
-
-    // id = event.target.id;
-    id = event.target.parentElement.id;
 
     reader.to = id;
     reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
@@ -463,13 +460,17 @@ Template.create.events({
     'dragover' : function ( event, template ) { 
         preventActionsForEvent(event); 
     },
-    'drop' : function ( event, template ) { 
-        preventActionsForEvent(event); 
-    },
-    'drop .overlay' : function ( event, template ) {
+    // 'drop div' : function ( event, template ) { 
+    //     preventActionsForEvent(event); 
+    // },
+    'drop .effects' : function ( event, template ) {
         preventActionsForEvent(event);
+        var id = event.target.parentElement.id;
+        if(!id) id = event.target.parentElement.parentElement.id;
+
+        console.log('dropped file on id:'+id);
         var file = event.originalEvent.dataTransfer.files[0];
-        saveFile(event, file);
+        saveFile(id, file);
     },
     'click .overlay' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -477,8 +478,9 @@ Template.create.events({
     },
     'change input[type=file]' : function ( event, template ) {
         preventActionsForEvent( event );
+        var id = event.target.parentElement.id;
         var file = event.target.files[0];
-        saveFile(event, file);
+        saveFile(id, file);
     }, 
     'click #sliderGalleryNav img' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -643,6 +645,9 @@ Template.home.events({
 });
 
 Template.create.helpers({
+    editImageText: function () {
+        return "click or drag&drop";
+    },
     style: function () {
         var str = this.css;
         return str.substring(4, str.length - 4);

@@ -1009,12 +1009,15 @@ ul.imageGallery2 li {
   max-width: 100%;
   height: auto;
 }
+.effects {
+  z-index: 20;
+}
+
 .overlay {
   margin-left: auto;
   margin-right: auto;
   display: block;
   position: absolute;
-  z-index: 20;
   background: rgba(137, 181, 4, 0.8);
   overflow: hidden;
   transition: all 0.3s;
@@ -1023,10 +1026,11 @@ ul.imageGallery2 li {
 a.expand {
   display: block;
   position: absolute;
-  z-index: 100;
+  /*z-index: 100;*/
   width: 180px;
   height: 60px;
   text-align: center;
+  vertical-align: center;
   color: #fff;
   line-height: 32px;
   font-weight: 700;
