@@ -428,13 +428,12 @@ Template.create.events({
     'dragover' : function ( event, template ) { 
         preventActionsForEvent(event); 
     },
-    // 'drop div' : function ( event, template ) { 
-    //     preventActionsForEvent(event); 
-    // },
-    'drop .effects' : function ( event, template ) {
+    'drop' : function ( event, template ) { 
+        preventActionsForEvent(event); 
+    },
+    'drop .overlay' : function ( event, template ) {
         preventActionsForEvent(event);
-        var id = event.target.parentElement.id;
-        if(!id) id = event.target.parentElement.parentElement.id;
+        id = event.target.parentElement.id;
 
         console.log('dropped file on id:'+id);
         var file = event.originalEvent.dataTransfer.files[0];
