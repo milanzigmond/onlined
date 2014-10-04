@@ -15,7 +15,7 @@ if (Meteor.isClient) {
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
     Session.setDefault('hidingNavbar', null);
-    Session.set('version', '0.1.0');
+    Session.set('version', '0.1.1');
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -66,9 +66,9 @@ var makeEditable = function (event, template) {
         if (contentId === "address") {
             $(event.target.nextElementSibling).toggle();
         } else {
-            input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="" value="'+textContent+'"/>';
+            input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" value="'+textContent+'"/>';
+
             $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
-        // $( event.target ).before(input);
         }
     
         $( event.target ).hide();
@@ -90,7 +90,7 @@ var makeEditable = function (event, template) {
         var website = Websites.findOne(Session.get('editing_website'));
         var id = event.target.parentElement.id;
 
-        input = '<input id="input" class="textInput" type="text" placeholder="" value="'+website.content[id]+'"/>';
+        input = '<input id="input" class="textInput" type="text" placeholder="your '+ parent.id + ' url here" value="'+website.content[id]+'"/>';
         
         $( event.target ).before(input);
         $( event.target ).hide();
@@ -188,10 +188,10 @@ var createDefaultWebsite = function ( sitename ) {
             fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4", fourthTeamMemberImage: "draglogo.jpg",
             address: "Krizikova 52, Praha 8, Czech Republic",
             latLng: {lat:50.092547, lng:14.45133999999996},
-            twitter: "farklegame",
-            youtube: "Getsomeheadspace",
-            facebook: "jano.ferenc.5",
-            instagram: "kettyinverted"
+            twitter: "",
+            youtube: "",
+            facebook: "",
+            instagram: ""
         }
     });
 Session.set('editing_website', website_id);
@@ -620,6 +620,22 @@ Template.create.helpers({
     },
     highlightImages: function () {
         return this.content.highlightImages;
+    },
+    twitterOpacity: function () {
+        var opacity = (this.content.twitter === "") ? "0.3" : "1";
+        return opacity;
+    },
+    youtubeOpacity: function () {
+        var opacity = (this.content.youtube === "") ? "0.3" : "1";
+        return opacity;
+    },
+    facebookOpacity: function () {
+        var opacity = (this.content.facebook === "") ? "0.3" : "1";
+        return opacity;
+    },
+    instagramOpacity: function () {
+        var opacity = (this.content.instagram === "") ? "0.3" : "1";
+        return opacity;
     }
 });
 

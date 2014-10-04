@@ -22,9 +22,9 @@
 </template>
 
 <template name="loading">
-	<!-- <div class="container-fluid text-center">
-		<>GETTING ONLINED ...</h3>	
-	</div> -->
+	<div class="container-fluid text-center">
+		<h3>GETTING ONLINED ...</h3>	
+	</div>
 </template>
 
 <template name="login">
@@ -663,16 +663,40 @@
 
 				<div class="row links">
 					<div class="col-xs-6 col-md-3">
-						<img class="link" src="ic_twitterW.png" alt="">
+						{{#if content.twitter}}
+							<a href="{{content.twitter}}" target="_blank">
+								<img class="link" src="ic_twitterW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_twitterW.png" alt="">
+						{{/if}}
 					</div>
 					<div class="col-xs-6 col-md-3">
-						<img class="link" src="ic_youtubeW.png" alt="">
+						{{#if content.youtube}}
+							<a href="{{content.youtube}}" target="_blank">
+								<img class="link" src="ic_youtubeW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_youtubeW.png" alt="">
+						{{/if}}
 					</div>
 					<div class="col-xs-6 col-md-3">
-						<img class="link" src="ic_facebookW.png" alt="">
+						{{#if content.facebook}}
+							<a href="{{content.facebook}}" target="_blank">
+								<img class="link" src="ic_facebookW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_facebookW.png" alt="">
+						{{/if}}
 					</div>
 					<div class="col-xs-6 col-md-3">
-						<img class="link" src="ic_instagramW.png" alt="">
+						{{#if content.instagram}}
+							<a href="{{content.instagram}}" target="_blank">
+								<img class="link" src="ic_instagramW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_instagramW.png" alt="">
+						{{/if}}
 					</div>
 				</div>
 			</div>
