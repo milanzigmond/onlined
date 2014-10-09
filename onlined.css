@@ -657,18 +657,18 @@ body {
 }
 
 .editable {
-  transition: all 0.3s ease-in-out;
+  /*transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;*/
 }
 
 .editable:hover {
   color: #fff;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  background: #89b504;
+/*  padding-top: 3px;
+  padding-bottom: 3px;
+*/  background: #89b504;
   opacity: 0.6;
 }
 
@@ -690,6 +690,7 @@ body {
   width:100%;
   text-align: center;
   font-family: "Cantarell", sans-serif;
+  font-size: 20px;
 }
 
 .uppercase {
@@ -862,7 +863,7 @@ ul.imageGallery2 li {
 .obrazek {
   height: 260px;
   background-position: center;
-  background-size: 100%;
+  background-size: 150%;
   /*width:25%;*/
 }
 

@@ -7,10 +7,10 @@ Router.configure({
 Router.route('/', {
 	name: 'dashboard',
 	waitOn: function () {
-		return Meteor.subscribe('allWebsites');
+		return Meteor.subscribe('stream', 2);
 	},
 	data: function () {
-	    return Websites.find();
+	    // return Websites.find();
 	},
 	action: function () {
 		if (!Meteor.user()) {
@@ -18,6 +18,8 @@ Router.route('/', {
 		} else {
 			this.render('dashboard');
 		}
+		// this.render('menu', {to: 'menu'});
+		// this.render('login', {to: 'menuItems'});
 		this.render('login', {to: 'menu'});
     	this.render('version', {to: 'version'});	
 	}
@@ -40,7 +42,9 @@ Router.route('/create', {
 	},
 	action: function () {
 		this.render('create');
-		this.render('createMenu', {to: 'menu'});
+		// this.render('menu', {to: 'menu'});
+		// this.render('createMenu', {to: 'menuItems'});
+		this.render('createMenu', {to:'menu'});
 	}
 });
 

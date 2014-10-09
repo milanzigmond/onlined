@@ -15,7 +15,7 @@ if (Meteor.isClient) {
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
     Session.setDefault('hidingNavbar', null);
-    Session.set('version', '0.1.1');
+    Session.set('version', '0.1.2');
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -378,12 +378,10 @@ Template.create.events({
     },
     'keyup #input' : function( event, template ) {
         if (event.which === 27) {
-            // escape pressed
             preventActionsForEvent(event);
             $(event.target).blur();
         }
         if (event.which === 13) {
-            // enter pressed
             preventActionsForEvent(event);
 
             var websiteId = Session.get('editing_website'),
@@ -397,21 +395,49 @@ Template.create.events({
             $(event.target).blur();
         }
     },
+    'keydown #input' : function ( event, template ) {
+        console.log('keydown');
+
+        if ( checkInputField( event ) ) {
+            event.target.removeClass( "invalid" ).addClass( "valid" );
+        } else {
+            event.target.removeClass( "valid" ).addClass( "invalid" );
+        }
+        debugger
+    },
+
+
+    //  'focusout .textInput' : function ( event, template ) {
+    //     var parent = $(event.target).parent();
+    //     parent.addClass( 'pulseEffect');
+    //     blurCreateWebsiteInput();
+    //     parent.removeClass( "invalid" ).addClass( "valid" );
+    // },
+    // 'keydown .textInput' : function ( event, template ) {
+    //     var parent = $(event.target).parent();
+
+    //     if ( checkSitename( event ) && checkDuplicity ( event ) ) {
+    //         parent.removeClass( "invalid" ).addClass( "valid" );
+    //     } else {
+    //         parent.removeClass( "valid" ).addClass( "invalid" );
+    //     }
+    // },
+
+
     'focusout #input' : function ( event, template ) {
         preventActionsForEvent(event);
         var parent = event.target.parentElement,
         sibling = parent.nextSibling,
         social = ['twitter', 'youtube', 'facebook', 'instagram'];
 
-
         if(parent.id === "address") {
             sibling = parent.previousElementSibling;
-            $(parent).toggle();
+            // $(parent).toggle();2
         } else if (_.contains(social, parent.id) ) {
             sibling = event.target.nextElementSibling; 
-            $(event.target).remove();
+            // $(event.target).remove();
         } else {    
-            $(parent).remove(); // calls focusout event 
+            // $(parent).remove(); // calls focusout event 
         }
 
         Session.set('editing_field', null);
@@ -494,7 +520,7 @@ Template.dashboard.events({
     'keydown .textInput' : function ( event, template ) {
         var parent = $(event.target).parent();
 
-        if ( checkFields( event ) && checkDuplicity ( event ) ) {
+        if ( checkSitename( event ) && checkDuplicity ( event ) ) {
             parent.removeClass( "invalid" ).addClass( "valid" );
         } else {
             parent.removeClass( "valid" ).addClass( "invalid" );
@@ -506,19 +532,14 @@ Template.dashboard.events({
             sitename = $('.textInput').val(),
             value = input.val();
 
-        if ( checkFields( event ) && checkDuplicity ( event ) ) {
+        if ( checkSitename( event ) && checkDuplicity ( event ) ) {
             parent.removeClass( "invalid" ).addClass( "valid" );
         } else {
             parent.removeClass( "valid" ).addClass( "invalid" );
         }
-        // if( value.length > 3 && value.indexOf(' ') < 0) {
-        //     parent.removeClass("invalid").addClass("valid");
-        // } else {
-        //     parent.removeClass("valid").addClass("invalid");
-        // }
 
         if (event.which === 13) {
-            if ( checkFields( event ) && checkDuplicity ( event ) ) {
+            if ( checkSitename( event ) && checkDuplicity ( event ) ) {
                 if(Meteor.user()) {
                     blurCreateWebsiteInput();
                     createDefaultWebsite(sitename);
@@ -643,7 +664,7 @@ Template.home.helpers({
     numberOfWebsites: function () {
         return Websites.find().count();
     },
-    websites: function () {
+    website: function () {
         return Websites.find({},{sort: {createdAt: -1}});
     }
 });
@@ -651,13 +672,13 @@ Template.home.helpers({
 Template.dashboard.helpers({
     numberOfWebsites: function () {
         return Websites.find().count();
-    },
-    websites: function () {
-        return Websites.find({},{sort: {createdAt: -1}});
-    },
-    myWebsites: function () {
-        return Websites.find({userId:Meteor.userId()},{sort: {createdAt: -1}});
     }
+    // website: function () {
+    //     return Websites.find({},{sitename:1, createdAt:1, sort: {createdAt: -1}});
+    // },
+    // myWebsites: function () {
+    //     // return Websites.find({userId:Meteor.userId()},{sort: {createdAt: -1}});
+    // }
 });
 
 Template.selectStyle.helpers({
@@ -706,9 +727,9 @@ Template.createMenu.helpers({
     onlinedTitle: function () {
 
         var o = "ONLINED.AT",
-        w = Websites.findOne(this.id);
-
-        if (Router.current().path === '/create' && w.sitename)
+            w = Websites.findOne(this._id);
+        
+        if (w.sitename)
             return o + '/' + w.sitename.toUpperCase();
         else 
             return o;
@@ -752,12 +773,26 @@ Template.createMenu.helpers({
     }
 });
 
-var checkFields = function ( event ) {
+var checkSitename = function ( event ) {
     var value = $(event.target).val(),
         allowedChars = new RegExp("^[a-zA-Z0-9\-]+$");
 
     if (allowedChars.test(value)) {
         if (value.length < 3) {
+            return false;
+        };
+        return true;
+    };
+    return false;
+}
+
+
+var checkInputField = function ( event ) {
+    var value = $(event.target).val(),
+        allowedChars = new RegExp("^[a-zA-Z0-9\-]+$");
+
+    if (allowedChars.test(value)) {
+        if (value.length < 1) {
             return false;
         };
         return true;
@@ -777,7 +812,6 @@ var autohideNavbar = function () {
 }
 
 var destroyNavbar = function () {
-    console.log('destroyNavbar');
     $("nav.navbar-fixed-top").autoHidingNavbar('destroy');
 }
 
@@ -837,6 +871,16 @@ if (Meteor.isServer) {
 
     Meteor.publish('allWebsites', function () {
         return Websites.find();
+    });
+
+    Meteor.publish('stream', function (limit) {
+        check(limit, Number);
+        return Websites.find({},{sitename:1, createdAt:1});
+    });
+
+    Meteor.publish('myWebsites', function (userId, limit) {
+        check(limit, Number);
+        return Websites.find({userId: userId},{sitename:1, createdAt:1});
     });
 
     Meteor.publish('editWebsite', function (id) {
