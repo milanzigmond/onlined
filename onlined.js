@@ -14,8 +14,8 @@ if (Meteor.isClient) {
         ]);
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
-    Session.setDefault('slider', null);
-    Session.set('version', '0.1.0');
+    Session.setDefault('hidingNavbar', null);
+    Session.set('version', '0.1.2');
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -42,37 +42,6 @@ if(!str) return;
 return str.toUpperCase();
 });
 
-// SLIDER START
-
-var slider;
-
-function Slider ( container, nav ) {
-    this.container = container;
-    this.nav = nav;
-    this.imgs = this.container.find('img');
-    this.imgWidth = this.imgs[0].width;
-    this.imgsLen = this.imgs.length;
-
-    this.current = 0;
-};
-
-Slider.prototype.transition = function(coords) {
-    this.container.animate({
-        'margin-left': coords || -(this.current * this.imgWidth)
-    });
-};
-
-Slider.prototype.setCurrent = function(dir) {
-    var pos = this.current;
-
-    pos += ( ~~( dir == 'next') || -1); // add or subtract 1
-    this.current = (pos < 0) ? this.imgsLen - 1 : pos % this.imgsLen;
-
-    return pos;
-};
-
-// SLIDER END
-
 ////////// Helpers for in-place editing //////////
 var makeEditable = function (event, template) {
     preventActionsForEvent(event);
@@ -97,9 +66,9 @@ var makeEditable = function (event, template) {
         if (contentId === "address") {
             $(event.target.nextElementSibling).toggle();
         } else {
-            input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="" value="'+textContent+'"/>';
+            input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" value="'+textContent+'"/>';
+
             $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
-        // $( event.target ).before(input);
         }
     
         $( event.target ).hide();
@@ -121,7 +90,7 @@ var makeEditable = function (event, template) {
         var website = Websites.findOne(Session.get('editing_website'));
         var id = event.target.parentElement.id;
 
-        input = '<input id="input" class="textInput" type="text" placeholder="" value="'+website.content[id]+'"/>';
+        input = '<input id="input" class="textInput" type="text" placeholder="your '+ parent.id + ' url here" value="'+website.content[id]+'"/>';
         
         $( event.target ).before(input);
         $( event.target ).hide();
@@ -183,12 +152,6 @@ var createDefaultWebsite = function ( sitename ) {
             paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
             logo: "draglogo.jpg",
             topImage: "topImage.jpg",
-            sliderImages: [ 
-            {position: 0, src:"sliderImage01.jpg"}, 
-            {position: 1, src:"sliderImage02.jpg"},
-            {position: 2, src:"sliderImage03.jpg"},
-            {position: 3, src:"sliderImage04.jpg"}
-            ], 
             galleryImages: [
             {position: 0, src:"family01.jpg", small:"family01small.jpg"},
             {position: 1, src:"family02.jpg", small:"family02small.jpg"},
@@ -225,10 +188,10 @@ var createDefaultWebsite = function ( sitename ) {
             fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4", fourthTeamMemberImage: "draglogo.jpg",
             address: "Krizikova 52, Praha 8, Czech Republic",
             latLng: {lat:50.092547, lng:14.45133999999996},
-            twitter: "farklegame",
-            youtube: "Getsomeheadspace",
-            facebook: "jano.ferenc.5",
-            instagram: "kettyinverted"
+            twitter: "",
+            youtube: "",
+            facebook: "",
+            instagram: ""
         }
     });
 Session.set('editing_website', website_id);
@@ -289,7 +252,6 @@ var setupMap = function () {
         if (!place.geometry) {
             return;
         }
-
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
         } else {
@@ -303,33 +265,65 @@ var setupMap = function () {
             'content.address': place.formatted_address,
             'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}
         }
-});
+        });
 
-marker.setIcon(/** @type {google.maps.Icon} */({
-    url: place.icon,
-    size: new google.maps.Size(71, 71),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(17, 34),
-    scaledSize: new google.maps.Size(35, 35)
-}));
-marker.setPosition(place.geometry.location);
-marker.setVisible(true);
+        marker.setIcon(({
+            url: 'logo.png',
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
 
-infowindow.setContent('<div><strong>' + place.name + '</strong>');
-infowindow.open(map, marker);
-});
+        infowindow.setContent('<div><strong>' + place.name + '</strong>');
+        infowindow.open(map, marker);
+    });
 };
 
-var saveFile = function ( event, file) { 
-    reader = new FileReader(),
+var showMap = function (website) {
+    var address = website.content.address,
+        latLng = website.content.latLng,
+        mapOptions = {
+            scrollwheel: false,
+            center: new google.maps.LatLng(latLng.lat, latLng.lng),
+            zoom: 13
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions),
 
-    // id = event.target.id;
-    id = event.target.parentElement.id;
+        infowindow = new google.maps.InfoWindow(),
+        marker = new google.maps.Marker({
+            map: map,
+            anchorPoint: new google.maps.Point(0, -29)
+        });
+    
+    infowindow.close();
+    marker.setVisible(false);
+
+    map.setCenter(latLng);
+    map.setZoom(17);
+    
+    marker.setIcon(({
+        url: "logo.png",
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(35, 35)
+    }));
+    marker.setPosition(latLng);
+    marker.setVisible(true);
+
+    infowindow.setContent('<div><strong>' + address + '</strong>');
+    infowindow.open(map, marker);
+};
+
+var saveFile = function ( id, file) { 
+    reader = new FileReader(),
 
     reader.to = id;
     reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
-    reader.slider = (id.toLowerCase().indexOf("slider") >= 0) ? true : false;
-    if(reader.gallery || reader.slider) {
+    if(reader.gallery) {
         reader.to = id.slice(0,-1);
         reader.position = id.slice(-1);
     }
@@ -339,7 +333,7 @@ var saveFile = function ( event, file) {
         var websiteId = Session.get('editing_website');
         var setModifier = { $set: {} };
 
-        if (this.gallery || this.slider)
+        if (this.gallery)
         {
             //it is a gallery image, get a position from id
             setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
@@ -349,7 +343,13 @@ var saveFile = function ( event, file) {
             setModifier.$set['content.'+this.to ] = event.target.result;
          }
 
-        Websites.update({_id:websiteId}, setModifier);
+        Websites.update({_id:websiteId}, setModifier, function (error, numOfAffectedDocs) {
+            if(error){
+                console.log('error:'+error);
+            } else {
+                console.log('numOfAffectedDocs:'+numOfAffectedDocs);
+            }
+        });
     };
 
     reader.readAsDataURL(file);
@@ -378,12 +378,10 @@ Template.create.events({
     },
     'keyup #input' : function( event, template ) {
         if (event.which === 27) {
-            // escape pressed
             preventActionsForEvent(event);
             $(event.target).blur();
         }
         if (event.which === 13) {
-            // enter pressed
             preventActionsForEvent(event);
 
             var websiteId = Session.get('editing_website'),
@@ -397,21 +395,49 @@ Template.create.events({
             $(event.target).blur();
         }
     },
+    'keydown #input' : function ( event, template ) {
+        console.log('keydown');
+
+        if ( checkInputField( event ) ) {
+            event.target.removeClass( "invalid" ).addClass( "valid" );
+        } else {
+            event.target.removeClass( "valid" ).addClass( "invalid" );
+        }
+        debugger
+    },
+
+
+    //  'focusout .textInput' : function ( event, template ) {
+    //     var parent = $(event.target).parent();
+    //     parent.addClass( 'pulseEffect');
+    //     blurCreateWebsiteInput();
+    //     parent.removeClass( "invalid" ).addClass( "valid" );
+    // },
+    // 'keydown .textInput' : function ( event, template ) {
+    //     var parent = $(event.target).parent();
+
+    //     if ( checkSitename( event ) && checkDuplicity ( event ) ) {
+    //         parent.removeClass( "invalid" ).addClass( "valid" );
+    //     } else {
+    //         parent.removeClass( "valid" ).addClass( "invalid" );
+    //     }
+    // },
+
+
     'focusout #input' : function ( event, template ) {
         preventActionsForEvent(event);
         var parent = event.target.parentElement,
         sibling = parent.nextSibling,
         social = ['twitter', 'youtube', 'facebook', 'instagram'];
 
-
         if(parent.id === "address") {
             sibling = parent.previousElementSibling;
-            $(parent).toggle();
+            // $(parent).toggle();2
         } else if (_.contains(social, parent.id) ) {
             sibling = event.target.nextElementSibling; 
-            $(event.target).remove();
+            // $(event.target).remove();
         } else {    
-            $(parent).remove(); // calls focusout event 
+            // $(parent).remove(); // calls focusout event 
         }
 
         Session.set('editing_field', null);
@@ -433,8 +459,11 @@ Template.create.events({
     },
     'drop .overlay' : function ( event, template ) {
         preventActionsForEvent(event);
+        id = event.target.parentElement.id;
+
+        console.log('dropped file on id:'+id);
         var file = event.originalEvent.dataTransfer.files[0];
-        saveFile(event, file);
+        saveFile(id, file);
     },
     'click .overlay' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -442,15 +471,9 @@ Template.create.events({
     },
     'change input[type=file]' : function ( event, template ) {
         preventActionsForEvent( event );
+        var id = event.target.parentElement.id;
         var file = event.target.files[0];
-        saveFile(event, file);
-    }, 
-    'click #sliderGalleryNav img' : function ( event, template ) {
-        preventActionsForEvent( event );
-        // console.log('slider:'+slider +', current: '+$(event.target).data('dir'));
-        if(!slider) slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-        slider.setCurrent( $(event.target).data('dir') );
-        slider.transition();
+        saveFile(id, file);
     }
 });
 
@@ -484,7 +507,7 @@ Template.dashboard.events({
         $(input).val("");
 
         label.fadeOut(200);
-        input.delay(250).fadeIn(200, function(){
+        input.delay(210).fadeIn(200, function(){
             this.focus();
         });
     },
@@ -497,7 +520,7 @@ Template.dashboard.events({
     'keydown .textInput' : function ( event, template ) {
         var parent = $(event.target).parent();
 
-        if ( checkFields( event ) && checkDuplicity ( event ) ) {
+        if ( checkSitename( event ) && checkDuplicity ( event ) ) {
             parent.removeClass( "invalid" ).addClass( "valid" );
         } else {
             parent.removeClass( "valid" ).addClass( "invalid" );
@@ -509,33 +532,17 @@ Template.dashboard.events({
             sitename = $('.textInput').val(),
             value = input.val();
 
-        if ( checkFields( event ) && checkDuplicity ( event ) ) {
+        if ( checkSitename( event ) && checkDuplicity ( event ) ) {
             parent.removeClass( "invalid" ).addClass( "valid" );
         } else {
             parent.removeClass( "valid" ).addClass( "invalid" );
         }
-        // if( value.length > 3 && value.indexOf(' ') < 0) {
-        //     parent.removeClass("invalid").addClass("valid");
-        // } else {
-        //     parent.removeClass("valid").addClass("invalid");
-        // }
 
         if (event.which === 13) {
-            if ( checkFields( event ) && checkDuplicity ( event ) ) {
-                if(Meteor.user()) {
-                    blurCreateWebsiteInput();
-                    createDefaultWebsite(sitename);
-                    Router.go('create');    
-                } else {
-                    var form = $('div.getStartedForm'),
-                        inputs = form.find('input'),
-                        top = form.css('top');
-                    
-                    if(top === "0px") {$('div.getStartedForm').animate({top:"50"}, 300);}
-                    if(top === "50px") {$('div.getStartedForm').animate({top:"0"}, 300);}
-
-                    $(inputs).val("");
-                }
+            if ( checkSitename( event ) && checkDuplicity ( event ) ) {
+                blurCreateWebsiteInput();
+                createDefaultWebsite(sitename);
+                Router.go('create');
             } else {
                 $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
             }
@@ -608,12 +615,12 @@ Template.home.events({
 });
 
 Template.create.helpers({
+    editImageText: function () {
+        return "click or drag&drop";
+    },
     style: function () {
         var str = this.css;
         return str.substring(4, str.length - 4);
-    },
-    editing_website: function () {
-        return Websites.findOne(Session.get('editing_website'));
     },
     goHome: function () {
         Router.go('/');
@@ -621,11 +628,24 @@ Template.create.helpers({
     galleryImages: function () {
         return this.content.galleryImages;
     },
-    sliderImages: function () {
-        return this.content.sliderImages;
-    },
     highlightImages: function () {
         return this.content.highlightImages;
+    },
+    twitterOpacity: function () {
+        var opacity = (this.content.twitter === "") ? "0.3" : "1";
+        return opacity;
+    },
+    youtubeOpacity: function () {
+        var opacity = (this.content.youtube === "") ? "0.3" : "1";
+        return opacity;
+    },
+    facebookOpacity: function () {
+        var opacity = (this.content.facebook === "") ? "0.3" : "1";
+        return opacity;
+    },
+    instagramOpacity: function () {
+        var opacity = (this.content.instagram === "") ? "0.3" : "1";
+        return opacity;
     }
 });
 
@@ -633,22 +653,12 @@ Template.home.helpers({
     numberOfWebsites: function () {
         return Websites.find().count();
     },
-    websites: function () {
+    website: function () {
         return Websites.find({},{sort: {createdAt: -1}});
     }
 });
 
-Template.dashboard.helpers({
-    numberOfWebsites: function () {
-        return Websites.find().count();
-    },
-    websites: function () {
-        return Websites.find({},{sort: {createdAt: -1}});
-    },
-    myWebsites: function () {
-        return Websites.find({userId:Meteor.userId()},{sort: {createdAt: -1}});
-    }
-});
+
 
 Template.selectStyle.helpers({
     styleOptions: function () {
@@ -680,43 +690,45 @@ Template.selectStyle.events({
     }
 });
 
+Template.version.helpers({
+    version: function () {
+        return Session.get('version');
+    }
+});
+
+Template.login.helpers({
+    onlinedTitle: function () {
+        return "ONLINED.AT";
+    }
+});
+
+Template.createMenu.helpers({
+    onlinedTitle: function () {
+
+        var o = "ONLINED.AT",
+            w = Websites.findOne(this._id);
+        
+        if (w)
+            return o + '/' + w.sitename.toUpperCase();
+        else 
+            return o;
+    }
+});
+
 Template.website.helpers({
     style: function () {
         var str = this.css;
         return str.substring(4, str.length - 4);
-    },
-    live_website: function () {
-        var routeName = Router.current().route.name,
-            websiteNameFull = Router.current().path,    
-            websiteName = websiteNameFull.substring(1, websiteNameFull.length),
-            websiteData = Websites.findOne({sitename:websiteName});
-        return websiteData;
     },
     email: function () {
         return getUserEmail();
     },
     galleryImages: function () {
         return this.content.galleryImages;
-    },
-    sliderImages: function () {
-        return this.content.sliderImages;
     }
 });
 
 Template.layout.helpers({
-    onlinedTitle: function () {
-        if (!Router.current()) return;
-
-        var o = "ONLINED.AT",
-        id = Session.get('editing_website'),
-        w = Websites.findOne(id);
-
-        if (w && Router.current().path === '/create' && w.sitename)
-            return o + '/' + w.sitename.toUpperCase();
-            // return o + w.sitename.toUpperCase();
-        else 
-            return o;
-    },
     alert: function () {
         console.log('logging from helpers alertMessage: '+ Session.get('alertMessage'));
         return Session.get("alertMessage");
@@ -730,25 +742,36 @@ Template.layout.helpers({
     isNotLiveWebsite: function () {
         if(!Router.current()) return;
         return (Router.current().path === '/' || Router.current().path === '/create');
-    },
+    }
+});
+
+Template.createMenu.helpers({
     pathForLiveWebsite: function () {
         var website = Websites.findOne(Session.get('editing_website'));
         return '/' + website.sitename;
     }
 });
 
-Template.app.helpers({
-    version: function () {
-        return Session.get('version');;
-    }
-});
-
-var checkFields = function ( event ) {
+var checkSitename = function ( event ) {
     var value = $(event.target).val(),
         allowedChars = new RegExp("^[a-zA-Z0-9\-]+$");
 
     if (allowedChars.test(value)) {
         if (value.length < 3) {
+            return false;
+        };
+        return true;
+    };
+    return false;
+}
+
+
+var checkInputField = function ( event ) {
+    var value = $(event.target).val(),
+        allowedChars = new RegExp("^[a-zA-Z0-9\-]+$");
+
+    if (allowedChars.test(value)) {
+        if (value.length < 1) {
             return false;
         };
         return true;
@@ -763,36 +786,40 @@ var checkDuplicity = function ( event ) {
     return true;
 }
 
-Template.layout.events({
-    'click .fancybox': function (e,t) {
-        $('.fancybox').fancybox();
-    }
-});
+var autohideNavbar = function () {
+    $("nav.navbar-fixed-top").autoHidingNavbar({'animationDuration' : 300});
+}
+
+var destroyNavbar = function () {
+    $("nav.navbar-fixed-top").autoHidingNavbar('destroy');
+}
 
 Template.dashboard.rendered = function () {
+    window.scrollTo(0, 0);
     $('.editRow').slideUp(0);
-};
-
-Template.layout.rendered = function () {
-    $("nav.navbar-fixed-top").autoHidingNavbar({
-        'animationDuration' : 300
-    });
+    autohideNavbar();
 };
 
 Template.website.rendered = function () {
-    setupMap(); 
-
-// if (Meteor.user() && Session.get('editing_website')) {
-//   Session.set('editing_website', null);  
-//   $(".modal").modal('show');
-// };
+    window.scrollTo(0, 0);
+    var website = this.data;
+    showMap(website); 
 };
 
 Template.create.rendered = function () {
+    window.scrollTo(0, 0);
     setupMap();
-    // slider = new Slider( $('div.sliderGallery ul'), $('#sliderGalleryNav'));
-    // console.log('slider created: '+slider);
+    autohideNavbar();
 };
+
+Template.dashboard.destroyed = function () {
+    destroyNavbar();
+};
+
+Template.create.destroyed = function () {
+    destroyNavbar();
+};
+
 
 Template.selectStyle.rendered = function () {
     var themes = Session.get('themes');
@@ -804,29 +831,55 @@ Template.selectStyle.rendered = function () {
 
     Session.set('styleOptions', styleOptions);
 };
+
+Template.dashboard.helpers({
+    numberOfWebsites: function () {
+        return Websites.find().count();
+    },
+    website: function () {
+        return Websites.find({},{sort: {createdAt: -1}});
+    },
+    myWebsite: function () {
+        return Websites.find({userId: Meteor.userId()},{sort: {createdAt: -1}});
+    }
+});
 }
 
 if (Meteor.isServer) {
 
-//  Accounts.config({
-//     sendVerificationEmail: true, 
-//     forbidClientAccountCreation: false
-// });
-
-   ServiceConfiguration.configurations.remove({
-    service: "facebook"
+    ServiceConfiguration.configurations.remove({
+        service: "facebook"
     });
-   ServiceConfiguration.configurations.insert({
-    service: "facebook",
-    appId: "636768589764143",
-    secret: "08df277b0663b6beb93f7795843b98f7"
-});
+    ServiceConfiguration.configurations.insert({
+        service: "facebook",
+        appId: "636768589764143",
+        secret: "08df277b0663b6beb93f7795843b98f7"
+    });
 
-   Meteor.publish('allUsers', function () {
-    return Meteor.users.find();
-});
+    Meteor.publish('allUsers', function () {
+        return Meteor.users.find();
+    });
 
-   Meteor.publish('allWebsites', function () {
-    return Websites.find();
-});
+    Meteor.publish('allWebsites', function () {
+        return Websites.find();
+    });
+
+    Meteor.publish('stream', function (limit) {
+        check(limit, Number);
+        return Websites.find({},{limit:limit, fields: {sitename:1, createdAt:1, 'content.topImage':1}});
+    });
+
+    Meteor.publish('myWebsites', function (userId, limit) {
+        check(userId, String);
+        check(limit, Number);
+        return Websites.find({userId: userId},{fields: {sitename:1, createdAt:1, 'content.topImage':1}});
+    });
+
+    Meteor.publish('editWebsite', function (id) {
+        return Websites.find({_id:id});
+    });
+
+    Meteor.publish('liveWebsite', function (sitename) {
+        return Websites.find({sitename:sitename});
+    });
 }

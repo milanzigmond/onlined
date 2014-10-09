@@ -5,59 +5,15 @@
 	<link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
 </head>
 
-<body>
-	{{> layout}}
-</body>
-
 <template name="layout">
-	{{#if isNotLiveWebsite}}
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container-fluid">
-				<div class="logoDot pulseEffect"></div>
-				<a class="navBrand" href="{{pathFor 'app'}}">{{onlinedTitle}}</a>
-				<div class="collapse navbar-collapse">
-			        <ul class="nav navbar-nav navbar-right">
-			        	{{#if currentUser}}
-			            	{{#if create}}
-			            		 <li><a href="{{pathForLiveWebsite}}" target="_blank">Live Website</a></li>
-			            		<li><a href="{{pathFor 'app'}}">Dashboard</a></li>
-								{{>selectStyle}}
-							{{/if}}
-						{{/if}}
-			            
-			            {{> loginButtons }}
-			        </ul>
-			    </div>
-			</div>
-			<!-- {{#if create}}
-				<ul class="sectionsbar">
-				  <li><a href="#" class="complete">header image</a></li>
-				  <li><a href="#" class="complete">headline</a></li>
-				  <li><a href="#" class="complete">introduction</a></li>
-				  <li><a href="#" class="complete">gallery</a></li>
-				  <li><a href="#">email</a></li>
-				  <li><a href="#" class="active">text paragraphs</a></li>
-				  <li><a href="#">location</a></li>
-				  <li><a href="#">phone number</a></li>
-				  <li><a href="#">opening hours</a></li>
-				  <li><a href="#">social links</a></li>
-				  <li><a href="#">products</a></li>
-				  <li><a href="#">video</a></li>
-				  <li><a href="#">team members</a></li>
-				  <li><a href="#">slideshow</a></li>
-				</ul>
-			{{/if}} -->
-		</nav>
-	{{/if}}
+	{{> yield "menu"}}
+	
 	{{> yield}}
+
+	{{> yield "version"}}
 </template>
 
-<template name="app">
-	{{#if currentUser}}
-		{{>dashboard}}
-	{{else}}
-		{{>home}}
-	{{/if}}
+<template name="version">
 	<div class="container-fluid text-center">VERSION {{version}}</div>
 </template>
 
@@ -71,6 +27,50 @@
 	</div>
 </template>
 
+<template name="login">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="logoDot pulseEffect"></div>
+			<a class="navBrand" href="{{pathFor 'dashboard'}}">{{onlinedTitle}}</a>
+			<div class="collapse navbar-collapse">
+		        <ul class="nav navbar-nav navbar-right">{{> loginButtons }}</ul>
+		    </div>
+		</div>
+	</nav>
+</template>
+
+<template name="createMenu">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="logoDot pulseEffect"></div>
+			<a class="navBrand" href="{{pathFor 'dashboard'}}">{{onlinedTitle}}</a>
+			<div class="collapse navbar-collapse">
+		        <ul class="nav navbar-nav navbar-right">
+            		<li><a href="{{pathFor 'website'}}" target="_blank">Live Website</a></li>
+            		<li><a href="{{pathFor 'dashboard'}}">Dashboard</a></li>
+					{{>selectStyle}}
+		        </ul>
+		    </div>
+		</div>
+		<!-- <ul class="sectionsbar">
+		  <li><a href="#" class="complete">header image</a></li>
+		  <li><a href="#" class="complete">headline</a></li>
+		  <li><a href="#" class="complete">introduction</a></li>
+		  <li><a href="#" class="complete">gallery</a></li>
+		  <li><a href="#">email</a></li>
+		  <li><a href="#" class="active">text paragraphs</a></li>
+		  <li><a href="#">location</a></li>
+		  <li><a href="#">phone number</a></li>
+		  <li><a href="#">opening hours</a></li>
+		  <li><a href="#">social links</a></li>
+		  <li><a href="#">products</a></li>
+		  <li><a href="#">video</a></li>
+		  <li><a href="#">team members</a></li>
+		  <li><a href="#">slideshow</a></li>
+		</ul> -->
+	</nav>
+</template>
+
 <template name="home">
 	<div class="container-fluid home">
 		<div class="row">
@@ -79,7 +79,7 @@
 					<h6 class="listsorting">latest</h6>
 					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
 					<ul>
-						{{#each websites}}
+						{{#each website}}
 						<li>
 							<div class="text-center websiteListItem">
 								<div class="websiteItemContent">
@@ -107,7 +107,7 @@
 					<h6 class="listsorting">latest</h6>
 					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
 					<ul>
-						{{#each websites}}
+						{{#each website}}
 						<li>
 							<div class="text-center websiteListItem">
 								<div class="websiteItemContent">
@@ -130,7 +130,7 @@
 						<ul class="myWebsitesList">
 							<li style="cursor:default;">
 								<div id="register-sitename" class="btn firstButton pulseEffect">
-									<input class="textInput uppercase" type="text" placeholder="websitename" value="" hidden/>
+									<input class="textInput uppercase" type="text" placeholder="websitename" hidden/>
 									<span>CREATE WEBSITE</span>
 								</div>
 								<h2 class="websitesHeader">My Websites</h2>
@@ -144,7 +144,7 @@
 									</div> -->
 								</div>
 							</li>
-							{{#each myWebsites}}
+							{{#each myWebsite}}
 							<li>
 								<div class="text-center myWebsiteListItem">
 									<div class="myWebsiteItemContent">
@@ -181,16 +181,13 @@
 </template>
 
 <template name="create">
-	{{#if editing_website}}
-	{{#with editing_website}}
-
 	<div class="{{style}} createcontent">
 
 		<div id="effect-6" class="effects">
 			<div id="topImage" class="img">
-	            <img class="img img-responsive reimg" src="{{content.topImage}}" alt="">
+	            <img class="img img-responsive" src="{{content.topImage}}" alt="">
 	            <div class="overlay">
-	                <a href="#" class="expand">click or drag&drop</a>
+	                <a href="#" class="expand">{{editImageText}}</a>
 	            </div>
 	            <input type="file" class="hiddenFileInput"/>
 	        </div>
@@ -202,7 +199,9 @@
 				<h2 id="tagline" class="editable text-center">{{content.tagline}}</h2>
 			</div>
 		</div>
-			<div class="textureline"></div>
+		
+		<div class="textureline"></div>
+		
 		<div class="container">	
 			<div class="section-intro">
 				<div class="row">
@@ -210,9 +209,9 @@
 
 						<div id="effect-6" class="effects">
 							<div id="logo" class="img">
-					            <div class="rounded reimg" style="background-image: url({{content.logo}})"></div>
+					            <div class="rounded" style="background-image: url({{content.logo}})"></div>
 					            <div class="overlay rounded">
-					                <a class="expand">click or drag&drop</a>
+					                <a class="expand">{{editImageText}}</a>
 					            </div>
 					            <input type="file" class="hiddenFileInput"/>
 					        </div>
@@ -230,12 +229,11 @@
 		<div class="section-gallery">
 			<div class="row gallerydiv2">	
 				{{#each galleryImages}}
-				<!-- <a href="{{src}}" class="fancybox" rel="gallery"></a> -->
 					<div id="effect-6" class="effects">
 						<div id="galleryImages{{position}}" class="img col-lg-3 col-md-6 col-xs-12">
 				            <div class="obrazek" style="background-image: url({{src}})"></div>
 				            <div class="overlay">
-				                <a class="expand">click or drag&drop</a>
+				                <a class="expand">{{editImageText}}</a>
 				            </div>
 				            <input type="file" class="hiddenFileInput"/>
 				        </div>
@@ -287,19 +285,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- <div class="section-highlight">
-				<div id="effect-6" class="effects">
-					{{#each highlightImages}}
-						<div class="img">
-			                <img id="highlightImages{{position}}" src="{{src}}" alt="">
-			                <div class="overlay">
-			                    <a href="#" class="expand">+ getStartedForm</a>
-			                </div>
-			            </div>
-					{{/each}}
-		        </div>
-			</div> -->
 		</div>
 
 		<div class="section-telnumber text-center">
@@ -353,7 +338,7 @@
 							<div id="firstProductImage" class="img">
 					            <img src="{{content.firstProductImage}}" alt="">
 					            <div class="overlay">
-					                <a href="#" class="expand">click or drag&drop</a>
+					                <a href="#" class="expand">{{editImageText}}</a>
 					            </div>
 					            <input type="file" class="hiddenFileInput"/>
 					        </div>
@@ -368,7 +353,7 @@
 							<div id="secondProductImage" class="img">
 					            <img src="{{content.secondProductImage}}" alt="">
 					            <div class="overlay">
-					                <a href="#" class="expand">click or drag&drop</a>
+					                <a href="#" class="expand">{{editImageText}}</a>
 					            </div>
 					            <input type="file" class="hiddenFileInput"/>
 					        </div>
@@ -415,9 +400,9 @@
 
 						<div id="effect-6" class="effects">
 							<div id="firstTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
+					            <img width="50%" src="{{content.firstTeamMemberImage}}" class="member" alt="">
 					            <div class="overlay member">
-					                <a href="#" class="expand">click or drag&drop</a>
+					                <a href="#" class="expand">{{editImageText}}</a>
 					            </div>
 					            <input type="file" class="hiddenFileInput"/>
 					        </div>
@@ -432,9 +417,9 @@
 
 						<div id="effect-6" class="effects">
 							<div id="secondTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
+					            <img width="50%" src="{{content.secondTeamMemberImage}}" class="member" alt="">
 					            <div class="overlay member">
-					                <a href="#" class="expand">click or drag&drop</a>
+					                <a href="#" class="expand">{{editImageText}}</a>
 					            </div>
 					            <input type="file" class="hiddenFileInput"/>
 					        </div>
@@ -449,9 +434,9 @@
 						
 						<div id="effect-6" class="effects">
 							<div id="thirdTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
+					            <img width="50%" src="{{content.thirdTeamMemberImage}}" class="member" alt="">
 					            <div class="overlay member">
-					                <a href="#" class="expand">click or drag&drop</a>
+					                <a href="#" class="expand">{{editImageText}}</a>
 					            </div>
 					            <input type="file" class="hiddenFileInput"/>
 					        </div>
@@ -466,9 +451,9 @@
 
 						<div id="effect-6" class="effects">
 							<div id="fourthTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
+					            <img width="50%" src="{{content.fourthTeamMemberImage}}" class="member" alt="">
 					            <div class="overlay member">
-					                <a href="#" class="expand">click or drag&drop</a>
+					                <a href="#" class="expand">{{editImageText}}</a>
 					            </div>
 					            <input type="file" class="hiddenFileInput"/>
 					        </div>
@@ -480,31 +465,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="sliderGallery">
-				<ul>
-					{{#each sliderImages}}
-					<li>
-
-						<div id="effect-6" class="effects">
-							<div id="sliderImages{{position}}" class="img">
-					            <img src="{{src}}" class="img img-responsive reimg" alt="">
-					            <div class="overlay">
-					                <a class="expand">click or drag&drop</a>
-					            </div>
-					            <input type="file" class="hiddenFileInput"/>
-					        </div>
-					    </div>
-
-					</li>
-					{{/each}}
-				</ul>
-			</div>
-
-			<div id="sliderGalleryNav">
-				<img src="arrowL.png" class="sliderarrow" data-dir="prev">
-				<img src="arrowR.png" class="sliderarrow" data-dir="next">
 			</div>
 
 			<!-- <div class="section-video">
@@ -520,274 +480,278 @@
 		</div>
 
 	</div>
-	{{/with}}
-	{{else}}
-		{{goHome}}
-	{{/if}}
 </template>
 
 <template name="website">
-	{{#if live_website}}
-	{{#with live_website}}
 	<div class="{{style}} createcontent">
-	<!-- <div class="modal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title">Your website is LIVE!</h4>
-				</div>
-				<div class="modal-body">
-					<p>Share your website with friends. Your url is:</p>
-					<p>...</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Continue editing</button>
-					<button type="button" class="btn btn-primary">Share with friends</button>
+		<!-- <div class="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">Your website is LIVE!</h4>
+					</div>
+					<div class="modal-body">
+						<p>Share your website with friends. Your url is:</p>
+						<p>...</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Continue editing</button>
+						<button type="button" class="btn btn-primary">Share with friends</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="dialogwindow">
-		<div class="dialogwhite">
-			<h4>amazing! you just got</h4><br>
-			<a href="#" class="linktonewpage">www.onlined.at/yournewpage</a>
-		</div>
-		<div class="dialogblack">
-			<button class="sharebutton">share it with friends</button>
-			<h4><a href="#">view site</a> or <a href="#">continue editing</a></h4><br>
-		</div>
-	</div> -->
-	
-	<img id="topImage" class="img img-responsive reimg" src="{{content.topImage}}" alt="">
-	<div class="container">	
-		<div class="section-heading">
-			<h1 id="title" class="text-center">{{content.title}}</h1>
-			<h4 id="tagline" class="text-center">{{content.tagline}}</h4>
-		</div>
+		<div class="dialogwindow">
+			<div class="dialogwhite">
+				<h4>amazing! you just got</h4><br>
+				<a href="#" class="linktonewpage">www.onlined.at/yournewpage</a>
+			</div>
+			<div class="dialogblack">
+				<button class="sharebutton">share it with friends</button>
+				<h4><a href="#">view site</a> or <a href="#">continue editing</a></h4><br>
+			</div>
+		</div> -->
+
 		
-		<div class="section-intro">
-			<div class="row">
-				<div class="col-md-5">
-					<div id="logo" class="rounded reimg" style="background-image: url({{content.logo}})"></div>
-				</div>
-				<div class="col-md-7 introtext">
-					<h3 id="heading">{{content.heading}}</h3>
-					<p id="paragraph" class="lead">{{content.paragraph}}</p>
-				</div>
-			</div>
-		</div>
-	</div>	
+		<img class="img img-responsive" src="{{content.topImage}}">
+		
+		<div class="container">	
 
-	<div class="section-gallery">
-		<div class="row">
-			<ul class="imageGallery">
-				{{#each galleryImages}}
-					<li>
-						<a href="{{src}}" class="fancybox" rel="gallery">
-							<img id="galleryImages{{position}}" src="{{small}}" class="reimg" alt="This is alt">
-						</a>
-					</li>
-				{{/each}}
-			</ul>
-		</div>
-	</div>
-
-	<div class="section-email text-center">
-		<span class="glyphicon glyphicon-envelope white"></span>
-		<h4 class="white">{{email}}</h4>
-	</div>
-
-	<div class="container">	
-		<div class="section-text">
-			<div class="row text-center">
-				<div class="col-md-4">
-					<h3 id="textColumns1Heading">{{content.textColumns1Heading}}</h3>
-					<p id="textColumns1Text">{{content.textColumns1Text}}</p>
-				</div>
-
-				<div class="col-md-4">
-					<h3 id="textColumns2Heading">{{content.textColumns2Heading}}</h3>
-					<p id="textColumns2Text">{{content.textColumns2Text}}</p>
-				</div>
-
-				<div class="col-md-4">
-					<h3 id="textColumns3Heading">{{content.textColumns3Heading}}</h3>
-					<p id="textColumns3Text">{{content.textColumns3Text}}</p>
-				</div>
+			<div class="section-heading">
+				<h1 class="text-center">{{content.title}}</h1>
+				<h2 class="text-center">{{content.tagline}}</h2>
 			</div>
 		</div>
 
-		<div class="section-location text-center">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="glyphicon glyphicon-map-marker"></span>
-				</div>
-			</div>	
-			<div class="row">
-				<div class="col-lg-12">
-					<h4 id="address">{{content.address}}</h4>
-				</div>
-			</div>		
-			<div class="row">
-				<div class="col-lg-12">
-					<div id="map-canvas" style="width:100%;height:200px;"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="section-telnumber text-center">
-		<span class="glyphicon glyphicon-phone-alt white"></span>
-		<h4 id="phoneNumber" class="white">{{content.phoneNumber}}</h4>
-	</div>
-
-	<div class="section-openinghours text-center">
+		<div class="textureline"></div>
+		
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="glyphicon glyphicon-time"></span>
-					<h3 id="openingHoursTitle">{{content.openingHoursTitle}}</h3>
-					<table class="verticaltable">
-						<tr>
-							<th><h5 id="monday">{{content.monday}}</h5></th>
-							<th><h5 id="tuesday">{{content.tuesday}}</h5></th>
-							<th><h5 id="wednesday">{{content.wednesday}}</h5></th>
-							<th><h5 id="thursday">{{content.thursday}}</h5></th>
-							<th><h5 id="friday">{{content.friday}}</h5></th>
-							<th><h5 id="saturday">{{content.saturday}}</h5></th>
-							<th><h5 id="sunday">{{content.sunday}}</h5></th>
-						</tr>
-						<tr>
-							<td colspan="7">
-								<div class="line"></div>
-							</td>
-						</tr>
-						<tr>
-							<td><h6 id="mondayHours">{{content.mondayHours}}</h6></td>
-							<td><h6 id="tuesdayHours">{{content.tuesdayHours}}</h6></td>
-							<td><h6 id="wednesdayHours">{{content.wednesdayHours}}</h6></td>
-							<td><h6 id="thursdayHours">{{content.thursdayHours}}</h6></td>
-							<td><h6 id="fridayHours">{{content.fridayHours}}</h6></td>
-							<td><h6 id="saturdayHours">{{content.saturdayHours}}</h6></td>
-							<td><h6 id="sundayHours">{{content.sundayHours}}</h6></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- <div class="section-links text-center">	
-		<div class="container">
-			<span class="glyphicon glyphicon-2white"></span>
-
-			<div class="row links">
-				<div class="col-xs-6 col-md-3">
-					<img id="twitter" src="ic_twitterW.png" alt="">
-				</div>
-				<div class="col-xs-6 col-md-3">
-					<img id="youtube" class="link" src="ic_youtubeW.png" alt="">
-				</div>
-				<div id="facebook" class="col-xs-6 col-md-3">
-					<img id="facebook" class="link" src="ic_facebookB.png" alt="">
-				</div>
-				<div id="instagram" class="col-xs-6 col-md-3">
-					<img id="instagram" class="link" src="ic_instagramW.png" alt="">
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<div class="container">	
-		<div class="section-text">
-			<div class="row text-center">
-				<div class="col-md-4 col-md-offset-2">
-					<img id="firstProductImage" width="50%" src="{{content.firstProductImage}}" class="reimg" alt="">
-					<h3 id="firstProduct">{{content.firstProduct}}</h3>
-					<p id="firstProductDescription">{{content.firstProductDescription}}</p>
-				</div>
-				<div class="col-md-4">
-					<img id="secondProductImage" width="50%" src="{{content.secondProductImage}}" class="reimg" alt="">
-					<h3 id="secondProduct">{{content.secondProduct}}</h3>
-					<p id="secondProductDescription">{{content.secondProductDescription}}</p>
-				</div>
-			</div>
-		</div>
-	</div>		
-
-	<div class="section-video">
-		<video width="100%" height="500" controls autoplay>
-			<source src="movie.ogg" type="video/ogg">
-			<source src="movie.mp4" type="video/mp4">
-			<object data="movie.mp4" width="100%" height="500">
-				<embed width="100%" height="500" src="movie.swf">
-			</object>
-		</video>
-	</div>
-
-	<div class="container">	
-		<div class="section-team text-center">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="glyphicon glyphicon-user"></span>
-					<h3 id="teamTitle">{{content.teamTitle}}</h3>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 col-xs-6">
-					<img id="firstTeamMemberImage" width="50%" src="{{content.firstTeamMemberImage}}" class="reimg member" alt="">
-					<div class="membercaption">
-						<h4 id="firstTeamMember">{{content.firstTeamMember}}</h4>
-						<p id="firstTeamMemberTagline">{{content.firstTeamMemberTagline}}</p>
+			<div class="section-intro">
+				<div class="row">
+					<div class="col-md-5">
+						<div class="rounded" style="background-image: url({{content.logo}})"></div>
 					</div>
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<img id="secondTeamMemberImage" width="50%" src="{{content.secondTeamMemberImage}}" class="reimg member" alt="">
-					<div class="membercaption">
-						<h4 id="secondTeamMember">{{content.secondTeamMember}}</h4>
-						<p id="secondTeamMemberTagline">{{content.secondTeamMemberTagline}}</p>
-					</div>
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<img id="thirdTeamMemberImage" width="50%" src="{{content.thirdTeamMemberImage}}" class="reimg member" alt="">
-					<div class="membercaption">
-						<h4 id="thirdTeamMember">{{content.thirdTeamMember}}</h4>
-						<p id="thirdTeamMemberTagline">{{content.thirdTeamMemberTagline}}</p>
-					</div>
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<img id="fourthTeamMemberImage" width="50%" src="{{content.fourthTeamMemberImage}}" class="reimg member" alt="">
-					<div class="membercaption">
-						<h4 id="fourthTeamMember">{{content.fourthTeamMember}}</h4>
-						<p id="fourthTeamMemberTagline">{{content.fourthTeamMemberTagline}}</p>
+					<div class="col-md-7 introtext">
+						<h3 id="heading">{{content.heading}}</h3>
+						<p id="paragraph" class="lead">{{content.paragraph}}</p>
 					</div>
 				</div>
 			</div>
 		</div>	
 
-		<div class="sliderGallery">
-			<ul>
-				{{#each sliderImages}}
-				<li>
-					<img id="sliderImages{{position}}" src="{{src}}" class="img img-responsive reimg" alt="">
-				</li>
+		<div class="section-gallery">
+			<div class="row gallerydiv2">	
+				{{#each galleryImages}}
+					<div class="img col-lg-3 col-md-6 col-xs-12">
+			            <div class="obrazek" style="background-image: url({{src}})"></div>
+				    </div>
 				{{/each}}
-			</ul>
+			</div>	
 		</div>
 
-		<div id="sliderGalleryNav">
-			<img src="arrowL.png" class="sliderarrow" data-dir="prev">
-			<img src="arrowR.png" class="sliderarrow" data-dir="next">
+		<div class="section-email text-center">
+			<span class="glyphicon glyphicon-envelope white"></span>
+			<h4 class="white">{{content.email}}</h4>
 		</div>
 
+		<div class="container">	
+			<div class="section-text">
+				<div class="row text-center">
+					<div class="col-md-4">
+						<h3>{{content.textColumns1Heading}}</h3>
+						<p>{{content.textColumns1Text}}</p>
+					</div>
+
+					<div class="col-md-4">
+						<h3>{{content.textColumns2Heading}}</h3>
+						<p>{{content.textColumns2Text}}</p>
+					</div>
+
+					<div class="col-md-4">
+						<h3>{{content.textColumns3Heading}}</h3>
+						<p>{{content.textColumns3Text}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="section-location text-center">
+				<div class="row">
+					<div class="col-lg-12">
+						<span class="glyphicon glyphicon-map-marker"></span>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="col-lg-12">
+						<h4>{{content.address}}</h4>
+					</div>
+				</div>		
+				<div class="row">
+					<div class="col-lg-12">
+						<div id="map-canvas" style="width:100%;height:200px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section-telnumber text-center">
+			<span class="glyphicon glyphicon-phone-alt white"></span>
+			<h4 class="white">{{content.phoneNumber}}</h4>
+		</div>
+
+		<div class="section-openinghours text-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<span class="glyphicon glyphicon-time"></span>
+						<h3>{{content.openingHoursTitle}}</h3>
+						<table class="verticaltable">
+							<tr>
+								<th><h5>{{content.monday}}</h5></th>
+								<th><h5>{{content.tuesday}}</h5></th>
+								<th><h5>{{content.wednesday}}</h5></th>
+								<th><h5>{{content.thursday}}</h5></th>
+								<th><h5>{{content.friday}}</h5></th>
+								<th><h5>{{content.saturday}}</h5></th>
+								<th><h5>{{content.sunday}}</h5></th>
+							</tr>
+							<tr>
+								<td colspan="7">
+									<div class="line"></div>
+								</td>
+							</tr>
+							<tr>
+								<td><h6>{{content.mondayHours}}</h6></td>
+								<td><h6>{{content.tuesdayHours}}</h6></td>
+								<td><h6>{{content.wednesdayHours}}</h6></td>
+								<td><h6>{{content.thursdayHours}}</h6></td>
+								<td><h6>{{content.fridayHours}}</h6></td>
+								<td><h6>{{content.saturdayHours}}</h6></td>
+								<td><h6>{{content.sundayHours}}</h6></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">	
+			<div class="section-products">
+				<div class="row text-center">
+					<div class="col-md-4 col-md-offset-2">
+						<div class="img">
+				            <img src="{{content.firstProductImage}}">
+				        </div>
+						<h3>{{content.firstProduct}}</h3>
+						<p>{{content.firstProductDescription}}</p>
+					</div>
+					<div class="col-md-4">
+						<div class="img">
+							<img src="{{content.secondProductImage}}" alt="">
+					    </div>
+						<h3>{{content.secondProduct}}</h3>
+						<p>{{content.secondProductDescription}}</p>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+		<div class="section-links text-center">	
+			<div class="container">
+				<span class="glyphicon glyphicon-2white"></span>
+
+				<div class="row links">
+					<div class="col-xs-6 col-md-3">
+						{{#if content.twitter}}
+							<a href="{{content.twitter}}" target="_blank">
+								<img class="link" src="ic_twitterW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_twitterW.png" alt="">
+						{{/if}}
+					</div>
+					<div class="col-xs-6 col-md-3">
+						{{#if content.youtube}}
+							<a href="{{content.youtube}}" target="_blank">
+								<img class="link" src="ic_youtubeW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_youtubeW.png" alt="">
+						{{/if}}
+					</div>
+					<div class="col-xs-6 col-md-3">
+						{{#if content.facebook}}
+							<a href="{{content.facebook}}" target="_blank">
+								<img class="link" src="ic_facebookW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_facebookW.png" alt="">
+						{{/if}}
+					</div>
+					<div class="col-xs-6 col-md-3">
+						{{#if content.instagram}}
+							<a href="{{content.instagram}}" target="_blank">
+								<img class="link" src="ic_instagramW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_instagramW.png" alt="">
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">	
+			<div class="section-team text-center">
+				<div class="row">
+					<div class="col-lg-12">	
+						<span class="glyphicon glyphicon-user"></span>
+						<h3>{{content.teamTitle}}</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-xs-6">
+						<div class="img teamimg">
+							<img width="50%" src="{{content.firstTeamMemberImage}}" class="member">
+						</div>
+						<div class="membercaption">
+							<h4>{{content.firstTeamMember}}</h4>
+							<p>{{content.firstTeamMemberTagline}}</p>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<div class="img teamimg">
+							<img width="50%" src="{{content.secondTeamMemberImage}}" class="member">
+						</div>
+						<div class="membercaption">
+							<h4>{{content.secondTeamMember}}</h4>
+							<p>{{content.secondTeamMemberTagline}}</p>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<div class="img teamimg">
+							<img width="50%" src="{{content.thirdTeamMemberImage}}" class="member">
+						</div>
+						<div class="membercaption">
+							<h4>{{content.thirdTeamMember}}</h4>
+							<p>{{content.thirdTeamMemberTagline}}</p>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<div class="img teamimg">
+							<img width="50%" src="{{content.fourthTeamMemberImage}}" class="member">
+						</div>
+						<div class="membercaption">
+							<h4>{{content.fourthTeamMember}}</h4>
+							<p>{{content.fourthTeamMemberTagline}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-	{{/with}}
-	{{/if}}
 </template>
-
 
 
 
