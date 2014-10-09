@@ -371,16 +371,6 @@ ul {
   100% {background-color: #a3ce22;}
 } 
 
-#nprogress .bar {
-  background: #89b504;
-}
-
-#nprogress .spinner-icon {
-  border-top-color: #89b504;
-  border-left-color: #89b504;
-}
-
-
 .firstButton {
   font-family: "Cantarell", sans-serif;
   font-size: 24pt;
@@ -1984,5 +1974,26 @@ DEFAULT
 
 .default.member {
 
+}
+
+/*
+NPROGRESS
+*/
+
+
+#nprogress .bar {
+  /*background: #89b504;*/
+  background: black;
+  opacity:.5;
+  height: 50px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: none;
+}
+
+#nprogress .spinner {
+  display: none;
 }
 

@@ -8,11 +8,10 @@ Router.route('/', {
 	name: 'dashboard',
 	waitOn: function () {
 		if (!Meteor.user()) {
-		    return Meteor.subscribe('stream', 2);
+		    return Meteor.subscribe('stream', 20);
 		} else {
-			return [Meteor.subscribe('stream', 2), Meteor.subscribe('myWebsites', Meteor.userId(), 2)];
+			return [Meteor.subscribe('stream', 20), Meteor.subscribe('myWebsites', Meteor.userId(), 2)];
 		}
-		
 	},
 	data: function () {
 	    // return Websites.find();

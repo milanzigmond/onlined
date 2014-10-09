@@ -2,6 +2,8 @@ Websites = new Meteor.Collection("websites");
 
 if (Meteor.isClient) {
 
+    NProgress.configure({ minimum: 0.6 });
+
     Session.setDefault('editing_field', null);
     Session.setDefault('editing_website', null);
     Session.setDefault('styleOptions', []);
@@ -222,13 +224,15 @@ var countLines = function (id) {
 }
 
 var setupMap = function () {
-
-    var editingWebsite = Websites.findOne(Session.get('editing_website'));
-    if(!editingWebsite) return;
+    var editingWebsite = Websites.findOne(Session.get('editing_website')),
+        address = editingWebsite.content.address,
+        latLng = editingWebsite.content.latLng;
     
-    var address = editingWebsite.content.address,
-        latLng = editingWebsite.content.latLng,
-        mapOptions = {
+    console.log('setupMap: editing website:'+latLng.lat + ", "+latLng.lng);
+    
+    if(!latLng) return;
+    
+    var  mapOptions = {
             scrollwheel: false,
             center: new google.maps.LatLng(latLng.lat, latLng.lng),
             zoom: 13
@@ -241,7 +245,6 @@ var setupMap = function () {
             map: map,
             anchorPoint: new google.maps.Point(0, -29)
         });
-
 
     autocomplete.bindTo('bounds', map);
 
@@ -806,7 +809,9 @@ Template.website.rendered = function () {
 
 Template.create.rendered = function () {
     window.scrollTo(0, 0);
+    console.log('setupMap from rendered');
     setupMap();
+
     autohideNavbar();
 };
 
