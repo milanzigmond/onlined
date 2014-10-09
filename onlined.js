@@ -2,8 +2,6 @@ Websites = new Meteor.Collection("websites");
 
 if (Meteor.isClient) {
 
-    NProgress.configure({ minimum: 0.6 });
-
     Session.setDefault('editing_field', null);
     Session.setDefault('editing_website', null);
     Session.setDefault('styleOptions', []);
@@ -148,9 +146,9 @@ var createDefaultWebsite = function ( sitename ) {
         userId: Meteor.userId(),
         content: {
             email: getUserEmail(),
-            title: "Onlined",
-            tagline: "Create your website in minutes",
-            heading: "What is it that makes onlined special?",
+            title: "click here to edit the title",
+            tagline: "click me to edit the subtitle",
+            heading: "click to edit heading",
             paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
             logo: "draglogo.jpg",
             topImage: "topImage.jpg",
@@ -885,4 +883,27 @@ if (Meteor.isServer) {
     Meteor.publish('liveWebsite', function (sitename) {
         return Websites.find({sitename:sitename});
     });
+
+
+
+
+    Websites.allow({
+        insert: function (userId, doc) {
+            return (userId && doc.userId === userId);
+        },
+        update: function (userId, doc, fields, modifier) {
+            return doc.userId === userId;
+        },
+        remove: function (userId, doc) {
+            return doc.userId === userId;
+        }
+    });
+
+    Websites.deny({
+        update: function (userId, docs, fields, modifier) {
+            return _.contains(fields, 'userId');
+        }
+    });
+
+
 }
