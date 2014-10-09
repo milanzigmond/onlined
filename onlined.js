@@ -6,7 +6,7 @@ if (Meteor.isClient) {
     Session.setDefault('editing_website', null);
     Session.setDefault('styleOptions', []);
     Session.setDefault('themes', [
-        {name:'Default', css: 'default.css'},
+        {name:'Default Visual Style', css: 'default.css'},
         {name:'Elegant', css: 'elegant.css'},
         {name:'Airy', css: 'airy.css'},
         {name:'Starry', css: 'starry.css'},
@@ -792,6 +792,12 @@ var autohideNavbar = function () {
 var destroyNavbar = function () {
     $("nav.navbar-fixed-top").autoHidingNavbar('destroy');
 }
+
+Template.login.rendered = function () {
+    if(!Meteor.user()) {
+        $('#login-dropdown-list a').text("Create Website");
+    } 
+};
 
 Template.dashboard.rendered = function () {
     window.scrollTo(0, 0);
