@@ -399,30 +399,28 @@ Template.create.events({
         console.log('keydown');
 
         if ( checkInputField( event ) ) {
-            event.target.removeClass( "invalid" ).addClass( "valid" );
+            $(event.target).removeClass( "invalid" ).addClass( "valid" );
         } else {
-            event.target.removeClass( "valid" ).addClass( "invalid" );
+            $(event.target).removeClass( "valid" ).addClass( "invalid" );
         }
-        debugger
     },
 
+    'focusout .textInput' : function ( event, template ) {
+        var parent = $(event.target).parent();
+        parent.addClass( 'pulseEffect');
+        blurCreateWebsiteInput();
+        parent.removeClass( "invalid" ).addClass( "valid" );
+    },
 
-    //  'focusout .textInput' : function ( event, template ) {
-    //     var parent = $(event.target).parent();
-    //     parent.addClass( 'pulseEffect');
-    //     blurCreateWebsiteInput();
-    //     parent.removeClass( "invalid" ).addClass( "valid" );
-    // },
-    // 'keydown .textInput' : function ( event, template ) {
-    //     var parent = $(event.target).parent();
+    'keydown .textInput' : function ( event, template ) {
+        var parent = $(event.target).parent();
 
-    //     if ( checkSitename( event ) && checkDuplicity ( event ) ) {
-    //         parent.removeClass( "invalid" ).addClass( "valid" );
-    //     } else {
-    //         parent.removeClass( "valid" ).addClass( "invalid" );
-    //     }
-    // },
-
+        if ( checkSitename( event ) && checkDuplicity ( event ) ) {
+            parent.removeClass( "invalid" ).addClass( "valid" );
+        } else {
+            parent.removeClass( "valid" ).addClass( "invalid" );
+        }
+    },
 
     'focusout #input' : function ( event, template ) {
         preventActionsForEvent(event);
@@ -432,12 +430,12 @@ Template.create.events({
 
         if(parent.id === "address") {
             sibling = parent.previousElementSibling;
-            // $(parent).toggle();2
+            $(parent).toggle();
         } else if (_.contains(social, parent.id) ) {
             sibling = event.target.nextElementSibling; 
-            // $(event.target).remove();
+            $(event.target).remove();
         } else {    
-            // $(parent).remove(); // calls focusout event 
+            $(parent).remove(); // calls focusout event 
         }
 
         Session.set('editing_field', null);
@@ -872,7 +870,7 @@ if (Meteor.isServer) {
     Meteor.publish('myWebsites', function (userId, limit) {
         check(userId, String);
         check(limit, Number);
-        return Websites.find({userId: userId},{fields: {sitename:1, createdAt:1, 'content.topImage':1}});
+        return Websites.find({userId: userId},{fields: {sitename:1, createdAt:1, 'content.topImage':1, userId:1}});
     });
 
     Meteor.publish('editWebsite', function (id) {
