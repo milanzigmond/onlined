@@ -16,7 +16,7 @@ if (Meteor.isClient) {
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
     Session.setDefault('hidingNavbar', null);
-    Session.set('version', '0.1.2');
+    Session.set('version', '0.1.3');
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);

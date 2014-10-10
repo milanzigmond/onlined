@@ -13,9 +13,6 @@ Router.route('/', {
 			return [Meteor.subscribe('stream', 20), Meteor.subscribe('myWebsites', Meteor.userId(), 2)];
 		}
 	},
-	data: function () {
-	    // return Websites.find();
-	},
 	action: function () {
 		if (!Meteor.user()) {
 		    this.render('home');
@@ -54,11 +51,17 @@ Router.route('/:sitename', {
 		return Meteor.subscribe('liveWebsite', this.params.sitename);
 	},
 	data: function () {
-	    return Websites.findOne();
+	    return Websites.findOne({sitename:this.params.sitename});
 	},
 	onBeforeAction: function () {
-		var website = Websites.findOne();
-		if (!website) this.redirect('dashboard');
+		if (!Websites.find().count()) {
+			this.redirect('dashboard');
+		} else {
+			this.next();
+		}
+	},
+	action: function () {
+		this.render('website');
 	}
 
 });
