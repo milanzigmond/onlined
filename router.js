@@ -55,6 +55,10 @@ Router.route('/:sitename', {
 	},
 	data: function () {
 	    return Websites.findOne();
+	},
+	onBeforeAction: function () {
+		var website = Websites.findOne();
+		if (!website) this.redirect('dashboard');
 	}
 
 });

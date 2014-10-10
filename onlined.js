@@ -43,6 +43,25 @@ if(!str) return;
 return str.toUpperCase();
 });
 
+var showMoreVisible = function () {
+    var treshold, target = $('#laod-more');
+    if(!target.length) return;
+
+    treshold = $(window).scrollTop() + $(window).height() - target.height();
+
+    if (target.offset().top < treshold) {
+        if (!Session.get('visible')) {
+            Session.set('visible', true);
+            Meteor.setTimeout(function(){Session.set('websitesLimit', Session.get('websitesLimit')+9)}, 200);
+        };
+    } else {
+        if (Session.get('visible')) {
+            Session.set('visible', false);
+        };
+    }
+
+}
+
 ////////// Helpers for in-place editing //////////
 var makeEditable = function (event, template) {
     preventActionsForEvent(event);
