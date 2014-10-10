@@ -137,7 +137,13 @@
 								<hr class="line" />
 								<div class="row">
 									<div class="col-sm-6">
-										<h6 class="pull-left"><strong>10</strong> OF MY 14 WEBSITES ARE LIVE</h6>
+										<h6 class="pull-left">
+											{{#if IDontHaveWebsites}}
+												I DON'T HAVE ANY WEBSITES
+											{{else}}
+												I HAVE {{numberOfMyWebsites}} 
+											{{/if}}
+										</h6>
 									</div>
 									<!-- <div class="col-sm-6">
 										<h6 class="pull-right">5 WEBSITES I LIKE&nbsp;<span class="glyphicon glyphicon-heart"></span></h6>

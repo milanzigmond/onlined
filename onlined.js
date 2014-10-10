@@ -3,11 +3,12 @@ Websites = new Meteor.Collection("websites");
 if (Meteor.isClient) {
 
     Session.setDefault('editing_field', null);
+    Session.setDefault('editing_field_value', null);
     Session.setDefault('editing_website', null);
     Session.setDefault('styleOptions', []);
     Session.setDefault('themes', [
         {name:'Default Visual Style', css: 'default.css'},
-        {name:'Elegant', css: 'elegant.css'},
+        {name:'Elegant', css: 'elegante.css'},
         {name:'Airy', css: 'airy.css'},
         {name:'Starry', css: 'starry.css'},
         {name:'Intense', css: 'intense.css'}
@@ -75,7 +76,8 @@ var makeEditable = function (event, template) {
     }
     
     if (tagName === "P") {
-        var lines = countLines(contentId);
+        // var lines = countLines(contentId);
+        lines = 5;
         // it's a text area
         input = '<textarea id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
 
@@ -369,6 +371,20 @@ var isValidPassword = function(val, field) {
     }
 };
 
+var saveField = function ( event ) {
+    var websiteId = Session.get('editing_website'),
+        parent = event.target.parentElement,
+        value = Session.get('editing_field_value'),
+        setModifier = { $set: {} };
+
+    console.log('saving field:'+parent.id);
+
+    setModifier.$set['content.'+ parent.id ] = value;
+    Websites.update({_id:websiteId}, setModifier);
+
+    Session.set('editing_field_value', null);
+}
+
 Template.create.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
         countLines(event.target.id);
@@ -378,41 +394,29 @@ Template.create.events({
         makeEditable( event, template );
     },
     'keyup #input' : function( event, template ) {
-        if (event.which === 27) {
-            preventActionsForEvent(event);
-            $(event.target).blur();
-        }
-        if (event.which === 13) {
-            preventActionsForEvent(event);
+        var tagName = $(event.target).get(0).tagName;
 
-            var websiteId = Session.get('editing_website'),
-            parent = event.target.parentElement,
-            value = event.target.value,
-            setModifier = { $set: {} };
+        preventActionsForEvent( event );
 
-            setModifier.$set['content.'+ parent.id ] = value;
-            Websites.update({_id:websiteId}, setModifier);
-
-            $(event.target).blur();
-        }
+        Session.set('editing_field_value', event.target.value);
+        
+        if (event.which === 27) {$(event.target).blur();};
+        if(event.which === 13 && tagName !== "TEXTAREA") {$(event.target).blur();};
     },
     'keydown #input' : function ( event, template ) {
-        console.log('keydown');
-
         if ( checkInputField( event ) ) {
             $(event.target).removeClass( "invalid" ).addClass( "valid" );
         } else {
             $(event.target).removeClass( "valid" ).addClass( "invalid" );
         }
     },
-
     'focusout .textInput' : function ( event, template ) {
         var parent = $(event.target).parent();
+
         parent.addClass( 'pulseEffect');
         blurCreateWebsiteInput();
         parent.removeClass( "invalid" ).addClass( "valid" );
     },
-
     'keydown .textInput' : function ( event, template ) {
         var parent = $(event.target).parent();
 
@@ -422,7 +426,6 @@ Template.create.events({
             parent.removeClass( "valid" ).addClass( "invalid" );
         }
     },
-
     'focusout #input' : function ( event, template ) {
         preventActionsForEvent(event);
         var parent = event.target.parentElement,
@@ -438,9 +441,9 @@ Template.create.events({
         } else {    
             $(parent).remove(); // calls focusout event 
         }
-
-        Session.set('editing_field', null);
         $(sibling).show();
+        Session.set('editing_field', null);
+        saveField( event );
     },
     'mouseenter div.img' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -847,6 +850,20 @@ Template.selectStyle.rendered = function () {
 Template.dashboard.helpers({
     numberOfWebsites: function () {
         return Websites.find().count();
+    },
+    numberOfMyWebsites: function () {
+        var count = Websites.find({userId: Meteor.userId()}).count();
+        if (count === 1)
+            return count + " WEBSITE";
+        else
+            return count + " WEBSITES";
+    },
+    IDontHaveWebsites: function () {
+        var count = Websites.find({userId: Meteor.userId()}).count();
+        if (count === 0)
+            return true
+        else
+            return false
     },
     website: function () {
         return Websites.find({},{sort: {createdAt: -1}});
