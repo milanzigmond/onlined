@@ -367,7 +367,7 @@ var saveField = function ( event ) {
 
 var animateNegativeRaction = function ( event ) {
     console.log('animateNegativeRaction');
-    
+
     if (!$(event.target).is(':animated')) {
         $(event.target).animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);    
     };
@@ -762,7 +762,7 @@ var checkSitename = function ( event ) {
 
 var checkInputField = function ( event ) {
     var value = $(event.target).val(),
-        allowedChars = new RegExp("^[a-zA-Z0-9\-_ ]*$");
+        allowedChars = new RegExp("^[a-zA-Z0-9-\.\:\/_ ]*$");
 
     if (allowedChars.test(value)) {
         if (value.length === 0) {
