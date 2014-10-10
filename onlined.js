@@ -47,9 +47,14 @@ return str.toUpperCase();
 var makeEditable = function (event, template) {
     preventActionsForEvent(event);
 
-    if(Session.get('editing_field')) return;
+    console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
+
+    if(Session.get('editing_field_value')) return;
     Session.set('editing_field', event.target.id);
-    Session.set('editing_field_value', event.target.value);
+    Session.set('editing_field_value', $(event.target).text());
+
+    console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
+
 
     var contentId = event.target.id,
     textContent = event.target.textContent,
@@ -67,7 +72,7 @@ var makeEditable = function (event, template) {
         if (contentId === "address") {
             $(event.target.nextElementSibling).toggle();
         } else {
-            input = '<input id="input" class="textInput" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" value="'+textContent+'"/>';
+            input = '<input id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" value="'+textContent+'"/>';
 
             $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
         }
@@ -92,7 +97,7 @@ var makeEditable = function (event, template) {
         var website = Websites.findOne(Session.get('editing_website'));
         var id = event.target.parentElement.id;
 
-        input = '<input id="input" class="textInput" type="text" placeholder="your '+ parent.id + ' url here" value="'+website.content[id]+'"/>';
+        input = '<input id="input" type="text" placeholder="your '+ parent.id + ' url here" value="'+website.content[id]+'"/>';
         
         $( event.target ).before(input);
         $( event.target ).hide();
@@ -107,29 +112,6 @@ var activateInput = function (input) {
     input.focus()
     input.select();
 };
-
-var registerUser = function ( event, template ) {
-    var email = trimInput(template.find('#register-email').value),
-        password = template.find('#register-password').value,
-        sitename = template.find('.textInput').value;
-
-        console.log('registering user with email: ' + email + ", password: " + password);
-
-    if (isValidPassword(password)) {
-        Accounts.createUser({email: email, password : password}, function(err){
-            if (err) {
-                console.log(err);
-                showAlert(err.reason);
-            } else {
-                console.log('registered and logged in with sitename:'+sitename);
-                createDefaultWebsite(sitename);
-                Router.go('create');
-            }
-        });
-    }
-
-    return false;
-}
 
 var showAlert = function (alert) {
     $('div.alert').text(alert).slideDown(300).delay(2000).slideUp(300);
@@ -377,16 +359,25 @@ var saveField = function ( event ) {
         value = Session.get('editing_field_value'),
         setModifier = { $set: {} };
 
+    console.log('saving field:'+parent.id+' with value: '+value);
+
     setModifier.$set['content.'+ parent.id ] = value;
     Websites.update({_id:websiteId}, setModifier);
+}
 
-    Session.set('editing_field_value', null);
+var animateNegativeRaction = function ( event ) {
+    console.log('animateNegativeRaction');
+    
+    if (!$(event.target).is(':animated')) {
+        $(event.target).animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);    
+    };
 }
 
 Template.create.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
         countLines(event.target.id);
         makeEditable( event, template );
+        console.log('click');
     },
     'click .link' : function ( event, template ) {
         makeEditable( event, template );
@@ -396,39 +387,30 @@ Template.create.events({
 
         preventActionsForEvent( event );
 
-        Session.set('editing_field_value', event.target.value);
-        
-        if (event.which === 27) {$(event.target).blur();};
-        if(event.which === 13 && tagName !== "TEXTAREA") {$(event.target).blur();};
-    },
-    'keydown #input' : function ( event, template ) {
-        if ( checkInputField( event ) ) {
-            $(event.target).removeClass( "invalid" ).addClass( "valid" );
+        if(checkInputField( event )){
+            if (event.which === 27) {
+                $(event.target).blur();
+            };
+            if(event.which === 13 && tagName !== "TEXTAREA") {
+                $(event.target).blur();
+            };
         } else {
-            $(event.target).removeClass( "valid" ).addClass( "invalid" );
+            animateNegativeRaction( event );
         }
     },
-    'focusout .textInput' : function ( event, template ) {
-        var parent = $(event.target).parent();
-
-        parent.addClass( 'pulseEffect');
-        blurCreateWebsiteInput();
-        parent.removeClass( "invalid" ).addClass( "valid" );
-    },
-    'keydown .textInput' : function ( event, template ) {
-        var parent = $(event.target).parent();
-
-        if ( checkSitename( event ) && checkDuplicity ( event ) ) {
-            parent.removeClass( "invalid" ).addClass( "valid" );
-        } else {
-            parent.removeClass( "valid" ).addClass( "invalid" );
-        }
+    'focus #input' : function ( event, template ) {
+        preventActionsForEvent( event );
+        checkInputField( event );
     },
     'focusout #input' : function ( event, template ) {
         preventActionsForEvent(event);
         var parent = event.target.parentElement,
-        sibling = parent.nextSibling,
-        social = ['twitter', 'youtube', 'facebook', 'instagram'];
+            sibling = parent.nextSibling,
+            social = ['twitter', 'youtube', 'facebook', 'instagram'];
+
+        if (checkInputField( event )){
+            saveField( event );
+        }
 
         if(parent.id === "address") {
             sibling = parent.previousElementSibling;
@@ -440,11 +422,10 @@ Template.create.events({
             $(parent).remove(); // calls focusout event 
         }
 
-        saveField( event );
 
         $(sibling).show();
-
-        Session.set('editing_field', null);
+        Session.set('editing_field', null); 
+        Session.set('editing_field_value', null);
     },
     'mouseenter div.img' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -779,18 +760,23 @@ var checkSitename = function ( event ) {
     return false;
 }
 
-
 var checkInputField = function ( event ) {
     var value = $(event.target).val(),
-        allowedChars = new RegExp("^[a-zA-Z0-9\-]+$");
+        allowedChars = new RegExp("^[a-zA-Z0-9\-_ ]*$");
 
     if (allowedChars.test(value)) {
-        if (value.length < 1) {
+        if (value.length === 0) {
+            $(event.target).removeClass( "valid" ).addClass( "invalid" );
             return false;
+        } else {
+            $(event.target).removeClass( "invalid" ).addClass( "valid" );
+            Session.set('editing_field_value', value);
+            return true;
         };
-        return true;
+    } else {
+        $(event.target).removeClass( "valid" ).addClass( "invalid" );
+        return false;
     };
-    return false;
 }
 
 var checkDuplicity = function ( event ) {

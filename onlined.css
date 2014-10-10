@@ -712,11 +712,19 @@ body {
 }*/
 
 
-#input {
-  background: #89b504;
+.textInput {
+  background:transparent;
   color: #fff;
-  /*padding-top: 5px;
-  padding-bottom: 5px;*/
+  outline:none;
+  border:0;
+  width:100%;
+  text-align: center;
+  /*font-size: 20px;*/
+  line-height: normal;
+}
+
+#input {
+  color: #fff;
   margin:0px;
   outline:none;
   border:0;
