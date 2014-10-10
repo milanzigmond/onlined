@@ -793,13 +793,18 @@ var destroyNavbar = function () {
     $("nav.navbar-fixed-top").autoHidingNavbar('destroy');
 }
 
-Template.login.rendered = function () {
+var changeLoginText = function () {
     if(!Meteor.user()) {
-        $('#login-dropdown-list a').text("Create Website");
-    } 
+        $('a.dropdown-toggle').text("Create Website");
+    }
+}
+
+Template.home.rendered = function () {
+    changeLoginText();    
 };
 
 Template.dashboard.rendered = function () {
+    changeLoginText();
     window.scrollTo(0, 0);
     $('.editRow').slideUp(0);
     autohideNavbar();
