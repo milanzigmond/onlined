@@ -49,7 +49,7 @@ var makeEditable = function (event, template) {
 
     if(Session.get('editing_field')) return;
     Session.set('editing_field', event.target.id);
-
+    Session.set('editing_field_value', event.target.value);
 
     var contentId = event.target.id,
     textContent = event.target.textContent,
@@ -377,8 +377,6 @@ var saveField = function ( event ) {
         value = Session.get('editing_field_value'),
         setModifier = { $set: {} };
 
-    console.log('saving field:'+parent.id);
-
     setModifier.$set['content.'+ parent.id ] = value;
     Websites.update({_id:websiteId}, setModifier);
 
@@ -441,9 +439,12 @@ Template.create.events({
         } else {    
             $(parent).remove(); // calls focusout event 
         }
-        $(sibling).show();
-        Session.set('editing_field', null);
+
         saveField( event );
+
+        $(sibling).show();
+
+        Session.set('editing_field', null);
     },
     'mouseenter div.img' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -661,14 +662,25 @@ Template.home.helpers({
 });
 
 
-
 Template.selectStyle.helpers({
     styleOptions: function () {
         return Session.get('styleOptions');
     },
     selectedStyle: function () {
-        var str = Websites.findOne(Session.get('editing_website')).css;
-        return str.substring(4, str.length - 4);
+        var str = Websites.findOne(Session.get('editing_website')).css,
+            filename = str.substring(4, str.length),
+            themes = Session.get('themes'),
+            styleName;
+        
+        _.each(themes, function ( element, index, list) {
+            if (element.css === filename) {
+                styleName = element.name;
+            };
+        })
+
+        if(!styleName) return "default.css";
+
+        return styleName;
     }
 });
 
