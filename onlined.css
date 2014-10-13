@@ -1047,7 +1047,7 @@ ul.imageGallery2 li {
   transition: all 0.3s;
   cursor: pointer;
 }
-a.expand {
+span.expand {
   display: block;
   position: absolute;
   /*z-index: 100;*/
@@ -1198,7 +1198,7 @@ a.expand {
     right: 0;
     opacity: 0;
   }
-  #effect-6 .overlay a.expand {
+  #effect-6 .overlay span.expand {
     left: 0;
     right: 0;
     top: 25%;
@@ -1212,7 +1212,7 @@ a.expand {
   #effect-6 .img.hover .overlay {
     opacity: 1;
   }
-  #effect-6 .img.hover .overlay a.expand {
+  #effect-6 .img.hover .overlay span.expand {
     top: 50%;
     margin-top: -30px;
     opacity: 1;

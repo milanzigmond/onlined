@@ -468,9 +468,21 @@ Template.create.events({
         var file = event.originalEvent.dataTransfer.files[0];
         saveFile(id, file);
     },
+    'drop .expand' : function ( event, template ) {
+        preventActionsForEvent(event);
+        id = event.target.parentElement.parentElement.id;
+
+        console.log('dropped file on id:'+id);
+        var file = event.originalEvent.dataTransfer.files[0];
+        saveFile(id, file);
+    },
     'click .overlay' : function ( event, template ) {
         preventActionsForEvent( event );
         $(event.target.nextElementSibling).click();
+    },
+    'click .expand' : function ( event, template ) {
+        preventActionsForEvent( event );
+        $(event.target.parentElement.nextElementSibling).click();
     },
     'change input[type=file]' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -739,6 +751,9 @@ Template.website.helpers({
     },
     galleryImages: function () {
         return this.content.galleryImages;
+    },
+    website: function () {
+        return Websites.find({sitename:this.params.sitename});
     }
 });
 
