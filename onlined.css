@@ -332,6 +332,14 @@ ul {
   /*background-color: red;*/
 }
 
+.stream div.container-fluid {
+  color: #666;
+}
+
+.home div.stream h2 {
+  font-size:20px;
+}
+
 .home div.stream {
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
@@ -340,12 +348,6 @@ ul {
   padding: 0px;
   margin: 0px;
   padding-top:50px;
-}
-
-.home div.stream h2 {
-  font-weight: 600;
-  opacity: 1;
-  padding-top: 30px;
 }
 
 .home div.stream h3 {
@@ -751,7 +753,8 @@ h6 {
   font-weight: 0;
   font-family: "Calibri", sans-serif;
   font-size: 14px;
-  padding-top: 10px;
+  margin-top:0px;
+  /*padding-top: 10px;*/
 }
 
 .home div.myWebsites h2.websitesHeader {
@@ -759,12 +762,6 @@ h6 {
   color:#333;
   text-align: left;
   cursor: default;
-}
-
-.line {
-  background:#ccc; 
-  border:0; 
-  height:7px;
 }
 
 .white {
@@ -944,9 +941,13 @@ ul.imageGallery2 li {
 
 .line {
   height: 1px;
-  background-color: #bbbbbb;
+  background-color: #666;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+hr {
+  border-top: none;
 }
 
 /*======================================================SECTION LINKS start*/

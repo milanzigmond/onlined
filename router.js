@@ -53,13 +53,13 @@ Router.route('/:sitename', {
 	data: function () {
 	    return Websites.findOne({sitename:this.params.sitename});
 	},
-	onBeforeAction: function () {
-		if (!Websites.find().count()) {
-			this.redirect('dashboard');
-		} else {
-			this.next();
-		}
-	},
+	// onBeforeAction: function () {
+	// 	if (!Websites.find().count()) {
+	// 		this.redirect('dashboard');
+	// 	} else {
+	// 		this.next();
+	// 	}
+	// },
 	action: function () {
 		this.render('website');
 	}
