@@ -83,7 +83,7 @@
 						<li>
 							<div class="text-center websiteListItem">
 								<div class="websiteItemContent">
-									<h3>{{formatDate createdAt}}</h3>
+									<h1>{{formatDate createdAt}}</h1>
 									<h2>{{toUpperCase sitename}}</h2>
 									<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	 -->
 								</div>
@@ -106,6 +106,7 @@
 				<div class="container-fluid">
 					<h2 class="websitesHeader">Browser</h2>
 					<hr class="line" />
+					<span class="glyphicon glyphicon-search searchicon"></span>
 					<h6 class="listsorting">latest</h6>
 					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
 					<ul>
@@ -154,6 +155,9 @@
 							</li>
 							{{#each myWebsite}}
 							<li>
+								<div class="editIcons">
+									<span class="glyphicon glyphicon-remove"></span>
+								</div>
 								<div class="text-center myWebsiteListItem">
 									<div class="myWebsiteItemContent">
 										<h3>{{formatDate createdAt}}</h3>
@@ -161,10 +165,10 @@
 										<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3> -->
 									</div>
 									<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
-									<div class="row editRow">
+									<!-- <div class="row editRow">
 										<div class="col-sm-6 editbuttons edit"><h4>edit</h4></div>
 										<div class="col-sm-6 editbuttons delete"><h4>delete</h4></div>
-									</div>
+									</div> -->
 									<div class="websiteItemOverlay"></div>
 								</div>
 							</li>

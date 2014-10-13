@@ -2,6 +2,18 @@ Websites = new Meteor.Collection("websites");
 
 if (Meteor.isClient) {
 
+    function updateWebsiteCount() {
+        Meteor.call('getWebsitesCount', function (err, count) {
+            Session.set('websitesCount', count); 
+        });
+    }
+
+    Websites.find().observe({
+        added: updateWebsiteCount,
+        removed: updateWebsiteCount
+    });
+
+    Session.setDefault('websitesCount', null);
     Session.setDefault('editing_field', null);
     Session.setDefault('editing_field_value', null);
     Session.setDefault('editing_website', null);
@@ -38,10 +50,10 @@ if (Meteor.isClient) {
     });
 
     Template.registerHelper('toUpperCase', function(str) {
-// check(str, String);
-if(!str) return;
-return str.toUpperCase();
-});
+        // check(str, String);
+        if(!str) return;
+        return str.toUpperCase();
+    });
 
 var showMoreVisible = function () {
     var treshold, target = $('#laod-more');
@@ -572,38 +584,10 @@ Template.dashboard.events({
         preventActionsForEvent( event );
         Router.go("/"+this.sitename);
     },
-
-    'mouseenter .websiteListItem' : function ( event, template ) {
-        websiteListItemMouseEnter ( event );
-    },
-
-    // website list item
-    'mouseleave .websiteListItem' : function ( event, template ) {
-        websiteListItemMouseLeave( event );
-    },
-
-    'mouseenter .myWebsiteListItem' : function ( event, template ) {
-        websiteListItemMouseEnter ( event );
-        $(event.target).find('.editRow').slideDown();
-    },
-
-    // my website list item
-    'mouseleave .myWebsiteListItem' : function ( event, template ) {
-        websiteListItemMouseLeave( event );
-        $(event.target).find('.editRow').slideUp();
-    },
-
-    'click .edit' : function ( event , template ) {
-        preventActionsForEvent( event );
-        Session.set('editing_website', this._id);
-        Router.go('/create');
-    },
-
-    'click .delete' : function ( event , template ) {
+    'click .glyphicon-remove' : function ( event , template ) {
         Session.set('editing_website', null);
         Websites.remove({_id:this._id});
     },
-
     'hover .websiteItemContent' : function ( event, template ) {
         preventActionsForEvent( event );
     }
@@ -666,7 +650,7 @@ Template.create.helpers({
 
 Template.home.helpers({
     numberOfWebsites: function () {
-        return Websites.find().count();
+        return Session.get('websitesCount');
     },
     website: function () {
         return Websites.find({},{sort: {createdAt: -1}});
@@ -796,7 +780,7 @@ var checkSitename = function ( event ) {
 
 var checkInputField = function ( event ) {
     var value = $(event.target).val(),
-        allowedChars = new RegExp("^[a-zA-Z0-9-\.\:\/_ ]*$");
+        allowedChars = new RegExp("^[a-zA-Z0-9-\.,;:!|§±><?@#$%^&*()+=}{\t\r\n\\\"\'\/_ ]*$");
 
     if (allowedChars.test(value)) {
         if (value.length === 0) {
@@ -831,6 +815,13 @@ var destroyNavbar = function () {
 var changeLoginText = function () {
     if(!Meteor.user()) {
         $('a.dropdown-toggle').text("Create Website");
+        $('a.dropdown-toggle').addClass("greenBg");
+    }
+}
+
+var changeDropdownBg = function () {
+    if(!Meteor.user()) {
+        $('a.dropdown-toggle').addClass("greenBg");
     }
 }
 
@@ -841,7 +832,6 @@ Template.home.rendered = function () {
 Template.dashboard.rendered = function () {
     changeLoginText();
     window.scrollTo(0, 0);
-    $('.editRow').slideUp(0);
     autohideNavbar();
 };
 
@@ -852,6 +842,7 @@ Template.website.rendered = function () {
 };
 
 Template.create.rendered = function () {
+    changeDropdownBg();
     window.scrollTo(0, 0);
     console.log('setupMap from rendered');
     setupMap();
@@ -881,7 +872,7 @@ Template.selectStyle.rendered = function () {
 
 Template.dashboard.helpers({
     numberOfWebsites: function () {
-        return Websites.find().count();
+        return Session.get('websitesCount');
     },
     numberOfMyWebsites: function () {
         var count = Websites.find({userId: Meteor.userId()}).count();
@@ -927,7 +918,7 @@ if (Meteor.isServer) {
 
     Meteor.publish('stream', function (limit) {
         check(limit, Number);
-        return Websites.find({},{limit:limit, fields: {sitename:1, createdAt:1, 'content.topImage':1}});
+        return Websites.find({}, {limit:limit, fields: {sitename:1, createdAt:1, 'content.topImage':1 }});
     });
 
     Meteor.publish('myWebsites', function (userId, limit) {
@@ -942,6 +933,12 @@ if (Meteor.isServer) {
 
     Meteor.publish('liveWebsite', function (sitename) {
         return Websites.find({sitename:sitename});
+    });
+
+    Meteor.methods({
+        getWebsitesCount: function () {
+            return Websites.find().count();
+        }
     });
 
 

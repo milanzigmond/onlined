@@ -8,9 +8,9 @@ Router.route('/', {
 	name: 'dashboard',
 	waitOn: function () {
 		if (!Meteor.user()) {
-		    return Meteor.subscribe('stream', 20);
+		    return Meteor.subscribe('stream', 10);
 		} else {
-			return [Meteor.subscribe('stream', 20), Meteor.subscribe('myWebsites', Meteor.userId(), 2)];
+			return [Meteor.subscribe('stream', 10), Meteor.subscribe('myWebsites', Meteor.userId(), 2)];
 		}
 	},
 	action: function () {
