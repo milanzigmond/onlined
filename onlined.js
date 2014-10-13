@@ -820,7 +820,7 @@ var changeLoginText = function () {
 }
 
 var changeDropdownBg = function () {
-    if(!Meteor.user()) {
+    if(Meteor.user()) {
         $('a.dropdown-toggle').addClass("greenBg");
     }
 }

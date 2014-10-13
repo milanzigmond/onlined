@@ -2031,7 +2031,7 @@ NPROGRESS
 
 #nprogress .bar {
   /*background: #89b504;*/
-  background: black;
+  background: #89b504;
   opacity:.5;
   height: 50px;
 }
