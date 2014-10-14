@@ -28,7 +28,7 @@ if (Meteor.isClient) {
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
     Session.setDefault('hidingNavbar', null);
-    Session.set('version', '0.1.3');
+    Session.set('version', '0.2.0');
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -78,13 +78,13 @@ var showMoreVisible = function () {
 var makeEditable = function (event, template) {
     preventActionsForEvent(event);
 
-    console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
+    // console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
 
     if(Session.get('editing_field_value')) return;
     Session.set('editing_field', event.target.id);
     Session.set('editing_field_value', $(event.target).text());
 
-    console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
+    // console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
 
 
     var contentId = event.target.id,
@@ -241,7 +241,7 @@ var setupMap = function () {
         address = editingWebsite.content.address,
         latLng = editingWebsite.content.latLng;
     
-    console.log('setupMap: editing website:'+latLng.lat + ", "+latLng.lng);
+    // console.log('setupMap: editing website:'+latLng.lat + ", "+latLng.lng);
     
     if(!latLng) return;
     
@@ -343,7 +343,7 @@ var saveFile = function ( id, file) {
         reader.to = id.slice(0,-1);
         reader.position = id.slice(-1);
     }
-    console.log('saving file: '+file+" to: "+id);
+    // console.log('saving file: '+file+" to: "+id);
 
     reader.onload = function(event) {
         var websiteId = Session.get('editing_website');
@@ -363,7 +363,7 @@ var saveFile = function ( id, file) {
             if(error){
                 console.log('error:'+error);
             } else {
-                console.log('numOfAffectedDocs:'+numOfAffectedDocs);
+                // console.log('numOfAffectedDocs:'+numOfAffectedDocs);
             }
         });
     };
@@ -390,14 +390,13 @@ var saveField = function ( event ) {
         value = Session.get('editing_field_value'),
         setModifier = { $set: {} };
 
-    console.log('saving field:'+parent.id+' with value: '+value);
+    // console.log('saving field:'+parent.id+' with value: '+value);
 
     setModifier.$set['content.'+ parent.id ] = value;
     Websites.update({_id:websiteId}, setModifier);
 }
 
 var animateNegativeRaction = function ( event ) {
-    console.log('animateNegativeRaction');
 
     if (!$(event.target).is(':animated')) {
         $(event.target).animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);    
@@ -408,7 +407,6 @@ Template.create.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
         countLines(event.target.id);
         makeEditable( event, template );
-        console.log('click');
     },
     'click .link' : function ( event, template ) {
         makeEditable( event, template );
@@ -475,16 +473,12 @@ Template.create.events({
     'drop .overlay' : function ( event, template ) {
         preventActionsForEvent(event);
         id = event.target.parentElement.id;
-
-        console.log('dropped file on id:'+id);
         var file = event.originalEvent.dataTransfer.files[0];
         saveFile(id, file);
     },
     'drop .expand' : function ( event, template ) {
         preventActionsForEvent(event);
         id = event.target.parentElement.parentElement.id;
-
-        console.log('dropped file on id:'+id);
         var file = event.originalEvent.dataTransfer.files[0];
         saveFile(id, file);
     },
@@ -619,7 +613,9 @@ Template.create.helpers({
     },
     style: function () {
         var str = this.css;
-        return str.substring(4, str.length - 4);
+        if(str){
+            return str.substring(4, str.length - 4);
+        };
     },
     goHome: function () {
         Router.go('/');
@@ -663,11 +659,14 @@ Template.selectStyle.helpers({
         return Session.get('styleOptions');
     },
     selectedStyle: function () {
-        var str = Websites.findOne(Session.get('editing_website')).css,
-            filename = str.substring(4, str.length),
+        var str = Websites.findOne(Session.get('editing_website')).css;
+        
+        if (!str) return;
+
+        var filename = str.substring(4, str.length),
             themes = Session.get('themes'),
             styleName;
-        
+
         _.each(themes, function ( element, index, list) {
             if (element.css === filename) {
                 styleName = element.name;
@@ -743,7 +742,6 @@ Template.website.helpers({
 
 Template.layout.helpers({
     alert: function () {
-        console.log('logging from helpers alertMessage: '+ Session.get('alertMessage'));
         return Session.get("alertMessage");
     },
     email: function () {
@@ -844,10 +842,17 @@ Template.website.rendered = function () {
 Template.create.rendered = function () {
     changeDropdownBg();
     window.scrollTo(0, 0);
-    console.log('setupMap from rendered');
     setupMap();
+    // autohideNavbar();
 
-    autohideNavbar();
+    $('.sections').sortable({
+        containment: 'parent',
+        cursor: '-webkit-grabbing',
+        placeholder: 'placeholder',
+        axis: 'x',
+        revert: 300
+    });
+    $( ".sections" ).disableSelection();
 };
 
 Template.dashboard.destroyed = function () {
@@ -898,6 +903,8 @@ Template.dashboard.helpers({
 }
 
 if (Meteor.isServer) {
+
+    Kadira.connect('wktuct8YMbkaDMHXc', 'b762b09b-7b2d-4d76-a76c-2843a2baa89d');
 
     ServiceConfiguration.configurations.remove({
         service: "facebook"

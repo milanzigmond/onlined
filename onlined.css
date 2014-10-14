@@ -42,6 +42,11 @@ div.relativePosition {
   position: relative;
 }
 
+div.centered {
+  width:100%;
+  text-align: center;
+}
+
 div.center {
   width: 300px;
   margin: auto;
@@ -620,25 +625,21 @@ a.navBrand:hover {
 
 /*======================================================SECTIONS NAV BAR start*/
 
-ul.sectionsbar {
-  list-style-type: none;
+.placeholder {
+  height:50px;
+  width:100px;
+}
+
+ul.sections {
   margin: 0;
-  /*margin-top: 12px;*/
-  padding: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color:rgba(0,0,0,0.7);
-  text-align: center;
-  position: fixed;
-  width: 100%;
-  z-index: 20;
 }
 
-ul.sectionsbar li {
-  display: inline;
+ul.sections li {
+  float:left;
+
 }
 
-.sectionsbar a {
+.sections a {
   color: #cb8383;
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
@@ -647,19 +648,18 @@ ul.sectionsbar li {
   text-align: center;
   line-height: 50px;
   letter-spacing: -1px;
-  margin-right: 0.7%;
-  margin-left: 0.7%;
+  padding:15px;
 }
 
-.sectionsbar a.complete {
+.sections a.complete {
   color: #89b504;
 }
 
-.sectionsbar a.active {
+.sections a.active {
   color: #fff;
 }
 
-.sectionsbar a:hover{
+.sections a:hover{
 /*  color: #fff;
   border-top: 3px solid #89b504;
   padding-top: 20px;
@@ -1298,7 +1298,7 @@ STARRY
 */
 
 .starry.createcontent {
-  padding-top: 50px;
+  /*padding-top: 50px;*/
   font-size: 16px;
   line-height: 1.5;
   font-family: 'PT Sans', sans-serif;
@@ -1768,7 +1768,7 @@ AIRY
 
 
 .airy.createcontent {
-  padding-top: 50px;
+  /*padding-top: 50px;*/
   font-size: 16px;
   line-height: 1.5;
   font-family: Helvetica, Arial, sans-serif;
