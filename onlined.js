@@ -17,18 +17,17 @@ if (Meteor.isClient) {
     Session.setDefault('editing_field', null);
     Session.setDefault('editing_field_value', null);
     Session.setDefault('editing_website', null);
-    Session.setDefault('styleOptions', []);
-    Session.setDefault('themes', [
-        {name:'Default Visual Style', css: 'default.css'},
-        {name:'Elegant', css: 'elegante.css'},
-        {name:'Airy', css: 'airy.css'},
-        {name:'Starry', css: 'starry.css'},
-        {name:'Intense', css: 'intense.css'}
+    Session.setDefault('styles', [
+        {name:"Default Visual Style", class:"default"},
+        {name:"Elegant", class:"elegant"},
+        {name:"Airy", class:"airy"},
+        {name:"Starry", class:"starry"},
+        {name:"Intense", class:"intense"}
         ]);
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
     Session.setDefault('hidingNavbar', null);
-    Session.set('version', '0.2.0');
+    Session.set('version', '0.2.1');
 
     if (Accounts._resetPasswordToken) {
         Session.set('resetPassword', Accounts._resetPasswordToken);
@@ -156,7 +155,7 @@ var preventActionsForEvent = function (event) {
 var createDefaultWebsite = function ( sitename ) {
     var website_id = Websites.insert({
         createdAt: new Date(),
-        css: 'css/default.css',
+        style: 'default',
         sitename: sitename,
         userId: Meteor.userId(),
         content: {
@@ -612,10 +611,7 @@ Template.create.helpers({
         return "click or drag&drop";
     },
     style: function () {
-        var str = this.css;
-        if(str){
-            return str.substring(4, str.length - 4);
-        };
+        return this.style;
     },
     goHome: function () {
         Router.go('/');
@@ -656,44 +652,39 @@ Template.home.helpers({
 
 Template.selectStyle.helpers({
     styleOptions: function () {
-        return Session.get('styleOptions');
+        return Session.get('styles');
     },
     selectedStyle: function () {
-        var str = Websites.findOne(Session.get('editing_website')).css;
+        var style = Websites.findOne(Session.get('editing_website')).style;
         
-        if (!str) return;
+        if (!style) return;
 
-        var filename = str.substring(4, str.length),
-            themes = Session.get('themes'),
+        var styles = Session.get('styles'),
             styleName;
 
-        _.each(themes, function ( element, index, list) {
-            if (element.css === filename) {
+        _.each(styles, function ( element, index, list) {
+            if (element.class === style) {
                 styleName = element.name;
             };
-        })
-
-        if(!styleName) return "default.css";
+        });
 
         return styleName;
     }
 });
 
 Template.selectStyle.events({
-    'click li': function (e,t) {
-        var styleId = $(e.target).data('styleid');
+    'click ul.dropdown-menu': function ( event, template ) {
+        debugger
+        var style = $(event.target).data('style');
 
-        if(styleId === undefined) return;
+        if(!style) return;
 
-        var styleCss = Session.get('styleOptions')[styleId].css,
-            currentStyle = 'css/' + styleCss,
-            editingWebsite = Session.get('editing_website');
+        var editingWebsite = Session.get('editing_website');
         
         if (editingWebsite) {
-
             Websites.update(
                 {_id: editingWebsite},
-                { $set: { css: currentStyle}}
+                { $set: { style: style}}
             );
         };
     }
@@ -726,8 +717,7 @@ Template.createMenu.helpers({
 
 Template.website.helpers({
     style: function () {
-        var str = this.css;
-        return str.substring(4, str.length - 4);
+        return this.style;
     },
     email: function () {
         return getUserEmail();
@@ -861,18 +851,6 @@ Template.dashboard.destroyed = function () {
 
 Template.create.destroyed = function () {
     destroyNavbar();
-};
-
-
-Template.selectStyle.rendered = function () {
-    var themes = Session.get('themes');
-    var styleOptions = [];
-
-    themes.forEach(function(value, index){
-        styleOptions.push({name:value.name, value:index, css:value.css});  
-    });
-
-    Session.set('styleOptions', styleOptions);
 };
 
 Template.dashboard.helpers({
