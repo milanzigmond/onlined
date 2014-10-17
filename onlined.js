@@ -786,8 +786,10 @@ var checkInputField = function ( event ) {
 
 var checkDuplicity = function ( event ) {
     var value = $(event.target).val(),
-        exists = Websites.find({sitename:value}).fetch();
-    if( exists.length > 0 ) { return false; }
+        exists = Websites.find({sitename:value});
+    
+    if( exists ) return false;
+
     return true;
 }
 

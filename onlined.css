@@ -796,7 +796,7 @@ h6 {
 /*======================================================SECTION INTRO start*/
 
 .section-intro {
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
 .onlinedlogo {
@@ -2045,6 +2045,10 @@ NPROGRESS
   display: none;
 }
 
+.dropdown-menu>li>a.default{
+  font-size: 2.8em;
+}
+
 .dropdown-menu>li>a.airy {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
@@ -2052,13 +2056,6 @@ NPROGRESS
   font-size: 4em;
   letter-spacing: -2px;
   color: #fff;
-
-
- /* color: #fff;
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
-  font-style: italic;
-  font-size: 1.6em;*/
   background: url(/fullbg2.jpg) no-repeat center center fixed; 
 }
 
@@ -2067,14 +2064,7 @@ NPROGRESS
   font-size: 5.5em;
   color: #e29f81;
   margin-top: 2px;
-
-
-  /*font-size: 16px;
-  line-height: 1.5;
-  font-family: 'Merriweather', serif;
-  font-weight: 300;
-  color: #82735E;
-  */background-color: #f9f7f6;
+  background-color: #f9f7f6;
 }
 
 .dropdown-menu>li>a.starry {
@@ -2083,13 +2073,6 @@ NPROGRESS
   font-size: 4.5em;
   letter-spacing: -2px;
   color: #ff6445;
-  
-
-
-/*  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 300;
-  color: #fff;*/
   background: url(/stardust.png);
 }
 
@@ -2099,4 +2082,15 @@ NPROGRESS
   font-size: 5.5em;
   color: #e50000;
   background-color: #fff;
+}
+
+.styleDropdownIcon {
+  width:20px;
+  padding-right:5px;
+  padding-bottom:3px;
+}
+
+/*for styleDropDown*/
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  color:#fff;
 }
