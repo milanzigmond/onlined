@@ -674,7 +674,6 @@ Template.selectStyle.helpers({
 
 Template.selectStyle.events({
     'click ul.dropdown-menu': function ( event, template ) {
-        debugger
         var style = $(event.target).data('style');
 
         if(!style) return;
@@ -807,11 +806,11 @@ var changeLoginText = function () {
     }
 }
 
-var changeDropdownBg = function () {
-    if(Meteor.user()) {
-        $('a.dropdown-toggle').addClass("greenBg");
-    }
-}
+// var changeDropdownBg = function () {
+//     if(Meteor.user()) {
+//         $('a.dropdown-toggle').addClass("greenBg");
+//     }
+// }
 
 Template.home.rendered = function () {
     changeLoginText();    
