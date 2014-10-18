@@ -515,6 +515,20 @@ var blurCreateWebsiteInput = function () {
     label.delay(250).fadeIn(100);
 }
 
+var checkDuplicity = function ( sitename , parent) {
+    Meteor.call('checkDuplicity', sitename, function (err, exists) {
+        console.log('callback called');
+        if(exists) {
+            blurCreateWebsiteInput();
+            createDefaultWebsite(sitename);
+            Router.go('create');
+        } else {
+            $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
+            parent.removeClass( "valid" ).addClass( "invalid" );
+        };
+    });
+}
+
 Template.dashboard.events({
     'click #register-sitename' : function ( event, template ) {
 
@@ -538,9 +552,10 @@ Template.dashboard.events({
         parent.removeClass( "invalid" ).addClass( "valid" );
     },
     'keydown .textInput' : function ( event, template ) {
-        var parent = $(event.target).parent();
+        var parent = $(event.target).parent(),
+            sitename = $(event.target).val();
 
-        if ( checkSitename( event ) && checkDuplicity ( event ) ) {
+        if ( checkSitename( event ) ) {
             parent.removeClass( "invalid" ).addClass( "valid" );
         } else {
             parent.removeClass( "valid" ).addClass( "invalid" );
@@ -552,20 +567,16 @@ Template.dashboard.events({
             sitename = $('.textInput').val(),
             value = input.val();
 
-        if ( checkSitename( event ) && checkDuplicity ( event ) ) {
+        if ( checkSitename( event ) ) {
             parent.removeClass( "invalid" ).addClass( "valid" );
         } else {
             parent.removeClass( "valid" ).addClass( "invalid" );
         }
 
         if (event.which === 13) {
-            if ( checkSitename( event ) && checkDuplicity ( event ) ) {
-                blurCreateWebsiteInput();
-                createDefaultWebsite(sitename);
-                Router.go('create');
-            } else {
-                $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
-            }
+            if ( checkSitename( event ) ) {
+                checkDuplicity ( sitename,  parent);
+            };
         };
     },
     'click .myWebsiteListItem' : function ( event, template ) {
@@ -784,15 +795,6 @@ var checkInputField = function ( event ) {
     };
 }
 
-var checkDuplicity = function ( event ) {
-    var value = $(event.target).val(),
-        exists = Websites.find({sitename:value});
-    
-    if( exists ) return false;
-
-    return true;
-}
-
 var autohideNavbar = function () {
     $("nav.navbar-fixed-top").autoHidingNavbar({'animationDuration' : 300});
 }
@@ -831,7 +833,7 @@ Template.website.rendered = function () {
 };
 
 Template.create.rendered = function () {
-    changeDropdownBg();
+    // changeDropdownBg();
     window.scrollTo(0, 0);
     setupMap();
     // autohideNavbar();
@@ -924,6 +926,11 @@ if (Meteor.isServer) {
     Meteor.methods({
         getWebsitesCount: function () {
             return Websites.find().count();
+        },
+        checkDuplicity: function ( sitename ) {
+            var exists = Websites.find({sitename:sitename.toUpperCase()}).count();
+            if( exists > 0 ) return false;
+            return true;
         }
     });
 
