@@ -10,7 +10,8 @@ Router.route('/', {
 		if (!Meteor.user()) {
 		    return Meteor.subscribe('stream', 10);
 		} else {
-			return [Meteor.subscribe('stream', 10), Meteor.subscribe('myWebsites', Meteor.userId(), 2)];
+			return [ Meteor.subscribe('stream', 10), 
+					 Meteor.subscribe('myWebsites', Meteor.userId(), 2) ];
 		}
 	},
 	action: function () {
@@ -27,7 +28,8 @@ Router.route('/', {
 Router.route('/create', {
 	name: 'create',
 	waitOn: function () {
-		return Meteor.subscribe('editWebsite', Session.get('editing_website'));
+		return [ Meteor.subscribe('editWebsite', Session.get('editing_website')), 
+			     Meteor.subscribe('images') ];
 	},
 	data: function () {
 	    return Websites.findOne(Session.get('editing_website'));

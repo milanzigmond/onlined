@@ -1,5 +1,40 @@
 Websites = new Meteor.Collection("websites");
 
+FS.debug = true;
+
+
+var imageGridFSStore = new FS.Store.GridFS("images", {
+  mongoUrl: 'mongodb://127.0.0.1:3001/meteor' // optional, defaults to Meteor's local MongoDB
+  // mongoOptions: {...},  // optional, see note below
+  // transformWrite: myTransformWriteFunction, //optional
+  // transformRead: myTransformReadFunction, //optional
+  // maxTries: 1, // optional, default 5
+  // chunkSize: 1024*1024  // optional, default GridFS chunk size in bytes (can be overridden per file).
+                        // Default: 2MB. Reasonable range: 512KB - 4MB
+});
+
+Images = new FS.Collection("images", {
+  stores: [imageGridFSStore]
+  // stores: [imageS3Store]
+});
+
+Images.allow({
+  insert: function () {
+    return true;
+  },
+  update: function () {
+    return true;
+  },
+  remove: function () {
+    return true;
+  },
+  download: function () {
+    return true;
+  }
+});
+
+
+
 if (Meteor.isClient) {
 
     function updateWebsiteCount() {
@@ -38,6 +73,11 @@ if (Meteor.isClient) {
         short: "DD MMMM YYYY",
         long: "DD MMMM YYYY HH:mm (dddd)"
     };
+
+    Template.registerHelper("showImage", function(id) {
+        console.log('showImagehelper: '+ id.getFileRecord());
+        return id.getFileRecord();
+    });    
 
     Template.registerHelper("formatDate", function(datetime) {
         if (moment) {
@@ -333,6 +373,18 @@ var showMap = function (website) {
     infowindow.open(map, marker);
 };
 
+var newSaveFile = function ( id, file ) {
+    var fileObj = Images.insert(file),
+        setModifier = { $set: {} },
+        websiteId = Session.get('editing_website');
+
+    if(!fileObj) return;
+
+    setModifier.$set['content.'+id ] = fileObj;
+
+    Websites.update({_id:websiteId}, setModifier);
+}
+
 var saveFile = function ( id, file) { 
     reader = new FileReader(),
 
@@ -473,13 +525,16 @@ Template.create.events({
         preventActionsForEvent(event);
         id = event.target.parentElement.id;
         var file = event.originalEvent.dataTransfer.files[0];
-        saveFile(id, file);
+        // saveFile(id, file);
+        newSaveFile( id, file );
+
     },
     'drop .expand' : function ( event, template ) {
         preventActionsForEvent(event);
         id = event.target.parentElement.parentElement.id;
         var file = event.originalEvent.dataTransfer.files[0];
-        saveFile(id, file);
+        // saveFile(id, file);
+        newSaveFile( id, file );
     },
     'click .overlay' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -493,7 +548,8 @@ Template.create.events({
         preventActionsForEvent( event );
         var id = event.target.parentElement.id;
         var file = event.target.files[0];
-        saveFile(id, file);
+        // saveFile(id, file);
+        newSaveFile( id, file );
     }
 });
 
@@ -516,6 +572,8 @@ var blurCreateWebsiteInput = function () {
 }
 
 var checkDuplicity = function ( sitename , parent) {
+    var sitename = sitename.toLowerCase();
+    
     Meteor.call('checkDuplicity', sitename, function (err, exists) {
         console.log('callback called');
         if(exists) {
@@ -896,6 +954,10 @@ if (Meteor.isServer) {
         secret: "08df277b0663b6beb93f7795843b98f7"
     });
 
+    Meteor.publish('images', function () {
+        return Images.find();
+    });
+
     Meteor.publish('allUsers', function () {
         return Meteor.users.find();
     });
@@ -928,7 +990,9 @@ if (Meteor.isServer) {
             return Websites.find().count();
         },
         checkDuplicity: function ( sitename ) {
-            var exists = Websites.find({sitename:sitename.toUpperCase()}).count();
+            var sitename = sitename.toLowerCase(),
+                exists = Websites.find({sitename:sitename}).count();
+
             if( exists > 0 ) return false;
             return true;
         }
