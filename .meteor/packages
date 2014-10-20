@@ -17,3 +17,5 @@ meteorhacks:kadira
 iron:router@1.0.0-pre4
 cfs:standard-packages
 cfs:gridfs
+cfs:ejson-file
+

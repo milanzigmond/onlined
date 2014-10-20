@@ -11,7 +11,7 @@ Router.route('/', {
 		    return Meteor.subscribe('stream', 10);
 		} else {
 			return [ Meteor.subscribe('stream', 10), 
-					 Meteor.subscribe('myWebsites', Meteor.userId(), 2) ];
+					 Meteor.subscribe('myWebsites', Meteor.userId(), 5) ];
 		}
 	},
 	action: function () {
@@ -28,8 +28,10 @@ Router.route('/', {
 Router.route('/create', {
 	name: 'create',
 	waitOn: function () {
-		return [ Meteor.subscribe('editWebsite', Session.get('editing_website')), 
-			     Meteor.subscribe('images') ];
+		var id = Session.get('editing_website');
+		return [ Meteor.subscribe('myWebsites', Meteor.userId(), 5),
+				 Meteor.subscribe('editWebsite', id), 
+			     Meteor.subscribe('images', id)];
 	},
 	data: function () {
 	    return Websites.findOne(Session.get('editing_website'));

@@ -11,28 +11,31 @@ var imageGridFSStore = new FS.Store.GridFS("images", {
   // maxTries: 1, // optional, default 5
   // chunkSize: 1024*1024  // optional, default GridFS chunk size in bytes (can be overridden per file).
                         // Default: 2MB. Reasonable range: 512KB - 4MB
-});
+                    });
 
 Images = new FS.Collection("images", {
-  stores: [imageGridFSStore]
-  // stores: [imageS3Store]
+    stores: [imageGridFSStore],
+    filter: {
+        allow: {
+            extensions: ['png', 'jpg', 'jpeg', 'gif', 'bmp']
+        }
+    }
 });
 
 Images.allow({
-  insert: function () {
-    return true;
-  },
-  update: function () {
-    return true;
-  },
-  remove: function () {
-    return true;
-  },
-  download: function () {
-    return true;
-  }
+    insert: function () {
+        return true;
+    },
+    update: function () {
+        return true;
+    },
+    remove: function () {
+        return true;
+    },
+    download: function () {
+        return true;
+    }
 });
-
 
 
 if (Meteor.isClient) {
@@ -74,11 +77,6 @@ if (Meteor.isClient) {
         long: "DD MMMM YYYY HH:mm (dddd)"
     };
 
-    Template.registerHelper("showImage", function(id) {
-        console.log('showImagehelper: '+ id.getFileRecord());
-        return id.getFileRecord();
-    });    
-
     Template.registerHelper("formatDate", function(datetime) {
         if (moment) {
             return moment(datetime).fromNow();
@@ -86,6 +84,14 @@ if (Meteor.isClient) {
         else {
             return datetime;
         }
+    });
+
+    Template.registerHelper("showImage", function(id) {
+        check(id, String);
+        var imageId = this.content[id];
+        var file = Images.findOne(imageId);
+        if(!file) return "";
+        return file.url();
     });
 
     Template.registerHelper('toUpperCase', function(str) {
@@ -193,6 +199,7 @@ var preventActionsForEvent = function (event) {
 };
 
 var createDefaultWebsite = function ( sitename ) {
+
     var website_id = Websites.insert({
         createdAt: new Date(),
         style: 'default',
@@ -248,7 +255,9 @@ var createDefaultWebsite = function ( sitename ) {
             instagram: ""
         }
     });
-Session.set('editing_website', website_id);
+    
+    Session.set('editing_website', website_id);
+    Meteor.call('addImagesToDefaultWebsite');
 };
 
 var getUserEmail = function () {
@@ -374,15 +383,36 @@ var showMap = function (website) {
 };
 
 var newSaveFile = function ( id, file ) {
-    var fileObj = Images.insert(file),
+
+    console.log(JSON.stringify(file));
+    check(id, String);
+
+    var fsFile = new FS.File(file),
         setModifier = { $set: {} },
         websiteId = Session.get('editing_website');
 
+    fsFile.userId = Meteor.userId();
+    fsFile.websiteId = websiteId;
+    fsFile.contentId = id;
+
+    // delete old file if it was an image in db
+    var currentImageId = Websites.findOne(websiteId).content[id];
+    var  fileObj = Images.findOne({contentId:id});
+    if(fileObj) Images.remove(fileObj._id);
+
+    // insert new file
+    
+    var fileObj = Images.insert(fsFile, function (err, fileObj) {
+        // todo add tooltip
+      });
+
     if(!fileObj) return;
 
-    setModifier.$set['content.'+id ] = fileObj;
+    setModifier.$set['content.'+id ] = fileObj._id;
 
     Websites.update({_id:websiteId}, setModifier);
+
+
 }
 
 var saveFile = function ( id, file) { 
@@ -573,7 +603,7 @@ var blurCreateWebsiteInput = function () {
 
 var checkDuplicity = function ( sitename , parent) {
     var sitename = sitename.toLowerCase();
-    
+
     Meteor.call('checkDuplicity', sitename, function (err, exists) {
         console.log('callback called');
         if(exists) {
@@ -676,6 +706,13 @@ Template.home.events({
 });
 
 Template.create.helpers({
+    // showImage: function (id) {
+    //     check(id, String);
+    //     var imageId = this.content[id];
+    //     var file = Images.findOne(imageId);
+    //     if(!file) return "";
+    //     return file.url();
+    // },
     editImageText: function () {
         return "click or drag&drop";
     },
@@ -780,6 +817,15 @@ Template.createMenu.helpers({
             return o + '/' + w.sitename.toUpperCase();
         else 
             return o;
+    }
+});
+
+Template.createMenu.events({
+    'dragover' : function ( event, template ) { 
+        preventActionsForEvent(event); 
+    },
+    'drop' : function ( event, template ) { 
+        preventActionsForEvent(event); 
     }
 });
 
@@ -942,8 +988,7 @@ Template.dashboard.helpers({
 }
 
 if (Meteor.isServer) {
-
-    Kadira.connect('wktuct8YMbkaDMHXc', 'b762b09b-7b2d-4d76-a76c-2843a2baa89d');
+    // Kadira.connect('wktuct8YMbkaDMHXc', 'b762b09b-7b2d-4d76-a76c-2843a2baa89d');
 
     ServiceConfiguration.configurations.remove({
         service: "facebook"
@@ -952,10 +997,6 @@ if (Meteor.isServer) {
         service: "facebook",
         appId: "636768589764143",
         secret: "08df277b0663b6beb93f7795843b98f7"
-    });
-
-    Meteor.publish('images', function () {
-        return Images.find();
     });
 
     Meteor.publish('allUsers', function () {
@@ -968,13 +1009,13 @@ if (Meteor.isServer) {
 
     Meteor.publish('stream', function (limit) {
         check(limit, Number);
-        return Websites.find({}, {limit:limit, fields: {sitename:1, createdAt:1, 'content.topImage':1 }});
+        return Websites.find({}, {limit:limit});
     });
 
     Meteor.publish('myWebsites', function (userId, limit) {
         check(userId, String);
         check(limit, Number);
-        return Websites.find({userId: userId},{fields: {sitename:1, createdAt:1, 'content.topImage':1, userId:1}});
+        return Websites.find({userId: userId});
     });
 
     Meteor.publish('editWebsite', function (id) {
@@ -983,6 +1024,10 @@ if (Meteor.isServer) {
 
     Meteor.publish('liveWebsite', function (sitename) {
         return Websites.find({sitename:sitename});
+    });
+
+    Meteor.publish('images', function (id) {
+        return Images.find({websiteId:id});
     });
 
     Meteor.methods({
@@ -995,11 +1040,17 @@ if (Meteor.isServer) {
 
             if( exists > 0 ) return false;
             return true;
+        },
+        addImagesToDefaultWebsite: function () {
+            console.log('addImagesToDefaultWebsite');
+              var file = new FS.File({ name: 'topImage.jpg' });
+              file.attachData('topImage.jpg');
+              Images.insert(file);
         }
     });
 
 
-
+   
 
     Websites.allow({
         insert: function (userId, doc) {

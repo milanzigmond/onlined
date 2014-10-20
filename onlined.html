@@ -80,8 +80,8 @@
 
 
 		        <ul class="nav navbar-nav navbar-right">
-            		<li><a href="{{pathFor 'website'}}" target="_blank">Live Website</a></li>
             		<li><a href="{{pathFor 'dashboard'}}">Dashboard</a></li>
+            		<li><a href="{{pathFor 'website'}}" target="_blank">Live Website</a></li>
 		        </ul>
 		    </div>
 		</div>
@@ -216,10 +216,10 @@
 
 <template name="create">
 	<div class="{{style}} createcontent">
-
+	
 		<div id="effect-6" class="effects">
 			<div id="topImage" class="img">
-	            <img class="img img-responsive" src="{{showImage content.topImage}}" alt="">
+	            <img class="img img-responsive" src="{{showImage 'topImage'}}" alt="">
 	            <div class="overlay">
 	                <span class="expand">{{editImageText}}</span>
 	            </div>
@@ -233,6 +233,7 @@
 				<h2 id="tagline" class="editable text-center">{{content.tagline}}</h2>
 			</div>
 		</div>
+
 		
 		<div class="textureline"></div>
 		
@@ -243,7 +244,9 @@
 
 						<div id="effect-6" class="effects">
 							<div id="logo" class="img">
-					            <div class="rounded" style="background-image: url({{content.logo}})"></div>
+					            <div class="rounded" 
+					            	 style='background-image: url("{{showImage "logo"}}")'>
+					            </div>
 					            <div class="overlay rounded">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
@@ -370,7 +373,7 @@
 
 						<div id="effect-6" class="effects">
 							<div id="firstProductImage" class="img">
-					            <img src="{{content.firstProductImage}}" alt="">
+					            <img src="{{showImage 'firstProductImage'}}" alt="">
 					            <div class="overlay">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
@@ -385,7 +388,7 @@
 
 						<div id="effect-6" class="effects">
 							<div id="secondProductImage" class="img">
-					            <img src="{{content.secondProductImage}}" alt="">
+					            <img src="{{showImage 'secondProductImage'}}" alt="">
 					            <div class="overlay">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
@@ -434,7 +437,7 @@
 
 						<div id="effect-6" class="effects">
 							<div id="firstTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{content.firstTeamMemberImage}}" class="member" alt="">
+					            <img width="50%" src="{{showImage 'firstTeamMemberImage'}}" class="member" alt="">
 					            <div class="overlay member">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
@@ -451,7 +454,7 @@
 
 						<div id="effect-6" class="effects">
 							<div id="secondTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{content.secondTeamMemberImage}}" class="member" alt="">
+					            <img width="50%" src="{{showImage 'secondTeamMemberImage'}}" class="member" alt="">
 					            <div class="overlay member">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
@@ -468,7 +471,7 @@
 						
 						<div id="effect-6" class="effects">
 							<div id="thirdTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{content.thirdTeamMemberImage}}" class="member" alt="">
+					            <img width="50%" src="{{showImage 'thirdTeamMemberImage'}}" class="member" alt="">
 					            <div class="overlay member">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
@@ -485,7 +488,7 @@
 
 						<div id="effect-6" class="effects">
 							<div id="fourthTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{content.fourthTeamMemberImage}}" class="member" alt="">
+					            <img width="50%" src="{{showImage 'fourthTeamMemberImage'}}" class="member" alt="">
 					            <div class="overlay member">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
