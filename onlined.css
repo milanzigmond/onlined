@@ -648,7 +648,10 @@ ul.sections li {
   text-align: center;
   line-height: 50px;
   letter-spacing: -1px;
-  padding:15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 7px;
+  padding-left: 7px;
 }
 
 .sections a.complete {

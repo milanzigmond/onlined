@@ -87,10 +87,9 @@ if (Meteor.isClient) {
     });
 
     Template.registerHelper("showImage", function(id) {
-        check(id, String);
-        var imageId = this.content[id];
-        var file = Images.findOne(imageId);
-        if(!file) return "";
+        if(!id) return;
+        var file = Images.findOne(id);
+        if(!file) return;
         return file.url();
     });
 
@@ -211,19 +210,12 @@ var createDefaultWebsite = function ( sitename ) {
             tagline: "click me to edit the subtitle",
             heading: "click to edit heading",
             paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
-            logo: "draglogo.jpg",
-            topImage: "topImage.jpg",
-            galleryImages: [
-            {position: 0, src:"family01.jpg", small:"family01small.jpg"},
-            {position: 1, src:"family02.jpg", small:"family02small.jpg"},
-            {position: 2, src:"family03.jpg", small:"family03small.jpg"},
-            {position: 3, src:"family04.jpg", small:"family04small.jpg"}
-            ],
-            highlightImages: [ 
-            {position: 0, src:"highlightImage01.jpg"}, 
-            {position: 1, src:"highlightImage02.jpg"},
-            {position: 2, src:"highlightImage03.jpg"},
-            {position: 3, src:"highlightImage04.jpg"}
+            logo: "",
+            topImage: "",
+            gallery: ["family01small.jpg",
+                      "family02small.jpg",
+                      "family03small.jpg",
+                      "family04small.jpg"
             ], 
             textColumns1Heading: "You will love this!",
             textColumns2Heading: "Unbelievable",
@@ -257,7 +249,6 @@ var createDefaultWebsite = function ( sitename ) {
     });
     
     Session.set('editing_website', website_id);
-    Meteor.call('addImagesToDefaultWebsite');
 };
 
 var getUserEmail = function () {
@@ -382,75 +373,77 @@ var showMap = function (website) {
     infowindow.open(map, marker);
 };
 
-var newSaveFile = function ( id, file ) {
+var saveFile = function ( presentFileId, contentId, file ) {
 
     console.log(JSON.stringify(file));
-    check(id, String);
 
     var fsFile = new FS.File(file),
-        setModifier = { $set: {} },
-        websiteId = Session.get('editing_website');
+        websiteId = Session.get('editing_website'),
+        fileObj;
 
     fsFile.userId = Meteor.userId();
     fsFile.websiteId = websiteId;
-    fsFile.contentId = id;
+    fsFile.contentId = contentId;
 
-    // delete old file if it was an image in db
-    var currentImageId = Websites.findOne(websiteId).content[id];
-    var  fileObj = Images.findOne({contentId:id});
-    if(fileObj) Images.remove(fileObj._id);
-
-    // insert new file
+    // update if it already exists
     
-    var fileObj = Images.insert(fsFile, function (err, fileObj) {
-        // todo add tooltip
-      });
+    // insert new file  
+    fileObj = Images.insert(fsFile, function (err, fileObj) {
+      // todo add tooltip
+      console.log(err);
+      if(!err) {
+        if ( presentFileId ) {
+            console.log('presentfileid removed');
+            Images.remove(presentFileId);
+        }
+      }
+    });
 
     if(!fileObj) return;
 
-    setModifier.$set['content.'+id ] = fileObj._id;
+    // update website content
+    var setModifier = { $set: {} };
+    setModifier.$set['content.'+contentId ] = fileObj._id;
 
     Websites.update({_id:websiteId}, setModifier);
-
-
-}
-
-var saveFile = function ( id, file) { 
-    reader = new FileReader(),
-
-    reader.to = id;
-    reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
-    if(reader.gallery) {
-        reader.to = id.slice(0,-1);
-        reader.position = id.slice(-1);
-    }
-    // console.log('saving file: '+file+" to: "+id);
-
-    reader.onload = function(event) {
-        var websiteId = Session.get('editing_website');
-        var setModifier = { $set: {} };
-
-        if (this.gallery)
-        {
-            //it is a gallery image, get a position from id
-            setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
-            setModifier.$set['content.'+this.to+'.'+this.position+'.src' ] = event.target.result;
-        } else {
-        //it is a single image, no position needed
-            setModifier.$set['content.'+this.to ] = event.target.result;
-         }
-
-        Websites.update({_id:websiteId}, setModifier, function (error, numOfAffectedDocs) {
-            if(error){
-                console.log('error:'+error);
-            } else {
-                // console.log('numOfAffectedDocs:'+numOfAffectedDocs);
-            }
-        });
-    };
-
-    reader.readAsDataURL(file);
 };
+
+// var saveFile = function ( id, file) { 
+//     reader = new FileReader(),
+
+//     reader.to = id;
+//     reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
+//     if(reader.gallery) {
+//         reader.to = id.slice(0,-1);
+//         reader.position = id.slice(-1);
+//     }
+//     // console.log('saving file: '+file+" to: "+id);
+
+//     reader.onload = function(event) {
+//         var websiteId = Session.get('editing_website');
+//         var setModifier = { $set: {} };
+
+//         if (this.gallery)
+//         {
+//             //it is a gallery image, get a position from id
+//             setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
+//             setModifier.$set['content.'+this.to+'.'+this.position+'.src' ] = event.target.result;
+//         } else {
+//         //it is a single image, no position needed
+//             setModifier.$set['content.'+this.to ] = event.target.result;
+//          }
+
+//         Websites.update({_id:websiteId}, setModifier, function (error, numOfAffectedDocs) {
+//             if(error){
+//                 console.log('error:'+error);
+//             } else {
+//                 // console.log('numOfAffectedDocs:'+numOfAffectedDocs);
+//             }
+//         });
+//     };
+
+//     reader.readAsDataURL(file);
+// };
 
 var trimInput = function(val) {
     return val.replace(/^\s*|\s*$/g, "");
@@ -478,7 +471,7 @@ var saveField = function ( event ) {
 }
 
 var animateNegativeRaction = function ( event ) {
-
+    console.log('animateNegativeRaction');
     if (!$(event.target).is(':animated')) {
         $(event.target).animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);    
     };
@@ -553,18 +546,21 @@ Template.create.events({
     },
     'drop .overlay' : function ( event, template ) {
         preventActionsForEvent(event);
-        id = event.target.parentElement.id;
-        var file = event.originalEvent.dataTransfer.files[0];
-        // saveFile(id, file);
-        newSaveFile( id, file );
+        
+        var contentId = event.target.parentElement.id,
+            presentFileId = this.content[contentId],
+            file = event.originalEvent.dataTransfer.files[0];
 
+        saveFile( presentFileId, contentId, file );
     },
     'drop .expand' : function ( event, template ) {
         preventActionsForEvent(event);
-        id = event.target.parentElement.parentElement.id;
-        var file = event.originalEvent.dataTransfer.files[0];
-        // saveFile(id, file);
-        newSaveFile( id, file );
+        
+        var contentId = event.target.parentElement.parentElement.id,
+            presentFileId = this.content[contentId],
+            file = event.originalEvent.dataTransfer.files[0];
+        
+        saveFile( presentFileId, contentId, file );
     },
     'click .overlay' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -576,10 +572,12 @@ Template.create.events({
     },
     'change input[type=file]' : function ( event, template ) {
         preventActionsForEvent( event );
-        var id = event.target.parentElement.id;
-        var file = event.target.files[0];
-        // saveFile(id, file);
-        newSaveFile( id, file );
+        
+        var contentId = event.target.parentElement.id,
+            presentFileId = this.content[contentId],
+            file = event.target.files[0];
+
+        saveFile( presentFileId, contentId, file );
     }
 });
 
@@ -605,7 +603,6 @@ var checkDuplicity = function ( sitename , parent) {
     var sitename = sitename.toLowerCase();
 
     Meteor.call('checkDuplicity', sitename, function (err, exists) {
-        console.log('callback called');
         if(exists) {
             blurCreateWebsiteInput();
             createDefaultWebsite(sitename);
@@ -664,6 +661,8 @@ Template.dashboard.events({
         if (event.which === 13) {
             if ( checkSitename( event ) ) {
                 checkDuplicity ( sitename,  parent);
+            } else {
+                animateNegativeRaction( event );
             };
         };
     },
@@ -706,13 +705,6 @@ Template.home.events({
 });
 
 Template.create.helpers({
-    // showImage: function (id) {
-    //     check(id, String);
-    //     var imageId = this.content[id];
-    //     var file = Images.findOne(imageId);
-    //     if(!file) return "";
-    //     return file.url();
-    // },
     editImageText: function () {
         return "click or drag&drop";
     },
@@ -723,7 +715,7 @@ Template.create.helpers({
         Router.go('/');
     },
     galleryImages: function () {
-        return this.content.galleryImages;
+        return this.content.gallery;
     },
     highlightImages: function () {
         return this.content.highlightImages;
@@ -837,7 +829,7 @@ Template.website.helpers({
         return getUserEmail();
     },
     galleryImages: function () {
-        return this.content.galleryImages;
+        return this.content.gallery;
     },
     website: function () {
         return Websites.find({sitename:this.params.sitename});
@@ -1040,12 +1032,6 @@ if (Meteor.isServer) {
 
             if( exists > 0 ) return false;
             return true;
-        },
-        addImagesToDefaultWebsite: function () {
-            console.log('addImagesToDefaultWebsite');
-              var file = new FS.File({ name: 'topImage.jpg' });
-              file.attachData('topImage.jpg');
-              Images.insert(file);
         }
     });
 
