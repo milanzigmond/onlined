@@ -88,8 +88,10 @@ if (Meteor.isClient) {
 
     Template.registerHelper("showImage", function(id) {
         if(!id) return;
+        // console.log('id:'+id);
         var file = Images.findOne(id);
         if(!file) return;
+        // console.log('showImage:'+file.contentId);
         return file.url();
     });
 
@@ -212,10 +214,11 @@ var createDefaultWebsite = function ( sitename ) {
             paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
             logo: "",
             topImage: "",
-            gallery: ["family01small.jpg",
-                      "family02small.jpg",
-                      "family03small.jpg",
-                      "family04small.jpg"
+            gallery: [
+                {imageId: ""},
+                {imageId: ""},
+                {imageId: ""},
+                {imageId: ""}
             ], 
             textColumns1Heading: "You will love this!",
             textColumns2Heading: "Unbelievable",
@@ -373,27 +376,59 @@ var showMap = function (website) {
     infowindow.open(map, marker);
 };
 
-var saveFile = function ( presentFileId, contentId, file ) {
+var isGallery = function ( contentId ) {
+    if( !contentId ) return;
 
-    console.log(JSON.stringify(file));
+    var websiteId = Session.get('editing_website'),
+        website = Websites.findOne(websiteId),
+        content = website.content[contentId];
 
-    var fsFile = new FS.File(file),
-        websiteId = Session.get('editing_website'),
+    if(content instanceof Array) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+var saveFile = function ( event ) {
+
+    // get contentId from the DOM
+    var contentId       = event.target.parentElement.id;
+    if (!contentId) 
+        contentId       = event.target.parentElement.parentElement.id;
+    if (!contentId) return;
+
+    var index           = $(event.target.parentElement).data('index'),
+        websiteId       = Session.get('editing_website'),
+        website         = Websites.findOne(websiteId),
+        presentFileId   = website.content[contentId],
+        tagName         = $(event.target).get(0).tagName,
+        fsFile, 
         fileObj;
 
+    // check present file id for galleries
+    if ( presentFileId instanceof Object )
+        presentFileId   = website[ 'content.' + contentId + '.' + index + '.imageId' ];
+
+    // check for the correct file 
+    if ( tagName === "DIV" || tagName === "SPAN") {
+        file            = event.originalEvent.dataTransfer.files[0];
+    } else if ( tagName === "INPUT") {
+        file            = event.target.files[0];
+    };
+
+    // create fs file to insert
+    fsFile = new FS.File(file),
     fsFile.userId = Meteor.userId();
     fsFile.websiteId = websiteId;
     fsFile.contentId = contentId;
-
-    // update if it already exists
     
     // insert new file  
     fileObj = Images.insert(fsFile, function (err, fileObj) {
       // todo add tooltip
       console.log(err);
       if(!err) {
-        if ( presentFileId ) {
-            console.log('presentfileid removed');
+        if ( presentFileId && presentFileId !== "") {
             Images.remove(presentFileId);
         }
       }
@@ -402,48 +437,18 @@ var saveFile = function ( presentFileId, contentId, file ) {
     if(!fileObj) return;
 
     // update website content
-    var setModifier = { $set: {} };
-    setModifier.$set['content.'+contentId ] = fileObj._id;
+    if( index !== undefined ) {
+        console.log('saving gallery image');
+        var setModifier = { $set: {} };
+        setModifier.$set['content.' + contentId + '.' + index + '.imageId' ] = fileObj._id;
+    } else {
+        console.log('saving '+contentId+' image');
+        var setModifier = { $set: {} };
+        setModifier.$set['content.'+contentId ] = fileObj._id;    
+    }
 
     Websites.update({_id:websiteId}, setModifier);
 };
-
-// var saveFile = function ( id, file) { 
-//     reader = new FileReader(),
-
-//     reader.to = id;
-//     reader.gallery = (id.toLowerCase().indexOf("gallery") >= 0) ? true : false;
-//     if(reader.gallery) {
-//         reader.to = id.slice(0,-1);
-//         reader.position = id.slice(-1);
-//     }
-//     // console.log('saving file: '+file+" to: "+id);
-
-//     reader.onload = function(event) {
-//         var websiteId = Session.get('editing_website');
-//         var setModifier = { $set: {} };
-
-//         if (this.gallery)
-//         {
-//             //it is a gallery image, get a position from id
-//             setModifier.$set['content.'+this.to+'.'+this.position+'.small' ] = event.target.result;
-//             setModifier.$set['content.'+this.to+'.'+this.position+'.src' ] = event.target.result;
-//         } else {
-//         //it is a single image, no position needed
-//             setModifier.$set['content.'+this.to ] = event.target.result;
-//          }
-
-//         Websites.update({_id:websiteId}, setModifier, function (error, numOfAffectedDocs) {
-//             if(error){
-//                 console.log('error:'+error);
-//             } else {
-//                 // console.log('numOfAffectedDocs:'+numOfAffectedDocs);
-//             }
-//         });
-//     };
-
-//     reader.readAsDataURL(file);
-// };
 
 var trimInput = function(val) {
     return val.replace(/^\s*|\s*$/g, "");
@@ -546,21 +551,11 @@ Template.create.events({
     },
     'drop .overlay' : function ( event, template ) {
         preventActionsForEvent(event);
-        
-        var contentId = event.target.parentElement.id,
-            presentFileId = this.content[contentId],
-            file = event.originalEvent.dataTransfer.files[0];
-
-        saveFile( presentFileId, contentId, file );
+        saveFile( event );
     },
     'drop .expand' : function ( event, template ) {
         preventActionsForEvent(event);
-        
-        var contentId = event.target.parentElement.parentElement.id,
-            presentFileId = this.content[contentId],
-            file = event.originalEvent.dataTransfer.files[0];
-        
-        saveFile( presentFileId, contentId, file );
+        saveFile( event );
     },
     'click .overlay' : function ( event, template ) {
         preventActionsForEvent( event );
@@ -572,12 +567,7 @@ Template.create.events({
     },
     'change input[type=file]' : function ( event, template ) {
         preventActionsForEvent( event );
-        
-        var contentId = event.target.parentElement.id,
-            presentFileId = this.content[contentId],
-            file = event.target.files[0];
-
-        saveFile( presentFileId, contentId, file );
+        saveFile( event );
     }
 });
 
@@ -704,6 +694,13 @@ Template.home.events({
     }
 });
 
+var addIndexToArray = function ( array ) {
+    for( var i = 0; i < array.length; i++ ) {
+        array[i].index = i;
+    };
+    return array;
+}
+
 Template.create.helpers({
     editImageText: function () {
         return "click or drag&drop";
@@ -715,7 +712,7 @@ Template.create.helpers({
         Router.go('/');
     },
     galleryImages: function () {
-        return this.content.gallery;
+        return addIndexToArray( this.content.gallery );
     },
     highlightImages: function () {
         return this.content.highlightImages;
@@ -1018,8 +1015,17 @@ if (Meteor.isServer) {
         return Websites.find({sitename:sitename});
     });
 
+    Meteor.publish('liveWebsiteImages', function ( sitename ) {
+        var website = Websites.find({sitename:sitename});
+        return Images.find({websiteId:website._id});
+    });
+
     Meteor.publish('images', function (id) {
         return Images.find({websiteId:id});
+    });
+
+    Meteor.publish('topImages', function ( limit ) {
+        return Images.find({contentId:'topImage'}, {limit:limit, sort: { uploadedAt: -1}});
     });
 
     Meteor.methods({
@@ -1034,9 +1040,6 @@ if (Meteor.isServer) {
             return true;
         }
     });
-
-
-   
 
     Websites.allow({
         insert: function (userId, doc) {

@@ -644,7 +644,7 @@ ul.sections li {
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
   line-height: 50px;
   letter-spacing: -1px;
@@ -1044,6 +1044,7 @@ hr {
 .effects .img {
   position: relative;
   overflow: hidden;
+  background-color: #eee;
 }
 .effects .img img {
   display: block;
@@ -2097,4 +2098,8 @@ NPROGRESS
 /*for styleDropDown*/
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
   color:#fff;
+}
+
+.minHeight {
+  min-height: 300px;
 }

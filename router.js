@@ -8,9 +8,11 @@ Router.route('/', {
 	name: 'dashboard',
 	waitOn: function () {
 		if (!Meteor.user()) {
-		    return Meteor.subscribe('stream', 10);
+		    return [ Meteor.subscribe('stream', 10),
+		    		 Meteor.subscribe('topImages', 10) ];
 		} else {
-			return [ Meteor.subscribe('stream', 10), 
+			return [ Meteor.subscribe('stream', 10),
+					 Meteor.subscribe('topImages', 10),
 					 Meteor.subscribe('myWebsites', Meteor.userId(), 5) ];
 		}
 	},
@@ -52,7 +54,8 @@ Router.route('/create', {
 Router.route('/:sitename', {
 	name: 'website',
 	waitOn: function () {
-		return Meteor.subscribe('liveWebsite', this.params.sitename);
+		return [ Meteor.subscribe('liveWebsite', this.params.sitename),
+				 Meteor.subscribe('liveWebsiteImages', this.params.sitename) ];
 	},
 	data: function () {
 	    return Websites.findOne({sitename:this.params.sitename});

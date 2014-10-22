@@ -135,7 +135,7 @@
 <template name="dashboard">
 	<div class="container-fluid home">
 		<div class="row">
-			<div class="col-sm-6 stream">
+			<div class="col-sm-6 stream minHeight">
 				<div class="container-fluid">
 					<h2 class="websitesHeader">Browser</h2>
 					<hr class="line" />
@@ -151,7 +151,7 @@
 									<h2>{{formatDate createdAt}}</h2>
 									<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	 -->
 								</div>
-								<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+								<div class="websiteItemBg" style="background-image: url({{showImage content.topImage}})"></div>
 								<div class="websiteItemOverlay"></div>
 							</div>
 						</li>
@@ -197,7 +197,7 @@
 										<h2>{{toUpperCase sitename}}</h2>
 										<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3> -->
 									</div>
-									<div class="websiteItemBg" style="background-image: url({{content.topImage}})"></div>
+									<div class="websiteItemBg" style="background-image: url({{showImage content.topImage}})"></div>
 									<!-- <div class="row editRow">
 										<div class="col-sm-6 editbuttons edit"><h4>edit</h4></div>
 										<div class="col-sm-6 editbuttons delete"><h4>delete</h4></div>
@@ -233,7 +233,6 @@
 				<h2 id="tagline" class="editable text-center">{{content.tagline}}</h2>
 			</div>
 		</div>
-
 		
 		<div class="textureline"></div>
 		
@@ -266,8 +265,8 @@
 			<div class="row gallerydiv2">	
 				{{#each galleryImages}}
 					<div id="effect-6" class="effects">
-						<div id="gallery" class="img col-lg-3 col-md-6 col-xs-12">
-				            <div class="obrazek" style="background-image: url('{{showImage 'gallery'}}')"></div>
+						<div id="gallery" data-index="{{index}}" class="img col-lg-3 col-md-6 col-xs-12">
+				            <div class="obrazek" style="background-image: url('{{showImage imageId}}')"></div>
 				            <div class="overlay">
 				                <span class="expand">{{editImageText}}</span>
 				            </div>
@@ -551,7 +550,7 @@
 		</div> -->
 
 		
-		<img class="img img-responsive" src="{{content.topImage}}">
+		<img class="img img-responsive" src="{{showImage content.topImage}}">
 		
 		<div class="container">	
 
@@ -567,7 +566,7 @@
 			<div class="section-intro">
 				<div class="row">
 					<div class="col-md-5">
-						<div class="rounded" style="background-image: url({{content.logo}})"></div>
+						<div class="rounded" style="background-image: url({{showImage content.logo}})"></div>
 					</div>
 					<div class="col-md-7 introtext">
 						<h3 id="heading">{{content.heading}}</h3>
@@ -580,9 +579,10 @@
 		<div class="section-gallery">
 			<div class="row gallerydiv2">	
 				{{#each galleryImages}}
-					<div class="img col-lg-3 col-md-6 col-xs-12">
-			            <div class="obrazek" style="background-image: url({{src}})"></div>
-				    </div>
+					<div data-index="{{index}}" class="img col-lg-3 col-md-6 col-xs-12">
+		            	<div class="obrazek" style="background-image: url('{{showImage imageId}}')">
+		            </div>
+		        </div>
 				{{/each}}
 			</div>	
 		</div>
@@ -677,14 +677,14 @@
 				<div class="row text-center">
 					<div class="col-md-4 col-md-offset-2">
 						<div class="img">
-				            <img src="{{content.firstProductImage}}">
+				            <img src="{{showImage content.firstProductImage}}">
 				        </div>
 						<h3>{{content.firstProduct}}</h3>
 						<p>{{content.firstProductDescription}}</p>
 					</div>
 					<div class="col-md-4">
 						<div class="img">
-							<img src="{{content.secondProductImage}}" alt="">
+							<img src="{{showImage content.secondProductImage}}" alt="">
 					    </div>
 						<h3>{{content.secondProduct}}</h3>
 						<p>{{content.secondProductDescription}}</p>
@@ -749,7 +749,7 @@
 				<div class="row">
 					<div class="col-md-3 col-xs-6">
 						<div class="img teamimg">
-							<img width="50%" src="{{content.firstTeamMemberImage}}" class="member">
+							<img width="50%" src="{{showImage content.firstTeamMemberImage}}" class="member">
 						</div>
 						<div class="membercaption">
 							<h4>{{content.firstTeamMember}}</h4>
@@ -758,7 +758,7 @@
 					</div>
 					<div class="col-md-3 col-xs-6">
 						<div class="img teamimg">
-							<img width="50%" src="{{content.secondTeamMemberImage}}" class="member">
+							<img width="50%" src="{{showImage content.secondTeamMemberImage}}" class="member">
 						</div>
 						<div class="membercaption">
 							<h4>{{content.secondTeamMember}}</h4>
@@ -767,7 +767,7 @@
 					</div>
 					<div class="col-md-3 col-xs-6">
 						<div class="img teamimg">
-							<img width="50%" src="{{content.thirdTeamMemberImage}}" class="member">
+							<img width="50%" src="{{showImage content.thirdTeamMemberImage}}" class="member">
 						</div>
 						<div class="membercaption">
 							<h4>{{content.thirdTeamMember}}</h4>
@@ -776,7 +776,7 @@
 					</div>
 					<div class="col-md-3 col-xs-6">
 						<div class="img teamimg">
-							<img width="50%" src="{{content.fourthTeamMemberImage}}" class="member">
+							<img width="50%" src="{{showImage content.fourthTeamMemberImage}}" class="member">
 						</div>
 						<div class="membercaption">
 							<h4>{{content.fourthTeamMember}}</h4>
