@@ -1,6 +1,6 @@
 Websites = new Meteor.Collection("websites");
 
-FS.debug = true;
+// FS.debug = true;
 
 
 var imageGridFSStore = new FS.Store.GridFS("images", {
@@ -65,6 +65,7 @@ if (Meteor.isClient) {
     Session.setDefault('alert', null);
     Session.setDefault('autocomplete', null);
     Session.setDefault('hidingNavbar', null);
+
     Session.set('version', '0.2.1');
 
     if (Accounts._resetPasswordToken) {
@@ -133,21 +134,26 @@ var makeEditable = function (event, template) {
     // console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
 
 
-    var contentId = event.target.id,
-    textContent = event.target.textContent,
-    $eventTarget = $(event.target),
-    parent = event.target.parentElement,
-    tagName = $eventTarget.get(0).tagName,
-    textAlign = $eventTarget.css('text-align'),
-    fontFamily = $eventTarget.css('fontFamily'),
-    fontSize = $eventTarget.css('fontSize'),
-    input;
+    var contentId       = event.target.id,
+        textContent     = event.target.textContent,
+        $eventTarget    = $(event.target),
+        parent          = event.target.parentElement,
+        tagName         = $eventTarget.get(0).tagName,
+        textAlign       = $eventTarget.css('text-align'),
+        fontFamily      = $eventTarget.css('fontFamily'),
+        fontSize        = $eventTarget.css('fontSize'),
+        input;
 
+    // debugger
 
     if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
         // it's a text field
         if (contentId === "address") {
-            $(event.target.nextElementSibling).toggle();
+            input = '<input id="input" class="controls" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="Enter a location" value="'+textContent+'"/>';
+
+            $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
+
+            setupMap();
         } else {
             input = '<input id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" value="'+textContent+'"/>';
 
@@ -279,50 +285,38 @@ var countLines = function (id) {
 }
 
 var setupMap = function () {
+    console.log('setupMap');
+    
     var editingWebsite = Websites.findOne(Session.get('editing_website')),
         address = editingWebsite.content.address,
         latLng = editingWebsite.content.latLng;
     
-    // console.log('setupMap: editing website:'+latLng.lat + ", "+latLng.lng);
-    
     if(!latLng) return;
     
-    var  mapOptions = {
-            scrollwheel: false,
-            center: new google.maps.LatLng(latLng.lat, latLng.lng),
-            zoom: 13
-        },
-        map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions),
-        input = (document.getElementById('input')),
-        autocomplete = new google.maps.places.Autocomplete(input),
-        infowindow = new google.maps.InfoWindow(),
-        marker = new google.maps.Marker({
-            map: map,
-            anchorPoint: new google.maps.Point(0, -29)
-        });
+    var input = (document.getElementById('input')),
+        autocomplete = new google.maps.places.Autocomplete(input);
 
     autocomplete.bindTo('bounds', map);
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-        infowindow.close();
-        marker.setVisible(false);
+        console.log('place changed');
+        // infowindow.close();
+        // marker.setVisible(false);
         var place = autocomplete.getPlace();
-        if (!place.geometry) {
-            return;
-        }
+        if (!place.geometry) { return; };
+        
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
         } else {
             map.setCenter(place.geometry.location);
-            map.setZoom(17);  // Why 17? Because it looks good.
+            map.setZoom(13);  // Why 17? Because it looks good.
         }
 
         var editingWebsite = Session.get('editing_website');
 
         Websites.update({_id:editingWebsite},{ $set: { 
             'content.address': place.formatted_address,
-            'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}
-        }
+            'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}}
         });
 
         marker.setIcon(({
@@ -334,33 +328,29 @@ var setupMap = function () {
         }));
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
-
-        infowindow.setContent('<div><strong>' + place.name + '</strong>');
-        infowindow.open(map, marker);
     });
 };
 
 var showMap = function (website) {
+    console.log('showMap');
     var address = website.content.address,
         latLng = website.content.latLng,
         mapOptions = {
             scrollwheel: false,
             center: new google.maps.LatLng(latLng.lat, latLng.lng),
             zoom: 13
-        },
-        map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions),
-
-        infowindow = new google.maps.InfoWindow(),
-        marker = new google.maps.Marker({
+        };
+    
+    map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+    marker = new google.maps.Marker({
             map: map,
             anchorPoint: new google.maps.Point(0, -29)
         });
-    
-    infowindow.close();
+
     marker.setVisible(false);
 
     map.setCenter(latLng);
-    map.setZoom(17);
+    map.setZoom(13);
     
     marker.setIcon(({
         url: "logo.png",
@@ -372,8 +362,17 @@ var showMap = function (website) {
     marker.setPosition(latLng);
     marker.setVisible(true);
 
-    infowindow.setContent('<div><strong>' + address + '</strong>');
-    infowindow.open(map, marker);
+    google.maps.event.addListener(map, 'idle', function() {
+        window.setTimeout(function() {
+          map.panTo(marker.getPosition());
+          console.log('timeout run');
+      }, 3000);
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        map.setZoom(15);
+        map.setCenter(marker.getPosition());
+    });
 };
 
 var isGallery = function ( contentId ) {
@@ -520,10 +519,12 @@ Template.create.events({
             saveField( event );
         }
 
-        if(parent.id === "address") {
-            sibling = parent.previousElementSibling;
-            $(parent).toggle();
-        } else if (_.contains(social, parent.id) ) {
+        // if(parent.id === "address") {
+            // sibling = parent.previousElementSibling;
+            // $(parent).toggle();
+        // } else 
+
+        if (_.contains(social, parent.id) ) {
             sibling = event.target.nextElementSibling; 
             $(event.target).remove();
         } else {    
@@ -870,21 +871,15 @@ var checkSitename = function ( event ) {
 }
 
 var checkInputField = function ( event ) {
-    var value = $(event.target).val(),
-        allowedChars = new RegExp("^[a-zA-Z0-9-\.,;:!|§±><?@#$%^&*()+=}{\t\r\n\\\"\'\/_ ]*$");
+    var value = $(event.target).val();
 
-    if (allowedChars.test(value)) {
-        if (value.length === 0) {
-            $(event.target).removeClass( "valid" ).addClass( "invalid" );
-            return false;
-        } else {
-            $(event.target).removeClass( "invalid" ).addClass( "valid" );
-            Session.set('editing_field_value', value);
-            return true;
-        };
-    } else {
+    if (value.length === 0) {
         $(event.target).removeClass( "valid" ).addClass( "invalid" );
         return false;
+    } else {
+        $(event.target).removeClass( "invalid" ).addClass( "valid" );
+        Session.set('editing_field_value', value);
+        return true;
     };
 }
 
@@ -903,12 +898,6 @@ var changeLoginText = function () {
     }
 }
 
-// var changeDropdownBg = function () {
-//     if(Meteor.user()) {
-//         $('a.dropdown-toggle').addClass("greenBg");
-//     }
-// }
-
 Template.home.rendered = function () {
     changeLoginText();    
 };
@@ -921,14 +910,12 @@ Template.dashboard.rendered = function () {
 
 Template.website.rendered = function () {
     window.scrollTo(0, 0);
-    var website = this.data;
-    showMap(website); 
+    showMap(this.data); 
 };
 
 Template.create.rendered = function () {
-    // changeDropdownBg();
     window.scrollTo(0, 0);
-    setupMap();
+    showMap(this.data);
     // autohideNavbar();
 
     $('.sections').sortable({
