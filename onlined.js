@@ -1,4 +1,4 @@
-Websites = new Meteor.Collection("websites");
+
 
 // FS.debug = true;
 
@@ -205,62 +205,8 @@ var preventActionsForEvent = function (event) {
     event.stopPropagation();
 };
 
-var createDefaultWebsite = function ( sitename ) {
 
-    var website_id = Websites.insert({
-        createdAt: new Date(),
-        style: 'default',
-        sitename: sitename,
-        userId: Meteor.userId(),
-        content: {
-            email: getUserEmail(),
-            title: "click here to edit the title",
-            tagline: "click me to edit the subtitle",
-            heading: "click to edit heading",
-            paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it.",
-            logo: "",
-            topImage: "",
-            gallery: [
-                {imageId: ""},
-                {imageId: ""},
-                {imageId: ""},
-                {imageId: ""}
-            ], 
-            textColumns1Heading: "You will love this!",
-            textColumns2Heading: "Unbelievable",
-            textColumns3Heading: "FAST",
-            textColumns1Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur sit in atque quasi repellendus rem reprehenderit veritatis, ratione similique deleniti, porro itaque error repudiandae ad saepe fugiat quas! Tenetur ea eius assumenda quaerat nam facilis. Pariatur fugit obcaecati quibusdam dolor hic, mollitia soluta magni, amet vitae sit officiis maiores sed!",
-            textColumns2Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae vitae voluptatibus, voluptas corporis ipsum, ipsa eos officiis, recusandae incidunt veritatis ipsam cum cupiditate natus in est unde repudiandae eligendi at voluptatum sit mollitia non, possimus tenetur iure voluptate. Sapiente quia consequatur perferendis laboriosam ea rerum, ab molestias possimus temporibus dolores!",
-            textColumns3Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem maxime adipisci at nemo cupiditate omnis qui, incidunt, aliquam officia molestiae temporibus ut fuga quas accusamus maiores quod nesciunt dignissimos laudantium ullam nam quo, repudiandae nisi! Qui fugiat unde exercitationem voluptatum earum, rerum nesciunt molestiae, incidunt labore est praesentium ut excepturi.",
-            phoneNumber: "00420 602 259 666", 
-            openingHoursTitle: "opening hours",
-            monday: "MON", tuesday: "TUE", wednesday: "WED", thursday: "THU", friday: "FRI", saturday: "SAT", sunday: "SUN",
-            mondayHours: "8-18", tuesdayHours: "8-18", wednesdayHours: "8-18", thursdayHours: "8-18", fridayHours: "8-18",
-            saturdayHours: "closed", sundayHours: "closed",
-            firstProduct: "Product ONE",
-            firstProductDescription: "Toto je one brutalny produkt no nekup to. Toto je brutalny produkt no nekup to.",
-            firstProductImage: "draglogo.jpg",
-            secondProduct: "Product TWO",
-            secondProductDescription: "Toto je two brutalny produkt no nekup to. Toto je brutalny produkt no nekup to.",
-            secondProductImage: "draglogo.jpg",
-            teamTitle: "team members", 
-            firstTeamMember: "Jano Mrazik", firstTeamMemberTagline: "stale sa flaka", firstTeamMemberImage: "draglogo.jpg",
-            secondTeamMember: "Jano Mrazik 2", secondTeamMemberTagline: "stale sa flaka 2", secondTeamMemberImage: "draglogo.jpg",
-            thirdTeamMember: "Jano Mrazik 3", thirdTeamMemberTagline: "stale sa flaka 3", thirdTeamMemberImage: "draglogo.jpg",
-            fourthTeamMember: "Jano Mrazik 4", fourthTeamMemberTagline: "stale sa flaka 4", fourthTeamMemberImage: "draglogo.jpg",
-            address: "Krizikova 52, Praha 8, Czech Republic",
-            latLng: {lat:50.092547, lng:14.45133999999996},
-            twitter: "",
-            youtube: "",
-            facebook: "",
-            instagram: ""
-        }
-    });
-    
-    Session.set('editing_website', website_id);
-};
-
-var getUserEmail = function () {
+function getUserEmail () {
     if(!Meteor.user()) return;
     var email,
     emails = Meteor.user().emails,
@@ -596,7 +542,10 @@ var checkDuplicity = function ( sitename , parent) {
     Meteor.call('checkDuplicity', sitename, function (err, exists) {
         if(exists) {
             blurCreateWebsiteInput();
-            createDefaultWebsite(sitename);
+
+            var website_id = Websites.insert({sitename: sitename});
+            Session.set('editing_website', website_id);
+
             Router.go('create');
         } else {
             $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
@@ -662,10 +611,10 @@ Template.dashboard.events({
         Session.set('editing_website', this._id);
         Router.go('create');
     },
-    'click .websiteListItem' : function ( event, template) {
-        preventActionsForEvent( event );
-        Router.go("/"+this.sitename);
-    },
+    // 'click .websiteListItem' : function ( event, template) {
+    //     preventActionsForEvent( event );
+    //     Router.go("/"+this.sitename);
+    // },
     'click .glyphicon-remove' : function ( event , template ) {
         Session.set('editing_website', null);
         Websites.remove({_id:this._id});
@@ -953,13 +902,13 @@ Template.dashboard.helpers({
             return true
         else
             return false
-    },
-    website: function () {
-        return Websites.find({},{sort: {createdAt: -1}});
-    },
-    myWebsite: function () {
-        return Websites.find({userId: Meteor.userId()},{sort: {createdAt: -1}});
     }
+    // website: function () {
+    //     return Websites.find({},{sort: {createdAt: -1}});
+    // },
+//     myWebsite: function () {
+//         return Websites.find({userId: Meteor.userId()},{sort: {createdAt: -1}});
+//     }
 });
 }
 
@@ -975,45 +924,6 @@ if (Meteor.isServer) {
         secret: "08df277b0663b6beb93f7795843b98f7"
     });
 
-    Meteor.publish('allUsers', function () {
-        return Meteor.users.find();
-    });
-
-    Meteor.publish('allWebsites', function () {
-        return Websites.find();
-    });
-
-    Meteor.publish('stream', function (limit) {
-        check(limit, Number);
-        return Websites.find({}, {limit:limit});
-    });
-
-    Meteor.publish('myWebsites', function (userId, limit) {
-        check(userId, String);
-        check(limit, Number);
-        return Websites.find({userId: userId});
-    });
-
-    Meteor.publish('editWebsite', function (id) {
-        return Websites.find({_id:id});
-    });
-
-    Meteor.publish('liveWebsite', function (sitename) {
-        return Websites.find({sitename:sitename});
-    });
-
-    Meteor.publish('liveWebsiteImages', function ( sitename ) {
-        var website = Websites.find({sitename:sitename});
-        return Images.find({websiteId:website._id});
-    });
-
-    Meteor.publish('images', function (id) {
-        return Images.find({websiteId:id});
-    });
-
-    Meteor.publish('topImages', function ( limit ) {
-        return Images.find({contentId:'topImage'}, {limit:limit, sort: { uploadedAt: -1}});
-    });
 
     Meteor.methods({
         getWebsitesCount: function () {

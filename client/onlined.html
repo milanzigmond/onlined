@@ -1,0 +1,16 @@
+<head>
+	<title>onlined</title>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+	<script src="js/jquery.bootstrap-autohidingnavbar.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+</head>
+
+<template name="layout">
+	<header>
+		{{> yield "menu"}}	
+	</header>
+	
+	{{> yield}}
+
+	{{> yield "version"}}
+</template>

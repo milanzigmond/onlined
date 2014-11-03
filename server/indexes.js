@@ -1,0 +1,1 @@
+Websites._ensureIndex({"userId": 1});

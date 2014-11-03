@@ -1,0 +1,271 @@
+<template name="website">
+	<div class="{{style}} createcontent">
+		<!-- <div class="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">Your website is LIVE!</h4>
+					</div>
+					<div class="modal-body">
+						<p>Share your website with friends. Your url is:</p>
+						<p>...</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Continue editing</button>
+						<button type="button" class="btn btn-primary">Share with friends</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="dialogwindow">
+			<div class="dialogwhite">
+				<h4>amazing! you just got</h4><br>
+				<a href="#" class="linktonewpage">www.onlined.at/yournewpage</a>
+			</div>
+			<div class="dialogblack">
+				<button class="sharebutton">share it with friends</button>
+				<h4><a href="#">view site</a> or <a href="#">continue editing</a></h4><br>
+			</div>
+		</div> -->
+
+		
+		<img class="img img-responsive" src="{{showImage content.topImage}}">
+		
+		<div class="container">	
+
+			<div class="section-heading">
+				<h1 class="text-center">{{content.title}}</h1>
+				<h2 class="text-center">{{content.tagline}}</h2>
+			</div>
+		</div>
+
+		<div class="textureline"></div>
+		
+		<div class="container">
+			<div class="section-intro">
+				<div class="row">
+					<div class="col-md-5">
+						<div class="rounded" style="background-image: url({{showImage content.logo}})"></div>
+					</div>
+					<div class="col-md-7 introtext">
+						<h3 id="heading">{{content.heading}}</h3>
+						<p id="paragraph" class="lead">{{content.paragraph}}</p>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+		<div class="section-gallery">
+			<div class="row gallerydiv2">	
+				{{#each galleryImages}}
+					<div data-index="{{index}}" class="img col-lg-3 col-md-6 col-xs-12">
+		            	<div class="obrazek" style="background-image: url('{{showImage imageId}}')">
+		            </div>
+		        </div>
+				{{/each}}
+			</div>	
+		</div>
+
+		<div class="section-email text-center">
+			<span class="glyphicon glyphicon-envelope white"></span>
+			<h4 class="white">{{content.email}}</h4>
+		</div>
+
+		<div class="container">	
+			<div class="section-text">
+				<div class="row text-center">
+					<div class="col-md-4">
+						<h3>{{content.textColumns1Heading}}</h3>
+						<p>{{content.textColumns1Text}}</p>
+					</div>
+
+					<div class="col-md-4">
+						<h3>{{content.textColumns2Heading}}</h3>
+						<p>{{content.textColumns2Text}}</p>
+					</div>
+
+					<div class="col-md-4">
+						<h3>{{content.textColumns3Heading}}</h3>
+						<p>{{content.textColumns3Text}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="section-location text-center">
+				<div class="row">
+					<div class="col-lg-12">
+						<span class="glyphicon glyphicon-map-marker"></span>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="col-lg-12">
+						<h4>{{content.address}}</h4>
+					</div>
+				</div>		
+				<div class="row">
+					<div class="col-lg-12">
+						<div id="map-canvas" style="width:100%;height:200px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section-telnumber text-center">
+			<span class="glyphicon glyphicon-phone-alt white"></span>
+			<h4 class="white">{{content.phoneNumber}}</h4>
+		</div>
+
+		<div class="section-openinghours text-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<span class="glyphicon glyphicon-time"></span>
+						<h3>{{content.openingHoursTitle}}</h3>
+						<table class="verticaltable">
+							<tr>
+								<th><h5>{{content.monday}}</h5></th>
+								<th><h5>{{content.tuesday}}</h5></th>
+								<th><h5>{{content.wednesday}}</h5></th>
+								<th><h5>{{content.thursday}}</h5></th>
+								<th><h5>{{content.friday}}</h5></th>
+								<th><h5>{{content.saturday}}</h5></th>
+								<th><h5>{{content.sunday}}</h5></th>
+							</tr>
+							<tr>
+								<td colspan="7">
+									<div class="line"></div>
+								</td>
+							</tr>
+							<tr>
+								<td><h6>{{content.mondayHours}}</h6></td>
+								<td><h6>{{content.tuesdayHours}}</h6></td>
+								<td><h6>{{content.wednesdayHours}}</h6></td>
+								<td><h6>{{content.thursdayHours}}</h6></td>
+								<td><h6>{{content.fridayHours}}</h6></td>
+								<td><h6>{{content.saturdayHours}}</h6></td>
+								<td><h6>{{content.sundayHours}}</h6></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">	
+			<div class="section-products">
+				<div class="row text-center">
+					<div class="col-md-4 col-md-offset-2">
+						<div class="img">
+				            <img src="{{showImage content.firstProductImage}}">
+				        </div>
+						<h3>{{content.firstProduct}}</h3>
+						<p>{{content.firstProductDescription}}</p>
+					</div>
+					<div class="col-md-4">
+						<div class="img">
+							<img src="{{showImage content.secondProductImage}}" alt="">
+					    </div>
+						<h3>{{content.secondProduct}}</h3>
+						<p>{{content.secondProductDescription}}</p>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+		<div class="section-links text-center">	
+			<div class="container">
+				<span class="glyphicon glyphicon-2white"></span>
+
+				<div class="row links">
+					<div class="col-xs-6 col-md-3">
+						{{#if content.twitter}}
+							<a href="{{content.twitter}}" target="_blank">
+								<img class="link" src="ic_twitterW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_twitterW.png" alt="">
+						{{/if}}
+					</div>
+					<div class="col-xs-6 col-md-3">
+						{{#if content.youtube}}
+							<a href="{{content.youtube}}" target="_blank">
+								<img class="link" src="ic_youtubeW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_youtubeW.png" alt="">
+						{{/if}}
+					</div>
+					<div class="col-xs-6 col-md-3">
+						{{#if content.facebook}}
+							<a href="{{content.facebook}}" target="_blank">
+								<img class="link" src="ic_facebookW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_facebookW.png" alt="">
+						{{/if}}
+					</div>
+					<div class="col-xs-6 col-md-3">
+						{{#if content.instagram}}
+							<a href="{{content.instagram}}" target="_blank">
+								<img class="link" src="ic_instagramW.png" alt="">
+							</a>
+						{{else}}
+							<img class="link" style="opacity:0.3" src="ic_instagramW.png" alt="">
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">	
+			<div class="section-team text-center">
+				<div class="row">
+					<div class="col-lg-12">	
+						<span class="glyphicon glyphicon-user"></span>
+						<h3>{{content.teamTitle}}</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-xs-6">
+						<div class="img teamimg">
+							<img width="50%" src="{{showImage content.firstTeamMemberImage}}" class="member">
+						</div>
+						<div class="membercaption">
+							<h4>{{content.firstTeamMember}}</h4>
+							<p>{{content.firstTeamMemberTagline}}</p>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<div class="img teamimg">
+							<img width="50%" src="{{showImage content.secondTeamMemberImage}}" class="member">
+						</div>
+						<div class="membercaption">
+							<h4>{{content.secondTeamMember}}</h4>
+							<p>{{content.secondTeamMemberTagline}}</p>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<div class="img teamimg">
+							<img width="50%" src="{{showImage content.thirdTeamMemberImage}}" class="member">
+						</div>
+						<div class="membercaption">
+							<h4>{{content.thirdTeamMember}}</h4>
+							<p>{{content.thirdTeamMemberTagline}}</p>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<div class="img teamimg">
+							<img width="50%" src="{{showImage content.fourthTeamMemberImage}}" class="member">
+						</div>
+						<div class="membercaption">
+							<h4>{{content.fourthTeamMember}}</h4>
+							<p>{{content.fourthTeamMemberTagline}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
