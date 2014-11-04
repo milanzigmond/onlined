@@ -8,21 +8,21 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans);
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    white;
-    opacity:  0.5;
+  color:    white;
+  opacity:  0.5;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    white;
-     opacity:  0.5;
+  color:    white;
+  opacity:  0.5;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    white;
-     opacity:  0.5;
+  color:    white;
+  opacity:  0.5;
 }
 :-ms-
 -placeholder { /* Internet Explorer 10+ */
-    color:    white;
-     opacity:  0.5;
+  color:    white;
+  opacity:  0.5;
 }
 
 .hiddenFileInput {
@@ -31,7 +31,13 @@
   visibility: hidden;
 }
 
+.entry {
+  padding-top: 100px;
+}
 
+.entry input {
+  border-radius:0px;
+}
 
 * {
   padding: 0;
@@ -82,12 +88,21 @@ html, body {
   position:relative;
 }
 
+.navbar-default .navbar-nav .navbar-text {
+  color: #aaa;
+  font-family: "Cantarell", sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin:0px;
+  padding:15px;
+}
+
 .navbar-default .navbar-nav>li>a {
   color: #fff;
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
   font-size: 12px;
-  font-weight: 400;
   letter-spacing: 0.5px;
   -webkit-transition: all 100ms ease-in-out;
   -moz-transition: all 100ms ease-in-out;
@@ -136,6 +151,21 @@ a {
 a:hover {
   color: #a3ce22;
   text-decoration: none;
+}
+
+.btn-default {
+  background: #89b504;
+  font-size: 18px;
+  font-family: "Cantarell", sans-serif;
+  text-transform: uppercase;
+  color:white;
+  border: 0px;
+}
+
+.btn-default:hover{
+  color: white;
+  text-decoration: none;
+  background-color: #a3ce22;
 }
 
 button {
@@ -260,14 +290,14 @@ span.username {
 }
 
 .btn-Facebook {
-color: white;
-background-color: #3b5998;
-font-weight: 100;
+  color: white;
+  background-color: #3b5998;
+  font-weight: 100;
 }
 
 .btn-primary {
-color: #fff;
-background-color: #89b504;
+  color: #fff;
+  background-color: #89b504;
   -webkit-transition: all 200ms ease-in-out;
   -moz-transition: all 200ms ease-in-out;
   -ms-transition: all 200ms ease-in-out;
@@ -276,43 +306,59 @@ background-color: #89b504;
 }
 
 .btn-primary:hover {
-background-color: #a3ce22;
+  background-color: #a3ce22;
 }
 
-#login-dropdown-list input:first-of-type {
-border-top-left-radius: 0px;
-border-top-right-radius: 0px;
-margin-bottom: 10px;
--webkit-box-shadow: none;
+
+.nav > li > a {
+
+}
+
+/*#login-dropdown-list input:first-of-type {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+#login-dropdown-list input {
+  margin-bottom: 10px;
+  -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
 
 #login-dropdown-list input:last-of-type {
-margin-bottom: 5px;
-border-bottom-left-radius: 0px;
-border-bottom-right-radius: 0px;
--webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 #login-email {
-background: #eaeaea;
-border: 0px;
-font-size: 16px;
+  background: #eaeaea;
+  border: 0px;
+  font-size: 16px;
+}
+
+#login-username {
+  background: #eaeaea;
+  border: 0px;
+  font-size: 16px;
 }
 
 #login-password {
-background: #eaeaea;
-border: 0px;
-font-size: 16px;
+  background: #eaeaea;
+  border: 0px;
+  font-size: 16px;
 }
 
+#login-username-or-email {
+  background: #eaeaea;
+  border: 0px;
+  font-size: 16px;
+}*/
+
 #forgot-password-email {
-background: #eaeaea;
-border: 0px;
-font-size: 16px;
+  background: #eaeaea;
+  border: 0px;
+  font-size: 16px;
 }
 
 /*======================================================index NAV BAR end*/
@@ -344,6 +390,10 @@ ul {
   color: #666;
 }
 
+.stream ul {
+  margin-bottom: 0px;
+}
+
 .home div.stream h2 {
   font-size:20px;
 }
@@ -361,7 +411,7 @@ ul {
 .home div.stream h3 {
   font-size: 16px;
   margin-top: 30px;
-  margin-bottom: -30px;
+  margin-bottom: -20px;
 }
 
 .home div.stream h4 {
@@ -418,11 +468,11 @@ ul {
 }
 
 .valid {
-   background: #89b504;
+ background: #89b504;
 }
 
 .invalid {
-   background: #e07269;
+ background: #e07269;
 }
 
 .pulseEffect {
@@ -706,7 +756,7 @@ body {
   color: #fff;
 /*  padding-top: 3px;
   padding-bottom: 3px;
-*/  background: #89b504;
+  */  background: #89b504;
   opacity: 0.6;
 }
 
@@ -718,372 +768,372 @@ body {
 .reimg:hover {
   -webkit-box-shadow:inset 1px 1px 100px 1000px rgba(137,181,4,0.7);
   box-shadow:inset 1px 1px 100px 100px rgba(137,181,4,0.7);
-}*/
-
-
-.textInput {
-  background:transparent;
-  color: #fff;
-  outline:none;
-  border:0;
-  width:100%;
-  text-align: center;
-  /*font-size: 20px;*/
-  line-height: normal;
-}
-
-#input {
-  color: #fff;
-  margin:0px;
-  outline:none;
-  border:0;
-  width:100%;
-}
-
-h1 {
-  font-size: 2.8em;
-}
-
-.stream h1 {
-  padding-top: 30px;
-  font-size: 2em;
-}
-
-h3 {
-  margin-top: 10px;
-}
-
-h4 {
-  font-size: 1.3em;
-}
-
-h5 {
-  font-size: 1em;
-}
-
-h6 {
-  font-weight: 0;
-  font-family: "Calibri", sans-serif;
-  font-size: 14px;
-  margin-top:0px;
-  /*padding-top: 10px;*/
-}
-
-.home div.myWebsites h2.websitesHeader {
-  padding-top: 30px;
-  color:#333;
-  text-align: left;
-  cursor: default;
-}
-
-.white {
-  color: #fff;
-}
-
-/*======================================================GLOBAL SETTINGS end*/
-
-/*======================================================SECTION HEADING start*/
-
-#topImage {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  display: block;
-  min-height: 200px;
-}
-
-
-
-.section-heading {
-  margin-top: 20px;
-}
-
-/*======================================================SECTION INTRO start*/
-
-.section-intro {
-  margin-top: 100px;
-}
-
-.onlinedlogo {
-  height: 10px;
-  width: 10px;
-  border-radius: 300px;
-  background-color: #89b504;
-  position: fixed;
-  z-index: 4;
-  right: 24px;
-  margin-top: 4px;
-  transition: all 0.3s ease-in-out;
-}
-
-.onlinedlogo:hover {
-  height: 14px;
-  width: 16px;
-  background-color: #aade0d;
-}
-
-.logo {
-  border-radius: 300px;
-  width: 350px;
-  height: 350px;
-  display: none;
-}
-.rounded {
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 300px;
-  width: 300px;
-  height: 300px;
-  background-position: 50% 50%;
-  background-size: 100%;
-}
-
-/*======================================================SECTION GALLERY start*/
-
-.section-gallery {
-  margin-top: 200px;
-}
-
-ul.imageGallery {
-  list-style: none;
-}
-ul.imageGallery li {
-  display: inline-block;
-  margin: 0px;
-  margin-top: 5px;
-}
-
-ul.imageGallery img {
-  height: 240px;
-}
-
-.gallerydiv {
-  display: table;
-  padding: 0px;
-  text-align: center;
-  margin-bottom: 100px;
-}
-
-
-
-
-
-.gallerydiv2 {
-  background-color: #ccc;
-  display: table;
-  padding: 0px;
-  text-align: center;
-  width: 100%;
-}
-
-ul.imageGallery2 {
-  list-style: none;
-  width: 100%;
-}
-ul.imageGallery2 li {
-  float: left;
-  display: inline-block;
-  margin: 0px;
-  width: 25%;
-}
-
-.obrazek {
-  height: 260px;
-  background-position: center;
-  background-size: 150%;
-  /*width:25%;*/
-}
-
-
-/*======================================================SECTION MAIL start*/
-
-.section-email {
-  padding-top: 100px;
-  padding-bottom: 100px;
-  margin-top: 150px;
-  background-color: #bbbbbb;
-  position: relative;
-}
-
-/*======================================================SECTION TEXT start*/
-
-.section-text {
-  margin-top: 150px;
-}
-
-/*======================================================SECTION LOCATION start*/
-
-.section-location {
-  margin-top: 150px;
-}
-
-/*======================================================SECTION IMAGE HOVER TRYOUT start*/
-
-
-
-/*======================================================SECTION TEL NUMBER start*/
-
-.section-telnumber {
-  padding-top: 100px;
-  padding-bottom: 100px;
-  margin-top: 150px;
-  background-color: #bbbbbb;
-}
-
-/*======================================================SECTION OPENING HOURS start*/
-
-.section-openinghours {
-  margin-top: 150px;
-}
-
-.verticaltable {
-  width: 700px;
-  text-align: center;
-  margin: auto;
-  margin-top: 30px;
-  color: #000;
-  font-weight: 200;
-}
-
-.verticaltable th {
-  text-align: center;
-  font-size: 1.2em;
-  color: #bbbbbb;
-  text-transform: uppercase;
-}
-
-.line {
-  height: 1px;
-  background-color: #666;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
-.searchicon {
-  float: right;
-  position: relative;
-  right: 14px;
-  top: -37px;
-}
-
-hr {
-  border-top: none;
-}
-
-/*======================================================SECTION LINKS start*/
-
-.section-links {
-  padding-top: 100px;
-  padding-bottom: 100px;
-  margin-top: 150px;
-  background-color: #bbbbbb;
-}
-
-.link {
-  /*margin-top: 20px;*/
-  height: 30px;
-}
-
-/*======================================================SECTION PRODUCTS start*/
-
-.section-products {
-  margin-top: 150px;
-}
-
-.section-products img {
-  min-height: 200px;
-  max-height: 300px;
-  max-width: 60%;
-}
-
-/*======================================================SECTION VIDEO start*/
-
-.section-video {
-  margin-top: 150px;
-}
-
-/*======================================================SECTION EVENT TABLE start*/
-
-.section-eventcalender {
-  margin-top: 150px;
-}
-
-.eventtable {
-  width: 300px;
-  text-align: center;
-  margin: auto;
-  margin-top: 20px;
-  font-size: 1em;
-}
-.eventtable tr {
-  height: 40px;
-}
-.eventtable td:nth-child(1) {
-  color: #bbbbbb;
-  font-size: 1.3em;
-  font-weight: 200;
-}
-
-/*======================================================SECTION TEAM MEMBERS start*/
-
-.section-team {
-  margin-top: 150px;
-  margin-bottom: 150px;
-}
-
-.member {
-  border-radius: 100px;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  height: 150px;
-  width: 150px;
-}
-
-
-/*======================================================IMAGES FOR ROLLOVER start*/
-
-.effects .img {
-  position: relative;
-  overflow: hidden;
-  background-color: #eee;
-}
-.effects .img img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /*padding: 0;*/
-  max-width: 100%;
-  height: auto;
-}
-.effects {
-  z-index: 120;
-}
-
-.overlay {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  position: absolute;
-  background: rgba(137, 181, 4, 0.8);
-  overflow: hidden;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-span.expand {
-  display: block;
-  position: absolute;
-  /*z-index: 100;*/
-  width: 180px;
-  height: 60px;
-  text-align: center;
-  vertical-align: center;
-  color: #fff;
-  line-height: 32px;
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 20px;
-  text-transform: uppercase;
-}
+  }*/
+
+
+  .textInput {
+    background:transparent;
+    color: #fff;
+    outline:none;
+    border:0;
+    width:100%;
+    text-align: center;
+    /*font-size: 20px;*/
+    line-height: normal;
+  }
+
+  #input {
+    color: #fff;
+    margin:0px;
+    outline:none;
+    border:0;
+    width:100%;
+  }
+
+  h1 {
+    font-size: 2.8em;
+  }
+
+  .stream h1 {
+    padding-top: 30px;
+    font-size: 2em;
+  }
+
+  h3 {
+    margin-top: 10px;
+  }
+
+  h4 {
+    font-size: 1.3em;
+  }
+
+  h5 {
+    font-size: 1em;
+  }
+
+  h6 {
+    font-weight: 0;
+    font-family: "Calibri", sans-serif;
+    font-size: 14px;
+    margin-top:0px;
+    /*padding-top: 10px;*/
+  }
+
+  .home div.myWebsites h2.websitesHeader {
+    padding-top: 30px;
+    color:#333;
+    text-align: left;
+    cursor: default;
+  }
+
+  .white {
+    color: #fff;
+  }
+
+  /*======================================================GLOBAL SETTINGS end*/
+
+  /*======================================================SECTION HEADING start*/
+
+  #topImage {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: block;
+    min-height: 200px;
+  }
+
+
+
+  .section-heading {
+    margin-top: 20px;
+  }
+
+  /*======================================================SECTION INTRO start*/
+
+  .section-intro {
+    margin-top: 100px;
+  }
+
+  .onlinedlogo {
+    height: 10px;
+    width: 10px;
+    border-radius: 300px;
+    background-color: #89b504;
+    position: fixed;
+    z-index: 4;
+    right: 24px;
+    margin-top: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .onlinedlogo:hover {
+    height: 14px;
+    width: 16px;
+    background-color: #aade0d;
+  }
+
+  .logo {
+    border-radius: 300px;
+    width: 350px;
+    height: 350px;
+    display: none;
+  }
+  .rounded {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 300px;
+    width: 300px;
+    height: 300px;
+    background-position: 50% 50%;
+    background-size: 100%;
+  }
+
+  /*======================================================SECTION GALLERY start*/
+
+  .section-gallery {
+    margin-top: 200px;
+  }
+
+  ul.imageGallery {
+    list-style: none;
+  }
+  ul.imageGallery li {
+    display: inline-block;
+    margin: 0px;
+    margin-top: 5px;
+  }
+
+  ul.imageGallery img {
+    height: 240px;
+  }
+
+  .gallerydiv {
+    display: table;
+    padding: 0px;
+    text-align: center;
+    margin-bottom: 100px;
+  }
+
+
+
+
+
+  .gallerydiv2 {
+    background-color: #ccc;
+    display: table;
+    padding: 0px;
+    text-align: center;
+    width: 100%;
+  }
+
+  ul.imageGallery2 {
+    list-style: none;
+    width: 100%;
+  }
+  ul.imageGallery2 li {
+    float: left;
+    display: inline-block;
+    margin: 0px;
+    width: 25%;
+  }
+
+  .obrazek {
+    height: 260px;
+    background-position: center;
+    background-size: 150%;
+    /*width:25%;*/
+  }
+
+
+  /*======================================================SECTION MAIL start*/
+
+  .section-email {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-top: 150px;
+    background-color: #bbbbbb;
+    position: relative;
+  }
+
+  /*======================================================SECTION TEXT start*/
+
+  .section-text {
+    margin-top: 150px;
+  }
+
+  /*======================================================SECTION LOCATION start*/
+
+  .section-location {
+    margin-top: 150px;
+  }
+
+  /*======================================================SECTION IMAGE HOVER TRYOUT start*/
+
+
+
+  /*======================================================SECTION TEL NUMBER start*/
+
+  .section-telnumber {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-top: 150px;
+    background-color: #bbbbbb;
+  }
+
+  /*======================================================SECTION OPENING HOURS start*/
+
+  .section-openinghours {
+    margin-top: 150px;
+  }
+
+  .verticaltable {
+    width: 700px;
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+    color: #000;
+    font-weight: 200;
+  }
+
+  .verticaltable th {
+    text-align: center;
+    font-size: 1.2em;
+    color: #bbbbbb;
+    text-transform: uppercase;
+  }
+
+  .line {
+    height: 1px;
+    background-color: #666;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .searchicon {
+    float: right;
+    position: relative;
+    right: 14px;
+    top: -37px;
+  }
+
+  hr {
+    border-top: none;
+  }
+
+  /*======================================================SECTION LINKS start*/
+
+  .section-links {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-top: 150px;
+    background-color: #bbbbbb;
+  }
+
+  .link {
+    /*margin-top: 20px;*/
+    height: 30px;
+  }
+
+  /*======================================================SECTION PRODUCTS start*/
+
+  .section-products {
+    margin-top: 150px;
+  }
+
+  .section-products img {
+    min-height: 200px;
+    max-height: 300px;
+    max-width: 60%;
+  }
+
+  /*======================================================SECTION VIDEO start*/
+
+  .section-video {
+    margin-top: 150px;
+  }
+
+  /*======================================================SECTION EVENT TABLE start*/
+
+  .section-eventcalender {
+    margin-top: 150px;
+  }
+
+  .eventtable {
+    width: 300px;
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+    font-size: 1em;
+  }
+  .eventtable tr {
+    height: 40px;
+  }
+  .eventtable td:nth-child(1) {
+    color: #bbbbbb;
+    font-size: 1.3em;
+    font-weight: 200;
+  }
+
+  /*======================================================SECTION TEAM MEMBERS start*/
+
+  .section-team {
+    margin-top: 150px;
+    margin-bottom: 150px;
+  }
+
+  .member {
+    border-radius: 100px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: 150px;
+    width: 150px;
+  }
+
+
+  /*======================================================IMAGES FOR ROLLOVER start*/
+
+  .effects .img {
+    position: relative;
+    overflow: hidden;
+    background-color: #eee;
+  }
+  .effects .img img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*padding: 0;*/
+    max-width: 100%;
+    height: auto;
+  }
+  .effects {
+    z-index: 120;
+  }
+
+  .overlay {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    position: absolute;
+    background: rgba(137, 181, 4, 0.8);
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  span.expand {
+    display: block;
+    position: absolute;
+    /*z-index: 100;*/
+    width: 180px;
+    height: 60px;
+    text-align: center;
+    vertical-align: center;
+    color: #fff;
+    line-height: 32px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
 
 
 /* ============================================================
@@ -1270,31 +1320,31 @@ span.expand {
     padding-bottom: 85px;
   }
 
- .dialogwindow h4 {
-  font-family: calibri;
-  font-weight: 100;
-  font-size: 24px;
-  margin: 0px;
-  padding: 0px;
-  margin-bottom: -5px;
-  margin-top: 18px;
-}
+  .dialogwindow h4 {
+    font-family: calibri;
+    font-weight: 100;
+    font-size: 24px;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: -5px;
+    margin-top: 18px;
+  }
 
-.linktonewpage {
-  font-size: 28px;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-family: "Cantarell", sans-serif;
-  margin-bottom: 10px;
+  .linktonewpage {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: "Cantarell", sans-serif;
+    margin-bottom: 10px;
   }
 
 
-.sharebutton {
-  width: 340px;
-  height: 50px;
-  margin-right: auto;
-  margin-left: auto;
-}
+  .sharebutton {
+    width: 340px;
+    height: 50px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 
 
 /*
@@ -1398,7 +1448,7 @@ STARRY
 }
 
 .starry.textureline {
-display: none;
+  display: none;
 }
 
 .starry.textp {
@@ -1576,7 +1626,7 @@ createco.intense.ntent {
   background-color: black;
   height: 10px;
   width: 100%;
-   margin-top: 40px;
+  margin-top: 40px;
   margin-bottom: -130px;
 }
 
@@ -1888,7 +1938,7 @@ AIRY
 
 
 .airy.textureline {
-display: none;
+  display: none;
 }
 
 .airy.textp {

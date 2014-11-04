@@ -1,5 +1,14 @@
 Websites = new Meteor.Collection("websites");
 
+Websites.helpers({
+	username: function () {
+		var user = Meteor.users.findOne({_id:this.userId});
+		if(user){
+			return user.username;
+		}
+	}
+});
+
 Websites.before.insert(function( userId, doc ) {
 	doc.createdAt = new Date();
 	doc.style = 'default';
@@ -66,3 +75,5 @@ Websites.deny({
 		return _.contains(fields, 'userId');
 	}
 });
+
+

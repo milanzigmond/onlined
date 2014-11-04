@@ -5,9 +5,17 @@
 	<link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
 </head>
 
-<template name="layout">
+<template name="main">
 	<header>
-		{{> yield "menu"}}	
+		{{#if creatingWebsite}}
+			{{> createMenu}}
+		{{else}}
+			{{#if liveWebsite}}
+				<!-- no menu on live website -->
+			{{else}}
+				{{> login}}
+			{{/if}}
+		{{/if}}
 	</header>
 	
 	{{> yield}}
