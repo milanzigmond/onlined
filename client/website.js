@@ -15,7 +15,7 @@ function getUserEmail () {
 
 Template.website.rendered = function () {
     window.scrollTo(0, 0);
-    showMap(this.data); 
+    showMap(this.data);
 };
 
 Template.website.helpers({

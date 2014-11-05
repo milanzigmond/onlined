@@ -60,10 +60,11 @@
 		<div class="section-gallery">
 			<div class="row gallerydiv2">	
 				{{#each content.gallery}}
-					<div data-index="{{index}}" class="img col-lg-3 col-md-6 col-xs-12">
-		            	<div class="obrazek" style="background-image: url('{{showImage imageId}}')">
-		            </div>
-		        </div>
+					<a href="{{showImage imageId}}" data-lightbox="gallery">
+						<div data-index="{{index}}" class="img col-lg-3 col-md-6 col-xs-12">
+					            <div class="obrazek" style="background-image: url('{{showImage imageId}}')"></div>
+					        </div>
+					</a>
 				{{/each}}
 			</div>	
 		</div>
