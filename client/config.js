@@ -12,29 +12,4 @@ Meteor.startup( function () {
 		showOtherLoginServices: false      // Set to false to hide oauth login buttons on the signin/signup pages.
 	});
 
-
-	Template.registerHelper("formatDate", function(datetime) {
-        if (moment) {
-            return moment(datetime).fromNow();
-        }
-        else {
-            return datetime;
-        }
-    });
-
-    Template.registerHelper("showImage", function(id) {
-        if(!id) return;
-        // console.log('id:'+id);
-        var file = Images.findOne(id);
-        if(!file) return;
-        // console.log('showImage:'+file.contentId);
-        return file.url();
-    });
-
-    Template.registerHelper('toUpperCase', function(str) {
-        // check(str, String);
-        if(!str) return;
-        return str.toUpperCase();
-    });
-
 });

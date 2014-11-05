@@ -1,229 +1,214 @@
-Meteor.startup( function () {
-    function checkInputField ( event ) {
-        var value = $(event.target).val();
+function checkInputField ( event ) {
+    var value = $(event.target).val();
 
-        if (value.length === 0) {
-            $(event.target).removeClass( "valid" ).addClass( "invalid" );
-            return false;
-        } else {
-            $(event.target).removeClass( "invalid" ).addClass( "valid" );
-            Session.set('editing_field_value', value);
-            return true;
-        };
+    if (value.length === 0) {
+        $(event.target).removeClass( "valid" ).addClass( "invalid" );
+        return false;
+    } else {
+        $(event.target).removeClass( "invalid" ).addClass( "valid" );
+        Session.set('editing_field_value', value);
+        return true;
+    };
+};
+
+function addIndexToArray ( array ) {
+    if(!array) return;
+
+    for( var i = 0; i < array.length; i++ ) {
+        array[i].index = i;
+    };
+    return array;
+};
+
+function saveField ( event ) {
+    var websiteId   = Session.get('editing_website'),
+        parent      = event.target.parentElement,
+        value       = Session.get('editing_field_value'),
+        setModifier = { $set: {} };
+
+    setModifier.$set['content.'+ parent.id ] = value;
+    Websites.update({_id:websiteId}, setModifier);
+};
+
+function saveFile ( event ) {
+
+    // get contentId from the DOM
+    var contentId       = event.target.parentElement.id;
+    if (!contentId) 
+        contentId       = event.target.parentElement.parentElement.id;
+    if (!contentId) return;
+
+    var index           = $(event.target.parentElement).data('index'),
+        websiteId       = Session.get('editing_website'),
+        website         = Websites.findOne(websiteId),
+        presentFileId   = website.content[contentId],
+        tagName         = $(event.target).get(0).tagName,
+        fsFile, 
+        fileObj;
+
+    // check present file id for galleries
+    if ( presentFileId instanceof Object )
+        presentFileId   = website[ 'content.' + contentId + '.' + index + '.imageId' ];
+
+    // check for the correct file 
+    if ( tagName === "DIV" || tagName === "SPAN") {
+        file            = event.originalEvent.dataTransfer.files[0];
+    } else if ( tagName === "INPUT") {
+        file            = event.target.files[0];
     };
 
-    function addIndexToArray ( array ) {
-        if(!array) return;
+    // create fs file to insert
+    fsFile = new FS.File(file),
+    fsFile.userId = Meteor.userId();
+    fsFile.websiteId = websiteId;
+    fsFile.contentId = contentId;
+    
+    // insert new file  
+    fileObj = Images.insert(fsFile, function (err, fileObj) {
+      // todo add tooltip
+      if(!err) {
+        if ( presentFileId && presentFileId !== "") {
+            Images.remove(presentFileId);
+        }
+      } else {
+        console.log(err);
+      }
+    });
 
-        for( var i = 0; i < array.length; i++ ) {
-            array[i].index = i;
-        };
-        return array;
-    };
+    if(!fileObj) return;
 
-    function saveField ( event ) {
-        var websiteId = Session.get('editing_website'),
-            parent = event.target.parentElement,
-            value = Session.get('editing_field_value'),
-            setModifier = { $set: {} };
+    // update website content
+    if( index !== undefined ) {
+        var setModifier = { $set: {} };
+        setModifier.$set['content.' + contentId + '.' + index + '.imageId' ] = fileObj._id;
+    } else {
+        var setModifier = { $set: {} };
+        setModifier.$set['content.'+contentId ] = fileObj._id;    
+    }
 
-        // console.log('saving field:'+parent.id+' with value: '+value);
+    Websites.update({_id:websiteId}, setModifier);
+};
 
-        setModifier.$set['content.'+ parent.id ] = value;
-        Websites.update({_id:websiteId}, setModifier);
-    };
+function setupMap () {
+    var editingWebsite = Websites.findOne(Session.get('editing_website')),
+        address = editingWebsite.content.address,
+        latLng = editingWebsite.content.latLng;
+    
+    if(!latLng) return;
+    
+    var input = (document.getElementById('input')),
+        autocomplete = new google.maps.places.Autocomplete(input);
 
-    function saveFile ( event ) {
+    autocomplete.bindTo('bounds', map);
 
-        // get contentId from the DOM
-        var contentId       = event.target.parentElement.id;
-        if (!contentId) 
-            contentId       = event.target.parentElement.parentElement.id;
-        if (!contentId) return;
-
-        var index           = $(event.target.parentElement).data('index'),
-            websiteId       = Session.get('editing_website'),
-            website         = Websites.findOne(websiteId),
-            presentFileId   = website.content[contentId],
-            tagName         = $(event.target).get(0).tagName,
-            fsFile, 
-            fileObj;
-
-        // check present file id for galleries
-        if ( presentFileId instanceof Object )
-            presentFileId   = website[ 'content.' + contentId + '.' + index + '.imageId' ];
-
-        // check for the correct file 
-        if ( tagName === "DIV" || tagName === "SPAN") {
-            file            = event.originalEvent.dataTransfer.files[0];
-        } else if ( tagName === "INPUT") {
-            file            = event.target.files[0];
-        };
-
-        // create fs file to insert
-        fsFile = new FS.File(file),
-        fsFile.userId = Meteor.userId();
-        fsFile.websiteId = websiteId;
-        fsFile.contentId = contentId;
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        // infowindow.close();
+        // marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) { return; };
         
-        // insert new file  
-        fileObj = Images.insert(fsFile, function (err, fileObj) {
-          // todo add tooltip
-          if(!err) {
-            if ( presentFileId && presentFileId !== "") {
-                Images.remove(presentFileId);
-            }
-          } else {
-            console.log(err);
-          }
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(13);  // Why 17? Because it looks good.
+        }
+
+        var editingWebsite = Session.get('editing_website');
+
+        Websites.update({_id:editingWebsite},{ $set: { 
+            'content.address': place.formatted_address,
+            'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}}
         });
 
-        if(!fileObj) return;
+        marker.setIcon(({
+            url: 'logo.png',
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+    });
+};
 
-        // update website content
-        if( index !== undefined ) {
-            console.log('saving gallery image');
-            var setModifier = { $set: {} };
-            setModifier.$set['content.' + contentId + '.' + index + '.imageId' ] = fileObj._id;
+function countLines (id) {
+    var element = document.getElementById(id),
+    divHeight = element.offsetHeight;
+    var lineHeight = parseInt(element.style.lineHeight);
+    if (!lineHeight) lineHeight = parseInt(getComputedStyle(element, null).getPropertyValue("line-height"));
+    var lines = Math.ceil(divHeight / lineHeight);
+    return lines;
+};
+
+function makeEditable (event, template) {
+    preventActionsForEvent(event);
+
+    if(Session.get('editing_field_value')) return;
+    Session.set('editing_field', event.target.id);
+    Session.set('editing_field_value', $(event.target).text());
+
+    var contentId       = event.target.id,
+        textContent     = event.target.textContent,
+        $eventTarget    = $(event.target),
+        parent          = event.target.parentElement,
+        tagName         = $eventTarget.get(0).tagName,
+        textAlign       = $eventTarget.css('text-align'),
+        fontFamily      = $eventTarget.css('fontFamily'),
+        fontSize        = $eventTarget.css('fontSize'),
+        input;
+
+    // debugger
+
+    if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
+        // it's a text field
+        if (contentId === "address") {
+            input = '<input id="input" class="controls" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="Enter a location" value="'+textContent+'"/>';
+
+            $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
+
+            setupMap();
         } else {
-            console.log('saving '+contentId+' image');
-            var setModifier = { $set: {} };
-            setModifier.$set['content.'+contentId ] = fileObj._id;    
+            input = '<input id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" value="'+textContent+'"/>';
+
+            $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
         }
+    
+        $( event.target ).hide();
+    }
+    
+    if (tagName === "P") {
+        // var lines = countLines(contentId);
+        lines = 5;
+        // it's a text area
+        input = '<textarea id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
 
-        Websites.update({_id:websiteId}, setModifier);
-    };
-
-    function setupMap () {
-        console.log('setupMap');
+        $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
+        // $( event.target ).before(input);
+        $( event.target ).hide();   
+    }
+    
+    if (tagName === "IMG") {
+        // it's an image
         
-        var editingWebsite = Websites.findOne(Session.get('editing_website')),
-            address = editingWebsite.content.address,
-            latLng = editingWebsite.content.latLng;
+        var website = Websites.findOne(Session.get('editing_website'));
+        var id = event.target.parentElement.id;
+
+        input = '<input id="input" type="text" placeholder="your '+ parent.id + ' url here" value="'+website.content[id]+'"/>';
         
-        if(!latLng) return;
-        
-        var input = (document.getElementById('input')),
-            autocomplete = new google.maps.places.Autocomplete(input);
+        $( event.target ).before(input);
+        $( event.target ).hide();
+    }
 
-        autocomplete.bindTo('bounds', map);
+    activateInput($(parent).find('#input'));
+};
 
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            console.log('place changed');
-            // infowindow.close();
-            // marker.setVisible(false);
-            var place = autocomplete.getPlace();
-            if (!place.geometry) { return; };
-            
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
-            } else {
-                map.setCenter(place.geometry.location);
-                map.setZoom(13);  // Why 17? Because it looks good.
-            }
-
-            var editingWebsite = Session.get('editing_website');
-
-            Websites.update({_id:editingWebsite},{ $set: { 
-                'content.address': place.formatted_address,
-                'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}}
-            });
-
-            marker.setIcon(({
-                url: 'logo.png',
-                size: new google.maps.Size(71, 71),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(35, 35)
-            }));
-            marker.setPosition(place.geometry.location);
-            marker.setVisible(true);
-        });
-    };
-
-    function countLines (id) {
-        var element = document.getElementById(id),
-        divHeight = element.offsetHeight;
-        var lineHeight = parseInt(element.style.lineHeight);
-        if (!lineHeight) lineHeight = parseInt(getComputedStyle(element, null).getPropertyValue("line-height"));
-        var lines = Math.ceil(divHeight / lineHeight);
-        return lines;
-    };
-
-    function makeEditable (event, template) {
-        preventActionsForEvent(event);
-
-        // console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
-
-        if(Session.get('editing_field_value')) return;
-        Session.set('editing_field', event.target.id);
-        Session.set('editing_field_value', $(event.target).text());
-
-        // console.log('make editable - editing field value: '+ Session.get('editing_field_value'));
-
-
-        var contentId       = event.target.id,
-            textContent     = event.target.textContent,
-            $eventTarget    = $(event.target),
-            parent          = event.target.parentElement,
-            tagName         = $eventTarget.get(0).tagName,
-            textAlign       = $eventTarget.css('text-align'),
-            fontFamily      = $eventTarget.css('fontFamily'),
-            fontSize        = $eventTarget.css('fontSize'),
-            input;
-
-        // debugger
-
-        if (tagName === "H1" || tagName === "H2" || tagName === "H3" || tagName === "H4" || tagName === "H5" || tagName === "H6") {
-            // it's a text field
-            if (contentId === "address") {
-                input = '<input id="input" class="controls" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" placeholder="Enter a location" value="'+textContent+'"/>';
-
-                $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
-
-                setupMap();
-            } else {
-                input = '<input id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" value="'+textContent+'"/>';
-
-                $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
-            }
-        
-            $( event.target ).hide();
-        }
-        
-        if (tagName === "P") {
-            // var lines = countLines(contentId);
-            lines = 5;
-            // it's a text area
-            input = '<textarea id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" rows="'+lines+'" cols="50">'+textContent+'</textarea>';
-
-            $( event.target ).before( '<p id="'+contentId+'">'+ input + '</p>');
-            // $( event.target ).before(input);
-            $( event.target ).hide();   
-        }
-        
-        if (tagName === "IMG") {
-            // it's an image
-            
-            var website = Websites.findOne(Session.get('editing_website'));
-            var id = event.target.parentElement.id;
-
-            input = '<input id="input" type="text" placeholder="your '+ parent.id + ' url here" value="'+website.content[id]+'"/>';
-            
-            $( event.target ).before(input);
-            $( event.target ).hide();
-        }
-
-        activateInput($(parent).find('#input'));
-    };
-
-    function activateInput (input) {
-        Deps.flush();
-        input.focus()
-        input.select();
-    };
-});
-
+function activateInput (input) {
+    Deps.flush();
+    input.focus()
+    input.select();
+};
 
 Template.create.created = function () {
     Session.setDefault('editing_field', null);
@@ -236,14 +221,14 @@ Template.create.rendered = function () {
     showMap(this.data);
     // autohideNavbar();
 
-    $('.sections').sortable({
-        containment: 'parent',
-        cursor: '-webkit-grabbing',
-        placeholder: 'placeholder',
-        axis: 'x',
-        revert: 300
-    });
-    $( ".sections" ).disableSelection();
+    // $('.sections').sortable({
+    //     containment: 'parent',
+    //     cursor: '-webkit-grabbing',
+    //     placeholder: 'placeholder',
+    //     axis: 'x',
+    //     revert: 300
+    // });
+    // $( ".sections" ).disableSelection();
 };
 
 

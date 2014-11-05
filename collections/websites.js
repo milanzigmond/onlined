@@ -76,4 +76,19 @@ Websites.deny({
 	}
 });
 
+Meteor.methods({
+    getWebsitesCount: function () {
+        return Websites.find().count();
+    },
+    checkDuplicity: function ( sitename ) {
+    	check( sitename, String );
+    	
+        var sitename = sitename.toLowerCase(),
+            exists = Websites.find({sitename:sitename}).count();
+
+        if( exists > 0 ) return false;
+        return true;
+    }
+});
+
 

@@ -26,24 +26,6 @@ Meteor.publish('stream', function (limit) {
 
     ids = _.uniq(ids); // leave only unique ids in array
 
-    // userCursor.observeChanges({
-    //     added: function (id, fields) {
-    //         // ...
-    //     }, // Use either added() OR(!) addedBefore()
-    //     addedBefore: function (id, fields, before) {
-    //         // ...
-    //     },
-    //     changed: function (id, fields) {
-    //         // ...
-    //     },
-    //     movedBefore: function (id, fields) {
-    //         // ...
-    //     },
-    //     removed: function (id) {
-    //         // ...
-    //     }
-    // });
-
     cursors.push(stream);
     cursors.push(Users.find({_id: {$in: ids}}, { fields: { username: 1 }}));
     return cursors; 
@@ -52,12 +34,15 @@ Meteor.publish('stream', function (limit) {
 Meteor.publish('myWebsites', function (userId, limit) {
     check(userId, String);
     check(limit, Number);
-    return Websites.find({userId: userId}, {fields: {'content.topImage': 1, sitename: 1, userId: 1, createdAt: 1}, sort: {createdAt: 1}, limit:limit});
+    // return Websites.find({userId: userId}, {fields: {'content.topImage': 1, sitename: 1, userId: 1, createdAt: 1}, sort: {createdAt: 1}, limit:limit});
+    return Websites.find({userId: userId}, {limit:limit});
 });
 
-Meteor.publish('editWebsite', function (id) {
+Meteor.publish('editingWebsite', function (id) {
     check( id, String );
-    return Websites.find({_id:id});
+    var websitesCursor = Websites.find({_id:id});
+    console.log(websitesCursor.fetch()[0].content.latLng);
+    return websitesCursor;
 });
 
 Meteor.publish('liveWebsite', function (sitename) {

@@ -2,8 +2,8 @@
 	<div class="{{style}} createcontent">
 	
 		<div id="effect-6" class="effects">
-			<div id="topImage" class="img">
-	            <img class="img img-responsive" src="{{showImage content.topImage}}" alt="">
+			<div id="topImage" class="img squared">
+	            <img class="img squared img-responsive" src="{{showImage content.topImage}}" alt="">
 	            <div class="overlay">
 	                <span class="expand">{{editImageText}}</span>
 	            </div>
@@ -156,7 +156,7 @@
 					<div class="col-md-4 col-md-offset-2">
 
 						<div id="effect-6" class="effects">
-							<div id="firstProductImage" class="img">
+							<div id="firstProductImage" class="img squared">
 					            <img src="{{showImage content.firstProductImage}}" alt="">
 					            <div class="overlay">
 					                <span class="expand">{{editImageText}}</span>
@@ -171,7 +171,7 @@
 					<div class="col-md-4">
 
 						<div id="effect-6" class="effects">
-							<div id="secondProductImage" class="img">
+							<div id="secondProductImage" class="img squared">
 					            <img src="{{showImage content.secondProductImage}}" alt="">
 					            <div class="overlay">
 					                <span class="expand">{{editImageText}}</span>
@@ -219,9 +219,11 @@
 				<div class="row">
 					<div class="col-md-3 col-xs-6">
 
-						<div id="effect-6" class="effects">
-							<div id="firstTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{showImage content.firstTeamMemberImage}}" class="member" alt="">
+					    <div id="effect-6" class="effects">
+							<div id="firstTeamMemberImage" class="img">
+					            <div class="member" 
+					            	 style='background-image: url("{{showImage content.firstTeamMemberImage}}")'>
+					            </div>
 					            <div class="overlay member">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
@@ -237,8 +239,10 @@
 					<div class="col-md-3 col-xs-6">
 
 						<div id="effect-6" class="effects">
-							<div id="secondTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{showImage content.secondTeamMemberImage}}" class="member" alt="">
+							<div id="secondTeamMemberImage" class="img">
+					            <div class="member" 
+					            	 style='background-image: url("{{showImage content.secondTeamMemberImage}}")'>
+					            </div>
 					            <div class="overlay member">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
@@ -254,15 +258,17 @@
 					<div class="col-md-3 col-xs-6">
 						
 						<div id="effect-6" class="effects">
-							<div id="thirdTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{showImage content.thirdTeamMemberImage}}" class="member" alt="">
+							<div id="thirdTeamMemberImage" class="img">
+					            <div class="member" 
+					            	 style='background-image: url("{{showImage content.thirdTeamMemberImage}}")'>
+					            </div>
 					            <div class="overlay member">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>
 					            <input type="file" class="hiddenFileInput"/>
 					        </div>
 					    </div>
-
+						
 						<div class="membercaption">
 							<h4 id="thirdTeamMember" class="editable">{{content.thirdTeamMember}}</h4>
 							<p id="thirdTeamMemberTagline" class="editable">{{content.thirdTeamMemberTagline}}</p>
@@ -271,8 +277,10 @@
 					<div class="col-md-3 col-xs-6">
 
 						<div id="effect-6" class="effects">
-							<div id="fourthTeamMemberImage" class="img teamimg">
-					            <img width="50%" src="{{showImage content.fourthTeamMemberImage}}" class="member" alt="">
+							<div id="fourthTeamMemberImage" class="img">
+					            <div class="member" 
+					            	 style='background-image: url("{{showImage content.fourthTeamMemberImage}}")'>
+					            </div>
 					            <div class="overlay member">
 					                <span class="expand">{{editImageText}}</span>
 					            </div>

@@ -159,7 +159,7 @@ a:hover {
   font-family: "Cantarell", sans-serif;
   text-transform: uppercase;
   color:white;
-  border: 0px;
+  border: none;
 }
 
 .btn-default:hover{
@@ -176,7 +176,7 @@ button {
   font-size: 18px;
   color:white;
   text-decoration: none;
-  border: 0px;
+  border: none;
   padding: 10px;
   -webkit-transition: all 200ms ease-in-out;
   -moz-transition: all 200ms ease-in-out;
@@ -281,7 +281,7 @@ span.username {
 
 
 .drop {
-  border: 2px dashed #ff0000;
+  /*border: 2px dashed #ff0000;*/
   width: 400px;
   height: 200px;
   color: #cccccc;
@@ -357,7 +357,7 @@ span.username {
 
 #forgot-password-email {
   background: #eaeaea;
-  border: 0px;
+  border: none;
   font-size: 16px;
 }
 
@@ -456,7 +456,7 @@ ul {
   background:transparent;
   color: #fff;
   outline:none;
-  border:0;
+  border:none;
   width:100%;
   text-align: center;
   /*font-size: 20px;*/
@@ -749,7 +749,7 @@ body {
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;*/
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .editable:hover {
@@ -775,7 +775,7 @@ body {
     background:transparent;
     color: #fff;
     outline:none;
-    border:0;
+    border:none;
     width:100%;
     text-align: center;
     /*font-size: 20px;*/
@@ -786,7 +786,7 @@ body {
     color: #fff;
     margin:0px;
     outline:none;
-    border:0;
+    border:none;
     width:100%;
   }
 
@@ -879,6 +879,7 @@ body {
     display: none;
   }
   .rounded {
+    background-color: #eee;
     margin-left: auto;
     margin-right: auto;
     border-radius: 300px;
@@ -887,6 +888,32 @@ body {
     background-position: 50% 50%;
     background-size: 100%;
   }
+
+  /*======================================================SECTION TEAM MEMBERS start*/
+
+  .section-team {
+    margin-top: 150px;
+    margin-bottom: 150px;
+  }
+
+  .member {
+    border: none;
+    background-color: #eee;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 150px;
+    width: 150px;
+    height: 150px;
+    min-width:150px;
+    min-height:150px;
+    background-position: 50% 50%;
+    background-size: 100%;
+  }
+
+  #teamTitle {
+    padding-bottom: 20px;
+  }
+
 
   /*======================================================SECTION GALLERY start*/
 
@@ -941,6 +968,7 @@ body {
     height: 260px;
     background-position: center;
     background-size: 150%;
+    background-color: #eee;
     /*width:25%;*/
   }
 
@@ -1031,6 +1059,7 @@ body {
 
   .link {
     /*margin-top: 20px;*/
+    cursor: pointer;
     height: 30px;
   }
 
@@ -1074,28 +1103,17 @@ body {
     font-weight: 200;
   }
 
-  /*======================================================SECTION TEAM MEMBERS start*/
-
-  .section-team {
-    margin-top: 150px;
-    margin-bottom: 150px;
-  }
-
-  .member {
-    border-radius: 100px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    height: 150px;
-    width: 150px;
-  }
-
+  
 
   /*======================================================IMAGES FOR ROLLOVER start*/
+
+  .squared {
+    background-color: #eee;
+  }
 
   .effects .img {
     position: relative;
     overflow: hidden;
-    background-color: #eee;
   }
   .effects .img img {
     display: block;
@@ -1123,15 +1141,15 @@ body {
     display: block;
     position: absolute;
     /*z-index: 100;*/
-    width: 180px;
+    width: 150px;
     height: 60px;
     text-align: center;
     vertical-align: center;
     color: #fff;
-    line-height: 32px;
+    line-height: 24px;
     font-weight: 700;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
     text-transform: uppercase;
   }
 
@@ -1297,7 +1315,7 @@ body {
     height: 540px;
     width: 800px;
     background: white;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     margin: 60px;
     margin-right: auto;
     margin-left: auto;
