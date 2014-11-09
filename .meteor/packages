@@ -10,7 +10,6 @@ less
 accounts-facebook
 service-configuration
 ian:bootstrap-3
-settinghead:auto-nprogress
 mizzao:jquery-ui
 iron:router@1.0.0-pre4
 cfs:standard-packages

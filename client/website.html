@@ -47,7 +47,7 @@
 			<div class="section-intro">
 				<div class="row">
 					<div class="col-md-5">
-						<div class="rounded" style="background-image: url({{showImage content.logo}})"></div>
+						<div class="rounded" style="background-image: url('{{showImage content.logo}}')"></div>
 					</div>
 					<div class="col-md-7 introtext">
 						<h3 id="heading">{{content.heading}}</h3>
@@ -166,7 +166,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="img">
-							<img src="{{showImage content.secondProductImage}}" alt="">
+							<img src="{{showImage content.secondProductImage}}">
 					    </div>
 						<h3>{{content.secondProduct}}</h3>
 						<p>{{content.secondProductDescription}}</p>
@@ -183,37 +183,37 @@
 					<div class="col-xs-6 col-md-3">
 						{{#if content.twitter}}
 							<a href="{{content.twitter}}" target="_blank">
-								<img class="link" src="ic_twitterW.png" alt="">
+								<img class="link" src="ic_twitterW.png">
 							</a>
 						{{else}}
-							<img class="link" style="opacity:0.3" src="ic_twitterW.png" alt="">
+							<img class="link" style="opacity:0.3" src="../ic_twitterW.png">
 						{{/if}}
 					</div>
 					<div class="col-xs-6 col-md-3">
 						{{#if content.youtube}}
 							<a href="{{content.youtube}}" target="_blank">
-								<img class="link" src="ic_youtubeW.png" alt="">
+								<img class="link" src="ic_youtubeW.png">
 							</a>
 						{{else}}
-							<img class="link" style="opacity:0.3" src="ic_youtubeW.png" alt="">
+							<img class="link" style="opacity:0.3" src="../ic_youtubeW.png">
 						{{/if}}
 					</div>
 					<div class="col-xs-6 col-md-3">
 						{{#if content.facebook}}
 							<a href="{{content.facebook}}" target="_blank">
-								<img class="link" src="ic_facebookW.png" alt="">
+								<img class="link" src="ic_facebookW.png">
 							</a>
 						{{else}}
-							<img class="link" style="opacity:0.3" src="ic_facebookW.png" alt="">
+							<img class="link" style="opacity:0.3" src="../ic_facebookW.png">
 						{{/if}}
 					</div>
 					<div class="col-xs-6 col-md-3">
 						{{#if content.instagram}}
 							<a href="{{content.instagram}}" target="_blank">
-								<img class="link" src="ic_instagramW.png" alt="">
+								<img class="link" src="ic_instagramW.png">
 							</a>
 						{{else}}
-							<img class="link" style="opacity:0.3" src="ic_instagramW.png" alt="">
+							<img class="link" style="opacity:0.3" src="../ic_instagramW.png">
 						{{/if}}
 					</div>
 				</div>

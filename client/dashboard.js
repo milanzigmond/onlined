@@ -26,12 +26,11 @@ function checkDuplicity ( sitename , parent) {
 
     Meteor.call('checkDuplicity', sitename, function (err, exists) {
         if(exists) {
+            var newWebsiteId = Websites.insert({sitename:sitename}, function () {
+                Router.go('edit', {sitename: sitename});
+            });
+            Session.set('editing_website', newWebsiteId);
             blurCreateWebsiteInput();
-
-            var website_id = Websites.insert({sitename: sitename});
-            Session.set('editing_website', website_id);
-
-            Router.go('create');
         } else {
             $('.textInput').animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);
             parent.removeClass( "valid" ).addClass( "invalid" );
@@ -129,12 +128,9 @@ Template.dashboard.events({
     'click .myWebsiteListItem' : function ( event, template ) {
         preventActionsForEvent( event );
         Session.set('editing_website', this._id);
-        Router.go('create');
+        var sitename = Websites.findOne(this._id).sitename;
+        Router.go('edit', {sitename: sitename});
     },
-    // 'click .websiteListItem' : function ( event, template) {
-    //     preventActionsForEvent( event );
-    //     Router.go("/"+this.sitename);
-    // },
     'click .glyphicon-remove' : function ( event , template ) {
         Session.set('editing_website', null);
         Websites.remove({_id:this._id});

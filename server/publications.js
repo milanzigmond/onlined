@@ -34,18 +34,18 @@ Meteor.publish('stream', function (limit) {
 Meteor.publish('myWebsites', function (userId, limit) {
     check(userId, String);
     check(limit, Number);
-    // return Websites.find({userId: userId}, {fields: {'content.topImage': 1, sitename: 1, userId: 1, createdAt: 1}, sort: {createdAt: 1}, limit:limit});
-    return Websites.find({userId: userId}, {limit:limit});
+    return Websites.find({userId: userId}, {fields: {'content.topImage': 1, sitename: 1, userId: 1, createdAt: 1}, sort: {createdAt: 1}, limit:limit});
+    // return Websites.find({userId: userId}, {limit:limit});
 });
 
-Meteor.publish('editingWebsite', function (id) {
-    check( id, String );
-    var websitesCursor = Websites.find({_id:id});
-    console.log(websitesCursor.fetch()[0].content.latLng);
-    return websitesCursor;
+Meteor.publish('editingWebsite', function (sitename) {
+    console.log('editingWebsitePublication: '+ sitename);
+    check( sitename, String );
+    return Websites.find({_id: Websites.findOne({sitename:sitename})._id});
 });
 
 Meteor.publish('liveWebsite', function (sitename) {
+    console.log('liveWebsitePublication');
     check( sitename, String );
     return Websites.find({sitename:sitename});
 });
@@ -56,8 +56,9 @@ Meteor.publish('liveWebsiteImages', function ( sitename ) {
     return Images.find({websiteId:website._id});
 });
 
-Meteor.publish('images', function (id) {
-    check( id, String );
+Meteor.publish('images', function (sitename) {
+    check( sitename, String );
+    var id = Websites.find({sitename:sitename}).fetch()._id;
     return Images.find({websiteId:id});
 });
 

@@ -90,6 +90,7 @@ function saveFile ( event ) {
 };
 
 function setupMap () {
+    console.log('setupMap');
     var editingWebsite = Websites.findOne(Session.get('editing_website')),
         address = editingWebsite.content.address,
         latLng = editingWebsite.content.latLng;
@@ -102,8 +103,6 @@ function setupMap () {
     autocomplete.bindTo('bounds', map);
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-        // infowindow.close();
-        // marker.setVisible(false);
         var place = autocomplete.getPlace();
         if (!place.geometry) { return; };
         
@@ -111,25 +110,28 @@ function setupMap () {
             map.fitBounds(place.geometry.viewport);
         } else {
             map.setCenter(place.geometry.location);
-            map.setZoom(13);  // Why 17? Because it looks good.
+            map.setZoom(13);
         }
 
-        var editingWebsite = Session.get('editing_website');
+        var ll = {
+            lat:place.geometry.location.k, 
+            lng:place.geometry.location.B
+        }; 
 
-        Websites.update({_id:editingWebsite},{ $set: { 
-            'content.address': place.formatted_address,
-            'content.latLng': {lat:place.geometry.location.k, lng:place.geometry.location.B}}
+        var params = [
+            editingWebsite, 
+            place.formatted_address, 
+            ll
+        ];
+
+        Meteor.call("updateLocation", editingWebsite._id, place.formatted_address,ll, function (err) {
+                if(err) console.log(err);
         });
 
-        marker.setIcon(({
-            url: 'logo.png',
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(35, 35)
-        }));
-        marker.setPosition(place.geometry.location);
-        marker.setVisible(true);
+        // Websites.update({_id:editingWebsite},{ $set: { 
+        //     'content.address': place.formatted_address,
+        //     'content.latLng': ll}
+        // });
     });
 };
 
@@ -210,16 +212,19 @@ function activateInput (input) {
     input.select();
 };
 
-Template.create.created = function () {
+Template.edit.created = function () {
     Session.setDefault('editing_field', null);
     Session.setDefault('editing_field_value', null);
     Session.setDefault('editing_website', null);
 };
 
-Template.create.rendered = function () {
-    window.scrollTo(0, 0);
-    showMap(this.data);
+Template.edit.rendered = function () {
+    // window.scrollTo(0, 0);
     // autohideNavbar();
+    Deps.autorun(function() {
+        var w = Websites.findOne();
+        if( w.content.latLng ) { showMap(w.content.latLng); };
+    });
 
     // $('.sections').sortable({
     //     containment: 'parent',
@@ -232,11 +237,11 @@ Template.create.rendered = function () {
 };
 
 
-Template.create.destroyed = function () {
+Template.edit.destroyed = function () {
     destroyNavbar();
 };
 
-Template.create.helpers({
+Template.edit.helpers({
     editImageText: function () {
         return "click or drag&drop";
     },
@@ -270,7 +275,7 @@ Template.create.helpers({
     }
 });
 
-Template.create.events({
+Template.edit.events({
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
         countLines(event.target.id);
         makeEditable( event, template );

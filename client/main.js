@@ -6,7 +6,7 @@ Template.main.helpers({
         return getUserEmail();
     },
     creatingWebsite: function () {
-        return (Router.current().route.getName() === 'create');
+        return (Router.current().route.getName() === 'edit');
     },
     liveWebsite: function () {
         return (Router.current().route._path === '/:sitename');

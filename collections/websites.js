@@ -1,4 +1,4 @@
-Websites = new Meteor.Collection("websites");
+Websites = new Mongo.Collection("websites");
 
 Websites.helpers({
 	username: function () {
@@ -88,6 +88,17 @@ Meteor.methods({
 
         if( exists > 0 ) return false;
         return true;
+    },
+    updateLocation: function ( websiteId, address, latLng ) {
+    	console.log(websiteId, address, latLng);
+    	check( websiteId, String );
+    	check( address, String );
+    	check( latLng, Object );
+
+    	Websites.update({_id:websiteId}, {$set: { 
+            'content.address': address,
+            'content.latLng': latLng
+        }});
     }
 });
 
