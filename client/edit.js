@@ -45,11 +45,7 @@ function saveFile ( event ) {
         index           = ( tagName === "SPAN" ) ? $(event.target.parentElement.parentElement).data('index') : $(event.target.parentElement).data('index'),
         fsFile, 
         fileObj;
-
-    
-    console.log(event.target, tagName, contentId, index);
-
-
+        
     // check present file id for galleries
     if ( presentFileId instanceof Object )
         presentFileId   = website[ 'content.' + contentId + '.' + index + '.imageId' ];

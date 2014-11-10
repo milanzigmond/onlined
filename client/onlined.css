@@ -2159,12 +2159,6 @@ NPROGRESS
   background-color: #fff;
 }
 
-.styleDropdownIcon {
-  width:20px;
-  padding-right:5px;
-  padding-bottom:3px;
-}
-
 /*for styleDropDown*/
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
   color:#fff;
