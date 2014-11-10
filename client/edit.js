@@ -38,13 +38,17 @@ function saveFile ( event ) {
         contentId       = event.target.parentElement.parentElement.id;
     if (!contentId) return;
 
-    var index           = $(event.target.parentElement).data('index'),
-        websiteId       = Session.get('editing_website'),
+    var websiteId       = Session.get('editing_website'),
         website         = Websites.findOne(websiteId),
         presentFileId   = website.content[contentId],
         tagName         = $(event.target).get(0).tagName,
+        index           = ( tagName === "SPAN" ) ? $(event.target.parentElement.parentElement).data('index') : $(event.target.parentElement).data('index'),
         fsFile, 
         fileObj;
+
+    
+    console.log(event.target, tagName, contentId, index);
+
 
     // check present file id for galleries
     if ( presentFileId instanceof Object )
@@ -79,6 +83,8 @@ function saveFile ( event ) {
 
     // update website content
     if( index !== undefined ) {
+        // this is a gallery
+
         var setModifier = { $set: {} };
         setModifier.$set['content.' + contentId + '.' + index + '.imageId' ] = fileObj._id;
     } else {

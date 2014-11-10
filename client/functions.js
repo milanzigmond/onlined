@@ -29,7 +29,6 @@ Template.registerHelper('toUpperCase', function(str) {
 // functions
 
 animateNegativeRaction = function animateNegativeRaction ( event ) {
-    console.log('animateNegativeRaction');
     if (!$(event.target).is(':animated')) {
         $(event.target).animate({'margin-left':'-5px'},70).animate({'margin-left':'5px'}, 70).animate({'margin-left':'-5px'},70).animate({'margin-left':'0px'}, 70);    
     };
