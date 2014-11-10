@@ -76,6 +76,7 @@ mobile-status-bar@1.0.1
 mongo-livedata@1.0.6
 mongo@1.0.8
 mrt:moment@2.8.1
+mrt:nprogress@0.1.0
 mrt:underscore-string-latest@2.3.3
 natestrauser:font-awesome@4.2.0
 npm-bcrypt@0.7.7
@@ -92,6 +93,7 @@ retry@1.0.1
 routepolicy@1.0.2
 service-configuration@1.0.2
 session@1.0.4
+settinghead:auto-nprogress@1.0.0
 sha@1.0.1
 softwarerero:accounts-t9n@1.0.0
 spacebars-compiler@1.0.3
