@@ -1,0 +1,23 @@
+<template name="intro">
+	<div class="container">	
+		<div class="section-intro">
+			<div class="row">
+				<div class="col-md-5">
+					<div id="effect-6" class="effects">
+						<div id="logo" class="img">
+							<div class="rounded" 
+							style='background-image: url("{{showImage content.logo}}")'>
+						</div>
+						{{> imageUploadAssets}}
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-7 introtext">
+				<h3 id="heading" class="editable">{{data.heading}}</h3>
+				<p id="paragraph" class="editable lead">{{data.paragraph}}</p>
+			</div>
+		</div>
+	</div>
+</div>	
+</template>

@@ -13,6 +13,41 @@ Websites.before.insert(function( userId, doc ) {
 	doc.createdAt = new Date();
 	doc.style = 'default';
 	doc.userId = userId;
+	doc.sections = [
+		{ 	
+			template: "largeImage", hidden: false, index: 1, data: {
+				topImage: ""
+			}
+		},
+		{ 	
+			template: "title", hidden: false, index: 2, data: {
+				title: "click here to edit the title",
+				tagline: "click me to edit the subtitle"
+			}
+		},
+		{ 	
+			template: "intro", hidden: false, index: 3, data: {
+				image: "",
+				heading: "click to edit heading",
+				paragraph: "Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it. Editing your content directly on the page. Click on this text to edit it."
+			}
+		},
+		{ 	
+			template: "email", hidden: false, index: 4, data: {
+				email: Meteor.user().emails[0].address
+			}
+		},
+		{ 	
+			template: "threeColumns", hidden: false, index: 5, data: {
+				textColumns1Heading: "You will love this!",
+				textColumns2Heading: "Unbelievable",
+				textColumns3Heading: "FAST",
+				textColumns1Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur sit in atque quasi repellendus rem reprehenderit veritatis, ratione similique deleniti, porro itaque error repudiandae ad saepe fugiat quas! Tenetur ea eius assumenda quaerat nam facilis. Pariatur fugit obcaecati quibusdam dolor hic, mollitia soluta magni, amet vitae sit officiis maiores sed!",
+				textColumns2Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae vitae voluptatibus, voluptas corporis ipsum, ipsa eos officiis, recusandae incidunt veritatis ipsam cum cupiditate natus in est unde repudiandae eligendi at voluptatum sit mollitia non, possimus tenetur iure voluptate. Sapiente quia consequatur perferendis laboriosam ea rerum, ab molestias possimus temporibus dolores!",
+				textColumns3Text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem maxime adipisci at nemo cupiditate omnis qui, incidunt, aliquam officia molestiae temporibus ut fuga quas accusamus maiores quod nesciunt dignissimos laudantium ullam nam quo, repudiandae nisi! Qui fugiat unde exercitationem voluptatum earum, rerum nesciunt molestiae, incidunt labore est praesentium ut excepturi."
+			}
+		}
+	];
 	doc.content = {
 		email: Meteor.user().emails[0].address ? Meteor.user().emails[0].address : Meteor.user().services.facebook.email,
 		title: "click here to edit the title",
@@ -99,6 +134,34 @@ Meteor.methods({
             'content.address': address,
             'content.latLng': latLng
         }});
+    },
+    updateSectionIndex: function ( currentIndex, newIndex ) {
+    	check( currentIndex, Number );
+    	check( newIndex, Number );
+
+    	Websites.update({'sections.index' : currentIndex}, {$set: { 'sections.$.index' : newIndex }});
+    }, 
+    saveFile: function ( websiteId, sectionTemplate, contentId, newFileId) {
+    	check( websiteId, String );
+    	check( sectionTemplate, String );
+    	check( contentId, String );
+    	check( newFileId, String );
+
+    	var setModifier = { $set: {} };
+        setModifier.$set['sections.$.data.' + contentId ] = newFileId;
+    	
+    	Websites.update({ $and: [ { _id: websiteId}, { 'sections.template' : sectionTemplate } ] }, setModifier );
+    },
+    saveField: function ( websiteId, sectionTemplate, contentId, newValue) {
+    	check( websiteId, String );
+    	check( sectionTemplate, String );
+    	check( contentId, String );
+    	check( newValue, String );
+
+    	var setModifier = { $set: {} };
+        setModifier.$set['sections.$.data.' + contentId ] = newValue;
+    	
+    	Websites.update({ $and: [ { _id: websiteId}, { 'sections.template' : sectionTemplate } ] }, setModifier );
     }
 });
 

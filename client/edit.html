@@ -1,6 +1,23 @@
  <template name="edit">
 	<div class="{{style}} createcontent">
-	
+		
+		<div class="row">
+			<div class="col-md-10">
+				{{#each sortedSections}}
+					{{> Template.dynamic template=getTemplate data=getData}}
+				{{/each}}
+			</div>
+			<div class="col-md-2">
+				<div class="sections">
+					{{#each sortableSections}}
+						<div class="draggableSection">
+							{{template}} {{index}}
+						</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+
 		<div id="effect-6" class="effects">
 			<div id="topImage" class="img squared">
 	            <img class="img squared img-responsive" src="{{showImage content.topImage}}" alt="">
