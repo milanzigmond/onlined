@@ -1,8 +1,10 @@
 <template name="largeImage">
+	{{#unless hidden}}
 	<div id="effect-6" class="effects">
-		<div id="topImage" class="img squared">
-			<img class="img squared img-responsive" src="{{showImage data.topImage}}" alt="">
+		<div id="largeImage" class="img squared">
+			<img class="img squared img-responsive" src="{{showImage data.largeImage}}" alt="">
 			{{> imageUploadAssets}}
 		</div>
 	</div>
+	{{/unless}}
 </template>

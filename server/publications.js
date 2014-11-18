@@ -1,12 +1,25 @@
+// Users
+
 Meteor.publish('allUsers', function () {
     return Meteor.users.find();
+});
+
+// Websites
+
+Meteor.publish('sitenameSearch', function ( query ) {  
+  check( query, String ); 
+
+  if (_.isEmpty(query))
+    return this.ready();
+
+  return Websites.search(query);
 });
 
 Meteor.publish('allWebsites', function () {
     return Websites.find();
 });
 
-Meteor.publish('stream', function (limit) {
+Meteor.publish('stream', function ( limit ) {
     check(limit, Number);
 
     var self = this, // to prevent context issues online
@@ -41,7 +54,7 @@ Meteor.publish('myWebsites', function (userId, limit) {
 Meteor.publish('editingWebsite', function (sitename) {
     console.log('editingWebsitePublication: '+ sitename);
     check( sitename, String );
-    return Websites.find({_id: Websites.findOne({sitename:sitename})._id});
+    return Websites.find({sitename:sitename});
 });
 
 Meteor.publish('liveWebsite', function (sitename) {
@@ -50,9 +63,20 @@ Meteor.publish('liveWebsite', function (sitename) {
     return Websites.find({sitename:sitename});
 });
 
+// Sections
+
+Meteor.publish('sections', function ( sitename ) {
+    console.log('sections publication called with: ' + sitename);
+    check( sitename, String );
+    var website = Websites.findOne({ sitename: sitename });
+    return Sections.find({ websiteId: website._id });
+});
+
+// Images
+
 Meteor.publish('liveWebsiteImages', function ( sitename ) {
     check( sitename, String );
-    var website = Websites.find({sitename:sitename});
+    var website = Websites.findOne({sitename:sitename});
     return Images.find({websiteId:website._id});
 });
 

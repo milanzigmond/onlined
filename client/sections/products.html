@@ -1,0 +1,40 @@
+<template name="products">
+	{{#unless hidden}}
+	<div class="section-products">
+		<div class="container">	
+			<div class="row text-center">
+				<div class="col-md-4 col-md-offset-2">
+
+					<div id="effect-6" class="effects">
+						<div id="firstProductImage" class="img squared">
+							<img src="{{showImage data.firstProductImage}}" alt="">
+							<div class="overlay">
+								<span class="expand">{{editImageText}}</span>
+							</div>
+							<input type="file" class="hiddenFileInput"/>
+						</div>
+					</div>
+
+					<h3 id="firstProduct" class="editable">{{data.firstProduct}}</h3>
+					<p id="firstProductDescription" class="editable">{{data.firstProductDescription}}</p>
+				</div>
+				<div class="col-md-4">
+
+					<div id="effect-6" class="effects">
+						<div id="secondProductImage" class="img squared">
+							<img src="{{showImage data.secondProductImage}}" alt="">
+							<div class="overlay">
+								<span class="expand">{{editImageText}}</span>
+							</div>
+							<input type="file" class="hiddenFileInput"/>
+						</div>
+					</div>
+
+					<h3 id="secondProduct" class="editable">{{data.secondProduct}}</h3>
+					<p id="secondProductDescription" class="editable">{{data.secondProductDescription}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{/unless}}
+</template>

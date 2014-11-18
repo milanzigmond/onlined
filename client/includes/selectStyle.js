@@ -13,8 +13,8 @@ Template.selectStyle.helpers({
         return Session.get('styles');
     },
     selectedStyle: function () {
-        if (!this.style) return;
-        var style = this.style;
+        if (!this.website) return;
+        var style = this.website.style;
 
         var styles = Session.get('styles'),
             styleName;

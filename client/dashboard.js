@@ -29,6 +29,8 @@ function checkDuplicity ( sitename , parent) {
             var newWebsiteId = Websites.insert({sitename:sitename}, function () {
                 Router.go('edit', {sitename: sitename});
             });
+            // create sections for this website
+
             Session.set('editing_website', newWebsiteId);
             blurCreateWebsiteInput();
         } else {
@@ -65,12 +67,6 @@ Template.dashboard.helpers({
         else
             return false
     }
-    // website: function () {
-    //     return Websites.find({},{sort: {createdAt: -1}});
-    // },
-//     myWebsite: function () {
-//         return Websites.find({userId: Meteor.userId()},{sort: {createdAt: -1}});
-//     }
 });
 
 Template.dashboard.events({
@@ -133,7 +129,7 @@ Template.dashboard.events({
     },
     'click .glyphicon-remove' : function ( event , template ) {
         Session.set('editing_website', null);
-        Websites.remove({_id:this._id});
+        Meteor.call('removeWebsite', this._id);
     },
     'hover .websiteItemContent' : function ( event, template ) {
         preventActionsForEvent( event );

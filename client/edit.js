@@ -22,24 +22,17 @@ function addIndexToArray ( array ) {
 
 function saveField ( event ) {
     var websiteId           = Session.get('editing_website'),
-        sectionTemplate     = Blaze.getData(event.target).template,
+        sectionId           = Blaze.getData(event.target)._id,
         contentId           = event.target.parentElement.id,
         value               = Session.get('editing_field_value'),
         setModifier         = { $set: {} };
 
-    // setModifier.$set['content.'+ parent.id ] = value;
-    // Websites.update({_id:websiteId}, setModifier);
-
-    console.log(websiteId, sectionTemplate, contentId, value);
-
-    Meteor.call("saveField", websiteId, sectionTemplate, contentId, value, function (err) {
-        if(err) console.log(err);
-    });
+    setModifier.$set['data.' + contentId ] = value;
+    Sections.update({_id: sectionId}, setModifier);
 };
 
 function saveFile ( event ) {
-    saveFileToSection (event);
-    return;
+
     // get contentId from the DOM
     var contentId       = event.target.parentElement.id;
     if (!contentId) 
@@ -47,13 +40,14 @@ function saveFile ( event ) {
     if (!contentId) return;
 
     var websiteId       = Session.get('editing_website'),
-        website         = Websites.findOne(websiteId),
-        presentFileId   = website.content[contentId],
+        sectionData     = Blaze.getData(event.target),
+        sectionId       = sectionData._id,
+        presentFileId   = sectionData.data[contentId],
         tagName         = $(event.target).get(0).tagName,
         index           = ( tagName === "SPAN" ) ? $(event.target.parentElement.parentElement).data('index') : $(event.target.parentElement).data('index'),
-        fsFile, 
-        fileObj;
+        file, fsFile, fileObj;
         
+
     // check present file id for galleries
     if ( presentFileId instanceof Object )
         presentFileId   = website[ 'content.' + contentId + '.' + index + '.imageId' ];
@@ -69,6 +63,7 @@ function saveFile ( event ) {
     fsFile = new FS.File(file),
     fsFile.userId = Meteor.userId();
     fsFile.websiteId = websiteId;
+    fsFile.sectionId = sectionId;
     fsFile.contentId = contentId;
     
     // insert new file  
@@ -88,86 +83,14 @@ function saveFile ( event ) {
     // update website content
     if( index !== undefined ) {
         // this is a gallery
-
         var setModifier = { $set: {} };
-        setModifier.$set['content.' + contentId + '.' + index + '.imageId' ] = fileObj._id;
+        setModifier.$set['data.' + contentId + '.' + index + '.imageId' ] = fileObj._id;
     } else {
         var setModifier = { $set: {} };
-        setModifier.$set['content.'+contentId ] = fileObj._id;    
-
-        var setModifier2 = { $set: {} };
-        setModifier2.$set['sections.$.'+contentId ] = fileObj._id;    
+        setModifier.$set['data.' + contentId ] = fileObj._id;
     }
 
-    Websites.update({_id:websiteId}, setModifier);
-    Websites.update({_id: websiteId}, {$set: { 'sections.$.data.topImage': fileObj._id}});
-};
-
-function saveFileToSection ( event ) {
-
-    // get contentId from the DOM
-    var contentId       = event.target.parentElement.id;
-    if (!contentId) 
-        contentId       = event.target.parentElement.parentElement.id;
-    if (!contentId) return;
-
-    var websiteId       = Session.get('editing_website'),
-        sectionData     = Blaze.getData(event.target),
-        sectionTemplate = sectionData.template,
-        presentFileId   = sectionData.data[contentId],
-        tagName         = $(event.target).get(0).tagName,
-        index           = ( tagName === "SPAN" ) ? $(event.target.parentElement.parentElement).data('index') : $(event.target.parentElement).data('index'),
-        fsFile, 
-        fileObj;
-        
-
-    // check present file id for galleries
-    // if ( presentFileId instanceof Object )
-    //     presentFileId   = website[ 'content.' + contentId + '.' + index + '.imageId' ];
-
-    // check for the correct file 
-    if ( tagName === "DIV" || tagName === "SPAN") {
-        file            = event.originalEvent.dataTransfer.files[0];
-    } else if ( tagName === "INPUT") {
-        file            = event.target.files[0];
-    };
-
-    // create fs file to insert
-    fsFile = new FS.File(file),
-    fsFile.userId = Meteor.userId();
-    fsFile.websiteId = websiteId;
-    fsFile.contentId = contentId;
-    
-    // insert new file  
-    fileObj = Images.insert(fsFile, function (err, fileObj) {
-      // todo add tooltip
-      if(!err) {
-        if ( presentFileId && presentFileId !== "") {
-            Images.remove(presentFileId);
-        }
-      } else {
-        console.log(err);
-      }
-    });
-
-    if(!fileObj) return;
-
-    // update website content
-    if( index !== undefined ) {
-        // this is a gallery
-
-        // var setModifier = { $set: {} };
-        // setModifier.$set['content.' + contentId + '.' + index + '.imageId' ] = fileObj._id;
-    } else {
-        var setModifier = { $set: {} };
-        setModifier.$set['content.'+contentId ] = fileObj._id;
-    }
-
-    console.log(websiteId, sectionTemplate, contentId);
-
-    Meteor.call("saveFile", websiteId, sectionTemplate, contentId, fileObj._id, function (err) {
-        if(err) console.log(err);
-    });
+    Sections.update({_id: sectionId}, setModifier);
 };
 
 function setupMap () {
@@ -300,39 +223,42 @@ Template.edit.created = function () {
 
 Template.edit.rendered = function () {
     
-    Session.set('sortableSections', sortByIndex(this.data.sections));
+    // Session.set('sortableSections', this.data.sections);
 
     // window.scrollTo(0, 0);
     // autohideNavbar();
+
     // toto tu prekontrolvoat cu to tu treba k tej mape
-    Deps.autorun(function() {
-        var w = Websites.findOne();
-        if( w.content.latLng ) { showMap(w.content.latLng); };
-    });
+    // Deps.autorun(function() {
+    //     var w = Websites.findOne();
+    //     if( w.content.latLng ) { showMap(w.content.latLng); };
+    // });
 
     $('.sections').sortable({
+        tolerance: 'pointer',
         stop: function ( e, ui ) {
             var el = ui.item.get(0),
             before = ui.item.prev().get(0),
             after = ui.item.next().get(0),
-            newIndex;
+            newRank;
 
             if( !before ) {
-                newIndex = Blaze.getData(after).index - 1;
+                newRank = Blaze.getData(after).rank - 1;
             } else if ( !after ) {
-                newIndex = Blaze.getData(before).index + 1;
+                newRank = Blaze.getData(before).rank + 1;
             } else {
-                newIndex = (Blaze.getData(after).index + Blaze.getData(before).index)/2;
+                newRank = (Blaze.getData(after).rank + Blaze.getData(before).rank)/2;
             }
 
-            Meteor.call("updateSectionIndex", Blaze.getData(el).index, newIndex, function (err) {
-                if(err) console.log(err);
-            });
+            var sectionId = Blaze.getData(el)._id;
+
+            Sections.update({_id: sectionId}, {$set: {rank: newRank}})
         }
     })
 };
 
 function sortByIndex ( array ) {
+    console.log('sortByIndex');
     return array.sort(function(a,b){return a.index - b.index});
 }
 
@@ -341,33 +267,14 @@ Template.edit.destroyed = function () {
 };
 
 Template.edit.helpers({
-    getTemplate: function () {
-        return this.template;
-    },
-    getData: function () {
-        return this;
-    },
-    sortedSections: function () {
-        var sortedSections = this.sections.slice().sort(function(a,b){return a.index - b.index});
-         return sortedSections;
-    },
-    sortableSections: function () {
-        var ss = Session.get('sortableSections'),
-            toReturn;
-
-        if(ss) {
-            toReturn = ss;
-            Session.set('sortableSections', null);
-        } else {
-            toReturn = this.sections;
-        }
-        return toReturn;
+    hidden: function () {
+        return this.hidden;
     },
     editImageText: function () {
         return "click or drag&drop";
     },
     style: function () {
-        return this.style;
+        return this.website.style;
     },
     goHome: function () {
         Router.go('/');
@@ -397,6 +304,13 @@ Template.edit.helpers({
 });
 
 Template.edit.events({
+    'click div.draggableSection' : function ( event, template ) {
+        if(this.hidden) {
+            Sections.update({_id:this._id}, {$set: { hidden: false }});
+        } else {
+            Sections.update({_id:this._id}, {$set: { hidden: true }});
+        }
+    },
     'click p,h1,h2,h3,h4,h5,h6': function ( event, template ) {
         countLines(event.target.id);
         makeEditable( event, template );

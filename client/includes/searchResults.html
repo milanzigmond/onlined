@@ -1,0 +1,13 @@
+<template name="searchResults">  
+	<h2 class="websitesHeader">
+		<span class="glyphicon glyphicon-search"></span>
+		<input type="text" placeholder="Search..." value="{{sitenameSearchQuery}}">
+	</h2>
+  {{#if searchResults.count}}
+    <ul>
+    {{#each searchResults}}
+      <li>{{sitename}}</li>
+    {{/each}}
+    </ul>
+  {{/if}}
+</template>  
