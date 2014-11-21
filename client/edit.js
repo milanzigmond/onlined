@@ -93,10 +93,11 @@ function saveFile ( event ) {
     Sections.update({_id: sectionId}, setModifier);
 };
 
-function setupMap () {
-    var editingWebsite = Websites.findOne(Session.get('editing_website')),
-        address = editingWebsite.content.address,
-        latLng = editingWebsite.content.latLng;
+function setupMap ( event ) {
+    console.log('setupMap'); 
+    var sectionData = Blaze.getData(event.target),
+        address = sectionData.data.address,
+        latLng = sectionData.data.latLng;
     
     if(!latLng) return;
     
@@ -115,6 +116,12 @@ function setupMap () {
             map.setCenter(place.geometry.location);
             map.setZoom(13);
         }
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng( place.geometry.location.k, place.geometry.location.B )
+        });
+
+        marker.setMap(map);   
 
         var ll = {
             lat:place.geometry.location.k, 
@@ -173,7 +180,7 @@ function makeEditable (event, template) {
 
             $( event.target ).before( '<'+tagName+' id="'+contentId+'">'+ input + '</'+tagName+'>');
 
-            setupMap();
+            setupMap( event );
         } else {
             input = '<input id="input" style="text-align:'+textAlign+';font-size:'+fontSize+';font-family:'+fontFamily+';" type="text" value="'+textContent+'"/>';
 
