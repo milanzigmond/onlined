@@ -1,12 +1,12 @@
  <template name="edit">
 	<div class="{{style}} createcontent">
-		<div class="row">
-			<div class="col-md-10">
+		<div class="row editing">
+			<div class="col-sm-10">
 				{{#each sections}}
 					{{> Template.dynamic template=name data=this}}
 				{{/each}}
 			</div>
-			<div class="col-md-2">
+			<div class="col-sm-2">
 				<div class="sections">
 					{{#each sections}}
 						{{#if hidden}}

@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic);
+.@import url(http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic);
 @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic);
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700italic);
 @import url(http://fonts.googleapis.com/css?family=Allura);
@@ -394,7 +394,7 @@ ul {
 }
 
 .home div.stream h2 {
-  font-size:20px;
+  font-size:16px;
 }
 
 .home div.stream {
@@ -733,6 +733,12 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
+
+.row.editing {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 .row.withpadding {
   padding-top: 30px;
   padding-bottom: 30px;

@@ -14,20 +14,12 @@ var websiteListItemMouseLeave = function ( event ) {
 };  
 
 Template.home.events({
-    'click .websiteListItem' : function ( event, template) {
-        preventActionsForEvent( event );
-        Router.go("/"+this.sitename);
-    },
-
     'mouseenter .websiteListItem' : function ( event, template ) {
         websiteListItemMouseEnter ( event );
     },
-
-    // website list item
     'mouseleave .websiteListItem' : function ( event, template ) {
         websiteListItemMouseLeave( event );
     },
-
     'hover .websiteItemContent' : function ( event, template ) {
         preventActionsForEvent( event );
     }
