@@ -1,22 +1,43 @@
 <template name="threeColumns">
 	{{#unless hidden}}
-	<div class="section-text">
-		<div class="row text-center">
-			<div class="col-md-4">
-				<h3 id="textColumns1Heading" class="editable">{{data.textColumns1Heading}}</h3>
-				<p id="textColumns1Text" class="editable">{{data.textColumns1Text}}</p>
-			</div>
+		{{#if editing websiteId}}
+			<div class="section-text">
+				<div class="row text-center">
+					<div class="col-md-4">
+						<h3 id="textColumns1Heading" class="editable">{{data.textColumns1Heading}}</h3>
+						<p id="textColumns1Text" class="editable">{{data.textColumns1Text}}</p>
+					</div>
 
-			<div class="col-md-4">
-				<h3 id="textColumns2Heading" class="editable">{{data.textColumns2Heading}}</h3>
-				<p id="textColumns2Text" class="editable">{{data.textColumns2Text}}</p>
-			</div>
+					<div class="col-md-4">
+						<h3 id="textColumns2Heading" class="editable">{{data.textColumns2Heading}}</h3>
+						<p id="textColumns2Text" class="editable">{{data.textColumns2Text}}</p>
+					</div>
 
-			<div class="col-md-4">
-				<h3 id="textColumns3Heading" class="editable">{{data.textColumns3Heading}}</h3>
-				<p id="textColumns3Text" class="editable">{{data.textColumns3Text}}</p>
+					<div class="col-md-4">
+						<h3 id="textColumns3Heading" class="editable">{{data.textColumns3Heading}}</h3>
+						<p id="textColumns3Text" class="editable">{{data.textColumns3Text}}</p>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
+		{{else}}
+			<div class="section-text">
+				<div class="row text-center">
+					<div class="col-md-4">
+						<h3>{{data.textColumns1Heading}}</h3>
+						<p>{{data.textColumns1Text}}</p>
+					</div>
+
+					<div class="col-md-4">
+						<h3>{{data.textColumns2Heading}}</h3>
+						<p>{{data.textColumns2Text}}</p>
+					</div>
+
+					<div class="col-md-4">
+						<h3>{{data.textColumns3Heading}}</h3>
+						<p>{{data.textColumns3Text}}</p>
+					</div>
+				</div>
+			</div>
+		{{/if}}
 	{{/unless}}
 </template>

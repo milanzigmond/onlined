@@ -50,9 +50,6 @@ Template.dashboard.destroyed = function () {
 };
 
 Template.dashboard.helpers({
-    numberOfWebsites: function () {
-        return Session.get('websitesCount');
-    },
     numberOfMyWebsites: function () {
         var count = Websites.find({userId: Meteor.userId()}).count();
         if (count === 1)
@@ -66,6 +63,9 @@ Template.dashboard.helpers({
             return true
         else
             return false
+    },
+    myWebsites: function () { 
+        return Websites.find({userId: Meteor.userId()},{sort: {createdAt: -1}});
     }
 });
 

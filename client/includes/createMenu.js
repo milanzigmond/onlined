@@ -9,9 +9,10 @@ Template.createMenu.helpers({
         else 
             return o;
     },
-    pathForLiveWebsite: function () {
+    livePathData: function () {
+        if(!Session.get('editing_website')) return;
         var website = Websites.findOne(Session.get('editing_website'));
-        return '/' + website.sitename;
+        return { sitename: website.sitename };
     }
 });
 

@@ -1,39 +1,77 @@
 <template name="openingHours">
 	{{#unless hidden}}
-	<div class="section-openinghours text-center">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="glyphicon glyphicon-time"></span>
-					<h3 id="openingHoursTitle" class="editable">{{data.openingHoursTitle}}</h3>
-					<table class="verticaltable">
-						<tr>
-							<th><h5 id="monday" class="editable">{{data.monday}}</h5></th>
-							<th><h5 id="tuesday" class="editable">{{data.tuesday}}</h5></th>
-							<th><h5 id="wednesday" class="editable">{{data.wednesday}}</h5></th>
-							<th><h5 id="thursday" class="editable">{{data.thursday}}</h5></th>
-							<th><h5 id="friday" class="editable">{{data.friday}}</h5></th>
-							<th><h5 id="saturday" class="editable">{{data.saturday}}</h5></th>
-							<th><h5 id="sunday" class="editable">{{data.sunday}}</h5></th>
-						</tr>
-						<tr>
-							<td colspan="7">
-								<div class="line"></div>
-							</td>
-						</tr>
-						<tr>
-							<td><h6 id="mondayHours" class="editable">{{data.mondayHours}}</h6></td>
-							<td><h6 id="tuesdayHours" class="editable">{{data.tuesdayHours}}</h6></td>
-							<td><h6 id="wednesdayHours" class="editable">{{data.wednesdayHours}}</h6></td>
-							<td><h6 id="thursdayHours" class="editable">{{data.thursdayHours}}</h6></td>
-							<td><h6 id="fridayHours" class="editable">{{data.fridayHours}}</h6></td>
-							<td><h6 id="saturdayHours" class="editable">{{data.saturdayHours}}</h6></td>
-							<td><h6 id="sundayHours" class="editable">{{data.sundayHours}}</h6></td>
-						</tr>
-					</table>
+		{{#if editing websiteId}}
+			<div class="section-openinghours text-center">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<span class="glyphicon glyphicon-time"></span>
+							<h3 id="openingHoursTitle" class="editable">{{data.openingHoursTitle}}</h3>
+							<table class="verticaltable">
+								<tr>
+									<th><h5 id="monday" class="editable">{{data.monday}}</h5></th>
+									<th><h5 id="tuesday" class="editable">{{data.tuesday}}</h5></th>
+									<th><h5 id="wednesday" class="editable">{{data.wednesday}}</h5></th>
+									<th><h5 id="thursday" class="editable">{{data.thursday}}</h5></th>
+									<th><h5 id="friday" class="editable">{{data.friday}}</h5></th>
+									<th><h5 id="saturday" class="editable">{{data.saturday}}</h5></th>
+									<th><h5 id="sunday" class="editable">{{data.sunday}}</h5></th>
+								</tr>
+								<tr>
+									<td colspan="7">
+										<div class="line"></div>
+									</td>
+								</tr>
+								<tr>
+									<td><h6 id="mondayHours" class="editable">{{data.mondayHours}}</h6></td>
+									<td><h6 id="tuesdayHours" class="editable">{{data.tuesdayHours}}</h6></td>
+									<td><h6 id="wednesdayHours" class="editable">{{data.wednesdayHours}}</h6></td>
+									<td><h6 id="thursdayHours" class="editable">{{data.thursdayHours}}</h6></td>
+									<td><h6 id="fridayHours" class="editable">{{data.fridayHours}}</h6></td>
+									<td><h6 id="saturdayHours" class="editable">{{data.saturdayHours}}</h6></td>
+									<td><h6 id="sundayHours" class="editable">{{data.sundayHours}}</h6></td>
+								</tr>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		{{else}}
+			<div class="section-openinghours text-center">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<span class="glyphicon glyphicon-time"></span>
+							<h3 id="openingHoursTitle" class="editable">{{data.openingHoursTitle}}</h3>
+							<table class="verticaltable">
+								<tr>
+									<th><h5>{{data.monday}}</h5></th>
+									<th><h5>{{data.tuesday}}</h5></th>
+									<th><h5>{{data.wednesday}}</h5></th>
+									<th><h5>{{data.thursday}}</h5></th>
+									<th><h5>{{data.friday}}</h5></th>
+									<th><h5>{{data.saturday}}</h5></th>
+									<th><h5>{{data.sunday}}</h5></th>
+								</tr>
+								<tr>
+									<td colspan="7">
+										<div class="line"></div>
+									</td>
+								</tr>
+								<tr>
+									<td><h6>{{data.mondayHours}}</h6></td>
+									<td><h6>{{data.tuesdayHours}}</h6></td>
+									<td><h6>{{data.wednesdayHours}}</h6></td>
+									<td><h6>{{data.thursdayHours}}</h6></td>
+									<td><h6>{{data.fridayHours}}</h6></td>
+									<td><h6>{{data.saturdayHours}}</h6></td>
+									<td><h6>{{data.sundayHours}}</h6></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{/if}}
 	{{/unless}}
 </template>

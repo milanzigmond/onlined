@@ -12,43 +12,63 @@ Meteor.publish('sitenameSearch', function ( query ) {
   if (_.isEmpty(query))
     return this.ready();
 
+    console.log('query:'+query);
+
   return Websites.search(query);
 });
 
-Meteor.publish('allWebsites', function () {
-    return Websites.find();
-});
-
 Meteor.publish('stream', function ( limit ) {
+    console.log('streamPublication');
     check(limit, Number);
 
-    var self = this, // to prevent context issues online
-        cursors = [],
-        ids = [],
-        userCursor = Users.find({_id:self.userId}),
-        user = userCursor.fetch()[0],
-        stream = Websites.find({}, {fields: {'content.topImage': 1, sitename: 1, userId: 1, createdAt: 1}, sort: {createdAt: 1}, limit:limit});
+    var cursors = [],
+        largeImageSections = [],
+        userIds = [],
+        imageIds = [],
+        websiteIds = [];
+        
+    largeImageSections = Sections.find({name:'largeImage'}, {sort: {createdAt: 1}, limit: limit});
+    
+    imageIds = largeImageSections.map(function (section) {return section.data.image;});
+    websiteIds = largeImageSections.map(function (section) {return section.websiteId;});
+    userIds = largeImageSections.map(function (section) {return section.userId;});
 
-    // stream.forEach(function (website) {
-    //     ids.push( website.userId );
-    // });
+    // leave only uniques in arrays
+    imageIds = _.uniq(imageIds);
+    websiteIds = _.uniq(websiteIds);
+    userIds = _.uniq(userIds);
 
-    ids = stream.map(function (website) {
-        return website.userId;
-    });
-
-    ids = _.uniq(ids); // leave only unique ids in array
-
-    cursors.push(stream);
-    cursors.push(Users.find({_id: {$in: ids}}, { fields: { username: 1 }}));
+    cursors.push(largeImageSections);
+    cursors.push(Websites.find({_id: {$in: websiteIds}}, {fields: {sitename: 1, userId: 1, createdAt: 1}, sort: {createdAt: 1}, limit:limit}))
+    cursors.push(Users.find({_id: {$in: userIds}}, { fields: { username: 1 }}));
+    cursors.push(Images.find({_id: {$in: imageIds}}));
     return cursors; 
 });
 
 Meteor.publish('myWebsites', function (userId, limit) {
+    console.log('myWebsitesPublication');
     check(userId, String);
     check(limit, Number);
-    return Websites.find({userId: userId}, {fields: {'content.topImage': 1, sitename: 1, userId: 1, createdAt: 1}, sort: {createdAt: 1}, limit:limit});
-    // return Websites.find({userId: userId}, {limit:limit});
+
+    var cursors = [],
+        largeImageSections = [],
+        imageIds = [],
+        websiteIds = [],
+        myWebsites = Websites.find({userId: userId}, {sort: {createdAt: 1}, limit:limit});
+
+    websiteIds = myWebsites.map(function (website) { return website._id; });
+    
+    largeImageSections = Sections.find({name: 'largeImage', _id: {$in: websiteIds}}, {sort: {createdAt: 1}, limit:limit} );
+    
+    imageIds = largeImageSections.map(function (section) {return section.data.image;});
+
+    // imageIds = _.uniq(imageIds);
+    // websiteIds = _.uniq(websiteIds);
+
+    cursors.push(myWebsites);
+    cursors.push(largeImageSections);
+    cursors.push(Images.find({_id: {$in: imageIds}}));
+    return cursors; 
 });
 
 Meteor.publish('editingWebsite', function (sitename) {
@@ -84,9 +104,4 @@ Meteor.publish('images', function (sitename) {
     check( sitename, String );
     var id = Websites.find({sitename:sitename}).fetch()._id;
     return Images.find({websiteId:id});
-});
-
-Meteor.publish('topImages', function ( limit ) {
-    check( limit, Number );
-    return Images.find({contentId:'topImage'}, {limit:limit, sort: { uploadedAt: -1}});
 });

@@ -9,6 +9,14 @@ Template.registerHelper("formatDate", function(datetime) {
     }
 });
 
+Template.registerHelper("editing", function(websiteId) {
+    if (websiteId && Session.get('editing_website')) {
+        return Session.equals('editing_website', websiteId);
+    } else {
+        return false;
+    }
+});
+
 Template.registerHelper("showImage", function(id) {
     // var defaultImage = "/defaultTopImage.png";
     var defaultImage = "";

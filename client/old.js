@@ -1,15 +1,3 @@
-    
-    // function updateWebsiteCount() {
-    //     console.log('updateWebsiteCount');
-    //     Meteor.call('getWebsitesCount', function (err, count) {
-    //         Session.set('websitesCount', count); 
-    //     });
-    // }
-
-    // Websites.find().observe({
-    //     added: updateWebsiteCount,
-    //     removed: updateWebsiteCount
-    // });
 
     // var DateFormats = {
     //     since: "YYYY MMMM DD",

@@ -9,15 +9,14 @@ function getUserEmail () {
     } else if (services) {
         email = services.facebook.email;
     };
-
     return email;
 };
 
 Template.website.rendered = function () {
-    Deps.autorun(function() {
-        var latLng = Websites.findOne().content.latLng;
-        showMap(latLng);
-    });
+    // Deps.autorun(function() {
+    //     var latLng = Websites.findOne().content.latLng;
+    //     showMap(latLng);
+    // });
 };
 
 Template.website.helpers({

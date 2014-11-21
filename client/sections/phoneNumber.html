@@ -1,8 +1,15 @@
 <template name="phoneNumber">
 	{{#unless hidden}}
-	<div class="section-telnumber text-center">
-		<span class="glyphicon glyphicon-phone-alt white"></span>
-		<h4 id="phoneNumber" class="editable white">{{data.phoneNumber}}</h4>
-	</div>
+		{{#if editing websiteId}}
+			<div class="section-telnumber text-center">
+				<span class="glyphicon glyphicon-phone-alt white"></span>
+				<h4 id="phoneNumber" class="editable white">{{data.phoneNumber}}</h4>
+			</div>
+		{{else}}
+			<div class="section-telnumber text-center">
+				<span class="glyphicon glyphicon-phone-alt white"></span>
+				<h4>{{data.phoneNumber}}</h4>
+			</div>
+		{{/if}}
 	{{/unless}}
 </template>

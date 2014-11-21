@@ -8,7 +8,7 @@
 					<h6 class="listsorting">latest</h6>
 					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
 					<ul>
-						{{#each websites}}
+						{{#each sections}}
 							<li>
 								<a href="{{urlFor route='website' data=this}}" target="_blank">
 									<div class="text-center websiteListItem">
@@ -18,7 +18,7 @@
 											<h3>{{formatDate createdAt}}</h3>
 											<h3><span class="glyphicon glyphicon-heart"></span> 10</h3>	
 										</div>
-										<div class="websiteItemBg" style='background-image: url("{{showImage content.topImage}}")'></div>
+										<div class="websiteItemBg" style='background-image: url("{{showImage data.image}}")'></div>
 										<div class="websiteItemOverlay"></div>
 									</div>
 								</a>
@@ -54,7 +54,7 @@
 									</div> -->
 								</div>
 							</li>
-							{{#each user.myWebsites}}
+							{{#each myWebsites}}
 							<li>
 								<div class="editIcons">
 									<span class="glyphicon glyphicon-remove"></span>
@@ -65,11 +65,7 @@
 										<h2>{{toUpperCase sitename}}</h2>
 										<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3> -->
 									</div>
-									<div class="websiteItemBg" style='background-image: url("{{showImage content.topImage}}")'></div>
-									<!-- <div class="row editRow">
-										<div class="col-sm-6 editbuttons edit"><h4>edit</h4></div>
-										<div class="col-sm-6 editbuttons delete"><h4>delete</h4></div>
-									</div> -->
+									<div class="websiteItemBg" style='background-image: url("{{showImage largeImage}}")'></div>
 									<div class="websiteItemOverlay"></div>
 								</div>
 							</li>

@@ -1,24 +1,47 @@
 <template name="links">
 	{{#unless hidden}}
-	<div class="section-links text-center">	
-		<div class="container">
-			<span class="glyphicon glyphicon-2white"></span>
+		{{#if editing websiteId}}
+			<div class="section-links text-center">	
+				<div class="container">
+					<span class="glyphicon glyphicon-2white"></span>
 
-			<div class="row links">
-				<div id="twitter" class="col-xs-6 col-md-3">
-					<img class="link" src="../ic_twitterW.png" alt="">
-				</div>
-				<div id="youtube" class="col-xs-6 col-md-3">
-					<img class="link" src="../ic_youtubeW.png" alt="">
-				</div>
-				<div id="facebook" class="col-xs-6 col-md-3">
-					<img class="link" src="../ic_facebookW.png" alt="">
-				</div>
-				<div id="instagram" class="col-xs-6 col-md-3">
-					<img class="link" src="../ic_instagramW.png" alt="">
+					<div class="row links">
+						<div id="twitter" class="col-xs-6 col-md-3">
+							<img class="link" src="../ic_twitterW.png" alt="">
+						</div>
+						<div id="youtube" class="col-xs-6 col-md-3">
+							<img class="link" src="../ic_youtubeW.png" alt="">
+						</div>
+						<div id="facebook" class="col-xs-6 col-md-3">
+							<img class="link" src="../ic_facebookW.png" alt="">
+						</div>
+						<div id="instagram" class="col-xs-6 col-md-3">
+							<img class="link" src="../ic_instagramW.png" alt="">
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		{{else}}
+			<div class="section-links text-center">	
+				<div class="container">
+					<span class="glyphicon glyphicon-2white"></span>
+
+					<div class="row links">
+						<div class="col-xs-6 col-md-3">
+							<img class="link" src="../ic_twitterW.png" alt="">
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<img class="link" src="../ic_youtubeW.png" alt="">
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<img class="link" src="../ic_facebookW.png" alt="">
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<img class="link" src="../ic_instagramW.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		{{/if}}
 	{{/unless}}
 </template>

@@ -12,7 +12,9 @@ Template.searchResults.events({
 
 Template.searchResults.helpers({  
   searchResults: function() {
-    return Websites.search(Session.get('sitenameSearchQuery'));
+    if(Session.get('sitenameSearchQuery')) {
+      return Websites.search(Session.get('sitenameSearchQuery'));
+    }
   },
   sitenameSearchQuery: function() {
     return Session.get('sitenameSearchQuery');

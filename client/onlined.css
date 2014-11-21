@@ -840,7 +840,7 @@ body {
 
   /*======================================================SECTION HEADING start*/
 
-  #largeImage {
+  .section-largeImage img {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -957,6 +957,7 @@ body {
     padding: 0px;
     text-align: center;
     width: 100%;
+    margin:0px;
   }
 
   ul.imageGallery2 {

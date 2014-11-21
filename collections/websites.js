@@ -1,25 +1,23 @@
 Websites = new Mongo.Collection("websites");
 
-function updateWebsiteCount() {
-    console.log('updateWebsiteCount');
-    Meteor.call('getWebsitesCount', function (err, count) {
-        Session.set('websitesCount', count); 
-    });
-};
-
-Websites.find().observe({
-    added: updateWebsiteCount,
-    removed: updateWebsiteCount
-});
-
 Websites.helpers({
 	username: function () {
 		var user = Meteor.users.findOne({_id:this.userId});
 		if(user){
 			return user.username;
 		}
+	},
+	largeImage: function () {
+		var largeImageSection = Sections.findOne({websiteId: this._id});
+		if(largeImageSection) {
+			return largeImageSection.data.image;
+		}
 	}
 });
+
+RegExp.escape = function(s) {  
+  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+};
 
 Websites.search = function( query ) {  
 	console.log(query);
@@ -85,9 +83,6 @@ Meteor.methods({
 		Sections.remove({ websiteId:  websiteId });
         Websites.remove({ _id: websiteId });
 	},
-    getWebsitesCount: function () {
-        return Websites.find().count();
-    },
     checkDuplicity: function ( sitename ) {
     	check( sitename, String );
     	

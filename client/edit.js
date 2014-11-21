@@ -11,15 +11,6 @@ function checkInputField ( event ) {
     };
 };
 
-function addIndexToArray ( array ) {
-    if(!array) return;
-
-    for( var i = 0; i < array.length; i++ ) {
-        array[i].index = i;
-    };
-    return array;
-};
-
 function saveField ( event ) {
     var websiteId           = Session.get('editing_website'),
         sectionId           = Blaze.getData(event.target)._id,
@@ -40,23 +31,32 @@ function saveFile ( event ) {
     if (!contentId) return;
 
     var websiteId       = Session.get('editing_website'),
-        sectionData     = Blaze.getData(event.target),
-        sectionId       = sectionData._id,
-        presentFileId   = sectionData.data[contentId],
-        tagName         = $(event.target).get(0).tagName,
-        index           = ( tagName === "SPAN" ) ? $(event.target.parentElement.parentElement).data('index') : $(event.target.parentElement).data('index'),
-        file, fsFile, fileObj;
-        
+        sectionId, presentFileId, tagName, index, file, fsFile, fileObj;
+
+    var sectionData     = Blaze.getData(event.target);
+    if(!sectionData._id) {
+        // it's gallery image
+        sectionId       = sectionData.sectionId;
+        presentFileId   = sectionData.imageId;
+        index           = sectionData.index;
+    } else {
+        // it's image in other than gallery section
+        sectionId       = sectionData._id;
+        presentFileId   = sectionData.data[contentId];
+    }
+
+    tagName         = $(event.target).get(0).tagName;
 
     // check present file id for galleries
     if ( presentFileId instanceof Object )
-        presentFileId   = website[ 'content.' + contentId + '.' + index + '.imageId' ];
+        presentFileId = sectionData.data[contentId + '.' + index + '.imageId'];
+        // presentFileId   = website[ 'content.' + contentId + '.' + index + '.imageId' ];
 
     // check for the correct file 
     if ( tagName === "DIV" || tagName === "SPAN") {
-        file            = event.originalEvent.dataTransfer.files[0];
+        file = event.originalEvent.dataTransfer.files[0];
     } else if ( tagName === "INPUT") {
-        file            = event.target.files[0];
+        file = event.target.files[0];
     };
 
     // create fs file to insert
@@ -267,9 +267,6 @@ Template.edit.destroyed = function () {
 };
 
 Template.edit.helpers({
-    hidden: function () {
-        return this.hidden;
-    },
     editImageText: function () {
         return "click or drag&drop";
     },
@@ -278,9 +275,6 @@ Template.edit.helpers({
     },
     goHome: function () {
         Router.go('/');
-    },
-    galleryImages: function () {
-        return addIndexToArray( this.content.gallery );
     },
     highlightImages: function () {
         return this.content.highlightImages;

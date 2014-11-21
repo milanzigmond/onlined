@@ -1,8 +1,15 @@
 <template name="email">
 	{{#unless hidden}}
-	<div class="section-email text-center">
-		<span class="glyphicon glyphicon-envelope white"></span>
-		<h4 id="email" class="editable white">{{data.email}}</h4>
-	</div>
+		{{#if editing websiteId}}
+			<div class="section-email text-center">
+				<span class="glyphicon glyphicon-envelope white"></span>
+				<h4 id="email" class="editable white">{{data.email}}</h4>
+			</div>
+		{{else}}
+			<div class="section-email text-center">
+				<span class="glyphicon glyphicon-envelope white"></span>
+				<h4 class="white">{{data.email}}</h4>
+			</div>
+		{{/if}}
 	{{/unless}}
 </template>

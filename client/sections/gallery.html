@@ -1,19 +1,33 @@
 <template name="gallery">
 	{{#unless hidden}}
-	<div class="section-gallery">
-		<div class="row gallerydiv2">	
-			{{#each galleryImages}}
-				<div id="effect-6" class="effects">
-					<div id="gallery" data-index="{{index}}" class="img col-lg-3 col-md-6 col-xs-12">
-			            <div class="obrazek" style="background-image: url('{{showImage imageId}}')"></div>
-			            <div class="overlay">
-			                <span class="expand">{{editImageText}}</span>
-			            </div>
-			            <input type="file" class="hiddenFileInput"/>
-			        </div>
-			    </div>
-			{{/each}}
-		</div>	
-	</div>
+		{{#if editing websiteId}}
+			<div class="section-gallery">
+				<div class="row gallerydiv2">	
+					{{#each galleryImages}}
+						<div id="effect-6" class="effects">
+							<div id="gallery" data-index="{{index}}" class="img col-lg-3 col-md-6 col-xs-12">
+					            <div class="obrazek" style="background-image: url('{{showImage imageId}}')"></div>
+					            <div class="overlay">
+					                <span class="expand">{{editImageText}}</span>
+					            </div>
+					            <input type="file" class="hiddenFileInput"/>
+					        </div>
+					    </div>
+					{{/each}}
+				</div>	
+			</div>
+		{{else}}
+			<div class="section-gallery">
+				<div class="row gallerydiv2">	
+					{{#each galleryImages}}
+						<a href="{{showImage imageId}}" data-lightbox="gallery">
+							<div data-index="{{index}}" class="img col-lg-3 col-md-6 col-xs-12">
+								<div class="obrazek" style="background-image: url('{{showImage imageId}}')"></div>
+							</div>
+						</a>
+					{{/each}}
+				</div>	
+			</div>
+		{{/if}}
 	{{/unless}}
 </template>

@@ -1,64 +1,116 @@
 <template name="team">
 	{{#unless hidden}}
-	<div class="section-team text-center">
-		<div class="container">	
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="glyphicon glyphicon-user"></span>
-					<h3 id="teamTitle" class="editable">{{data.teamTitle}}</h3>
+		{{#if editing websiteId}}
+			<div class="section-team text-center">
+				<div class="container">	
+					<div class="row">
+						<div class="col-lg-12">
+							<span class="glyphicon glyphicon-user"></span>
+							<h3 id="teamTitle" class="editable">{{data.teamTitle}}</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 col-xs-6">
+							<div id="effect-6" class="effects">
+								<div id="firstTeamMemberImage" class="img">
+									<div class="member" style='background-image: url("{{showImage data.firstTeamMemberImage}}")'></div>
+									{{> imageUploadAssets}}
+								</div>
+							</div>
+							<div class="membercaption">
+								<h4 id="firstTeamMember" class="editable">{{data.firstTeamMember}}</h4>
+								<p id="firstTeamMemberTagline" class="editable">{{data.firstTeamMemberTagline}}</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-xs-6">
+							<div id="effect-6" class="effects">
+								<div id="secondTeamMemberImage" class="img">
+									<div class="member" style='background-image: url("{{showImage data.secondTeamMemberImage}}")'></div>
+									{{> imageUploadAssets}}
+								</div>
+							</div>
+							<div class="membercaption">
+								<h4 id="secondTeamMember" class="editable">{{data.secondTeamMember}}</h4>
+								<p id="secondTeamMemberTagline" class="editable">{{data.secondTeamMemberTagline}}</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-xs-6">
+							<div id="effect-6" class="effects">
+								<div id="thirdTeamMemberImage" class="img">
+									<div class="member" style='background-image: url("{{showImage data.thirdTeamMemberImage}}")'></div>
+									{{> imageUploadAssets}}
+								</div>
+							</div>
+							<div class="membercaption">
+								<h4 id="thirdTeamMember" class="editable">{{data.thirdTeamMember}}</h4>
+								<p id="thirdTeamMemberTagline" class="editable">{{data.thirdTeamMemberTagline}}</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-xs-6">
+							<div id="effect-6" class="effects">
+								<div id="fourthTeamMemberImage" class="img">
+									<div class="member" style='background-image: url("{{showImage data.fourthTeamMemberImage}}")'></div>
+									{{> imageUploadAssets}}
+								</div>
+							</div>
+							<div class="membercaption">
+								<h4 id="fourthTeamMember" class="editable">{{data.fourthTeamMember}}</h4>
+								<p id="fourthTeamMemberTagline" class="editable">{{data.fourthTeamMemberTagline}}</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-3 col-xs-6">
-					<div id="effect-6" class="effects">
-						<div id="firstTeamMemberImage" class="img">
-							<div class="member" style='background-image: url("{{showImage data.firstTeamMemberImage}}")'></div>
-							{{> imageUploadAssets}}
+		{{else}}
+			<div class="section-team text-center">
+				<div class="container">	
+					<div class="row">
+						<div class="col-lg-12">
+							<span class="glyphicon glyphicon-user"></span>
+							<h3>{{data.teamTitle}}</h3>
 						</div>
 					</div>
-					<div class="membercaption">
-						<h4 id="firstTeamMember" class="editable">{{data.firstTeamMember}}</h4>
-						<p id="firstTeamMemberTagline" class="editable">{{data.firstTeamMemberTagline}}</p>
-					</div>
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div id="effect-6" class="effects">
-						<div id="secondTeamMemberImage" class="img">
-							<div class="member" style='background-image: url("{{showImage data.secondTeamMemberImage}}")'></div>
-							{{> imageUploadAssets}}
+					<div class="row">
+						<div class="col-md-3 col-xs-6">
+							<div id="firstTeamMemberImage" class="img">
+								<div class="member" style='background-image: url("{{showImage data.firstTeamMemberImage}}")'></div>
+								{{> imageUploadAssets}}
+							</div>
+							<div class="membercaption">
+								<h4>{{data.firstTeamMember}}</h4>
+								<p>{{data.firstTeamMemberTagline}}</p>
+							</div>
 						</div>
-					</div>
-					<div class="membercaption">
-						<h4 id="secondTeamMember" class="editable">{{data.secondTeamMember}}</h4>
-						<p id="secondTeamMemberTagline" class="editable">{{data.secondTeamMemberTagline}}</p>
-					</div>
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div id="effect-6" class="effects">
-						<div id="thirdTeamMemberImage" class="img">
-							<div class="member" style='background-image: url("{{showImage data.thirdTeamMemberImage}}")'></div>
-							{{> imageUploadAssets}}
+						<div class="col-md-3 col-xs-6">
+							<div id="secondTeamMemberImage" class="img">
+								<div class="member" style='background-image: url("{{showImage data.secondTeamMemberImage}}")'></div>
+							</div>
+							<div class="membercaption">
+								<h4>{{data.secondTeamMember}}</h4>
+								<p>{{data.secondTeamMemberTagline}}</p>
+							</div>
 						</div>
-					</div>
-					<div class="membercaption">
-						<h4 id="thirdTeamMember" class="editable">{{data.thirdTeamMember}}</h4>
-						<p id="thirdTeamMemberTagline" class="editable">{{data.thirdTeamMemberTagline}}</p>
-					</div>
-				</div>
-				<div class="col-md-3 col-xs-6">
-					<div id="effect-6" class="effects">
-						<div id="fourthTeamMemberImage" class="img">
-							<div class="member" style='background-image: url("{{showImage data.fourthTeamMemberImage}}")'></div>
-							{{> imageUploadAssets}}
+						<div class="col-md-3 col-xs-6">
+							<div id="thirdTeamMemberImage" class="img">
+								<div class="member" style='background-image: url("{{showImage data.thirdTeamMemberImage}}")'></div>
+							</div>
+							<div class="membercaption">
+								<h4>{{data.thirdTeamMember}}</h4>
+								<p>{{data.thirdTeamMemberTagline}}</p>
+							</div>
 						</div>
-					</div>
-					<div class="membercaption">
-						<h4 id="fourthTeamMember" class="editable">{{data.fourthTeamMember}}</h4>
-						<p id="fourthTeamMemberTagline" class="editable">{{data.fourthTeamMemberTagline}}</p>
+						<div class="col-md-3 col-xs-6">
+							<div id="fourthTeamMemberImage" class="img">
+								<div class="member" style='background-image: url("{{showImage data.fourthTeamMemberImage}}")'></div>
+							</div>
+							<div class="membercaption">
+								<h4>{{data.fourthTeamMember}}</h4>
+								<p>{{data.fourthTeamMemberTagline}}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		{{/if}}
 	{{/unless}}
 </template>

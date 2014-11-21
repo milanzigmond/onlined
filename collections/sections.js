@@ -1,5 +1,20 @@
 Sections = new Mongo.Collection("sections");
 
+Sections.helpers({
+	username: function () {
+		var user = Meteor.users.findOne({_id:this.userId});
+		if(user){
+			return user.username;
+		}
+	}, 
+	sitename: function () {
+		var website = Websites.findOne({_id:this.websiteId});
+		if(website){
+			return website.sitename;
+		}
+	}
+});
+
 function getDataObjectForSection ( sectionName ) {
 	var dataObjects = {
 		"largeImage" : {

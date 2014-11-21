@@ -1,10 +1,19 @@
 <template name="title">
 	{{#unless hidden}}
-	<div class="section-heading">
-		<div class="container-fluid">
-			<h1 id="title" class="editable text-center">{{data.title}}</h1>
-			<h2 id="tagline" class="editable text-center">{{data.tagline}}</h2>
-		</div>
-	</div>
+		{{#if editing websiteId}}
+			<div class="section-heading">
+				<div class="container-fluid">
+					<h1 id="title" class="editable text-center">{{data.title}}</h1>
+					<h2 id="tagline" class="editable text-center">{{data.tagline}}</h2>
+				</div>
+			</div>
+		{{else}}
+			<div class="section-heading">
+				<div class="container-fluid">
+					<h1 class="text-center">{{data.title}}</h1>
+					<h2 class="text-center">{{data.tagline}}</h2>
+				</div>
+			</div>
+		{{/if}}
 	{{/unless}}
 </template>

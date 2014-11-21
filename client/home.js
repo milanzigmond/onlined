@@ -13,16 +13,6 @@ var websiteListItemMouseLeave = function ( event ) {
     $(event.target).find('.websiteItemOverlay').animate({opacity: 0.5}, 200);
 };  
 
-Template.home.created = function () {
-    Session.setDefault('websitesCount', null);
-};
-
-Template.home.helpers({
-    numberOfWebsites: function () {
-        return Session.get('websitesCount');
-    }
-});
-
 Template.home.events({
     'click .websiteListItem' : function ( event, template) {
         preventActionsForEvent( event );

@@ -1,10 +1,20 @@
 <template name="largeImage">
 	{{#unless hidden}}
-	<div id="effect-6" class="effects">
-		<div id="largeImage" class="img squared">
-			<img class="img squared img-responsive" src="{{showImage data.largeImage}}" alt="">
-			{{> imageUploadAssets}}
-		</div>
-	</div>
+		{{#if editing websiteId}}
+			<div class="section-largeImage">
+				<div id="effect-6" class="effects">
+					<div id="image" class="img squared">
+						<img class="img squared img-responsive" src="{{showImage data.image}}" alt="">
+						{{> imageUploadAssets}}
+					</div>
+				</div>
+			</div>
+		{{else}}
+			<div class="section-largeImage">
+				<div id="image" class="img">
+					<img class="img img-responsive" src="{{showImage data.image}}" alt="">
+				</div>
+			</div>
+		{{/if}}
 	{{/unless}}
 </template>

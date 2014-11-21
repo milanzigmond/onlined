@@ -1,22 +1,40 @@
 <template name="intro">
 	{{#unless hidden}}
-	<div class="section-intro">
-		<div class="container">	
-			<div class="row">
-				<div class="col-md-5">
-					<div id="effect-6" class="effects">
-						<div id="image" class="img">
-							<div class="rounded" style='background-image: url("{{showImage data.image}}")'></div>
-							{{> imageUploadAssets}}
+		{{#if editing websiteId}}
+			<div class="section-intro">
+				<div class="container">	
+					<div class="row">
+						<div class="col-md-5">
+							<div id="effect-6" class="effects">
+								<div id="image" class="img">
+									<div class="rounded" style='background-image: url("{{showImage data.image}}")'></div>
+									{{> imageUploadAssets}}
+								</div>
+							</div>
+						</div>
+						<div class="col-md-7 introtext">
+							<h3 id="heading" class="editable">{{data.heading}}</h3>
+							<p id="paragraph" class="editable lead">{{data.paragraph}}</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-7 introtext">
-					<h3 id="heading" class="editable">{{data.heading}}</h3>
-					<p id="paragraph" class="editable lead">{{data.paragraph}}</p>
+			</div>
+		{{else}}
+			<div class="section-intro">
+				<div class="container">	
+					<div class="row">
+						<div class="col-md-5">
+							<div id="image" class="img">
+								<div class="rounded" style='background-image: url("{{showImage data.image}}")'></div>
+							</div>
+						</div>
+						<div class="col-md-7 introtext">
+							<h3>{{data.heading}}</h3>
+							<p>{{data.paragraph}}</p>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		{{/if}}
 	{{/unless}}
 </template>
