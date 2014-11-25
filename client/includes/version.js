@@ -1,5 +1,5 @@
 Template.version.created = function () {
-	Session.set('version', '0.3.0');
+	Session.set('version', '0.3.1');
 };
 
 

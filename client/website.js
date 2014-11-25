@@ -8,7 +8,7 @@ function getUserEmail () {
         email = emails[0].address;
     } else if (services) {
         email = services.facebook.email;
-    };
+};
     return email;
 };
 

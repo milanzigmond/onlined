@@ -50,6 +50,7 @@ Websites.before.insert(function( userId, doc ) {
 	doc.createdAt = new Date();
 	doc.style = 'default';
 	doc.userId = userId;
+	doc.likes = 0;
 });
 
 Websites.after.insert( function( userId, doc ) {
@@ -82,6 +83,7 @@ Meteor.methods({
 		check( websiteId, String );
 		Sections.remove({ websiteId:  websiteId });
         Websites.remove({ _id: websiteId });
+        Likes.remove({ websiteId: websiteId});
 	},
     checkDuplicity: function ( sitename ) {
     	check( sitename, String );

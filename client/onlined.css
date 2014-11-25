@@ -1,4 +1,4 @@
-.@import url(http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic);
 @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic);
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700italic);
 @import url(http://fonts.googleapis.com/css?family=Allura);
@@ -23,6 +23,14 @@
 -placeholder { /* Internet Explorer 10+ */
   color:    white;
   opacity:  0.5;
+}
+
+.navbar.navbar-view .navbar-nav>li>a {
+  color: #89b504;
+}
+
+.navbar.navbar-view {
+  background-color: transparent;
 }
 
 .hiddenFileInput {
@@ -1566,7 +1574,7 @@ createco.intense.ntent {
 }
 
 .intense.createcontent h4 {
-  color: #fff;
+  color: #e50000;
   font-weight: 400;
   font-family: 'Oswald', sans-serif;
   font-size: 30px;

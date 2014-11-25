@@ -45,6 +45,14 @@ Meteor.publish('stream', function ( limit ) {
     return cursors; 
 });
 
+Meteor.publish('myLikes', function (userId, limit) {
+    console.log('myLikesPublication');
+    check(userId, String);
+    check(limit, Number);
+
+    return Likes.find({userId: userId}, {limit: limit}); 
+});
+
 Meteor.publish('myWebsites', function (userId, limit) {
     console.log('myWebsitesPublication');
     check(userId, String);
