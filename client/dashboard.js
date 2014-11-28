@@ -51,11 +51,10 @@ Template.dashboard.destroyed = function () {
 
 Template.dashboard.helpers({
     numberOfMyWebsites: function () {
-        var count = Websites.find({userId: Meteor.userId()}).count();
-        if (count === 1)
-            return count + " WEBSITE";
-        else
-            return count + " WEBSITES";
+        return Websites.find({userId: Meteor.userId()}).count();
+    },
+    numberOfMyLikes: function () {
+        return Likes.find({userId: Meteor.userId()}).count();
     },
     IDontHaveWebsites: function () {
         var count = Websites.find({userId: Meteor.userId()}).count();
@@ -63,9 +62,6 @@ Template.dashboard.helpers({
             return true
         else
             return false
-    },
-    myWebsites: function () { 
-        return Websites.find({userId: Meteor.userId()},{sort: {createdAt: -1}});
     }
 });
 

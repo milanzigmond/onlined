@@ -1,8 +1,7 @@
 Template.createMenu.helpers({
     onlinedTitle: function () {
-
         var o = "ONLINED.AT",
-            w = Websites.findOne(this._id);
+            w = Websites.findOne(this.website._id);
         
         if (w)
             return o + '/' + w.sitename.toUpperCase();

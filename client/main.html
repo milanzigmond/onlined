@@ -13,7 +13,9 @@
 			{{> createMenu}}
 		{{else}}
 			{{#if liveWebsite}}
-				{{> viewMenu}}
+				{{#if currentUser}}
+					{{> viewMenu}}
+				{{/if}}
 			{{else}}
 				{{> login}}
 			{{/if}}

@@ -25,6 +25,10 @@
   opacity:  0.5;
 }
 
+.tabpanel {
+  margin-top: 50px;
+}
+
 .navbar.navbar-view .navbar-nav>li>a {
   color: #89b504;
 }
