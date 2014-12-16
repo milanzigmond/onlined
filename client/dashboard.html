@@ -1,104 +1,103 @@
 <template name="dashboard">
-<div class="container-fluid home">
-		<div class="row">
-			<div class="col-sm-6 stream minHeight">
-				<div class="container-fluid">
-					{{> searchResults}}
-					<hr class="line" />
-					<h6 class="listsorting">latest</h6>
-					<h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
-					<ul>
-						{{#each sections}}
-							<li>
-								<a href="{{urlFor route='website' data=this}}" target="_blank">
-									<div class="text-center websiteListItem">
-										<div class="websiteItemContent">
-											<h1>{{toUpperCase sitename}}</h1>
-											<h3>BY {{username}}</h3>
-											<h3>{{formatDate createdAt}}</h3>
-											<h3><span class="glyphicon glyphicon-heart"></span> {{likes}}</h3>	
-										</div>
-										<div class="websiteItemBg" style='background-image: url("{{showImage data.image}}")'></div>
-										<div class="websiteItemOverlay"></div>
-									</div>
-								</a>
-							</li>
-						{{/each}}
-					</ul>
-				</div>
-			</div>
+    <div class="container-fluid home">
+        <div class="row">
+            <div class="col-sm-6 stream minHeight">
+                <div class="container-fluid">
+                    {{> searchResults}}
+                    <hr class="line" />
+                    <h6 class="listsorting">latest</h6>
+                    <h6 class="numberofsites">{{numberOfWebsites}} websites onlined</h6>
+                    <ul>
+                        {{#each sections}}
+                        <li>
+                            <a href="{{urlFor route='website' data=this}}" target="_blank">
+                                <div class="text-center websiteListItem">
+                                    <div class="websiteItemContent">
+                                        <h1>{{toUpperCase sitename}}</h1>
+                                        <h3>BY {{username}}</h3>
+                                        <h3>{{formatDate createdAt}}</h3>
+                                        <h3><span class="glyphicon glyphicon-heart"></span> {{likes}}</h3>
+                                    </div>
+                                    <div class="websiteItemBg" style='background-image: url("{{showImage data.image}}")'></div>
+                                    <div class="websiteItemOverlay"></div>
+                                </div>
+                            </a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
 
-			<div class="col-sm-6 myWebsites">
-				<div class="row">
-					<div class="col-sm-10 col-sm-offset-1">
-						<ul class="myWebsitesList">
-							<li style="cursor:default;">
-								<div id="register-sitename" class="btn firstButton pulseEffect">
-									<input class="textInput uppercase" type="text" placeholder="websitename" hidden/>
-									<span>CREATE WEBSITE</span>
-								</div>
-							</li>
-						</ul>
+            <div class="col-sm-6 myWebsites">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <ul class="myWebsitesList">
+                            <li style="cursor:default;">
+                                <div id="register-sitename" class="btn firstButton pulseEffect">
+                                    <input class="textInput uppercase" type="text" placeholder="websitename" hidden/>
+                                    <span>CREATE WEBSITE</span>
+                                </div>
+                            </li>
+                        </ul>
 
-						<div class='tabpanel' role="tabpanel">
+                        <div class='tabpanel' role="tabpanel">
 
-							<!-- Nav tabs -->
-							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active"><a href="#myWebsites" aria-controls="myWebsites" role="tab" data-toggle="tab">MY WEBSITES ({{numberOfMyWebsites}})</a></li>
-								<li role="presentation"><a href="#websitesILike" aria-controls="websitesILike" role="tab" data-toggle="tab">WEBSITES I <span class="glyphicon glyphicon-heart"></span> ({{numberOfMyLikes}})</a></li>
-							</ul>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#myWebsites" aria-controls="myWebsites" role="tab" data-toggle="tab">MY WEBSITES ({{numberOfMyWebsites}})</a>
+                                </li>
+                                <li role="presentation"><a href="#websitesILike" aria-controls="websitesILike" role="tab" data-toggle="tab">WEBSITES I <span class="glyphicon glyphicon-heart"></span> ({{numberOfMyLikes}})</a>
+                                </li>
+                            </ul>
 
-							<!-- Tab panes -->
-							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="myWebsites">
-									<ul class="myWebsitesList">
-										{{#each myWebsites}}
-											<li>
-												<div class="editIcons">
-													<span class="glyphicon glyphicon-remove"></span>
-												</div>
-												<div class="text-center myWebsiteListItem">
-													<div class="myWebsiteItemContent">
-														<h3>{{formatDate createdAt}}</h3>
-														<h2>{{toUpperCase sitename}}</h2>
-														<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3> -->
-													</div>
-													<div class="websiteItemBg" style='background-image: url("{{showImage largeImage}}")'></div>
-													<div class="websiteItemOverlay"></div>
-												</div>
-											</li>
-										{{/each}}
-									</ul>
-								</div>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="myWebsites">
+                                    <ul class="myWebsitesList">
+                                        {{#each myWebsites}}
+                                        <li>
+                                            <div class="editIcons">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </div>
+                                            <div class="text-center myWebsiteListItem">
+                                                <div class="myWebsiteItemContent">
+                                                    <h3>{{formatDate createdAt}}</h3>
+                                                    <h2>{{toUpperCase sitename}}</h2>
+                                                    <!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3> -->
+                                                </div>
+                                                <div class="websiteItemBg" style='background-image: url("{{showImage largeImage}}")'></div>
+                                                <div class="websiteItemOverlay"></div>
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
 
-								<div role="tabpanel" class="tab-pane" id="websitesILike">
-									<ul class="myWebsitesList">
-										{{#each myLikes}}
-											<li>
-												<div class="editIcons">
-													<span class="glyphicon glyphicon-remove"></span>
-												</div>
-												<div class="text-center myWebsiteListItem">
-													<div class="myWebsiteItemContent">
-														<h3>{{formatDate createdAt}}</h3>
-														<h2>{{toUpperCase sitename}}</h2>
-														<!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3> -->
-													</div>
-													<div class="websiteItemBg" style='background-image: url("{{showImage largeImage}}")'></div>
-													<div class="websiteItemOverlay"></div>
-												</div>
-											</li>
-										{{/each}}
-									</ul>
-								</div>
-							</div>
-
-						</div>
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                <div role="tabpanel" class="tab-pane" id="websitesILike">
+                                    <ul class="myWebsitesList">
+                                        {{#each myLikes}}
+                                        <li>
+                                            <div class="editIcons">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </div>
+                                            <div class="text-center myWebsiteListItem">
+                                                <div class="myWebsiteItemContent">
+                                                    <h3>{{formatDate createdAt}}</h3>
+                                                    <h2>{{toUpperCase sitename}}</h2>
+                                                    <!-- <h3><span class="glyphicon glyphicon-heart"></span> 10</h3> -->
+                                                </div>
+                                                <div class="websiteItemBg" style='background-image: url("{{showImage largeImage}}")'></div>
+                                                <div class="websiteItemOverlay"></div>
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
