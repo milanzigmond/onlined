@@ -9,8 +9,6 @@ mrt:moment
 less
 accounts-facebook
 service-configuration
-ian:bootstrap-3
-mizzao:jquery-ui
 iron:router@1.0.0-pre4
 cfs:standard-packages
 cfs:gridfs
@@ -21,3 +19,8 @@ natestrauser:font-awesome
 joshowens:accounts-entry
 audit-argument-checks
 settinghead:auto-nprogress
+meteorhacks:inject-initial
+ecwyne:polymer
+ecwyne:polymer-elements
+
+mizzao:jquery-ui

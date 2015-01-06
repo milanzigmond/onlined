@@ -1,0 +1,64 @@
+html,body {
+    height: 100%;
+    margin: 0;
+    background-color: #EFEBE9;
+    font-family: 'RobotoDraft', sans-serif;
+}
+
+core-header-panel {
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+core-toolbar {
+    background: #795548;
+    color: white;
+}
+
+.very-tall {
+    height: 400px;
+}
+
+.logo {
+    width: 100%;
+}
+
+#tabs {
+    width: 100%;
+    margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-transform: uppercase;
+}
+
+#card {
+    display: block;
+    margin: 64px 100px 60px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.element-label {
+    height: 80px;
+    line-height: 80px;
+    padding-left: 24px;
+    background-color: #fff;
+    letter-spacing: 0.05em;
+    font-size: 24px;
+    font-weight: 400;
+    color: #5265a2;
+}
+
+.sourceButton {
+    position: absolute;
+    z-index: 1;
+    background-color: #72e634;
+    color: #795548;
+    bottom: -28px;
+    right: 24px;
+}
